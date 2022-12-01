@@ -90,25 +90,25 @@
                 },
                 success: function (data) {
 
-                    {{--window.setTimeout(function() {--}}
-                    {{--    cuteToast({--}}
-                    {{--        type: "success", // or 'info', 'error', 'warning'--}}
-                    {{--        message: "{{__('frontend.Code Is Sent to Your phone')}}",--}}
-                    {{--        timer: 3000--}}
-                    {{--    })--}}
-                    {{--    $('#submit_button').attr('disabled',false)--}}
-                    {{--    $('#submit_button').html(`<p class="px-5">{{__('frontend.RegisterPage')}}</p> <span></span>`)--}}
-                    {{--    codeSentToMobile = data--}}
-                    {{--    $("#registerForm").hide()--}}
-                    {{--    $('#hide-code').show();--}}
-                    {{--    $('#register-hide').hide();--}}
+                    window.setTimeout(function() {
+                        cuteToast({
+                            type: "success", // or 'info', 'error', 'warning'
+                            message: "{{__('frontend.Code Is Sent to Your phone')}}",
+                            timer: 3000
+                        })
+                        $('#submit_button').attr('disabled',false)
+                        $('#submit_button').html(`<p class="px-5">{{__('frontend.RegisterPage')}}</p> <span></span>`)
+                        codeSentToMobile = data
+                        $("#registerForm").hide()
+                        $('#hide-code').show();
+                        $('#register-hide').hide();
 
-                    {{--    $("#CodeForm").show()--}}
-                    {{--    document.getElementById("vCodeIdFirst").focus();--}}
-                    {{--    timeOfSendingCode++--}}
-                    {{--}, 2000);--}}
+                        $("#CodeForm").show()
+                        document.getElementById("vCodeIdFirst").focus();
+                        timeOfSendingCode++
+                    }, 2000);
 
-                    submit();
+                    // submit();
 
                 },
                 error: function (data) {
@@ -182,32 +182,32 @@
             }
         })();
 
-function submit(){
-        // $(document).on('submit','form#CompleteRegister',function(e) {
-        //     e.preventDefault();
-            {{--const codeHere = [];--}}
-            {{--var inputs = $(".vCode-input");--}}
-            {{--for(var i = 0; i < inputs.length; i++){--}}
-            {{--    if ($(inputs[i]).val() == '' || $(inputs[i]).val() == null){--}}
-            {{--        cuteToast({--}}
-            {{--            type: "error", // or 'info', 'error', 'warning'--}}
-            {{--            message: "{{__('frontend.please , fill all input with correct code')}}",--}}
-            {{--            timer: 3000--}}
-            {{--        })--}}
-            {{--        return 0--}}
-            {{--    }else{--}}
-            {{--        codeHere.push($(inputs[i]).val());--}}
-            {{--    }--}}
 
-            {{--}--}}
-            {{--if (codeSentToMobile != codeHere.join('')){--}}
-            {{--    cuteToast({--}}
-            {{--        type: "error", // or 'info', 'error', 'warning'--}}
-            {{--        message: "{{__('frontend.this code is wrong')}}",--}}
-            {{--        timer: 3000--}}
-            {{--    })--}}
-            {{--    return 0;--}}
-            {{--}--}}
+        $(document).on('submit','form#CompleteRegister',function(e) {
+            e.preventDefault();
+            const codeHere = [];
+            var inputs = $(".vCode-input");
+            for(var i = 0; i < inputs.length; i++){
+                if ($(inputs[i]).val() == '' || $(inputs[i]).val() == null){
+                    cuteToast({
+                        type: "error", // or 'info', 'error', 'warning'
+                        message: "{{__('frontend.please , fill all input with correct code')}}",
+                        timer: 3000
+                    })
+                    return 0
+                }else{
+                    codeHere.push($(inputs[i]).val());
+                }
+
+            }
+            if (codeSentToMobile != codeHere.join('')){
+                cuteToast({
+                    type: "error", // or 'info', 'error', 'warning'
+                    message: "{{__('frontend.this code is wrong')}}",
+                    timer: 3000
+                })
+                return 0;
+            }
 
             $("#codeInCode").val(codeSentToMobile)
             var myForm = $("#CompleteRegister")[0]
@@ -278,8 +278,9 @@ function submit(){
                 contentType: false,
                 processData: false
             });//end ajax
-        }//end submit
-        // );
+        });//end submit
+
+
 
         $(document).on('click',"#registerAgain",function (e){
             e.preventDefault()

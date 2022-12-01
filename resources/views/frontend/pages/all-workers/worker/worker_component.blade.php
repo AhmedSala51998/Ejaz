@@ -46,7 +46,7 @@
 
 
     @if(isset($transfer))
-   
+
         <ul class="info">
             <li>
                 <h6> الجنسية : </h6>
@@ -99,8 +99,8 @@
                 <h6> راتب العاملة : </h6>
                 <p> {{$cv->salary??''}} </p>
             </li>
-            
-             
+
+
               <li>
                 <h6> رقم الجواز : </h6>
                 <p> {{$cv->passport_number??''}} </p>
@@ -109,26 +109,26 @@
                 <h6> الديانة : </h6>
                 <p> {{$cv->religion->title??''}} </p>
             </li>
-           
-            
-            
-            
+
+
+
+
             <li>
                 <h6> المهنة : </h6>
                 <p> {{$cv->job->title??''}}</p>
             </li>
-          
-          
+
+
            <li>
                 <h6> سعر الاستقدام : </h6>
                 <p> {{$cv->nationalitie->price??''}} ريال </p>
             </li>
-           
+
              <li>
                 <h6> الحالة الاجتماعية : </h6>
                 <p> {{$cv->social_type->title??''}} </p>
             </li>
-            
+
              <li>
                <h6> العمر : </h6>
                <p> {{$cv->age??''}} </p>
@@ -137,11 +137,11 @@
                 <h6> الخبرة العملية : </h6>
                 <p> {{$cv->high_degree}} </p>
             </li>
-            
-            
+
+
         </ul>
         <div class="text-center pt-4 pb-3">
-            <a href="{{route('frontend.show.worker',$cv->id)}}" class="animatedLink">
+            <a href="{{route('register',$cv->id)}}" class="animatedLink">
                 حجز السيرة الذاتية
                 <i class="fa-regular fa-left-long ms-2"><span></span></i>
             </a>

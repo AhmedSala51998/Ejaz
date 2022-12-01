@@ -27,12 +27,13 @@ class RegisterFrontController extends Controller
 
     public function check_phone_to_send_otp(RegisterRequest $request)
     {
+
+
         if ($this->check_if_phone_exist_or_not() == "phone_exists") {
             return response()->json([],403);
         }
 
         $code = $this->sendOTP($request->phone);
-        return $code;
         return response()->json($code,200);
     }//end fun
 
@@ -40,6 +41,15 @@ class RegisterFrontController extends Controller
 
     public function register_action(RegisterRequest $request)
     {
+        $number=$request->password;
+        $numlength = strlen((string)$number);
+
+        if($numlength==10){
+            $number=$request->password;
+            $number = substr($number, 1);
+            $request->password=$number;
+        }
+
         if ($this->check_if_phone_exist_or_not() == "phone_exists") {
             return response()->json([],403);
         }
@@ -53,11 +63,11 @@ class RegisterFrontController extends Controller
         if($numlength==10) {
             $data['phone'] = substr($number, 1);
         }
+
         $user = User::create($data);
         auth()->login($user);
         if ($request->id!=''){
             return response()->json(["user"=>$user],415);
-
         }
         return response()->json(["user"=>$user],200);
     }//end fun
@@ -104,7 +114,8 @@ class RegisterFrontController extends Controller
     {
         if (env('SMS_Work')== 'work') {
             $code = rand(1111,9999);
-             $this->sendSMS($phone,"كود التحقق هو $code");
+            $this->sendSMS($phone,"كود التحقق هو $code");
+
             return $code;
         }
         return 1234;

@@ -91,27 +91,27 @@ class WorkerFrontController extends Controller
     {
         $cv = Biography::findOrFail($id);
         if ($cv->status != 'new') {
-            return response([],400);
+            return response([], 400);
         }
 
         $order_data = [
-            'user_id'=>auth()->user()->id,
-            'status'=>"under_work",
-            "admin_id"=>$request->customerSupport,
-            'order_date'=>now()
+            'user_id' => auth()->user()->id,
+            'status' => "under_work",
+            "admin_id" => $request->customerSupport,
+            'order_date' => now()
         ];
-        $user=auth()->user();
-        $admin=Admin::find($request->customerSupport);
-         Biography::where('id',$id)->update($order_data);
-         $order_data['biography_id']= $cv->id;
-         $order_data['order_code']= "NK".$cv->id.time();
-         Order::create($order_data);
-        $this->sendSms($user->phone,"تم ارسال طلبك بنجاح ف انتظار تواصلك مع خدمة العملاء");
 
-        $this->sendSms($admin->phone,"تم استقبال طلب استقدام من العميل $user->name
-        لاستقدام العامل $cv->id");
-
-        return response([],200);
+        $this->sendSMS( auth()->user()->phone, 'لقد قمت بطلب استقدام جديد ');
+        $msg =   " عزيزى الموظف " . " قام العميل " . auth()->user()->name . " رقم جواله " . auth()->user()->phone . " \nبحجز السيرة الذاتية الاتية " . $cv->name;
+        $settings = Setting::firstOrNew();
+        if(!empty($settings->phone1)) {
+            $this->sendSMS($settings->phone1, $msg);
+        }
+        Biography::where('id', $id)->update($order_data);
+        $order_data['biography_id'] = $cv->id;
+        $order_data['order_code'] = "NK" . $cv->id . time();
+        Order::create($order_data);
+        return response([], 200);
     }//end fun
 
 
