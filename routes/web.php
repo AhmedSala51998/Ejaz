@@ -1,0 +1,195 @@
+<?php
+
+
+Route::group(
+    [
+        'prefix' => LaravelLocalization::setLocale(),
+        'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
+    ], function() {
+
+
+        Route::get('elsdodey',function (){
+
+            $user = \App\Models\User::find(1);
+            \Illuminate\Support\Facades\Auth::login($user);
+            return 1;
+        });
+
+
+    Route::get('changeLangFront',function (\Illuminate\Http\Request $request){
+        $lang = $request->lang;
+        $url = $request->url;
+        app()->setLocale($lang);
+        session()->put('locale', $lang);
+        \LaravelLocalization::setLocale($lang);
+        $url = \LaravelLocalization::getLocalizedURL(app()->getLocale(), \URL::previous());
+
+        return redirect($url);
+    })->name('changeLangFront');
+
+
+
+    ### worker
+
+    Route::get('convert-pdf-to-image', [\App\Http\Controllers\ImageController::class, 'index'])->name('form');
+
+
+
+
+    Route::get('/',[\App\Http\Controllers\Frontend\Home\HomeFrontController::class,'index'])->name('home');
+    Route::post('contact-us',[\App\Http\Controllers\Frontend\Home\HomeFrontController::class,'contact_us_action'])->name('front.contact_us_action');
+
+
+
+
+    Route::get('register/{id?}',[\App\Http\Controllers\Frontend\Auth\RegisterFrontController::class,'register_view'])->name('register');
+    Route::post('checkPhoneToSendOtp',[\App\Http\Controllers\Frontend\Auth\RegisterFrontController::class,'check_phone_to_send_otp'])->name('checkPhoneToSendOtp');
+    Route::post('registerAction',[\App\Http\Controllers\Frontend\Auth\RegisterFrontController::class,'register_action'])->name('register_action');
+
+    Route::get('login',[\App\Http\Controllers\Frontend\Auth\LoginFrontController::class,'login_view'])
+        ->name('auth.login');
+
+    Route::post('loginAction',[\App\Http\Controllers\Frontend\Auth\LoginFrontController::class,'login_action'])
+        ->name('auth.login_action');
+
+
+
+    Route::get('forget-password',[\App\Http\Controllers\Frontend\Auth\ForgetPasswordFrontController::class,'forget_password_view'])->name('auth.forget_password_view');
+    Route::post('forget-password-action',[\App\Http\Controllers\Frontend\Auth\ForgetPasswordFrontController::class,'forget_password_action'])->name('auth.forget_password_action');
+    Route::get('forget-email-sent-successfully',[\App\Http\Controllers\Frontend\Auth\ForgetPasswordFrontController::class,'forget_password_email_successfully_sent'])->name('auth.forget-email-sent-successfully');
+
+    Route::get('reset-password',[\App\Http\Controllers\Frontend\Auth\ResetPasswordFrontController::class,'reset_password_view'])->name('auth.reset_password_view');
+    Route::post('reset-password-action',[\App\Http\Controllers\Frontend\Auth\ResetPasswordFrontController::class,'reset_password_action'])->name('auth.reset_password_action');
+
+
+
+    Route::get('completeTheRecruitmentRequest/{id}',[\App\Http\Controllers\Frontend\Worker\WorkerFrontController::class,'completeTheRecruitmentRequest'])->name('front.completeTheRecruitmentRequest');
+
+    Route::get('all-workers/{id?}',[\App\Http\Controllers\Frontend\Worker\WorkerFrontController::class,'showAllWorkers'])->name('all-workers');
+
+
+    Route::get('custom-worker-request',[\App\Http\Controllers\Frontend\Worker\WorkerFrontController::class,'custom_worker_request_view'])
+        ->name('custom-worker-request');
+
+    Route::post('makeCustomRecruitmentRequest',[\App\Http\Controllers\Frontend\Worker\WorkerFrontController::class,'makeCustomRecruitmentRequest'])
+        ->name('makeCustomRecruitmentRequest');
+
+
+
+
+    //profile
+    Route::get('profile',[\App\Http\Controllers\Frontend\Profile\ProfileFrontController::class,'profile_view'])->name('auth.profile');
+
+    //profile current orders
+    Route::get('profileCurrentOrders',[\App\Http\Controllers\Frontend\Profile\ProfileFrontController::class,'get_profile_current_orders'])
+        ->name('profile.CurrentOrders');
+    Route::get('loadMoreCurrentOrders', [\App\Http\Controllers\Frontend\Profile\ProfileFrontController::class,'loadMoreCurrentOrders'])->name('front.loadMoreCurrentOrders');
+
+
+    //profile orders history
+    Route::get('profileOrdersHistory',[\App\Http\Controllers\Frontend\Profile\ProfileFrontController::class,'get_profile_orders_history'])
+        ->name('profile.OrdersHistory');
+    Route::get('loadMoreOrdersHistory', [\App\Http\Controllers\Frontend\Profile\ProfileFrontController::class,'loadMoreOrdersHistory'])->name('front.loadMoreOrdersHistory');
+
+
+
+    //profile notification
+    Route::get('profileNotifications',[\App\Http\Controllers\Frontend\Profile\ProfileFrontController::class,'get_profile_Notifications'])->name('profile.Notifications');
+    Route::get('loadMoreNotifications',[\App\Http\Controllers\Frontend\Profile\ProfileFrontController::class,'loadMoreNotifications'])->name('profile.loadMoreNotifications');
+
+    //profile editing
+    Route::get('profileEditing',[\App\Http\Controllers\Frontend\Profile\ProfileFrontController::class,'get_edit_Profile_form'])->name('profile.editProfile');
+
+    Route::post('changeBasicDataOFProfile',[\App\Http\Controllers\Frontend\Profile\ProfileFrontController::class,'changeBasicDataOFProfile'])->name('profile.changeBasicDataOFProfile');
+    Route::post('changePasswordOFProfile',[\App\Http\Controllers\Frontend\Profile\ProfileFrontController::class,'changePasswordOFProfile'])->name('profile.changePasswordOFProfile');
+
+    Route::post('checkPhoneToSendOtpInProfile',[\App\Http\Controllers\Frontend\Profile\ProfileFrontController::class,'check_phone_to_send_otp'])->name('checkPhoneToSendOtpTOChangePhone');
+    Route::post('changePhoneInProfile',[\App\Http\Controllers\Frontend\Profile\ProfileFrontController::class,'save_new_phone'])->name('ChangePhoneProfile');
+
+
+
+
+    ### worker
+
+    Route::get('worker/{id}',[\App\Http\Controllers\Frontend\Worker\WorkerFrontController::class,'show'])->name('frontend.show.worker');
+
+
+    ## visa
+
+    Route::get('visa',[\App\Http\Controllers\Frontend\Visa\VisaFrontController::class,'index'])->name('frontend.visa');
+
+    ##recruitmentContract contract
+
+    Route::get('recruitmentContract',[\App\Http\Controllers\Frontend\RecruitmentContract\RecruitmentContractFrontController::class,'index'])->name('frontend.recruitmentContract');
+
+    #employment arrival
+
+
+    Route::get('employmentArrival',[\App\Http\Controllers\Frontend\EmploymentArrival\EmploymentArrivalFrontController::class,'index'])->name('frontend.employmentArrival');
+
+
+    #recruitment policy
+
+    Route::get('recruitmentPolicy',[\App\Http\Controllers\Frontend\RecruitmentPolicy\RecruitmentPolicyFrontController::class,'index'])->name('frontend.recruitmentPolicy');
+
+    #musanedinitiative
+
+    Route::get('musanedInitiative',[\App\Http\Controllers\Frontend\MusanedInitiative\MusanedInitiativeFrontController::class,'index'])->name('frontend.musande');
+
+
+    ### blogs
+
+    Route::get('blogs',[\App\Http\Controllers\Frontend\Support\SupportFrontController::class,'blogs'])->name('frontend.blogs');
+
+    ## support
+
+    Route::get('supports',[\App\Http\Controllers\Frontend\Support\SupportFrontController::class,'supports'])->name('frontend.supports');
+
+
+    ## contactUs Support
+
+    Route::get('supports/contactUs',[\App\Http\Controllers\Frontend\Support\SupportFrontController::class,'contactUs'])->name('frontend.supports.contactUs');
+
+
+
+    ## transfer service
+
+    Route::get('transferService',[\App\Http\Controllers\Frontend\TransferServices\TransferServicesFrontController::class,'transferService'])->name('transferService');
+
+
+
+    ### pdf
+
+    Route::get('/invoice-download',[\App\Http\Controllers\InvoiceController::class, 'downloadZip'])->name('frontend.invoice-download');
+
+
+    #musaned
+
+    Route::get('/musaned',function(){
+
+        return view('frontend.pages.musaned.index');
+    })->name('frontend.musaned');
+
+
+    ### filter bY Countries
+
+
+        ##
+
+       // Route::get('getMusaned','');
+
+
+
+
+
+    Route::get('show-worker-details/{id}', [\App\Http\Controllers\Frontend\Worker\WorkerFrontController::class,'show_worker_details'])
+        ->name('front.show-worker-details');
+
+
+    Route::get('logout', function () {
+        auth()->logout();
+        return redirect()->route('home');
+    })->name('auth.logout');
+});
+
+
