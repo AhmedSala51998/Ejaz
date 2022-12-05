@@ -105,9 +105,10 @@ class WorkerFrontController extends Controller
 
         $this->sendSMS( auth()->user()->phone, 'لقد قمت بطلب استقدام جديد ');
         $msg =   " عزيزى الموظف " . " قام العميل " . auth()->user()->name . " رقم جواله " . auth()->user()->phone . " \nبحجز السيرة الذاتية الاتية " . $cv->name;
-        $settings = Setting::firstOrNew();
-        if(!empty($settings->phone1)) {
-            $this->sendSMS($settings->phone1, $msg);
+        $admin=Admin::find($request->customerSupport);
+
+        if(!empty($admin->phone)) {
+            $this->sendSMS($admin->phone, $msg);
         }
         Biography::where('id', $id)->update($order_data);
         $order_data['biography_id'] = $cv->id;

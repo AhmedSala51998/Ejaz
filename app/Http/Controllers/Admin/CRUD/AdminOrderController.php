@@ -15,6 +15,9 @@ use App\Models\Religion;
 use App\Models\Biography;
 use App\Models\Skill;
 use App\Models\SocialType;
+use App\Models\User;
+use App\Models\UserNotification;
+use App\Services\SMS\MesgatSMS;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -25,7 +28,7 @@ use App\Models\Language;
 class AdminOrderController extends Controller
 {
 
-    use Upload_Files;
+    use Upload_Files,MesgatSMS;
 
     // use CheckPermission;
 
@@ -100,10 +103,23 @@ class AdminOrderController extends Controller
                     if ($row->status == "new") {
                         return "غير محجوز";
                     } elseif ($row->status == "under_work") {
-                        return "جارة التعاقد ";
-                    } elseif ($row->status == "finished") {
-                        return "تم التعاقد ";
-                    } else {
+                        return "حجز السيرة الذاتيه";
+                    }
+                    elseif ($row->status == "contract") {
+                        return "تم التعاقد";
+                    } elseif ($row->status == "musaned") {
+                        return "تم الربط في مساند ";
+                    }
+                    elseif ($row->status == "traning") {
+                        return "تحت الاجراء و التدريب";
+                    }
+                    elseif ($row->status == "visa") {
+                        return " ختم التاشيره ";
+                    }
+                    elseif ($row->status == "finished") {
+                        return "وصول العمالة";
+                    }
+                    else {
                         return "ملغى";
                     }
 
@@ -123,23 +139,76 @@ class AdminOrderController extends Controller
                 ->addColumn('admin', function ($row) {
                     return (isset($row->admin->name)) ? $row->admin->name : "غير محدد ";
                 })
+//                ->addColumn('actions', function ($row) {
+//                    $compelete = '';
+//                    $delete = '';
+//                    if (!checkPermission(32))
+//                        $compelete = 'hidden';
+//                    if (!checkPermission(33))
+//                        $delete = 'hidden';
+//                    if ($row->status == "new" || $row->status == "under_work") {
+//                        $text = "إتمام التعاقد";
+//                        return "
+//                    <a href='#'  ".$compelete."  class='btn btn-info update-status' id='" . $row->id . "'> ".$text."  </a>
+//                   <a " .$delete."  style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
+//                    } elseif ($row->status == "finished") {
+//                        return "<a style='margin-right: 10px;' href='#' class='btn btn-danger mr-2' id=''> لا يوجد اجراء </a>";
+//                    } else {
+//                        return "<a style='margin-right: 10px;' href='#' class='btn btn-danger mr-2' id=''> لا يوجد اجراء </a>";
+//                    }
+//                })
                 ->addColumn('actions', function ($row) {
-                    $compelete = '';
-                    $delete = '';
-                    if (!checkPermission(32))
-                        $compelete = 'hidden';
-                    if (!checkPermission(33))
-                        $delete = 'hidden';
+                    $status='';
+                    $delete='';
+
+
                     if ($row->status == "new" || $row->status == "under_work") {
+                        $status="contract";
                         $text = "إتمام التعاقد";
                         return "
-                    <a href='#'  ".$compelete."  class='btn btn-info update-status' id='" . $row->id . "'> ".$text."  </a>
-                   <a " .$delete."  style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
-                    } elseif ($row->status == "finished") {
-                        return "<a style='margin-right: 10px;' href='#' class='btn btn-danger mr-2' id=''> لا يوجد اجراء </a>";
-                    } else {
-                        return "<a style='margin-right: 10px;' href='#' class='btn btn-danger mr-2' id=''> لا يوجد اجراء </a>";
+                    <a href='#' $status data-status='".$status."' class='btn btn-info update-status' id='" . $row->id . "'> ".$text."  </a>
+                   <a  $delete style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
+
+
+                    } elseif ($row->status == "contract") {
+                        $status="musaned";
+                        $text = "الربط في مساند";
+                        return "
+                    <a href='#' $status data-status='".$status."' class='btn btn-info update-status' id='" . $row->id . "'> ".$text."  </a>
+                   <a  $delete style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
                     }
+                    elseif ($row->status == "musaned") {
+                        $status="traning";
+                        $text = "تحت الاجراء";
+                        return "
+                    <a href='#' $status data-status='".$status."' class='btn btn-info update-status' id='" . $row->id . "'> ".$text."  </a>
+                   <a  $delete style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
+                    }
+                    elseif ($row->status == "traning") {
+                        $status="visa";
+                        $text = "ختم التأشيرة";
+                        return "
+                    <a href='#' $status data-status='".$status."' class='btn btn-info update-status' id='" . $row->id . "'> ".$text."  </a>
+                   <a  $delete style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
+                    }
+                    elseif ($row->status == "visa") {
+                        $status="finished";
+                        $text = "وصول العمالة";
+                        return "
+                    <a href='#' $status data-status='".$status."' class='btn btn-info update-status' id='" . $row->id . "'> ".$text."  </a>
+                   <a  $delete style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
+                    }
+                    elseif ($row->status == "finished") {
+                        return "                   <a  $delete style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
+
+
+                    }
+                    else {
+                        return "                   <a  $delete style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
+
+
+                    }
+
                 })
                 ->rawColumns(['image', 'created_at', 'status', 'nationalitie_id', 'passport_number',
                     'biography_number', 'user', 'admin', 'actions'
@@ -202,55 +271,94 @@ class AdminOrderController extends Controller
     public function update(Request $request, $id)
     {
         $order = Order::where("id", $id)->first();
-        Order::where("id", $id)->update(["status" => "finished"]);
-        Biography::where("id", $order->biography_id)->update(["status" => "finished"]);
-        $biograpy=Biography::find($order->biography_id);
-        $phone=$order->user->phone;
-         $country=substr($biograpy->nationalitie->title??'', 0, 5);
-         $admin=$order->admin->name??'';
-        $msg="عزيزي العميل تم إتمام التعاقد الخاص بك برقم حجز
-( $biograpy->passport_number .$country  )
+        Order::where("id", $id)->update(["status" => $request->status]);
+          Biography::where("id", $order->biography_id)->update(["status" =>  $request->status]);
+        $biography=  Biography::find($order->biography_id);
+        $status=[];
+        $country=substr($biograpy->nationalitie->title??'', 0, 5);
+        $admin=$order->admin->name??'';
+
+        $msg="عزيزي العميل تم قبول التعاقد الخاص بك برقم حجز
+( $biography->passport_number .$country  )
 الرجاء المتابعه مع
 ( $admin )";
+        $status['contract']=$msg;
+        $status['musaned']="تم ربط طلبك استقدامك مع مساند بنجاح ";
+        $status['traning']="اصبح طلبك استقدامك فى مرحلة الاجراءات بنجاح ";
+        $status['visa']="اصبح طلبك استقدامك فى مرحلة التأشيرة بنجاح ";
+        $status['finished']="تم وصول العمالة بنجاح ";
+        $status['canceled']="تم رفض  طلب استقدامك بنجاح ";
 
-        $this->sendSms($phone,$msg);
-        return response()->json("ok", 200);
+
+        if($request->status=="contract" or $request->status=="musaned" or $request->status=="traning"or $request->status=="visa"or $request->status=="finished" or $request->status=="canceled"){
+//            //$data = $request->except(['title','desc']);
+//            $name = [];
+//            foreach (Language::where('is_active','active')->get() as $index=>$language){
+//                $name[$language->title] = 'اشعار حالة طلب استقدام';
+//            }
+//            $data['title'] = $name;
+//
+//            $desc = [];
+//            foreach (Language::where('is_active','active')->get() as $index=>$language){
+//                $desc[$language->title] =$status[$request->status];
+//            }
+//            $data['desc'] = $desc;
+//            if($request->status=="contract"){
+                $user=User::find($order->user_id);
+                if(!empty($user)){
+                    $this->sendSMS($user->phone, $status[$request->status]);
+
+                }
+//            }
+
+//
+//            UserNotification::create([
+//                'title'=>$name,
+//                'desc'=>$desc,
+//                'all_users'=>0,
+//                'user_id'=>$order->user_id,
+//            ]);
+
+
+
+
+        }
     }//end fun
 
 
 
-    private function sendSms($phone,$msg){
-        $phone='966'.$phone;
-
-
-
-        $ch = curl_init(config('msegat.msegat_url'));
-        $data = array(
-            'userName'=>config('msegat.userName'),
-            'apiKey' => config('msegat.apiKey'),
-            'numbers' => $phone,
-            'userSender' => config('msegat.userSender'),
-            'msgEncoding' => config('msegat.msgEncoding'),
-            'msg' => $msg
-        );
-
-
-        $result = Http::withOptions([
-            'verify' => false,
-        ])->post(config('msegat.msegat_url'),$data);
-
-
-//        curl_setopt($ch, CURLOPT_POST, 1);
-//        //Attach our encoded JSON string to the POST fields.
-//        curl_setopt($ch, CURLOPT_POSTFIELDS, $response_data);
-//        //Set the content type to application/json
-//        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-//        //Execute the request
-//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+//    private function sendSms($phone,$msg){
+//        $phone='966'.$phone;
 //
-//        $result = curl_exec($ch);
-        return $result;
-    }
+//
+//
+//        $ch = curl_init(config('msegat.msegat_url'));
+//        $data = array(
+//            'userName'=>config('msegat.userName'),
+//            'apiKey' => config('msegat.apiKey'),
+//            'numbers' => $phone,
+//            'userSender' => config('msegat.userSender'),
+//            'msgEncoding' => config('msegat.msgEncoding'),
+//            'msg' => $msg
+//        );
+//
+//
+//        $result = Http::withOptions([
+//            'verify' => false,
+//        ])->post(config('msegat.msegat_url'),$data);
+//
+//
+////        curl_setopt($ch, CURLOPT_POST, 1);
+////        //Attach our encoded JSON string to the POST fields.
+////        curl_setopt($ch, CURLOPT_POSTFIELDS, $response_data);
+////        //Set the content type to application/json
+////        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+////        //Execute the request
+////        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+////
+////        $result = curl_exec($ch);
+//        return $result;
+//    }
 
 
 

@@ -202,6 +202,9 @@
 
         $(document).on('click', '.update-status', function () {
             var id = $(this).attr('id');
+            var status =$(this).attr("data-status");
+
+
             Swal.fire({
                 title: "هل أنت متأكد من تنفيذ هذا الإجراء ؟",
                 text: "لا يمكنك التراجع بعد ذلك !",
@@ -220,8 +223,9 @@
                     $.ajax({
                         url: url,
                         type: 'PUT',
-                        data: {id: id},
-                        success: function (data) {
+                        data: {id: id,status:status},
+
+                    success: function (data) {
                             cuteToast({
                                 type: "success", // or 'info', 'error', 'warning'
                                 message: "تم تنفيذ العملية بنجاح",
