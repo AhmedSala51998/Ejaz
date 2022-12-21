@@ -22,7 +22,7 @@ class HomeFrontController extends Controller
         $ourServices = OurService::latest()->take(5)->get();
         $statistics = Statistic::latest()->take(4)->get();
         $sponsors = Sponsor::latest()->take(5)->get();
-        $questions = FrequentlyQuestion::take(5)->get();
+        $questions = FrequentlyQuestion::take(100)->get();
         $countries=Nationalitie::latest()->take(7)->get();
         $cvs = Biography::where('status','new')
             ->where('order_type','normal')

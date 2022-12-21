@@ -16,8 +16,8 @@ class SupportFrontController extends Controller
 
     }
     public function supports( Request $request){
-        $questions = FrequentlyQuestion::take(5)->get();
-        $subjects=Subject::take(5)->get();
+        $questions = FrequentlyQuestion::take(100)->get();
+        $subjects=Subject::take(10)->get();
 
         if($request->ajax()){
 

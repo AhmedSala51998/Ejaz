@@ -275,6 +275,7 @@ class AdminOrderController extends Controller
           Biography::where("id", $order->biography_id)->update(["status" =>  $request->status]);
         $biography=  Biography::find($order->biography_id);
         $status=[];
+//        $phone=$order->user->phone;
         $country=substr($biograpy->nationalitie->title??'', 0, 5);
         $admin=$order->admin->name??'';
 

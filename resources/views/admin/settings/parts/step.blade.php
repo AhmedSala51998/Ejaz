@@ -1,4 +1,4 @@
-<div>
+<div id="steps" >
     <h4 class="card-title">خطوات الاستقدام </h4>
     <form id="Form_step" method="post" action="{{route('settings.update',$settings->id)}}">
         @csrf

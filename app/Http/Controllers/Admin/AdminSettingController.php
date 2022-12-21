@@ -124,16 +124,18 @@ class AdminSettingController extends Controller
 
     private function updateMain($request)
     {
-        $title = $footer_desc = $address1 = [];
-        foreach (Language::where('is_active', 'active')->get() as $index => $language) {
-            $title[$language->title] = $request->title[$index];
-            $footer_desc[$language->title] = $request->title[$index];
-            $address1[$language->title] = $request->title[$index];
-        }
+//        $title = [];
+//        $footer_desc = [];
+//        $address1 = [];
+//        foreach (Language::where('is_active', 'active')->get() as $index => $language) {
+//            $title[$language->title] = $request->title[$index];
+//            $footer_desc[$language->footer_desc] = $request->footer_desc[$index];
+//            $address1[$language->title] = $request->title[$index];
+//        }
         return [
-            "title" => $title,
-            "footer_desc" => $footer_desc,
-            "address1" => $address1,
+            "title" => $request->title ,
+            "footer_desc" => $request->footer_desc,
+            "address1" => $request->address1,
         ];
     }
 

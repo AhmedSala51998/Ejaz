@@ -54,6 +54,7 @@
                                 </a>
                             </th>--}}
                             <th>العميل</th>
+                            <th>رقم الجوال</th>
                             <th> موظف خدمة العملاء</th>
                             <th>السيرة الذاتية</th>
                             <th>رقم جواز السفر</th>
@@ -118,6 +119,7 @@
             "columns": [
              /*   {"data": "delete_all", orderable: false, searchable: false},*/
                 {"data": "user", orderable: false, searchable: false},
+                {"data": "user_phone", orderable: false, searchable: true},
                 {"data": "admin", orderable: false, searchable: false},
                 {"data": "image", orderable: false, searchable: true},
                 {"data": "passport_number", orderable: false, searchable: true},

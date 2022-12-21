@@ -71,11 +71,11 @@
                     </a>
                     {{----------------------------------}}
 
-                    <a class="nav-link" id="v-pills-family-ta" data-bs-toggle="pill" href="#v-pills-family" role="tab"
-                       aria-controls="v-pills-family" aria-selected="false">
-                        <i class="bx bxs-quote-single-left d-block check-nav-icon mt-1 mb-1"></i>
-                        <p class="fw-bold mb-4">جزء العائلة فى الرئيسية </p>
-                    </a>
+{{--                    <a class="nav-link" id="v-pills-family-ta" data-bs-toggle="pill" href="#v-pills-family" role="tab"--}}
+{{--                       aria-controls="v-pills-family" aria-selected="false">--}}
+{{--                        <i class="bx bxs-quote-single-left d-block check-nav-icon mt-1 mb-1"></i>--}}
+{{--                        <p class="fw-bold mb-4">جزء العائلة فى الرئيسية </p>--}}
+{{--                    </a>--}}
                     {{----------------------------------}}
                 </div>
             </div>
@@ -132,10 +132,10 @@
 
                             {{----------------------------------}}
 
-                            <div class="tab-pane fade" id="v-pills-family" role="tabpanel"
-                                 aria-labelledby="v-pills-family-ta">
-                                @include("admin.settings.parts.family")
-                            </div>
+{{--                            <div class="tab-pane fade" id="v-pills-family" role="tabpanel"--}}
+{{--                                 aria-labelledby="v-pills-family-ta">--}}
+{{--                                @include("admin.settings.parts.family")--}}
+{{--                            </div>--}}
 
                             {{----------------------------------}}
                         </div>

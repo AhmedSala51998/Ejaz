@@ -1,4 +1,4 @@
-<section class="contactForm">
+<section class="contactForm" id="contactUs">
     <div class="container">
         <div class="row align-items-center">
             <!-- data -->

@@ -1,6 +1,6 @@
 @if (count($ourServices)>0)
 
-    <section class="services">
+    <section class="services" id="services">
         <div class="container">
             <!--  section Top -->
             <div class="sectionTop">
@@ -57,7 +57,7 @@
 
 @else
 
-    <section class="services">
+    <section class="services" id="services" >
         <div class="container">
             <!--  section Top -->
             <div class="sectionTop">
@@ -120,34 +120,9 @@
                                     <img src="{{asset('frontend')}}/img/pattern.svg" alt="">
                                     <h3> اختيار العمالة </h3>
                                     <p>
-                                        اختيار السيره الذاتيه للعماله المنزليه عبر البحث في
+                                        اختيار السيره الذاتيه للعمالة المنزلية عبر البحث في
                                         برنامج مساند
                                     </p>
-                                    <!-- <a href="#!" class="animatedLink">
-                                      التفاصيل
-                                      <i class="fa-regular fa-left-long ms-2"><span></span></i>
-                                    </a> -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- slide -->
-                    <div class="swiper-slide">
-                        <div class="flipCard" data-aos="zoom-in-up">
-                            <div class="cardFront"
-                                 style="background: linear-gradient(to top, #000000a3, #0000001a), url({{asset('frontend')}}/img/service3.webp);">
-                                <div class="content">
-                                    <h3> وصول العمالة </h3>
-                                    <a href="#!" class="animatedLink">
-                                        <i class="fa-light fa-bullseye-arrow"><span></span></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="cardBack">
-                                <div class="content">
-                                    <img src="{{asset('frontend')}}/img/pattern.svg" alt="">
-                                    <h3> وصول العمالة </h3>
-                                    <p>وصول العمالة المنزلية من المطار المحلي الى المكتب</p>
                                     <!-- <a href="#!" class="animatedLink">
                                       التفاصيل
                                       <i class="fa-regular fa-left-long ms-2"><span></span></i>
@@ -185,9 +160,9 @@
                     <div class="swiper-slide">
                         <div class="flipCard" data-aos="zoom-in-up">
                             <div class="cardFront"
-                                 style="background: linear-gradient(to top, #000000a3, #0000001a), url({{asset('frontend')}}/img/service5.webp);">
+                                 style="background: linear-gradient(to top, #000000a3, #0000001a), url({{asset('frontend')}}/img/service3.webp);">
                                 <div class="content">
-                                    <h3> إصدار التأشيرة </h3>
+                                    <h3> وصول العمالة </h3>
                                     <a href="#!" class="animatedLink">
                                         <i class="fa-light fa-bullseye-arrow"><span></span></i>
                                     </a>
@@ -196,10 +171,8 @@
                             <div class="cardBack">
                                 <div class="content">
                                     <img src="{{asset('frontend')}}/img/pattern.svg" alt="">
-                                    <h3> إصدار التأشيرة </h3>
-                                    <p>
-                                        طلب اصدار تاشيرة العمالة المنزلية الخاصة بك في برنامج مساند
-                                    </p>
+                                    <h3> وصول العمالة </h3>
+                                    <p>وصول العمالة المنزلية من المطار المحلي الى المكتب</p>
                                     <!-- <a href="#!" class="animatedLink">
                                       التفاصيل
                                       <i class="fa-regular fa-left-long ms-2"><span></span></i>
@@ -208,35 +181,63 @@
                             </div>
                         </div>
                     </div>
+
                     <!-- slide -->
-                    <div class="swiper-slide">
-                        <div class="flipCard" data-aos="zoom-in-up">
-                            <div class="cardFront"
-                                 style="background: linear-gradient(to top, #000000a3, #0000001a), url({{asset('frontend')}}/img/service6.webp);">
-                                <div class="content">
-                                    <h3> طلب عماله مهنيه </h3>
-                                    <a href="#!" class="animatedLink">
-                                        <i class="fa-light fa-bullseye-arrow"><span></span></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="cardBack">
-                                <div class="content">
-                                    <img src="{{asset('frontend')}}/img/pattern.svg" alt="">
-                                    <h3> طلب عماله مهنيه </h3>
-                                    <p>
-                                        اننا قادرون علي جلب افضل انواع العمالة المهنيه من الدول المختلفه وكافة فائت
-                                        العمله من العمل الى
-                                        الطبيب
-                                    </p>
-                                    <!-- <a href="#!" class="animatedLink">
-                                      التفاصيل
-                                      <i class="fa-regular fa-left-long ms-2"><span></span></i>
-                                    </a> -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+{{--                    <div class="swiper-slide">--}}
+{{--                        <div class="flipCard" data-aos="zoom-in-up">--}}
+{{--                            <div class="cardFront"--}}
+{{--                                 style="background: linear-gradient(to top, #000000a3, #0000001a), url({{asset('frontend')}}/img/service5.webp);">--}}
+{{--                                <div class="content">--}}
+{{--                                    <h3> إصدار التأشيرة </h3>--}}
+{{--                                    <a href="#!" class="animatedLink">--}}
+{{--                                        <i class="fa-light fa-bullseye-arrow"><span></span></i>--}}
+{{--                                    </a>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="cardBack">--}}
+{{--                                <div class="content">--}}
+{{--                                    <img src="{{asset('frontend')}}/img/pattern.svg" alt="">--}}
+{{--                                    <h3> إصدار التأشيرة </h3>--}}
+{{--                                    <p>--}}
+{{--                                        طلب اصدار تاشيرة العمالة المنزلية الخاصة بك في برنامج مساند--}}
+{{--                                    </p>--}}
+{{--                                    <!-- <a href="#!" class="animatedLink">--}}
+{{--                                      التفاصيل--}}
+{{--                                      <i class="fa-regular fa-left-long ms-2"><span></span></i>--}}
+{{--                                    </a> -->--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <!-- slide -->--}}
+{{--                    <div class="swiper-slide">--}}
+{{--                        <div class="flipCard" data-aos="zoom-in-up">--}}
+{{--                            <div class="cardFront"--}}
+{{--                                 style="background: linear-gradient(to top, #000000a3, #0000001a), url({{asset('frontend')}}/img/service6.webp);">--}}
+{{--                                <div class="content">--}}
+{{--                                    <h3> طلب عماله مهنيه </h3>--}}
+{{--                                    <a href="#!" class="animatedLink">--}}
+{{--                                        <i class="fa-light fa-bullseye-arrow"><span></span></i>--}}
+{{--                                    </a>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="cardBack">--}}
+{{--                                <div class="content">--}}
+{{--                                    <img src="{{asset('frontend')}}/img/pattern.svg" alt="">--}}
+{{--                                    <h3> طلب عماله مهنيه </h3>--}}
+{{--                                    <p>--}}
+{{--                                        اننا قادرون علي جلب افضل انواع العمالة المهنيه من الدول المختلفه وكافة فائت--}}
+{{--                                        العمله من العمل الى--}}
+{{--                                        الطبيب--}}
+{{--                                    </p>--}}
+{{--                                    <!-- <a href="#!" class="animatedLink">--}}
+{{--                                      التفاصيل--}}
+{{--                                      <i class="fa-regular fa-left-long ms-2"><span></span></i>--}}
+{{--                                    </a> -->--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
                 </div>
             </div>
         </div>

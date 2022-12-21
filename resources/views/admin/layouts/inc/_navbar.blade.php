@@ -22,6 +22,78 @@
                         </a>
                     </li>
                 @endif
+                @if(checkPermission(31))
+                    <li>
+                        <a href="{{route('admin-orders.index')}}" class="waves-effect">
+                            <i class="bx bxs-file"></i>
+                            <span class="badge rounded-pill bg-info float-end"></span>
+                            <span key="t-dashboards">  طلبات الاستقدام</span>
+                        </a>
+                    </li>
+                @endif
+                @if(checkPermission(34))
+                    <li>
+                        <a href="{{route('biographies-special.index')}}" class="waves-effect">
+                            <i class="bx bxs-file-plus"></i>
+                            <span class="badge rounded-pill bg-info float-end"></span>
+                            <span key="t-dashboards">   طلبات الاستقدام الخاصة </span>
+                        </a>
+                    </li>
+                @endif
+                @if(checkPermission(18))
+                    <li>
+                        <a href="{{route('biographies.index')}}" class="waves-effect">
+                            <i class="bx bxs-file-find"></i>
+                            <span class="badge rounded-pill bg-info float-end"></span>
+                            <span key="t-dashboards">   السير الذاتية </span>
+                        </a>
+                    </li>
+                @endif
+                @if(checkPermission(22))
+                    <li>
+                        <a href="{{route('users.index')}}" class="waves-effect">
+                            <i class="bx bxs-user-detail"></i>
+                            <span class="badge rounded-pill bg-info float-end"></span>
+                            <span key="t-dashboards">العملاء</span>
+                        </a>
+                    </li>
+                @endif
+                @if(checkPermission(22))
+                    <li>
+                        <a href="{{route('contacts.index')}}">
+                            <i class="bx bxs-inbox"></i>
+                            <span class="badge rounded-pill bg-info float-end"></span>
+                            <span key="t-dashboards">طلبات التواصل</span>
+                        </a>
+                    </li>
+                @endif
+                @if(checkPermission(6))
+                    <li>
+                        <a href="{{route('admins.index')}}" class="waves-effect">
+                            <i class="bx bx-user"></i>
+                            <span class="badge rounded-pill bg-info float-end"></span>
+                            <span key="t-dashboards">الموظفين </span>
+                        </a>
+                    </li>
+                @endif
+                @if(checkPermission(40))
+                    <li>
+                        <a href="{{route('roles.index')}}" class="waves-effect">
+                            <i class="fa fa-cog" aria-hidden="true"></i>
+                            <span class="badge rounded-pill bg-info float-end"></span>
+                            <span key="t-dashboards">صلاحيات الموظفين</span>
+                        </a>
+                    </li>
+                @endif
+                @if(checkPermission(14))
+                    <li>
+                        <a href="{{route('recruitment-offices.index')}}" class="waves-effect">
+                            <i class="bx bxs-buildings"></i>
+                            <span class="badge rounded-pill bg-info float-end"></span>
+                            <span key="t-dashboards"> مكاتب الاستقدام  </span>
+                        </a>
+                    </li>
+                @endif
                 @if(checkPermission(3))
 
                     <li>
@@ -42,12 +114,22 @@
                         </a>
                     </li>
                 @endif
-                @if(checkPermission(6))
+                @if(checkPermission(27))
                     <li>
-                        <a href="{{route('admins.index')}}" class="waves-effect">
-                            <i class="bx bx-user"></i>
+                        <a href="{{route('admin.getPDF')}}" class="waves-effect">
+                            <i class="fa fa-file" aria-hidden="true"></i>
                             <span class="badge rounded-pill bg-info float-end"></span>
-                            <span key="t-dashboards">الموظفين </span>
+                            <span key="t-dashboards">فايلات الحقوق والواجبات</span>
+                        </a>
+                    </li>
+                @endif
+
+                @if(checkPermission(29))
+                    <li>
+                        <a href="{{route('admin.getRecruitmentTrip')}}" class="waves-effect">
+                            <i class="bx bxs-user-detail"></i>
+                            <span class="badge rounded-pill bg-info float-end"></span>
+                            <span key="t-dashboards">عن الاستقدام</span>
                         </a>
                     </li>
                 @endif
@@ -124,85 +206,6 @@
                         </ul>
                     </li>
                 @endif
-
-                @if(checkPermission(14))
-                    <li>
-                        <a href="{{route('recruitment-offices.index')}}" class="waves-effect">
-                            <i class="bx bxs-buildings"></i>
-                            <span class="badge rounded-pill bg-info float-end"></span>
-                            <span key="t-dashboards"> مكاتب الاستقدام  </span>
-                        </a>
-                    </li>
-                @endif
-
-                @if(checkPermission(18))
-                    <li>
-                        <a href="{{route('biographies.index')}}" class="waves-effect">
-                            <i class="bx bxs-file-find"></i>
-                            <span class="badge rounded-pill bg-info float-end"></span>
-                            <span key="t-dashboards">   السير الذاتية </span>
-                        </a>
-                    </li>
-                @endif
-
-                @if(checkPermission(22))
-                    <li>
-                        <a href="{{route('users.index')}}" class="waves-effect">
-                            <i class="bx bxs-user-detail"></i>
-                            <span class="badge rounded-pill bg-info float-end"></span>
-                            <span key="t-dashboards">العملاء</span>
-                        </a>
-                    </li>
-                @endif
-
-                @if(checkPermission(27))
-                    <li>
-                        <a href="{{route('admin.getPDF')}}" class="waves-effect">
-                            <i class="fa fa-file" aria-hidden="true"></i>
-                            <span class="badge rounded-pill bg-info float-end"></span>
-                            <span key="t-dashboards">فايلات الحقوق والواجبات</span>
-                        </a>
-                    </li>
-                @endif
-
-                @if(checkPermission(29))
-                    <li>
-                        <a href="{{route('admin.getRecruitmentTrip')}}" class="waves-effect">
-                            <i class="bx bxs-user-detail"></i>
-                            <span class="badge rounded-pill bg-info float-end"></span>
-                            <span key="t-dashboards">عن الاستقدام</span>
-                        </a>
-                    </li>
-                @endif
-             @if(checkPermission(40))
-                <li>
-                    <a href="{{route('roles.index')}}" class="waves-effect">
-                        <i class="fa fa-cog" aria-hidden="true"></i>
-                        <span class="badge rounded-pill bg-info float-end"></span>
-                        <span key="t-dashboards">الادوار</span>
-                    </a>
-                </li>
-                @endif
-
-                @if(checkPermission(31))
-                    <li>
-                        <a href="{{route('admin-orders.index')}}" class="waves-effect">
-                            <i class="bx bxs-file"></i>
-                            <span class="badge rounded-pill bg-info float-end"></span>
-                            <span key="t-dashboards">  طلبات الاستقدام</span>
-                        </a>
-                    </li>
-                @endif
-
-                @if(checkPermission(34))
-                    <li>
-                        <a href="{{route('biographies-special.index')}}" class="waves-effect">
-                            <i class="bx bxs-file-plus"></i>
-                            <span class="badge rounded-pill bg-info float-end"></span>
-                            <span key="t-dashboards">   طلبات السير الذاتية الخاصة </span>
-                        </a>
-                    </li>
-                @endif
                 @if(checkPermission(36))
                     <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
@@ -261,16 +264,11 @@
                                 </a>
                             </li>
 
-                            <li>
-                                <a href="{{route('contacts.index')}}">
-                                    <i class="bx bxs-inbox"></i>
-                                    <span class="badge rounded-pill bg-info float-end"></span>
-                                    <span key="t-dashboards">طلبات التواصل</span>
-                                </a>
-                            </li>
+
                         </ul>
                     </li>
-                    @endif
+                @endif
+
 
 
             </ul>

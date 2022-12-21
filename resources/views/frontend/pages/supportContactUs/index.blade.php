@@ -71,7 +71,7 @@
                                     <span><i class="fa-solid fa-map-location"></i></span>
                                     <p class="ms-3">
                                         عنوان مقرنا :
-                                    <a target="_blank" href="https://www.google.com/maps/search/?api=1&query="{{$settings->latitude}}","{{$settings->longitude}}" >   {{$settings->address1??"السعودية - الرياض - شارع الوحدة"}}</a>
+                                    <a target="_blank" href="https://goo.gl/maps/p3CTJFUrgS6djGSW6" >   {{$settings->address1??"السعودية - الرياض - شارع الوحدة"}}</a>
                                     </p>
                                 </li>
                                 <li class="" data-aos="fade-up">

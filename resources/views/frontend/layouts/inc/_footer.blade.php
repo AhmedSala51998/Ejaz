@@ -32,7 +32,7 @@
                         <img class="logo" src="{{$settings->footer_logo?get_file($settings->footer_logo):asset('frontend/img/logo.svg')}}" alt="" />
                         <div class="data">
                             <p>
-                                {{$settings->footer_desc??"نهتم في الجوهرة أكيم بخدمتكم عن طريق قنوات تواصل متعددة ونضمن لكم خدمة متكاملة وتجربة عميل مميزة"}}
+                                {{$settings->footer_desc}}
                             </p>
                             <div class="socialIcons">
                                 <a target="_blank" href="{{$settings->facebook}}"><i class="fab fa-facebook"></i></a>
@@ -58,11 +58,13 @@
                                 <a  href="{{checkRouteIsHome('#faq')}}"> {{__('frontend.faq')}} </a>
                             </li>
                             <li>
-                                <a href="{{checkRouteIsHome('#contactUs')}}"> {{__('frontend.contactUs')}} </a>
+                                <a href="https://aljawhra.sa/ar/supports"> {{__('frontend.contactUs')}} </a>
                             </li>
+                            @auth
                             <li>
                                 <a href="{{route('auth.profile')}}"> {{__('frontend.profile')}} </a>
                             </li>
+                            @endauth
                             @guest
                             <li>
                                 <a  href="{{route('auth.login')}}"> {{__('frontend.Login')}} </a>
