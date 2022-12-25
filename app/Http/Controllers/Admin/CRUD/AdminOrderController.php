@@ -135,6 +135,8 @@ class AdminOrderController extends Controller
                 })
                 ->addColumn('user', function ($row) {
                     return (isset($row->user->name)) ? $row->user->name : "غير محدد ";
+                }) ->addColumn('user_phone', function ($row) {
+                    return (isset($row->user->phone)) ? $row->user->phone : "غير محدد ";
                 })
                 ->addColumn('admin', function ($row) {
                     return (isset($row->admin->name)) ? $row->admin->name : "غير محدد ";

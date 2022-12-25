@@ -60,7 +60,10 @@ class AdminBiographiesController extends Controller
                     }
                     elseif ($row->status == "finished"){
                         return "تم التعاقد ";
-                    }else {
+                    }  elseif ($row->status == "pending"){
+                        return "معلق";
+                    }
+                    else {
                         return "غير محجوز";
                     }
 
@@ -75,12 +78,39 @@ class AdminBiographiesController extends Controller
                         $edit = 'hidden';
                     if (!checkPermission(21))
                         $delete = 'hidden';
-                    return "<a " .$edit. "  href='" . route('biographies.edit',$row->id) . "'  class='btn btn-info editButton' id='" . $row->id . "'> <i class='fa fa-edit'></i></button>
+                    if($row->status=="pending"){
+                        return "<a " .$edit. "  href='" . route('biographies.edit',$row->id) . "'  class='btn btn-info editButton' id='" . $row->id . "'> <i class='fa fa-edit'></i></a> <a  href='" . route('biographies.unban',$row->id) . "' class='btn btn-success benButton' ><i class='fa fa-unlock'></i></a>
                    <a " .$delete. " style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
+                    }elseif($row->status=="new"){
+                        return "<a " .$edit. "  href='" . route('biographies.edit',$row->id) . "'  class='btn btn-info editButton' id='" . $row->id . "'> <i class='fa fa-edit'></i></a> <a  href='" . route('biographies.ban',$row->id) . "' class='btn btn-warning benButton' ><i class='fa fa-unlock-alt'></i></a>
+                   <a " .$delete. " style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
+
+                    }else{
+                        return "<a " .$edit. "  href='" . route('biographies.edit',$row->id) . "'  class='btn btn-info editButton' id='" . $row->id . "'> <i class='fa fa-edit'></i></a>
+                   <a " .$delete. " style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
+                    }
+
                 })->rawColumns(['actions','image','delete_all','nationalitie_id','status'])->make(true);
         }
         return view('admin.crud.biographies.index');
     }
+    public function ban_biographies($id)
+    {
+        $biographie= Biography::find($id);
+        $biographie->status="pending";
+        $biographie->save();
+        return redirect()->route('biographies.index');
+
+    }
+    public function unban_biographies($id)
+    {
+        $biographie= Biography::find($id);
+        $biographie->status="new";
+        $biographie->save();
+        return redirect()->route('biographies.index');
+
+    }
+
 
     /**
      * Show the form for creating a new resource.

@@ -58,9 +58,12 @@
                             <th>الهاتف </th>
                             <th>رقم التأشيرة   </th>
                             <th>الجنسية   </th>
+                            <th>الديانة   </th>
                             <th>المهنة   </th>
                             <th>الحالة الاجتماعية   </th>
                             <th>العمر   </th>
+                            <th>  تفاصيل الطلب   </th>
+
                             <th>التاريخ</th>
                             <th>التحكم</th>
                         </tr>
@@ -76,6 +79,26 @@
             </div>
         </div> <!-- end col -->
     </div>
+
+
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">تفاصيل الطلب الخاص</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div id="content-model" class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">اغلاق</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
 @endsection
@@ -122,9 +145,12 @@
                 {"data": "phone",   orderable: false,searchable: true},
                 {"data": "visa_number",   orderable: false,searchable: true},
                 {"data": "nationality",   orderable: false,searchable: true},
+                {"data":"religion", orderable: false, searchable: false},
                 {"data": "job",   orderable: false,searchable: true},
                 {"data": "social_type",   orderable: false,searchable: true},
                 {"data": "age",   orderable: false,searchable: true},
+                {"data": "special_requirement",   orderable: false,searchable: true},
+
                 {"data": "created_at", searchable: false},
                 {"data": "actions", orderable: false, searchable: false}
             ],
@@ -172,7 +198,7 @@
                 okButtonText: "موافق",
                 closeOnConfirm: false
             }).then((result) => {
-               // console.log(result)
+                // console.log(result)
                 if (result.value) {
                     var url = '{{ route("biographies-special.destroy", ":id")}}';
                     url = url.replace(':id', id);
@@ -283,7 +309,7 @@
             $('.delete-all:checked').each(function () {
                 check=false;
             });
-           if (check == true)  $("#bulk_delete").show()
+            if (check == true)  $("#bulk_delete").show()
             else $("#bulk_delete").hide()
             $('.delete-all').prop('checked', check);
         });
@@ -291,5 +317,14 @@
 
 
     </script>
+    <script>
+        $(document).on('click','.showMessage',function (e){
 
+            var text=$(this).attr('data-text');
+            $('#exampleModal').modal('toggle');
+            $('#content-model').text(text);
+
+
+        })
+    </script>
 @endsection

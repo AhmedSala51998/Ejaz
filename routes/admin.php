@@ -175,6 +175,9 @@ Route::group(['prefix' => 'admin'], function () {
 
             // -------------------------------------
             Route::resource('biographies', 'AdminBiographiesController');
+            Route::get('biographies/ban/{id}', 'AdminBiographiesController@ban_biographies')->name('biographies.ban');
+            Route::get('biographies/unban/{id}', 'AdminBiographiesController@unban_biographies')->name('biographies.unban');
+
             Route::delete('biographies/delete/bulk', 'AdminBiographiesController@delete_all')
                 ->name('biographies.delete.bulk');
 
