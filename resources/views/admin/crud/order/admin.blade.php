@@ -121,7 +121,7 @@
                 {"data": "user", orderable: false, searchable: false},
                 {"data": "user_phone", orderable: false, searchable: true},
                 {"data": "admin", orderable: false, searchable: false},
-                {"data": "image", orderable: false, searchable: true},
+                {"data": "image", orderable: false, searchable: false},
                 {"data": "passport_number", orderable: false, searchable: true},
                 {"data": "biography_number", orderable: false, searchable: true},
                 {"data": "nationalitie_id", orderable: false, searchable: true},

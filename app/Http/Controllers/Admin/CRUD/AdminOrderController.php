@@ -69,22 +69,22 @@ class AdminOrderController extends Controller
             if(admin()->user()->admin_type == 0){
                 if ($count>0)
                 {
-                    $dataTables = Order::query()->orderBy("id", "DESC");
+                    $dataTables = Order::query()->orderBy("id", "DESC")->get();
 
                 }
                 else
                 {
-                    $dataTables = Order::query()->where('admin_id',$admin->id)->orderBy("id", "DESC");
+                    $dataTables = Order::query()->where('admin_id',$admin->id)->orderBy("id", "DESC")->get();
 
                 }
             }else{
 
                 if ($count>0) {
-                    $dataTables = Order::query()->where("admin_id",)->orderBy("id", "DESC");
+                    $dataTables = Order::query()->where("admin_id",)->orderBy("id", "DESC")->get();
 
                 }
                 else {
-                    $dataTables = Order::query()->where('admin_id',$admin->id)->orderBy("id", "DESC");
+                    $dataTables = Order::query()->where('admin_id',$admin->id)->orderBy("id", "DESC")->get();
 
                 }
 
