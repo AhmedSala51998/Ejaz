@@ -142,7 +142,7 @@
         </ul>
         <div class="text-center pt-4 pb-3">
             @auth
-            <a href="{{route('frontend.show.worker',$cv->id)}}" class="animatedLink">
+            <a href="{{route('showWorker',$cv->id)}}" class="animatedLink">
                 حجز السيرة الذاتية
                 <i class="fa-regular fa-left-long ms-2"><span></span></i>
             </a>

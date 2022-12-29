@@ -66,6 +66,7 @@ Route::group(
     Route::get('completeTheRecruitmentRequest/{id}',[\App\Http\Controllers\Frontend\Worker\WorkerFrontController::class,'completeTheRecruitmentRequest'])->name('front.completeTheRecruitmentRequest');
 
     Route::get('all-workers/{id?}',[\App\Http\Controllers\Frontend\Worker\WorkerFrontController::class,'showAllWorkers'])->name('all-workers');
+    Route::get('view-worker/{id}',[\App\Http\Controllers\Frontend\Worker\WorkerFrontController::class,'showWorker'])->name('showWorker');
 
 
     Route::get('custom-worker-request',[\App\Http\Controllers\Frontend\Worker\WorkerFrontController::class,'custom_worker_request_view'])

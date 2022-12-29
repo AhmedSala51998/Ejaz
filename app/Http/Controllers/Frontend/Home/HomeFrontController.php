@@ -19,7 +19,7 @@ class HomeFrontController extends Controller
     public function index()
     {
         $sliders = Slider::latest()->take(4)->get();
-        $ourServices = OurService::latest()->take(5)->get();
+        $ourServices = OurService::take(5)->get();
         $statistics = Statistic::latest()->take(4)->get();
         $sponsors = Sponsor::latest()->take(5)->get();
         $questions = FrequentlyQuestion::take(100)->get();
