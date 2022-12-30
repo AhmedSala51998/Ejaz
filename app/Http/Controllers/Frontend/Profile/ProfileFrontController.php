@@ -93,7 +93,7 @@ class ProfileFrontController extends Controller
     {
         $user = auth()->user();
         $ordersHistory = Order::where(['user_id'=>$user->id])
-            ->whereIn('status',['finished','canceled'])
+            ->whereIn('status',['visa','traning','musaned','contract','finished','canceled'])
             ->whereHas('admin', function ($q) {
                 $q->where('id','!=',null);
             })

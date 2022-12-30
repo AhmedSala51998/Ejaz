@@ -58,7 +58,7 @@
                             <th> موظف خدمة العملاء</th>
                             <th>السيرة الذاتية</th>
                             <th>رقم جواز السفر</th>
-                            <th>رقم سجل السيرة الذاتية</th>
+{{--                            <th>رقم سجل السيرة الذاتية</th>--}}
                             <th>الجنسية</th>
                             <th>الحالة</th>
                             <th>التاريخ</th>
@@ -123,7 +123,7 @@
                 {"data": "admin", orderable: false, searchable: false},
                 {"data": "image", orderable: false, searchable: false},
                 {"data": "passport_number", orderable: false, searchable: true},
-                {"data": "biography_number", orderable: false, searchable: true},
+                // {"data": "biography_number", orderable: false, searchable: true},
                 {"data": "nationalitie_id", orderable: false, searchable: true},
                 {"data": "status", orderable: false, searchable: true},
                 {"data": "created_at", searchable: false},
