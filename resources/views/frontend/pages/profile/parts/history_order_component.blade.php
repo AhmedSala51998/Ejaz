@@ -17,7 +17,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-8 p-2">
+            <div class="col-sm-6 p-2">
                 <ul class="info">
                     <li>
                         <h6> {{__('frontend.Nationality')}} : </h6>
@@ -46,6 +46,14 @@
                     <h5 class="orderStatus done"> {{__('frontend.orderDone')}} </h5>
                 @endif
 
+            </div>
+
+                <div class="col-sm-2 pt-4 p-2 text-center">
+            <div >
+                <a href="{{route('profile.getOrder',$orderHistory->id)}}" class="animatedLink btn-danger" target="_blank">
+                    تفاصيل الطلب
+                </a>
+            </div>
             </div>
         </div>
     </div>

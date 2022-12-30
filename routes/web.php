@@ -84,6 +84,8 @@ Route::group(
     //profile current orders
     Route::get('profileCurrentOrders',[\App\Http\Controllers\Frontend\Profile\ProfileFrontController::class,'get_profile_current_orders'])
         ->name('profile.CurrentOrders');
+    Route::get('profileOrderDetails/{id}',[\App\Http\Controllers\Frontend\Profile\ProfileFrontController::class,'get_order_details'])
+        ->name('profile.getOrder');
     Route::get('loadMoreCurrentOrders', [\App\Http\Controllers\Frontend\Profile\ProfileFrontController::class,'loadMoreCurrentOrders'])->name('front.loadMoreCurrentOrders');
 
 

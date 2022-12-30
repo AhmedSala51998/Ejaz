@@ -51,15 +51,17 @@
                     <!-- Percentages -->
                     <div class="Percentages">
                         <?php
+                        $ar_degree=0;
+                        $en_degree=0;
                            $arabic_degree =$cv->arabic_degree;
                            if($arabic_degree=='weak'){
-                               $ar_degree=25;}
+                               $ar_degree =25;}
                         elseif($arabic_degree=='average'){
-                            $ar_degree=50;}
+                            $ar_degree =50;}
                            elseif($arabic_degree=='good'){
-                               $ar_degree=75;}
+                               $ar_degree =75;}
                            elseif($arabic_degree=='excellent'){
-                               $ar_degree=100;}
+                               $ar_degree =100;}
                         $english_degree =$cv->english_degree;
                              if($english_degree=='weak'){
                                  $en_degree=25;}
@@ -75,8 +77,8 @@
                         <div class="percentDiv">
                             <!-- circle percent -->
 
-                            <div class="percent p{{$ar_degree}}">
-                                <p class="percentNum">{{$ar_degree}} <span> % </span> </p>
+                            <div class="percent p{{$ar_degree ?? ''}}">
+                                <p class="percentNum">{{$ar_degree ?? ''}} <span> % </span> </p>
                                 <div class="slice">
                                     <div class="bar"></div>
                                     <div class="fill"></div>

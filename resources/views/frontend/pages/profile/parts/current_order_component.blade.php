@@ -71,12 +71,12 @@
                     </div>
                 </div>
                 <div class="contact">
-                    <a href="tel:{{$currentOrder->admin->phone}}" target="_blank">
-                        <i class="fa-light fa-phone"></i>
+                    <a href="{{route('profile.getOrder',$currentOrder->id)}}" target="_blank">
+تفاصيل الطلب
                     </a>
-                    <a href="https://api.whatsapp.com/send?phone={{$currentOrder->admin->whats_up_number}}" target="_blank">
-                        <i class="fa-brands fa-whatsapp"></i>
-                    </a>
+{{--                    <a href="https://api.whatsapp.com/send?phone={{$currentOrder->admin->whats_up_number}}" target="_blank">--}}
+{{--                        <i class="fa-brands fa-whatsapp"></i>--}}
+{{--                    </a>--}}
                 </div>
 
             </div>
