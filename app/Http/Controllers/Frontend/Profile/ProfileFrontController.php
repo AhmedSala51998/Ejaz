@@ -36,7 +36,7 @@ class ProfileFrontController extends Controller
         $user = auth()->user();
         $currentOrders = Order::where([
             'user_id'=>$user->id,
-            'status'=>'under_work',
+            'status'=>['visa','traning','musaned','contract','under_work'],
         ])->whereHas('admin', function ($q) {
             $q->where('id','!=',null);
         })
@@ -64,7 +64,7 @@ class ProfileFrontController extends Controller
         $page = $request->page;
         $currentOrders = Order::where([
             'user_id'=>$user->id,
-            'status'=>'under_work',
+            'status'=>['visa','traning','musaned','contract','under_work'],
         ])->whereHas('admin', function ($q) {
             $q->where('id','!=',null);
         })
