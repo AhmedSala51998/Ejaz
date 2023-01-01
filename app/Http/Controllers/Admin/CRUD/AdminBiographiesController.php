@@ -154,7 +154,8 @@ class AdminBiographiesController extends Controller
      */
     public function store(Request $request)
     {
-       $this->validate($request,[
+    
+ $this->validate($request,[
             'cv_file'=>'required',
             'recruitment_office_id'=>'required',
             'nationalitie_id'=>'required',
@@ -173,48 +174,22 @@ class AdminBiographiesController extends Controller
            'reasonService'=>'nullable',
            'periodService'=>'nullable',
        ]);
-        $data = [
-            'recruitment_office_id' => $request->recruitment_office_id,
-            'salary' => $request->salary,
-            'passport_number' => $request->passport_number,
-            'nationalitie_id' => $request->nationalitie_id,
-            'job_id' => $request->job_id,
-            'age' => $request->age,
 
-    'contract_period' => $request->contract_period,
-            'religion_id' => $request->religion_id,
-            'language_title_id' => $request->language_title_id,
-            'type'=>$request->type,
-            'arabic_degree' => $request->arabic_degree,
-            'english_degree' => $request->english_degree,
-            'social_type_id' => $request->social_type_id,
-            'high_degree' => $request->high_degree,
-'type_of_experience'=>$request->type_of_experience,
-            'weight' => $request->weight,
-            'height' => $request->height,
-            'childern_number' => $request->childern_number,
-            'birth_place' => $request->birth_place,
-            'contact_num' => $request->contact_num,
-            'birth_date'=>$request->birth_date,
-            'reasonService'=>$request->reasonService,
-            'periodService'=>$request->periodService,
-            'name' => $request->name,
-            'passport_created_at' => $request->passport_created_at,
-            'passport_ended_at' => $request->passport_ended_at,
-            'passport_place' => $request->passport_place,
-        ];
-
-//        $data = $request->except(['images','cv_file','skills']);
+        $data = $request->except(['images','cv_file']);
 
         try {
             DB::beginTransaction();
 
             $data["cv_file"] =  $this->uploadFiles('biographies',$request->file('cv_file'),null );
-            $data["image"] = $this->uploadFiles('biographies', $request->file('image'), null);
-
             $biography = Biography::create($data);
 
-
+            //skills
+//            foreach ($request->skills as $index=>$skillid){
+//                BiographySkill::create([
+//                    'biography_id'=>$biography->id,
+//                    'skill_id'=>$skillid,
+//                ]);
+//            }
 
             //biography galary
             if(isset($request->images)){
@@ -222,16 +197,6 @@ class AdminBiographiesController extends Controller
                     BiographyImage::create([
                         'biography_id'=>$biography->id,
                         'image'=> $this->uploadFiles('biographies',$single_image,null )
-                    ]);
-                }
-            }
-            //skills
-            if ($request->skills) {
-                foreach ($request->skills as $index => $skillid) {
-                    BiographySkill::create([
-                        'biography_id' => $biography->id,
-                        'degree' => $request[$skillid],
-                        'skill_id' => $skillid,
                     ]);
                 }
             }
@@ -302,9 +267,8 @@ class AdminBiographiesController extends Controller
      */
     public function update(Request $request,$id)
     {
-
-        $this->validate($request,[
-            'cv_file'=>'nullable',
+$this->validate($request,[
+    'cv_file'=>'nullable',
             'recruitment_office_id'=>'required',
             'nationalitie_id'=>'required',
             'language_title_id'=>'required',
@@ -323,88 +287,48 @@ class AdminBiographiesController extends Controller
             'periodService'=>'nullable',
         ]);
 
-//        $data = $request->except(['skills','images','cv_file','old']);
-        $data = [
-            'recruitment_office_id' => $request->recruitment_office_id,
-            'salary' => $request->salary,
-            'passport_number' => $request->passport_number,
-            'nationalitie_id' => $request->nationalitie_id,
-            'job_id' => $request->job_id,
-            'age' => $request->age,
-
-            'contract_period' => $request->contract_period,
-            'religion_id' => $request->religion_id,
-            'language_title_id' => $request->language_title_id,
-            'type'=>$request->type,
-            'arabic_degree' => $request->arabic_degree,
-            'english_degree' => $request->english_degree,
-            'social_type_id' => $request->social_type_id,
-            'high_degree' => $request->high_degree,
-            'type_of_experience'=>$request->type_of_experience,
-            'weight' => $request->weight,
-            'height' => $request->height,
-            'childern_number' => $request->childern_number,
-            'birth_place' => $request->birth_place,
-            'contact_num' => $request->contact_num,
-            'birth_date'=>$request->birth_date,
-            'reasonService'=>$request->reasonService,
-            'periodService'=>$request->periodService,
-            'name' => $request->name,
-            'passport_created_at' => $request->passport_created_at,
-            'passport_ended_at' => $request->passport_ended_at,
-            'passport_place' => $request->passport_place,
-        ];
+        $data = $request->except(['skills','images','cv_file','old']);
         try {
             DB::beginTransaction();
 
             if($request->cv_file)
             $data["cv_file"] =  $this->uploadFiles('biographies',$request->file('cv_file'),null );
 
-         $cv=   Biography::find($id)->update($data);
+            Biography::find($id)->update($data);
 
 
-            //categories
-            BiographySkill::where('biography_id',$id)->delete();
-
-            //skills
-            if ($request->skills) {
-                foreach ($request->skills as $index => $skillid) {
-                    BiographySkill::create([
-                        'biography_id' => $id,
-                        'degree' => $request[$skillid],
-                        'skill_id' => $skillid,
-                    ]);
-                }
-            }
+//            //categories
+//            BiographySkill::where('biography_id',$id)->delete();
+//
+//            //skills
+//            foreach ($request->skills as $index=>$skillid){
+//                BiographySkill::create([
+//                    'biography_id'=>$id,
+//                    'skill_id'=>$skillid,
+//                ]);
+//            }
 
 
-            if ($request->old) {
+            //product galary
+            if($request->old) {
                 BiographyImage::where('biography_id', $id)
                     ->whereNotIn('id', $request->old)
                     ->delete();
-            } else {
+            }
+            else
+            {
                 BiographyImage::where('biography_id', $id)
                     ->delete();
             }
+
             if (isset($request->images) && count($request->images) > 0) {
-                foreach ($request->images as $single_image) {
+                foreach ($request->images as $single_image){
                     BiographyImage::create([
-                        'biography_id' => $id,
-                        'image' => $this->uploadFiles('biographies', $single_image, null)
+                        'biography_id'=>$id,
+                        'image'=> $this->uploadFiles('biographies',$single_image,null )
                     ]);
                 }
             }
-
-            if ($request->image) {
-                $cv->image = $this->uploadFiles('biographies', $request->file('image'), null);
-                $cv->update();
-
-            }
-            if ($request->cv_file) {
-                $cv->cv_file = $this->uploadFiles('biographies', $request->file('cv_file'), null);
-                $cv->update();
-            }
-
             DB::commit();
 
         }catch (\Exception $exception){

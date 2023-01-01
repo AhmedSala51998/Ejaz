@@ -54,11 +54,11 @@
                             <li>
                                 <a  href="{{checkRouteIsHome('#steps')}}"> {{__('frontend.Recruitment steps')}} </a>
                             </li>
-                            <li>
-                                <a  href="{{checkRouteIsHome('#faq')}}"> {{__('frontend.faq')}} </a>
+                          <li>
+                                <a  href="https://aljawhra.sa/ar/supports"> {{__('frontend.faq')}} </a>
                             </li>
                             <li>
-                                <a href="https://aljawhra.sa/ar/supports"> {{__('frontend.contactUs')}} </a>
+                                <a href="https://aljawhra.sa/ar/supports/contactUs"> {{__('frontend.contactUs')}} </a>
                             </li>
                             @auth
                             <li>

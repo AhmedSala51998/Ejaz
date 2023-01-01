@@ -23,7 +23,7 @@
 
 @else
 <div class="d-flex align-items-center justify-content-center row">
-    <img style="width: 500px;height: 500px ; object-fit: contain;" src="{{asset('frontend/img/money.png')}}" alt="no data for current orders">
+    <img style="width: 500px;height: 500px ; object-fit: contain;" src="{{asset('frontend/img/no-order.png')}}" alt="no data for current orders">
 </div>
 
 @endif

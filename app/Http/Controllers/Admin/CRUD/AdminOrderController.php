@@ -44,8 +44,6 @@ class AdminOrderController extends Controller
      */
 
     /*
-
-
      */
     public function index(Request $request)
     {
@@ -114,7 +112,7 @@ class AdminOrderController extends Controller
                         return "تحت الاجراء و التدريب";
                     }
                     elseif ($row->status == "visa") {
-                        return " ختم التاشيره ";
+                        return " تفييز العمالة ";
                     }
                     elseif ($row->status == "finished") {
                         return "وصول العمالة";
@@ -188,7 +186,7 @@ class AdminOrderController extends Controller
                     }
                     elseif ($row->status == "traning") {
                         $status="visa";
-                        $text = "ختم التأشيرة";
+                        $text = "تفييز العمالة";
                         return "
                     <a href='#' $status data-status='".$status."' class='btn btn-info update-status' id='" . $row->id . "'> ".$text."  </a>
                    <a  $delete style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
@@ -281,16 +279,16 @@ class AdminOrderController extends Controller
         $country=substr($biograpy->nationalitie->title??'', 0, 5);
         $admin=$order->admin->name??'';
 
-        $msg="عزيزي العميل تم قبول التعاقد الخاص بك برقم حجز
+        $msg="عزيزي العميل تم قبول التعاقد الخاص بكم برقم حجز
 ( $biography->passport_number .$country  )
 الرجاء المتابعه مع
 ( $admin )";
         $status['contract']=$msg;
-        $status['musaned']="تم ربط طلبك استقدامك مع مساند بنجاح ";
-        $status['traning']="اصبح طلبك استقدامك فى مرحلة الاجراءات بنجاح ";
-        $status['visa']="اصبح طلبك استقدامك فى مرحلة التأشيرة بنجاح ";
+        $status['musaned']="تم ربط العقد الخاص بكم في مساند بنجاح ";
+        $status['traning']="اصبح التعاقد الخاص بكم فى مرحلة الاجراءات بنجاح ";
+        $status['visa']="اصبح التعاقد الخاص بكم فى مرحلة التفييز بنجاح ";
         $status['finished']="تم وصول العمالة بنجاح ";
-        $status['canceled']="تم رفض  طلب استقدامك بنجاح ";
+        $status['canceled']="تم رفض  طلب استقدامكم مع الاسف ";
 
 
         if($request->status=="contract" or $request->status=="musaned" or $request->status=="traning"or $request->status=="visa"or $request->status=="finished" or $request->status=="canceled"){

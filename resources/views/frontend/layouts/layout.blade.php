@@ -232,6 +232,7 @@
                 }).then((e)=>{
                     location.replace("{{route('auth.profile')}}")
                 })
+
             },
             error: function(data) {
                 ob.html(`{{__('frontend.Recruitment Request')}}

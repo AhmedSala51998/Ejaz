@@ -35,13 +35,13 @@
                 @if ($orderHistory->status == "canceled")
                     <h5 class="orderStatus cancel"> {{__('frontend.orderCanceled')}} </h5>
                 @elseif ($orderHistory->status == "visa")
-                        <h5 class="orderStatus cancel">اصبح طلب استقدامك فى مرحلة التأشيرة بنجاح </h5>
+                        <h5 class="orderStatus cancel">اصبح العقد الخاص بكم فى مرحلة التفييز بنجاح </h5>
                 @elseif ($orderHistory->status == "musaned")
-                    <h5 class="orderStatus cancel"> تم ربط طلب استقدامك مع مساند بنجاح  </h5>
+                    <h5 class="orderStatus cancel"> تم ربط العقد الخاص بكم في مساند بنجاح  </h5>
                 @elseif ($orderHistory->status == "traning")
-                    <h5 class="orderStatus cancel"> اصبح طلب استقدامك فى مرحلة الاجراءات بنجاح</h5>
+                    <h5 class="orderStatus cancel"> اصبح العفد الخاص بكم فى مرحلة الاجراءات بنجاح</h5>
                 @elseif ($orderHistory->status == "contract")
-                    <h5 class="orderStatus cancel"> تم قبول التعاقد الخاص بك</h5>
+                    <h5 class="orderStatus cancel"> تم قبول التعاقد الخاص بكم</h5>
                 @elseif($orderHistory->status == "finished")
                     <h5 class="orderStatus done"> {{__('frontend.orderDone')}} </h5>
                 @endif

@@ -4,7 +4,7 @@
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand" href="{{route('home')}}">
-                <img src="{{$settings->header_logo?get_file($settings->header_logo):asset('frontend/img/logo.svg')}}" />
+                <img src="{{$settings->header_logo?get_file($settings->header_logo):asset('frontend/img/logo.svg')}}"/>
             </a>
             <!-- links in md media -->
             <div class="d-none d-lg-block">
@@ -30,14 +30,14 @@
                     </li>
 
 
-
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-bs-toggle="dropdown">
                             رحلة الاستقدام
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li>
-                                <a class="dropdown-item" href="{{route('frontend.recruitmentContract')}}"> تعاقد الاستقدام </a>
+                                <a class="dropdown-item" href="{{route('frontend.recruitmentContract')}}"> تعاقد
+                                    الاستقدام </a>
 
                             </li>
                             <li>
@@ -49,17 +49,14 @@
                     </li>
 
 
-
-
-
-
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-bs-toggle="dropdown">
                             عن الاستقدام
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li>
-                                <a class="dropdown-item" href="{{route('frontend.recruitmentPolicy')}}"> سياسات الاستقدام </a>
+                                <a class="dropdown-item" href="{{route('frontend.recruitmentPolicy')}}"> سياسات
+                                    الاستقدام </a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="{{route('frontend.musaned')}}"> مبادرة مساند </a>
@@ -67,8 +64,6 @@
 
                         </ul>
                     </li>
-
-
 
 
                     <li class="nav-item dropdown">
@@ -89,43 +84,34 @@
                     </li>
 
 
-
-
-
-
-
                     @auth
 
-                    <!-- If the user is logged in -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                           data-bs-toggle="dropdown" aria-expanded="false">
-                            <p> حسابي </p>
-                        </a>
-                        <ul class="dropdown-menu text-start" aria-labelledby="navbarDropdown">
+{{--                        <!-- If the user is logged in -->--}}
+{{--                        <li class="nav-item dropdown">--}}
+{{--                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"--}}
+{{--                               data-bs-toggle="dropdown" aria-expanded="false">--}}
+{{--                                <p> حسابي </p>--}}
+{{--                            </a>--}}
+{{--                            <ul class="dropdown-menu text-start" aria-labelledby="navbarDropdown">--}}
 
-                            <li><a class="dropdown-item" href="{{route('auth.profile')}}"> طلبات
-                                    الاستقدام </a></li>
-                            <li><a class="dropdown-item" href="{{route('auth.profile')}}">
-                                    الاشعارات </a></li>
+{{--                                <li><a class="dropdown-item" href="{{route('auth.profile')}}"> طلبات--}}
+{{--                                        الاستقدام </a></li>--}}
+{{--                                <li><a class="dropdown-item" href="{{route('auth.profile')}}">--}}
+{{--                                        الاشعارات </a></li>--}}
 
-                            @if(\Illuminate\Support\Facades\Auth::user())
+{{--                                @if(\Illuminate\Support\Facades\Auth::user())--}}
 
-                                <li><a class="dropdown-item" href="{{route('auth.logout')}}">
-                                        {{__('frontend.Logout')}} </a></li>
+{{--                                    <li><a class="dropdown-item" href="{{route('auth.logout')}}">--}}
+{{--                                            {{__('frontend.Logout')}} </a></li>--}}
 
+{{--                                @else--}}
 
+{{--                                    <li><a class="dropdown-item" href="{{route('auth.login')}}">--}}
+{{--                                            {{__('frontend.Login')}} </a></li>--}}
 
-                            @else
-
-                                <li><a class="dropdown-item" href="{{route('auth.login')}}">
-                                        {{__('frontend.Login')}} </a></li>
-
-
-
-                            @endif
-                        </ul>
-                    </li>
+{{--                                @endif--}}
+{{--                            </ul>--}}
+{{--                        </li>--}}
                     @endauth
                     <!-- If the user is not logged in  -->
 
@@ -134,29 +120,46 @@
 
                     @if(\Illuminate\Support\Facades\Auth::user())
 
+                        <!-- If the user is logged in -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                <p> حسابي </p>
+                            </a>
+                            <ul class="dropdown-menu text-start" aria-labelledby="navbarDropdown">
 
-{{--                        <li class="nav-item">--}}
-{{--                            <a href="{{route('auth.logout')}}" class="animatedLink">--}}
-{{--                                {{__('frontend.Logout')}}--}}
-{{--                                <i class="fa-regular fa-left-long ms-2"><span></span></i>--}}
-{{--                            </a>--}}
-{{--                        </li>--}}
+                                <li><a class="dropdown-item" href="{{route('auth.profile')}}"> طلبات
+                                        الاستقدام </a></li>
+                                <li><a class="dropdown-item" href="{{route('auth.profile')}}">
+                                        الاشعارات </a></li>
+
+                                @if(\Illuminate\Support\Facades\Auth::user())
+
+                                    <li><a class="dropdown-item" href="{{route('auth.logout')}}">
+                                            {{__('frontend.Logout')}} </a></li>
+
+                                @else
+
+                                    <li><a class="dropdown-item" href="{{route('auth.login')}}">
+                                            {{__('frontend.Login')}} </a></li>
+
+                                @endif
+                            </ul>
+                        </li>
 
                     @else
 
-                        <li class="nav-item">
-                            <a href="{{route('auth.login')}}" class="animatedLink">
-                                {{__('frontend.Login')}}
-                                <i class="fa-regular fa-left-long ms-2"><span></span></i>
-                            </a>
-                        </li>
-
+                        <li><a class="dropdown-item" href="{{route('auth.login')}}">
+                                {{__('frontend.Login')}} </a></li>
 
                     @endif
 
-
-
-
+                        <li class="nav-item">
+                            <a href="{{route('all-workers')}}" class="animatedLink">
+                                {{__('frontend.Recruitment Request')}}
+                                <i class="fa-regular fa-left-long ms-2"><span></span></i>
+                            </a>
+                        </li>
 
                 </ul>
             </div>
@@ -189,14 +192,14 @@
                     <a class="sideMenuLink" href="{{route('frontend.recruitmentContract')}}"> رحلة الاستقدام </a>
 
 
-
                     <div class=" sideMenuLink dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-bs-toggle="dropdown">
                             عن الاستقدام
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li>
-                                <a class="dropdown-item" href="{{route('frontend.recruitmentPolicy')}}"> سياسات الاستقدام </a>
+                                <a class="dropdown-item" href="{{route('frontend.recruitmentPolicy')}}"> سياسات
+                                    الاستقدام </a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href=""> مبادرة مساند </a>
@@ -211,30 +214,38 @@
                     </li>
                     <!-- If the user is logged in -->
                     @auth()
-                    <div class=" sideMenuLink dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                           data-bs-toggle="dropdown" aria-expanded="false">
-                            <p> حسابي </p>
-                        </a>
-                        <ul class="dropdown-menu text-start" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{{route('auth.profile')}}"> طلبات
-                                    الاستقدام </a></li>
-                            <li><a class="dropdown-item" href="{{route('auth.profile')}}">
-                                    الاشعارات </a></li>
-                            <li><a class="dropdown-item" href="{{route('auth.logout')}}">
-                                    تسجيل الخروج </a></li>
-                        </ul>
-                    </div>
+                        <div class=" sideMenuLink dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                <p> حسابي </p>
+                            </a>
+                            <ul class="dropdown-menu text-start" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="{{route('auth.profile')}}"> طلبات
+                                        الاستقدام </a></li>
+                                <li><a class="dropdown-item" href="{{route('auth.profile')}}">
+                                        الاشعارات </a></li>
+                                <li><a class="dropdown-item" href="{{route('auth.logout')}}">
+                                        تسجيل الخروج </a></li>
+                            </ul>
+                        </div>
                     @endauth
                     <!-- If the user is not logged in  -->
                     @guest()
-                    <div class=" sideMenuLink">
                         <a href="{{route('auth.login')}}" class="animatedLink">
                             تسجيل الدخول
                             <i class="fa-regular fa-left-long ms-2"><span></span></i>
                         </a>
-                    </div>
+
                     @endguest
+
+                    <div class=" sideMenuLink">
+                        <a href="{{route('all-workers')}}" class="animatedLink">
+                            {{__('frontend.Recruitment Request')}}
+                            <i class="fa-regular fa-left-long ms-2"><span></span></i>
+                        </a>
+
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -246,9 +257,6 @@
             $(".sideMenu").toggleClass("active");
         });
     </script>
-
-
-
 
 
 </header>

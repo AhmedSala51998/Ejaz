@@ -76,7 +76,7 @@
                                         <p> تحت الاجراءات </p>
                                     </li>
                                     <li @if(in_array($order->status,['visa','finished'])) class="completed" @endif>
-                                        <p> اصدار تاشيرة </p>
+                                        <p> تفييز العمالة </p>
                                     </li>
                                     <li @if(in_array($order->status,['finished'])) class="completed" @endif>
                                         <p>وصول العمالة </p>
@@ -119,15 +119,15 @@
                                                 @elseif ($order->status == "under_work")
                                                     <p>تم حجز السيرة الذاتيه </p>
                                                 @elseif ($order->status == "visa")
-                                                    <p>اصبح طلب استقدامك فى مرحلة التأشيرة بنجاح </p>
+                                                    <p>اصبح التعاقد الخاص بكم  فى مرحلة التفييز بنجاح </p>
                                                 @elseif ($order->status == "musaned")
-                                                    <p>تم ربط طلب استقدامك مع مساند بنجاح  </p>
+                                                    <p>تم ربط العقد الخاص بكم في مساند بنجاح  </p>
 
                                                 @elseif ($order->status == "traning")
-                                                    <p>اصبح طلب استقدامك فى مرحلة الاجراءات بنجاح </p>
+                                                    <p>اصبح التعاقد الخاص بكم فى مرحلة الاجراءات بنجاح </p>
 
                                                 @elseif ($order->status == "contract")
-                                                    <p> تم قبول التعاقد الخاص بك </p>
+                                                    <p> تم قبول التعاقد الخاص بكم </p>
 
                                                 @elseif($order->status == "finished")
                                                     <p> {{__('frontend.orderDone')}} </p>
@@ -164,7 +164,7 @@
                                 </div>
                             </div>
                             <div class="selectedCustomer">
-                                <h6>سوف توصل العمالة فى خلال <span> 120 </span> يوم كحد اقصى </h6>
+                                <h6>سوف توصل العمالة فى خلال <span> 90 </span> يوم كحد اقصى </h6>
 
 {{--                                <h6> تم ابرام التعاقد وفي انتظار اصدار التاشيرة لعاملتك </h6>--}}
                                 <!-- button for modal -->

@@ -1,4 +1,4 @@
-<section class="steps">
+<section class="steps" id="steps">
     <div class="container">
         <!-- Section Title -->
         <div class="SectionTitle text-md-start">

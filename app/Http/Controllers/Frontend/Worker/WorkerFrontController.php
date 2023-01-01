@@ -130,14 +130,7 @@ class WorkerFrontController extends Controller
             ->render();
         return response()->json(array('success' => true, 'html'=>$returnHTML));
     }//end fun
-    public function showWorker($id)
-    {
-        $cv = Biography::with('recruitment_office','nationalitie','language_title',
-            'religion','job','social_type','admin','images','skills')
-            ->where('id',$id)
-            ->firstOrFail();
-        return view('frontend.pages.all-workers.worker.print_cvs',compact('cv'));
-    }
+
 
 
     public function custom_worker_request_view()
