@@ -53,18 +53,31 @@ class AdminBiographiesController extends Controller
                     return "<input type='checkbox' class=' delete-all form-check-input' data-tablesaw-checkall name='delete_all' id='" . $row->id . "'>";
                 })
                 ->editColumn('status', function ($row) {
-                    if($row->status == "new"){
+
+
+
+
+                    if ($row->status == "new") {
                         return "غير محجوز";
-                    }elseif ($row->status == "under_work"){
-                        return "جارة التعاقد ";
+                    } elseif ($row->status == "under_work") {
+                        return "حجز السيرة الذاتيه";
                     }
-                    elseif ($row->status == "finished"){
-                        return "تم التعاقد ";
-                    }  elseif ($row->status == "pending"){
-                        return "معلق";
+                    elseif ($row->status == "contract") {
+                        return "تم التعاقد";
+                    } elseif ($row->status == "musaned") {
+                        return "تم الربط في مساند ";
+                    }
+                    elseif ($row->status == "traning") {
+                        return "تحت الاجراء و التدريب";
+                    }
+                    elseif ($row->status == "visa") {
+                        return " ختم التاشيره ";
+                    }
+                    elseif ($row->status == "finished") {
+                        return "وصول العمالة";
                     }
                     else {
-                        return "غير محجوز";
+                        return "ملغى";
                     }
 
                 })
