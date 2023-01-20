@@ -112,6 +112,12 @@
                                                 <h6> {{__('frontend.Occupation')}} : </h6>
                                                 <p> {{$order->biography->job?$order->biography->job->title:""}} </p>
                                             </li>
+                                            @if((isset($row->arrived_at)))
+                                            <li>
+                                                <h6> موعد الوصول </h6>
+                                                <p> {{  (isset($row->arrived_at)) ?date('d-m-Y h:i a', strtotime($order->arrived_at)):"غير محدد"}} </p>
+                                            </li>
+                                            @endif
                                             <li>
                                                 <h6> حالة الاستقدام : </h6>
                                                 @if ($order->status == "canceled")

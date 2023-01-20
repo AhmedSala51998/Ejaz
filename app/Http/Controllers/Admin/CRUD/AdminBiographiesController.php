@@ -53,10 +53,6 @@ class AdminBiographiesController extends Controller
                     return "<input type='checkbox' class=' delete-all form-check-input' data-tablesaw-checkall name='delete_all' id='" . $row->id . "'>";
                 })
                 ->editColumn('status', function ($row) {
-
-
-
-
                     if ($row->status == "new") {
                         return "غير محجوز";
                     } elseif ($row->status == "under_work") {

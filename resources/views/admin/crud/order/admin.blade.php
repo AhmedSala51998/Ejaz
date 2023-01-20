@@ -62,6 +62,7 @@
                             <th>الجنسية</th>
                             <th>الحالة</th>
                             <th>التاريخ</th>
+                            <th>موعد الوصول</th>
                             <th>التحكم</th>
                         </tr>
                         </thead>
@@ -127,6 +128,8 @@
                 {"data": "nationalitie_id", orderable: false, searchable: true},
                 {"data": "status", orderable: false, searchable: true},
                 {"data": "created_at", searchable: false},
+                {"data": "arrived_at", searchable: false},
+
                 {"data": "actions", orderable: false, searchable: false}
             ],
             "language": {
@@ -228,6 +231,71 @@
                         data: {id: id,status:status},
 
                     success: function (data) {
+                            cuteToast({
+                                type: "success", // or 'info', 'error', 'warning'
+                                message: "تم تنفيذ العملية بنجاح",
+                                timer: 3000
+                            });
+                            datatable_selector.draw();
+                            //console.log(200)
+                        }, error: function (data) {
+                            //console.log(500)
+                            swal.close()
+                            cuteToast({
+                                type: "error", // or 'info', 'error', 'warning'
+                                message: "أنت لا تملك الصلاحية لفعل هذا ",
+                                timer: 3000
+                            });
+                        }
+
+                    });
+                }
+            });
+
+        });
+        $(document).on('click', '.update-arrived-at', function () {
+            var id = $(this).attr('id');
+            var status =$(this).attr("data-status");
+
+
+            Swal.fire({
+                html: `<input type="datetime-local" min="{{ now()->setTimezone('T')->format('Y-m-dTh:m') }}" id="swal-input1" class="swal2-input" name="date_time" required>`,
+                title: "برجاء تحديد موعد الوصول",
+                text: "لا يمكنك التراجع بعد ذلك !",
+                type: "input",
+                showCancelButton: true,
+                animation: "slide-from-top",
+                onOpen: function() {
+                    $('#datetimepicker').datetimepicker({
+                        format: 'DD/MM/YYYY hh:mm A',
+                        defaultDate: new Date()
+                    });
+                },
+                confirmButtonColor: '#ff675e',
+                confirmButtonText: "موافق",
+                cancelButtonText: "إلغاء",
+                okButtonText: "موافق",
+                closeOnConfirm: false,
+                preConfirm: () => {
+                    if (document.getElementById('swal-input1').value) {
+                        // Handle return value
+                    } else {
+                        Swal.showValidationMessage('برجاء تحديد الموعد')
+                    }
+                }
+            }).then((result) => {
+                // console.log(result)
+                if (result.value) {
+                    console.log(result)
+                    var arrived_at=document.getElementById('swal-input1').value;
+                    var url = '{{ route("admin-orders.update", ":id")}}';
+                    url = url.replace(':id', id);
+                    $.ajax({
+                        url: url,
+                        type: 'PUT',
+                        data: {id: id,status:status,arrived_at:arrived_at},
+
+                        success: function (data) {
                             cuteToast({
                                 type: "success", // or 'info', 'error', 'warning'
                                 message: "تم تنفيذ العملية بنجاح",
