@@ -33,6 +33,8 @@ Route::group(['namespace' => 'API'], function () {
     });
 
     Route::group(['prefix' => 'home'], function () {
+        Route::post('workers', 'HomeController@workers'); // home/products
+
         Route::get('/', 'HomeController@index'); // home
         Route::get('sliders', 'HomeController@sliders'); // home/sliders
         Route::get('news', 'HomeController@news'); // home/news
