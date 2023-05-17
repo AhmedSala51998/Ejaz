@@ -10,7 +10,7 @@ class WorkersCollection extends ResourceCollection
     public function toArray($request)
     {
         return [
-            'data' => $this->collection->transform(function($data) {
+            'list' => $this->collection->transform(function($data) {
 
 
 
