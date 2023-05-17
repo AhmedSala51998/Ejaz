@@ -3,14 +3,28 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\OrdersCollection;
+use App\Http\Resources\WorkersCollection;
 use App\Models\Biography;
+use App\Models\Contact;
+use App\Models\Nationalitie;
+use App\Models\Order;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-
+    public function getRequestInfo(Request $request)
+    {
+        $nationalities = Nationalitie::get()->pluck('id','title');
+        $admins = \App\Models\Admin::where('admin_type','!=',0)->get()->pluck('id','name');
+        return response()->json([
+            'success' => true,
+            'nationalities' => $nationalities,
+            'admins' => $admins,
+        ]);
+    }
 
     public function workers(Request $request)
     {
@@ -26,14 +40,58 @@ class HomeController extends Controller
             ->paginate(12);
         $current_page = $cvs->currentPage() ;
         $last_page =  $cvs->lastPage();
-        return response()->json([
-            'success' => true,
-            'cvs' => $cvs,
-            'current_page' => $current_page,
-            'last_page' => $last_page,
-        ]);
-    }
 
+        return new WorkersCollection($cvs);
+
+
+    }
+    public function contact_us_action(Request $request)
+    {
+        $data = $request->validate([
+            'name'=>'required',
+            'subject'=>'required',
+            'phone'=>'required',
+            'message'=>'required',
+        ]);
+        Contact::create($data);
+        return response()->json([  'success' => true],200);
+    }//end fun
+
+
+    public function getClientOrders(Request $request)
+    {
+
+        if($request->user_phone) {
+            $user = User::where('phone', $request->user_phone)->first();
+
+            if (!empty($user)) {
+                $currentOrders = Order::where([
+                    'user_id' => $user->id,
+
+                ])->whereHas('admin', function ($q) {
+                    $q->where('id', '!=', null);
+                })
+                    ->whereHas('biography', function ($q) {
+                        $q->where('id', '!=', null);
+                    })
+                    ->with('admin', 'biography', 'biography.recruitment_office', 'biography.nationalitie',
+                        'biography.language_title',
+                        'biography.religion', 'biography.job',
+                        'biography.social_type', 'biography.images', 'biography.skills')
+                    ->latest()
+                    ->get();
+                return new OrdersCollection($currentOrders);
+
+
+            } else {
+                return response()->json(['success' => false, 'msg' => 'هذا الرقم غير مسجل فى سجلتنا'], 400);
+
+            }
+        }else{
+            return response()->json(['success' => false, 'msg' => 'برجاء ارسل رقمك المسجل لدينا'], 400);
+
+        }
+    }//end fun
 
     public function forget_password_view()
     {
