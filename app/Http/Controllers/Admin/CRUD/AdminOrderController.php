@@ -139,9 +139,6 @@ class AdminOrderController extends Controller
                 ->addColumn('admin', function ($row) {
                     return (isset($row->admin->name)) ? $row->admin->name : "غير محدد ";
                 })
-                ->addColumn('arrived_at', function ($row) {
-                    return (isset($row->arrived_at)) ? date('d-m-Y h:i a', strtotime($row->arrived_at))  : "غير محدد ";
-                })
 //                ->addColumn('actions', function ($row) {
 //                    $compelete = '';
 //                    $delete = '';
@@ -198,7 +195,7 @@ class AdminOrderController extends Controller
                         $status="finished";
                         $text = "وصول العمالة";
                         return "
-                    <a href='#' $status data-status='".$status."' class='btn btn-info update-arrived-at' id='" . $row->id . "'> ".$text."  </a>
+                    <a href='#' $status data-status='".$status."' class='btn btn-info update-status' id='" . $row->id . "'> ".$text."  </a>
                    <a  $delete style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
                     }
                     elseif ($row->status == "finished") {
@@ -214,7 +211,7 @@ class AdminOrderController extends Controller
 
                 })
                 ->rawColumns(['image', 'created_at', 'status', 'nationalitie_id', 'passport_number',
-                    'biography_number','arrived_at', 'user', 'admin', 'actions'
+                    'biography_number', 'user', 'admin', 'actions'
                 ])->make(true);
         }
         return view('admin.crud.order.admin');
@@ -274,12 +271,7 @@ class AdminOrderController extends Controller
     public function update(Request $request, $id)
     {
         $order = Order::where("id", $id)->first();
-        $arrived_at=null;
-
-        if(!empty($request->arrived_at) && isset($request->arrived_at)){
-        $arrived_at=$request->arrived_at;
-        }
-        Order::where("id", $id)->update(["status" => $request->status,'arrived_at'=>$arrived_at]);
+        Order::where("id", $id)->update(["status" => $request->status]);
           Biography::where("id", $order->biography_id)->update(["status" =>  $request->status]);
         $biography=  Biography::find($order->biography_id);
         $status=[];
