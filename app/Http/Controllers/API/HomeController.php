@@ -5,8 +5,10 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\OrdersCollection;
 use App\Http\Resources\WorkersCollection;
+use App\Models\AgeRange;
 use App\Models\Biography;
 use App\Models\Contact;
+use App\Models\Job;
 use App\Models\Nationalitie;
 use App\Models\Order;
 use App\Models\User;
@@ -49,6 +51,20 @@ class HomeController extends Controller
             ->paginate(3);
 
 
+        return new WorkersCollection($cvs);
+
+
+    }
+    public function transferService(Request $request){
+        $cvs = Biography::where('status','new')
+            ->where('order_type','normal')
+            ->FilterByAge($request->age)
+            ->FilterByJob($request->job)
+            ->FilterByNationality($request->nationality)->where('type','transport')
+            ->with('recruitment_office','nationalitie','language_title',
+                'religion','job','social_type','admin','images','skills')->where('type','transport')
+            ->latest()
+            ->paginate(3);
         return new WorkersCollection($cvs);
 
 
