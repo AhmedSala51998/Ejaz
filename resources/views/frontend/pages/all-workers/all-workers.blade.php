@@ -131,19 +131,19 @@
                     <div class="col-sm-10 col-md-8 p-2">
                         <div class="row flex-wrap">
                             <!-- age -->
-                            @if(count($ages) > 0)
+                            <!--@if(count($ages) > 0)-->
 
-                                <div class="col p-2">
-                                    <label for="age"> <i class="fa-duotone fa-hourglass me-1"></i> العمر </label>
-                                    <select id="age" name="age" class="select2">
-                                        <option value="" selected> {{__('frontend.all')}} </option>
-                                        @foreach($ages as $age)
-                                            <option
-                                                value="{{$age->id}}">{{__('frontend.from')}} {{$age->from}} {{__('frontend.to')}} {{$age->to}} </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            @endif
+                            <!--    <div class="col p-2">-->
+                            <!--        <label for="age"> <i class="fa-duotone fa-hourglass me-1"></i> العمر </label>-->
+                            <!--        <select id="age" name="age" class="select2">-->
+                            <!--            <option value="" selected> {{__('frontend.all')}} </option>-->
+                            <!--            @foreach($ages as $age)-->
+                            <!--                <option-->
+                            <!--                    value="{{$age->id}}">{{__('frontend.from')}} {{$age->from}} {{__('frontend.to')}} {{$age->to}} </option>-->
+                            <!--            @endforeach-->
+                            <!--        </select>-->
+                            <!--    </div>-->
+                            <!--@endif-->
 
                             <!-- Occupation -->
                             @if(count($jobs) > 0)
@@ -356,7 +356,7 @@
 
         function loadMoreData(new_page) {
 
-            url = link_only + "?page=" + new_page + "&age=" + age + "&job=" + job + "&nationality=" + nationality
+            url = link_only + "?page=" + new_page + "&age=" + "" + "&job=" + job + "&nationality=" + nationality
             $.ajax({
                 url: url,
                 type: 'GET',
@@ -406,7 +406,7 @@
             age = $("#age").val();
             job = $("#job").val();
             nationality = $("#nationality").val();
-            url = link_only + "?page=" + new_page + "&age=" + age + "&job=" + job + "&nationality=" + nationality
+            url = link_only + "?page=" + new_page + "&age=" + "" + "&job=" + job + "&nationality=" + nationality
             $.ajax({
                 url: url,
                 type: 'GET',
