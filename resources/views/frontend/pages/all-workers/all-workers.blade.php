@@ -204,6 +204,7 @@
 
                 </div>
                 <!-- pagination -->
+
                 <div style="{{$last_page == $current_page ?"display:none !important;":""}}"
                      class="d-flex align-items-center justify-content-center py-5 register-submit" id="buttonOfFilter">
                     <!-- <button id="load_more_button" class="customBtn" type="button">
