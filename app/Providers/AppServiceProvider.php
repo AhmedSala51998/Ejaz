@@ -7,6 +7,9 @@ use Illuminate\Support\ServiceProvider;
 use App\Models\Setting;
 use Laravel\Passport\Passport;
 
+use App\Http\Resources\WorkersCollection;
+
+
 class AppServiceProvider extends ServiceProvider
 {
     /**

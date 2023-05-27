@@ -18,7 +18,15 @@ class HomeController extends Controller
     public function getRequestInfo(Request $request)
     {
         $nationalities = Nationalitie::get()->pluck('id','title');
-        $admins = \App\Models\Admin::where('admin_type','!=',0)->get()->pluck('id','name');
+
+        $admins = \App\Models\Admin::where('admin_type','!=',0)->pluck('whats_up_number','name');
+//        $admins_array=[];
+//        foreach ($admins as $key=>$val){
+//            $admins_array[$val->id]['name']=$val->name;
+//            $admins_array[$val->id]['']=$val->name;
+//
+//        }
+
         return response()->json([
             'success' => true,
             'nationalities' => $nationalities,
@@ -37,9 +45,9 @@ class HomeController extends Controller
             ->with('recruitment_office', 'nationalitie', 'language_title',
                 'religion', 'job', 'social_type', 'admin', 'images', 'skills')
             ->latest()
-            ->paginate(12);
-        $current_page = $cvs->currentPage() ;
-        $last_page =  $cvs->lastPage();
+
+            ->paginate(3);
+
 
         return new WorkersCollection($cvs);
 
