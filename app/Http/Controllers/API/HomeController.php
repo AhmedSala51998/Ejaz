@@ -37,9 +37,9 @@ class HomeController extends Controller
             ->with('recruitment_office', 'nationalitie', 'language_title',
                 'religion', 'job', 'social_type', 'admin', 'images', 'skills')
             ->latest()
-            ->paginate(12);
-        $current_page = $cvs->currentPage() ;
-        $last_page =  $cvs->lastPage();
+            ->paginate(3);
+        // $current_page = $cvs->currentPage() ;
+        // $last_page =  $cvs->lastPage();
 
         return new WorkersCollection($cvs);
 
