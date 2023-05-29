@@ -12,11 +12,13 @@ use App\Models\Job;
 use App\Models\Nationalitie;
 use App\Models\Order;
 use App\Models\User;
+use App\Services\SMS\MesgatSMS;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+    use MesgatSMS;
     public function getRequestInfo(Request $request)
     {
         $nationalities = Nationalitie::get()->pluck('id','title');
@@ -66,9 +68,64 @@ class HomeController extends Controller
             ->latest()
             ->paginate(3);
         return new WorkersCollection($cvs);
+    }
+    public function send_code(Request $request)
+    {
+        if($request->user_phone) {
+//            ALTER TABLE `users` ADD `check_phone_api` VARCHAR(256) NULL AFTER `phone_code`;
+          $phone=  str_replace("+966", '', $request->phone);
 
+        $check_user = User::where('phone', $phone)->find();
+        if (!empty($check_user)){
+            if (env('SMS_Work') == 'work') {
+                $code = rand(1111, 9999);
+                $this->sendSMS($request->phone, "كود التحقق هو $code");
+
+                 $code;
+            }
+            $code="1234";
+            $check_user->check_phone_api=$code;
+            $check_user->save();
+            return response()->json(['success' => true,"code"=>$code],200);
+
+        }else{
+            return response()->json(['success' => false, 'msg' => 'عزيزي العميل رقم الجوال المرسل غير موجد لدينا في الموقع الالكتروني يمكننا مساعدتكم من خلال الاتي '], 400);
+
+        }}
 
     }
+    public function verify_code(Request $request)
+    {
+        if($request->user_phone) {
+//            ALTER TABLE `users` ADD `check_phone_api` VARCHAR(256) NULL AFTER `phone_code`;
+            $phone=  str_replace("+966", '', $request->phone);
+
+            $check_user = User::where('phone', $phone)->where('check_phone_api',$request->code)->find();
+            if ($check_user->check_phone_api == $request->code ){
+                $ordersHistory = Order::where(['user_id'=>$check_user->id])
+                    ->whereIn('status',['under_work','visa','traning','musaned','contract','finished','canceled'])
+                    ->whereHas('admin', function ($q) {
+                        $q->where('id','!=',null);
+                    })
+                    ->whereHas('biography', function ($q) {
+                        $q->where('id','!=',null);
+                    })->with('admin','biography','biography.recruitment_office','biography.nationalitie',
+                        'biography.language_title',
+                        'biography.religion','biography.job',
+                        'biography.social_type','biography.images','biography.skills')
+                    ->latest()
+                    ->get();
+                return new OrdersCollection($ordersHistory);
+
+
+            }else{
+                return response()->json(['success' => false, 'msg' => 'عزيزي العميل رقم التحقق غير صحيح  يمكننا مساعدتكم من خلال الاتي '], 400);
+
+            }}
+
+    }
+
+
     public function contact_us_action(Request $request)
     {
         $data = $request->validate([

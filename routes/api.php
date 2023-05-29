@@ -35,6 +35,8 @@ Route::group(['namespace' => 'API'], function () {
     Route::group(['prefix' => 'home'], function () {
         Route::post('workers', 'HomeController@workers'); // home/products
         Route::post('transfer_service', 'HomeController@transferService'); // home/products
+        Route::post('send_code', 'HomeController@send_code'); // home/products
+        Route::post('verify_code', 'HomeController@verify_code'); // home/products
 
 
         Route::post('get_client_orders', 'HomeController@getClientOrders'); // home/products
