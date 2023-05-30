@@ -67,8 +67,10 @@
             </div>
             <!-- map -->
             <div class="col-md-12 p-2 pt-4">
+
                 <iframe class="googleMap wow fadeInUp "
-                        src="https://maps.google.com/maps?q={{$settings->latitude}},{{$settings->longitude}}&hl=ar&z=14&amp;output=embed">
+                    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14483.892742189346!2d46.7890977!3d24.8305906!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2eff27b2546bb3%3A0x437cf569d8f138b4!2z2YXZg9iq2Kgg2KfZhNis2YjZh9ix2Ycg2KfZhNin2YjZhNmK!5e0!3m2!1sen!2ssa!4v1685485907939!5m2!1sen!2ssa" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+
                 </iframe>
             </div>
         </div>
