@@ -96,10 +96,9 @@ class HomeController extends Controller
     }
     public function verify_code(Request $request)
     {
-        if($request->user_phone) {
+        if($request->phone) {
 //            ALTER TABLE `users` ADD `check_phone_api` VARCHAR(256) NULL AFTER `phone_code`;
             $phone=  str_replace("+966", '', $request->phone);
-
             $check_user = User::where('phone', $phone)->where('check_phone_api',$request->code)->find();
             if ($check_user->check_phone_api == $request->code ){
                 $ordersHistory = Order::where(['user_id'=>$check_user->id])
@@ -116,8 +115,6 @@ class HomeController extends Controller
                     ->latest()
                     ->get();
                 return new OrdersCollection($ordersHistory);
-
-
             }else{
                 return response()->json(['success' => false, 'msg' => 'عزيزي العميل رقم التحقق غير صحيح  يمكننا مساعدتكم من خلال الاتي '], 400);
 
