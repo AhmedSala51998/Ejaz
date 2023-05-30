@@ -71,11 +71,11 @@ class HomeController extends Controller
     }
     public function send_code(Request $request)
     {
-        if($request->user_phone) {
+        if($request->phone) {
 //            ALTER TABLE `users` ADD `check_phone_api` VARCHAR(256) NULL AFTER `phone_code`;
-          $phone=  str_replace("+966", '', $request->phone);
+          $phone=  str_replace("+966 ", '', $request->phone);
 
-        $check_user = User::where('phone', $phone)->find();
+        $check_user = User::where('phone', $phone)->first();
         if (!empty($check_user)){
             if (env('SMS_Work') == 'work') {
                 $code = rand(1111, 9999);
@@ -86,21 +86,25 @@ class HomeController extends Controller
             $code="1234";
             $check_user->check_phone_api=$code;
             $check_user->save();
-            return response()->json(['success' => true,"code"=>$code],200);
+            return response()->json(['success' => true, 'msg' =>"عزيزي العميل يرجي تزويدنا في رقم التحقق التي ارساله الي (رقم الجوال ) ","code"=>$code],200);
 
         }else{
             return response()->json(['success' => false, 'msg' => 'عزيزي العميل رقم الجوال المرسل غير موجد لدينا في الموقع الالكتروني يمكننا مساعدتكم من خلال الاتي '], 400);
 
-        }}
+        }}else{
+                return response()->json(['success' => false, 'msg' => 'عزيزي العميل رقم الجوال المرسل غير موجد لدينا في الموقع الالكتروني يمكننا مساعدتكم من خلال الاتي '], 400);
+
+        }
 
     }
     public function verify_code(Request $request)
     {
-        if($request->user_phone) {
+        if($request->phone) {
 //            ALTER TABLE `users` ADD `check_phone_api` VARCHAR(256) NULL AFTER `phone_code`;
-            $phone=  str_replace("+966", '', $request->phone);
+            $phone=  str_replace("+966 ", '', $request->phone);
 
-            $check_user = User::where('phone', $phone)->where('check_phone_api',$request->code)->find();
+            $check_user = User::where('phone', $phone)->where('check_phone_api',$request->code)->first();
+        if(!empty($check_user)){
             if ($check_user->check_phone_api == $request->code ){
                 $ordersHistory = Order::where(['user_id'=>$check_user->id])
                     ->whereIn('status',['under_work','visa','traning','musaned','contract','finished','canceled'])
@@ -121,7 +125,13 @@ class HomeController extends Controller
             }else{
                 return response()->json(['success' => false, 'msg' => 'عزيزي العميل رقم التحقق غير صحيح  يمكننا مساعدتكم من خلال الاتي '], 400);
 
-            }}
+            }
+        }else{
+                return response()->json(['success' => false, 'msg' => 'عزيزي العميل رقم التحقق غير صحيح  يمكننا مساعدتكم من خلال الاتي '], 400);
+
+            }
+            
+        }
 
     }
 
