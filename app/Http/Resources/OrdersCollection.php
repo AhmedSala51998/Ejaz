@@ -11,28 +11,44 @@ class OrdersCollection extends ResourceCollection
     {
         return [
             'data' => $this->collection->transform(function($data) {
-                if ($data->status == "canceled")
+                if ($data->status == "canceled"){
                  $status= __('frontend.orderCanceled');
-                elseif ($data->status == "under_work")
+                 $status_1="محذوف";
+                }
+                elseif ($data->status == "under_work"){
                     $status='تم حجز السيرة الذاتيه ';
+                      $status_1="حجز السيرة الذاتية";
+                }
                 elseif ($data->status == "visa")
+                {
                  $status= 'اصبح التعاقد الخاص بكم  فى مرحلة التفييز بنجاح ';
-                elseif ($data->status == "musaned")
-               $status= 'تم ربط العقد الخاص بكم في مساند بنجاح  ';
+                   $status_1="التفييز";
+                }
+                elseif ($data->status == "musaned"){
+                                $status= 'تم ربط العقد الخاص بكم في مساند بنجاح  ';
+                                  $status_1="مساند";
+   
+                }
 
-                elseif ($data->status == "traning")
+                elseif ($data->status == "traning"){
                 $status='اصبح التعاقد الخاص بكم فى مرحلة الاجراءات بنجاح ';
-
-                elseif ($data->status == "contract")
+                  $status_1="مرحلة الاجراءات";
+}
+                elseif ($data->status == "contract"){
                $status= ' تم قبول التعاقد الخاص بكم ';
-
-                elseif($data->status == "finished")
+                 $status_1="التعاقد";
+}
+                elseif($data->status == "finished"){
                $status= __('frontend.orderDone');
+                 $status_1="تم تسليم العاملة";
+                }
 
                 return [
                     'id' => $data->id,
                     'images' =>get_file($data->biography->cv_file),
                      'status'=>$status,
+                     "stage"=>$status_1,
+                     "passport"=>$data->biography->passport_number,
                     'nationality'=>$data->biography->nationalitie?$data->biography->nationalitie->title:"",
                     'occupation'=>$data->biography->job?$data->biography->job->title:"",
                     'arrived_at'=>(isset($data->arrived_at))? ((isset($data->arrived_at)) ?date('d-m-Y h:i a', strtotime($data->arrived_at)):"غير محدد"):"غير محدد",

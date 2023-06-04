@@ -36,7 +36,15 @@ Route::group(['namespace' => 'API'], function () {
         Route::post('workers', 'HomeController@workers'); // home/products
         Route::post('transfer_service', 'HomeController@transferService'); // home/products
         Route::post('send_code', 'HomeController@send_code'); // home/products
+        Route::post('send_code_phone_exit', 'HomeController@send_code_phone_exit'); // home/products
+          Route::post('contact_us_action', 'HomeController@contact_us_action'); // home/products
+
+
+        
         Route::post('verify_code', 'HomeController@verify_code'); // home/products
+                Route::post('complete_request', 'HomeController@completeTheRecruitmentRequest'); // home/products
+
+        
 
 
         Route::post('get_client_orders', 'HomeController@getClientOrders'); // home/products
