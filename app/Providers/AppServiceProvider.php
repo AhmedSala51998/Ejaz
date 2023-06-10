@@ -5,6 +5,11 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Setting;
+use Laravel\Passport\Passport;
+
+use App\Http\Resources\WorkersCollection;
+
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -24,13 +29,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-       
+
       // if(!in_array(request()->path(),['/','ar','en'])){
         //   abort(403);
        //}
-       
-        Schema::defaultStringLength(191);
 
+        Schema::defaultStringLength(191);
+        Passport::routes();
         view()->share('settings', Setting::first());
     }
 }
