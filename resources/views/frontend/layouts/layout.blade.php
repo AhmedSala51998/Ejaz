@@ -3,21 +3,25 @@
 
 <head>
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-DXNLF389JY"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DXNLF389JY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
 
-  gtag('config', 'G-DXNLF389JY');
-</script>
+        function gtag() {
+            dataLayer.push(arguments);
+        }
 
-    
+        gtag('js', new Date());
+
+        gtag('config', 'G-DXNLF389JY');
+    </script>
+
+
     <!-- Required meta tags -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <meta name="csrf-token" content="{{ csrf_token() }}"/>
     <title>
         {{$settings->title??"الجوهرة"}} - @yield('title')
     </title>
@@ -29,14 +33,15 @@
     @yield('styles')
 
     <style>
-        @keyframes placeHolderShimmer{
-            0%{
+        @keyframes placeHolderShimmer {
+            0% {
                 background-position: -468px 0
             }
-            100%{
+            100% {
                 background-position: 468px 0
             }
         }
+
         .linear-background {
             animation-duration: 1s;
             animation-fill-mode: forwards;
@@ -99,13 +104,13 @@
     <svg viewBox="0 0 194.38 194.38">
         <path class="cls-1" fill="#dcb065"
               d="M176.82,176.82C149.66,204,50.34,204,23.18,176.82S-4,50.34,23.18,23.18,149.66-4,176.82,23.18s27.16,126.48,0,153.64"
-              transform="translate(-2.81 -2.81)" />
+              transform="translate(-2.81 -2.81)"/>
         <path class="cls-2" fill="#09463f"
               d="M138.65,48.06a2.57,2.57,0,0,0-.21-.24l-.31-.25-.28-.19a3.29,3.29,0,0,0-.39-.17l-.27-.1a2.82,2.82,0,0,0-.7-.1H63.55a3,3,0,0,0-.74.1l-.17.07a2.91,2.91,0,0,0-.51.22,1.88,1.88,0,0,0-.18.12,3.12,3.12,0,0,0-.4.32L61.4,48a2.09,2.09,0,0,0-.2.22L44.94,71.29a2.88,2.88,0,0,0,0,3.27l52.72,77.76a2.87,2.87,0,0,0,4.75,0l15.94-23.52,36.77-54.24a2.88,2.88,0,0,0,0-3.27L138.81,48.23C138.76,48.16,138.7,48.12,138.65,48.06Zm-7.6,4.69L115.92,75.08,100.79,52.75Zm-37.2,0,18.6,27.45L100,98.55,69,52.75ZM100,145.6,50.78,73,63.5,54.93l1,1.47,48,70.79Zm16-23.53-12.47-18.4,4.08-6,28.95-42.72L149.22,73Z"
-              transform="translate(-2.81 -2.81)" />
+              transform="translate(-2.81 -2.81)"/>
         <path class="cls-3" fill="#09463f"
               d="M145.4,32.65H54.61L26.35,72.75,100,181.42,173.65,72.76h0ZM100,171.18,74.56,133.64,33.33,72.82,57.59,38.4h84.83l24.25,34.42Z"
-              transform="translate(-2.81 -2.81)" />
+              transform="translate(-2.81 -2.81)"/>
     </svg>
     <div class="spinner"></div>
 </div>
@@ -161,7 +166,7 @@
     var cv_loader = ` <div class="linear-background"></div>`;
 
 
-    $(document).on('click','.cvDetails',function (e) {
+    $(document).on('click', '.cvDetails', function (e) {
         e.preventDefault()
         var id = $(this).attr('attr-id');
         var url = '{{route('front.show-worker-details',":id")}}';
@@ -170,14 +175,14 @@
         $.ajax({
             url: url,
             type: 'GET',
-            beforeSend: function(){
+            beforeSend: function () {
                 $("#CVHere").html(cv_loader)
                 $('#showDetails').modal('show')
                 //$(".spinner").show()
             },
-            success: function(data){
+            success: function (data) {
                 //$(".spinner").hide()
-                window.setTimeout(function() {
+                window.setTimeout(function () {
                     $('#CVHere').html(data.html);
                 }, 1000);
                 new Swiper(".workerCvSlider", {
@@ -198,7 +203,7 @@
                     },
                 });
             },
-            error: function(data) {
+            error: function (data) {
                 $('#showDetails').modal('hide')
                 alert('{{__('frontend.errorTitleAuth')}}')
             }
@@ -206,7 +211,7 @@
 
     });
 
-    $(document).on('click','.Recruitment_Request',function (e){
+    $(document).on('click', '.Recruitment_Request', function (e) {
         e.preventDefault()
         var ob = $(this)
         var id = $(this).attr('attr-id');
@@ -214,38 +219,37 @@
 
         var customer_support = $("#customerSupport .customerSupport:checked").val()
         @if(auth()->check())
-            if(customer_support == '' ||customer_support == null)
-            {
-                cuteToast({
-                    type: "warning", // or 'info', 'error', 'warning'
-                    message: "{{__('frontend.please Select From Customer Support')}}",
-                    timer: 3000
-                })
-                return 0 ;
-            }
-        url = url.replace(':id', id)+"?customerSupport="+customer_support;
+        if (customer_support == '' || customer_support == null) {
+            cuteToast({
+                type: "warning", // or 'info', 'error', 'warning'
+                message: "{{__('frontend.please Select From Customer Support')}}",
+                timer: 3000
+            })
+            return 0;
+        }
+        url = url.replace(':id', id) + "?customerSupport=" + customer_support;
         $.ajax({
             url: url,
             type: 'GET',
-            beforeSend: function(){
-                ob.attr('disabled',true)
+            beforeSend: function () {
+                ob.attr('disabled', true)
                 ob.html(`<i class='fa fa-spinner fa-spin '></i>`)
             },
-            success: function(data){
-                ob.attr('disabled',false)
+            success: function (data) {
+                ob.attr('disabled', false)
                 ob.html(`{{__('frontend.Recruitment Request')}}
-                    <i class="fa-solid fa-briefcase ms-2"></i>`)
+                <i class="fa-solid fa-briefcase ms-2"></i>`)
                 cuteAlert({
                     title: "{{__('frontend.Congratulation')}}",
                     message: `{{__('frontend.Thanks ,We will contact you as soon as possible.')}}`,
                     type: "success", // or 'info', 'error', 'warning'
                     buttonText: "{{__('frontend.ok')}}"
-                }).then((e)=>{
+                }).then((e) => {
                     location.replace("{{route('auth.profile')}}")
                 })
 
             },
-            error: function(data) {
+            error: function (data) {
                 ob.html(`{{__('frontend.Recruitment Request')}}
                 <i class="fa-solid fa-briefcase ms-2"></i>`)
                 if (data.status === 400) {
@@ -280,8 +284,8 @@
         {{--    }--}}
         {{--})--}}
 
-        var url="{{route('register',':id')}}";
-        url=url.replace(':id',id);
+        var url = "{{route('register',':id')}}";
+        url = url.replace(':id', id);
         location.replace(url);
 
         @endif
@@ -291,9 +295,9 @@
 </script>
 
 @if(LaravelLocalization::getCurrentLocale() == 'ar')
-<script src="{{asset('frontend/jQuery-Form-Validator/form-validator/lang/ar.js')}}"></script>
+    <script src="{{asset('frontend/jQuery-Form-Validator/form-validator/lang/ar.js')}}"></script>
 @else
-<script src="{{asset('frontend/jQuery-Form-Validator/form-validator/jquery.form-validator.js')}}"></script>
+    <script src="{{asset('frontend/jQuery-Form-Validator/form-validator/jquery.form-validator.js')}}"></script>
 @endif
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/additional-methods.min.js"></script>
@@ -302,13 +306,13 @@
 <script>
     $.validate({
         ignore: 'input[type=hidden]',
-        modules : 'date, security',
-        lang:"{{ LaravelLocalization::getCurrentLocale() }}",
+        modules: 'date, security',
+        lang: "{{ LaravelLocalization::getCurrentLocale() }}",
     });
 
 </script>
 <script>
-    $(document).on('click','.ignoreHref',function (e){
+    $(document).on('click', '.ignoreHref', function (e) {
         e.preventDefault();
     })
 </script>
@@ -319,7 +323,35 @@
 {{--        }--}}
 {{--    });--}}
 {{--</script>--}}
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<div class="floating-container">
+    <div class="floating-button"><i class="material-icons">headset_mic</i></div>
+    <div class="element-container">
 
+        <a  href="tel:{{$settings->callNumber}}" target="_blank">
+          <span class="float-element tooltip-left">
+              <i class="material-icons">phone
+              </i>
+          </span>
+        </a>
+
+         <span class="float-element">
+             <a  href="https://api.whatsapp.com/send?phone={{$settings->whatsappNumber}}" target="_blank">
+          <i style="color: white" class="material-icons">chat
+          </i>
+                  </a>
+         </span>
+
+        <span class="float-element">
+                    <a href="tel:{{$settings->callNumber}}" target="_blank" >
+
+          <i style="color: white" class="material-icons">mail</i>
+                         </a>
+        </span>
+
+    </div>
+</div>
+<script type="text/javascript" id="zsiqchat">var $zoho=$zoho || {};$zoho.salesiq = $zoho.salesiq || {widgetcode: "96fbf6a9cae9f05c1e5ac0b63565e3b5454df5e34c8596d04ba3cf0e7194f779", values:{},ready:function(){}};var d=document;s=d.createElement("script");s.type="text/javascript";s.id="zsiqscript";s.defer=true;s.src="https://salesiq.zoho.com/widget";t=d.getElementsByTagName("script")[0];t.parentNode.insertBefore(s,t);</script>
 </body>
 @toastr_render
 </html>
