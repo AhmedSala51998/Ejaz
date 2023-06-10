@@ -2,29 +2,30 @@
 
 
     <section class="footer">
-        <a   href="https://api.whatsapp.com/send?phone={{$settings->whatsappNumber}}" target="_blank">
-        <div  class="container-wa">
+{{--        <a   href="https://api.whatsapp.com/send?phone={{$settings->whatsappNumber}}" target="_blank">--}}
+{{--        <div  class="container-wa">--}}
 
-            <div  class="floating-button">
+{{--            <div  class="floating-button">--}}
 
-                    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+{{--                    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">--}}
 
-                    <i class="fa fa-whatsapp icon wa"></i>
+{{--                    <i class="fa fa-whatsapp icon wa"></i>--}}
 
-            </div>
-        </div>
-        </a>
-        <a href="tel:{{$settings->callNumber}}" target="_blank">
-            <div class="container-call">
+{{--            </div>--}}
+{{--        </div>--}}
+{{--        </a>--}}
+{{--        <a href="tel:{{$settings->callNumber}}" target="_blank">--}}
+{{--            <div class="container-call">--}}
 
-                <div class="floating-button">
+{{--                <div class="floating-button">--}}
 
-                    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+{{--                    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">--}}
 
-                    <i class="fa-regular fa-phone"></i>
-                </div>
-            </div>
-        </a>
+{{--                    <i class="fa-regular fa-phone"></i>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </a>--}}
+{{--       --}}
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-7 p-2 ">
