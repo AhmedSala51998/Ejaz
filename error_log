@@ -1,0 +1,4 @@
+[10-Jun-2023 05:22:18 America/Chicago] PHP Fatal error:  Uncaught Error: Call to undefined function dd() in /home2/aljawhra/public_html/index.php:2
+Stack trace:
+#0 {main}
+  thrown in /home2/aljawhra/public_html/index.php on line 2

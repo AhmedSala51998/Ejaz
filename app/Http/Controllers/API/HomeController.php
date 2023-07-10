@@ -50,7 +50,7 @@ class HomeController extends Controller
                 'religion', 'job', 'social_type', 'admin', 'images', 'skills')
             ->latest()
 
-            ->paginate(3);
+            ->paginate(2);
 
 
         return new WorkersCollection($cvs);
@@ -66,7 +66,7 @@ class HomeController extends Controller
             ->with('recruitment_office','nationalitie','language_title',
                 'religion','job','social_type','admin','images','skills')->where('type','transport')
             ->latest()
-            ->paginate(3);
+            ->paginate(2);
         return new WorkersCollection($cvs);
     }
        public function send_code_phone_exit(Request $request)
@@ -77,13 +77,14 @@ class HomeController extends Controller
 
         $check_user = User::where('phone', $phone)->first();
         if (!empty($check_user)){
+            //   $code="1234";
             if (env('SMS_Work') == 'work') {
                 $code = rand(1111, 9999);
                 $this->sendSMS($request->phone, "كود التحقق هو $code");
 
                
             }
-            $code="1234";
+          
             $check_user->check_phone_api=$code;
             $check_user->save();
             return response()->json(['success' => true,"code"=>$code],200);
@@ -94,21 +95,52 @@ class HomeController extends Controller
         }}
 
     }
+     public function verfiy_phone(Request $request)
+    {
+             $phone=  str_replace("+966 ", '', $request->phone);
+          $regex = "/^(05)[0-9]{8}$|^(5)[0-9]{8}$/";
+        if (!preg_match($regex, $phone)) {
+             return response()->json(['success' => false, 
+             'msg' => 'رقم الجوال غير صحيح'], 400);
+        }else{
+                $user = User::where([
+            'phone'=>$phone,
+            'type'=>'normal_user',
+        ])->first();
+       
+        if (!empty($user) ){
+               return response(['success' => false,"msg"=>"نأسف رقم الهاتف موجد بالفعل"], 400);
+        }else{
+      
+            return response()->json(['success' => true, 'msg' =>"ادخل رقم هاتفك على الصيغة التالية لاستكمال طلبك"]);
+        }
+        }
+         
+    }
     public function send_code(Request $request)
     {
+         $phone=  str_replace("+966 ", '', $request->phone);
+          $regex = "/^(05)[0-9]{8}$|^(5)[0-9]{8}$/";
+        if (!preg_match($regex, $phone)) {
+             return response()->json(['success' => false, 
+             'msg' => 'رقم الجوال غير صحيح'], 400);
+        }
+         
         if($request->phone) {
 //            ALTER TABLE `users` ADD `check_phone_api` VARCHAR(256) NULL AFTER `phone_code`;
-          $phone=  str_replace("+966 ", '', $request->phone);
+         
+        
 
         // $check_user = User::where('phone', $phone)->first();
         // if (!empty($check_user)){
+        //  $code="1234";
             if (env('SMS_Work') == 'work') {
                 $code = rand(1111, 9999);
-                $this->sendSMS($request->phone, "كود التحقق هو $code");
+                $this->sendSMS($phone, "كود التحقق هو $code");
 
             //      $code;
             }
-            $code="1234";
+           
             // $check_user->check_phone_api=$code;
             // $check_user->save();
             return response()->json(['success' => true, 'msg' =>"عزيزي العميل يرجي تزويدنا في رقم التحقق التي ارساله الي (رقم الجوال ) ","code"=>$code],200);
