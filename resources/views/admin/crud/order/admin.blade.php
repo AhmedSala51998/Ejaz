@@ -393,6 +393,76 @@
             });
 
         });
+        $(document).on('click', '.add_note', function () {
+            var id = $(this).attr('id');
+
+
+            Swal.fire({
+                html: `  <input type="text"  class="swal2-input" id="note" placeholder="ملحوظه" name="note" required>` ,
+                title: "برجاء ادخال ملحوظة الاستعلام",
+                text: "لا يمكنك التراجع بعد ذلك !",
+                type: "input",
+                showCancelButton: true,
+                animation: "slide-from-top",
+                onOpen: function() {
+
+                },
+                confirmButtonColor: '#ff675e',
+                confirmButtonText: "موافق",
+                cancelButtonText: "إلغاء",
+                okButtonText: "موافق",
+                closeOnConfirm: false,
+                preConfirm: () => {
+                    if (document.getElementById('note').value ) {
+                        // Handle return value
+                    } else {
+                        Swal.showValidationMessage('برجاء ادخل  ملحوظة الاستعلام')
+                    }
+                }
+            }).then((result) => {
+                // console.log(result)
+                if (result.value) {
+                    console.log( $('input[type=file]')[0].files[0])
+                    var note =document.getElementById('note').value;
+
+                    var formData = new FormData();
+                    formData.append('note', document.getElementById('note').value);
+                    formData.append('status', status);
+                    formData.append('id', id);
+
+
+
+                    var url = '{{ route("notes.add", ":id")}}';
+                    url = url.replace(':id', id);
+                    $.ajax({
+                        url: url,
+                        type: 'POST',
+                        data:formData,
+                        processData: false,
+                        contentType: false,
+                        success: function (data) {
+                            cuteToast({
+                                type: "success", // or 'info', 'error', 'warning'
+                                message: "تم تنفيذ العملية بنجاح",
+                                timer: 3000
+                            });
+                            datatable_selector.draw();
+                            //console.log(200)
+                        }, error: function (data) {
+                            //console.log(500)
+                            swal.close()
+                            cuteToast({
+                                type: "error", // or 'info', 'error', 'warning'
+                                message: "أنت لا تملك الصلاحية لفعل هذا ",
+                                timer: 3000
+                            });
+                        }
+
+                    });
+                }
+            });
+
+        });
 
         /*======================================================*/
         /*======================================================*/

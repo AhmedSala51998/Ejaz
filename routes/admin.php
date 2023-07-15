@@ -107,6 +107,9 @@ Route::group(['prefix' => 'admin'], function () {
 
 
 
+            Route::resource('notes', 'AdminNotesController');
+            Route::get('notes/index/{id}', 'AdminNotesController@index')->name('notes.list');
+            Route::post('notes/add/{id}', 'AdminNotesController@store')->name('notes.add');
 
 
             //الخبرة للسيرة الذاتية

@@ -163,6 +163,8 @@ class AdminOrderController extends Controller
                 ->addColumn('actions', function ($row) {
                     $status='';
                     $delete='';
+$add_note= " <a href='#'  class='btn btn-warning add_note' id='" . $row->id . "'> اضافة ملاحظة  </a>";
+                    $notes=" <a href='".route('notes.list',['id'=>$row->id])."'  class='btn btn-dark add_note'>ملاحظات</a>";
 
 
                     if ($row->status == "new" || $row->status == "under_work") {
@@ -170,6 +172,7 @@ class AdminOrderController extends Controller
                         $text = "إتمام التعاقد";
                         return "
                     <a href='#' $status data-status='".$status."' class='btn btn-info update-contract-at' id='" . $row->id . "'> ".$text."  </a>
+$add_note $notes
                    <a  $delete style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
 
 
@@ -179,11 +182,13 @@ class AdminOrderController extends Controller
                           if (empty($row->contact_num)) {
                         return "
                     <a href='#' $status data-status='".$status."' class='btn btn-info update-status' id='" . $row->id . "'> ".$text."  </a>
+                  $add_note $notes
                     <a href='#' $status data-status='".$status."' class='btn btn-success update-contract' id='" . $row->id . "'> رقم العقد  </a>
                    <a  $delete style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
                    }else{
                           return "
                     <a href='#' $status data-status='".$status."' class='btn btn-info update-status' id='" . $row->id . "'> ".$text."  </a>
+                    $add_note $notes
                    <a  $delete style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
                    }
                     }
@@ -193,12 +198,13 @@ class AdminOrderController extends Controller
                         if (empty($row->contact_num)) {
                         return "
                     <a href='#' $status data-status='".$status."' class='btn btn-info update-status' id='" . $row->id . "'> ".$text."  </a>
-                                        <a href='#' $status data-status='".$status."' class='btn btn-success update-contract' id='" . $row->id . "'> رقم العقد  </a>
-
+                    $add_note $notes
+                      <a href='#' $status data-status='".$status."' class='btn btn-success update-contract' id='" . $row->id . "'> رقم العقد  </a>
                    <a  $delete style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
                        }else{
                           return "
                     <a href='#' $status data-status='".$status."' class='btn btn-info update-status' id='" . $row->id . "'> ".$text."  </a>
+                    $add_note $notes
                    <a  $delete style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
                    }
                     }
@@ -208,37 +214,50 @@ class AdminOrderController extends Controller
                         if (empty($row->contact_num)) {
                         return "
                     <a href='#' $status data-status='".$status."' class='btn btn-info update-status' id='" . $row->id . "'> ".$text."  </a>
-                                        <a href='#' $status data-status='".$status."' class='btn btn-success update-contract' id='" . $row->id . "'> رقم العقد  </a>
+                    $add_note $notes
+                      <a href='#' $status data-status='".$status."' class='btn btn-success update-contract' id='" . $row->id . "'> رقم العقد  </a>
 
                    <a  $delete style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
                        }else{
                           return "
                     <a href='#' $status data-status='".$status."' class='btn btn-info update-status' id='" . $row->id . "'> ".$text."  </a>
+                    $add_note $notes
                    <a  $delete style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
                    }
                     }
                     elseif ($row->status == "visa") {
-                        $status="finished";
+                        $status="visa";
                         $text = "وصول العمالة";
                         if (empty($row->contact_num)) {
                         return "
                     <a href='#' $status data-status='".$status."' class='btn btn-info update-status' id='" . $row->id . "'> ".$text."  </a>
                                         <a href='#' $status data-status='".$status."' class='btn btn-success update-contract' id='" . $row->id . "'> رقم العقد  </a>
-
+$add_note $notes
                    <a  $delete style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
                        }else{
                           return "
                     <a href='#' $status data-status='".$status."' class='btn btn-info update-status' id='" . $row->id . "'> ".$text."  </a>
+                    $add_note $notes
                    <a  $delete style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
                    }
                     }
                     elseif ($row->status == "finished") {
-                        return "                   <a  $delete style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
+                        $status="finished";
 
+                        if (empty($row->contact_num)) {
+                            return "
+                                        <a href='#' $status data-status='".$status."' class='btn btn-success update-contract' id='" . $row->id . "'> رقم العقد  </a>
+$add_note $notes
+                                     <a  $delete style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
 
+                        }else{
+                            return "
+                            $add_note $notes
+                   <a  $delete style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
+                        }
                     }
                     else {
-                        return "                   <a  $delete style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
+                        return "         $add_note $notes          <a  $delete style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
 
 
                     }
@@ -407,10 +426,10 @@ class AdminOrderController extends Controller
         $order = Order::where("id", $id)->first();
         $status=[];
         $admin=$order->admin->name??'';
-      
+
             $order->contact_num=$request->contact_num;
             $order->save();
-       
+
         $msg= $admin. " الرجاء المتابعه مع ".$order->contact_num. "عزيزي العميل رقم العقد الخاص بيك ";
 
         $status['contract']=$msg;
