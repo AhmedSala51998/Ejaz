@@ -97,7 +97,7 @@ class AdminNotesController extends Controller
         ]);
         $data['note'] = $request->note;
         $data['order_id'] = $id;
-        $data = $request->except('id');
+        $data = $request->except('id','status');
         /*  $data ['image'] = $this->uploadFiles('our_services',$request->file('image'),null );*/
         Notes::create($data);
         $params=array(
