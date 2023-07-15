@@ -109,7 +109,8 @@ class HomeController extends Controller
         ])->first();
        
         if (!empty($user) ){
-               return response(['success' => false,"msg"=>"نأسف رقم الهاتف موجد بالفعل"], 400);
+               return response(['success' => false,"msg"=>" نأسف رقم الهاتف مسجل لدينا بالموقع رجاء ادخال رقم جديد "], 400);
+
         }else{
       
             return response()->json(['success' => true, 'msg' =>"ادخل رقم هاتفك على الصيغة التالية لاستكمال طلبك"]);
@@ -171,7 +172,8 @@ class HomeController extends Controller
         ])->first();
        
         if (!empty($user) ){
-               return response(['success' => false,"msg"=>"نأسف رقم الهاتف موجد بالفعل"], 400);
+            return response(['success' => false,"msg"=>" نأسف رقم الهاتف مسجل لدينا بالموقع رجاء ادخال رقم جديد "], 400);
+
         }
       
            $use_data = [
@@ -260,15 +262,15 @@ class HomeController extends Controller
     }//end fun
 
 
-    public function getClientOrders(Request $request)
+     public function getClientOrders(Request $request)
     {
 
-        if($request->user_phone) {
-            $user = User::where('phone', $request->user_phone)->first();
+        if($request->contact_num) {
+            $order = Order::where('contact_num', $request->contact_num)->first();
 
-            if (!empty($user)) {
+            if (!empty($order)) {
                 $currentOrders = Order::where([
-                    'user_id' => $user->id,
+                    'contact_num' =>$request->contact_num,
 
                 ])->whereHas('admin', function ($q) {
                     $q->where('id', '!=', null);
@@ -286,11 +288,12 @@ class HomeController extends Controller
 
 
             } else {
-                return response()->json(['success' => false, 'msg' => 'هذا الرقم غير مسجل فى سجلتنا'], 400);
+                                return response()->json(['success' => false, 'msg' => 'ﻻ يوجد طلب استقدام برقم العقد يمكننى مساعدتك من خلال الاتى'], 400);
+
 
             }
         }else{
-            return response()->json(['success' => false, 'msg' => 'برجاء ارسل رقمك المسجل لدينا'], 400);
+            return response()->json(['success' => false, 'msg' => 'برجاء ارسل رقم العقد الخاص بطلب الاستقدام  لدينا'], 400);
 
         }
     }//end fun

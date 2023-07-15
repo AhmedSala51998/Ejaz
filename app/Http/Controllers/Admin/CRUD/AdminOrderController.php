@@ -78,7 +78,7 @@ class AdminOrderController extends Controller
             }else{
 
                 if ($count>0) {
-                    $dataTables = Order::query()->where("admin_id",)->orderBy("id", "DESC")->get();
+                    $dataTables = Order::query()->where("admin_id",$admin->id)->orderBy("id", "DESC")->get();
 
                 }
                 else {
@@ -139,6 +139,9 @@ class AdminOrderController extends Controller
                 ->addColumn('admin', function ($row) {
                     return (isset($row->admin->name)) ? $row->admin->name : "غير محدد ";
                 })
+                  ->editColumn('contact_num', function ($row) {
+                    return $row->contact_num ??'--';
+                })
 //                ->addColumn('actions', function ($row) {
 //                    $compelete = '';
 //                    $delete = '';
@@ -166,37 +169,68 @@ class AdminOrderController extends Controller
                         $status="contract";
                         $text = "إتمام التعاقد";
                         return "
-                    <a href='#' $status data-status='".$status."' class='btn btn-info update-status' id='" . $row->id . "'> ".$text."  </a>
+                    <a href='#' $status data-status='".$status."' class='btn btn-info update-contract-at' id='" . $row->id . "'> ".$text."  </a>
                    <a  $delete style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
 
 
                     } elseif ($row->status == "contract") {
                         $status="musaned";
                         $text = "الربط في مساند";
+                          if (empty($row->contact_num)) {
                         return "
                     <a href='#' $status data-status='".$status."' class='btn btn-info update-status' id='" . $row->id . "'> ".$text."  </a>
+                    <a href='#' $status data-status='".$status."' class='btn btn-success update-contract' id='" . $row->id . "'> رقم العقد  </a>
                    <a  $delete style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
+                   }else{
+                          return "
+                    <a href='#' $status data-status='".$status."' class='btn btn-info update-status' id='" . $row->id . "'> ".$text."  </a>
+                   <a  $delete style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
+                   }
                     }
                     elseif ($row->status == "musaned") {
                         $status="traning";
                         $text = "تحت الاجراء";
+                        if (empty($row->contact_num)) {
                         return "
                     <a href='#' $status data-status='".$status."' class='btn btn-info update-status' id='" . $row->id . "'> ".$text."  </a>
+                                        <a href='#' $status data-status='".$status."' class='btn btn-success update-contract' id='" . $row->id . "'> رقم العقد  </a>
+
                    <a  $delete style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
+                       }else{
+                          return "
+                    <a href='#' $status data-status='".$status."' class='btn btn-info update-status' id='" . $row->id . "'> ".$text."  </a>
+                   <a  $delete style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
+                   }
                     }
                     elseif ($row->status == "traning") {
                         $status="visa";
                         $text = "تفييز العمالة";
+                        if (empty($row->contact_num)) {
                         return "
                     <a href='#' $status data-status='".$status."' class='btn btn-info update-status' id='" . $row->id . "'> ".$text."  </a>
+                                        <a href='#' $status data-status='".$status."' class='btn btn-success update-contract' id='" . $row->id . "'> رقم العقد  </a>
+
                    <a  $delete style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
+                       }else{
+                          return "
+                    <a href='#' $status data-status='".$status."' class='btn btn-info update-status' id='" . $row->id . "'> ".$text."  </a>
+                   <a  $delete style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
+                   }
                     }
                     elseif ($row->status == "visa") {
                         $status="finished";
                         $text = "وصول العمالة";
+                        if (empty($row->contact_num)) {
                         return "
                     <a href='#' $status data-status='".$status."' class='btn btn-info update-status' id='" . $row->id . "'> ".$text."  </a>
+                                        <a href='#' $status data-status='".$status."' class='btn btn-success update-contract' id='" . $row->id . "'> رقم العقد  </a>
+
                    <a  $delete style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
+                       }else{
+                          return "
+                    <a href='#' $status data-status='".$status."' class='btn btn-info update-status' id='" . $row->id . "'> ".$text."  </a>
+                   <a  $delete style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
+                   }
                     }
                     elseif ($row->status == "finished") {
                         return "                   <a  $delete style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
@@ -211,7 +245,7 @@ class AdminOrderController extends Controller
 
                 })
                 ->rawColumns(['image', 'created_at', 'status', 'nationalitie_id', 'passport_number',
-                    'biography_number', 'user', 'admin', 'actions'
+                    'biography_number', 'user', 'admin', 'actions','contact_num'
                 ])->make(true);
         }
         return view('admin.crud.order.admin');
@@ -279,10 +313,16 @@ class AdminOrderController extends Controller
         $country=substr($biograpy->nationalitie->title??'', 0, 5);
         $admin=$order->admin->name??'';
 
-        $msg="عزيزي العميل تم قبول التعاقد الخاص بكم برقم حجز
-( $biography->passport_number .$country  )
-الرجاء المتابعه مع
-( $admin )";
+  if($request->status=="contract"){
+            $order->contact_num=$request->contact_num;
+            $order->save();
+        }
+        $msg= $admin. " الرجاء المتابعه مع ".$order->contact_num. "عزيزي العميل تم قبول التعاقد الخاص بكم برقم العقد ";
+
+//         $msg="عزيزي العميل تم قبول التعاقد الخاص بكم برقم حجز
+// ( $biography->passport_number .$country  )
+// الرجاء المتابعه مع
+// ( $admin )";
         $status['contract']=$msg;
         $status['musaned']="تم ربط العقد الخاص بكم في مساند بنجاح ";
         $status['traning']="اصبح التعاقد الخاص بكم فى مرحلة الاجراءات بنجاح ";
@@ -361,6 +401,26 @@ class AdminOrderController extends Controller
 //        return $result;
 //    }
 
+   public function updateContactNum(Request $request, $id)
+    {
+
+        $order = Order::where("id", $id)->first();
+        $status=[];
+        $admin=$order->admin->name??'';
+      
+            $order->contact_num=$request->contact_num;
+            $order->save();
+       
+        $msg= $admin. " الرجاء المتابعه مع ".$order->contact_num. "عزيزي العميل رقم العقد الخاص بيك ";
+
+        $status['contract']=$msg;
+            $user=User::find($order->user_id);
+            if(!empty($user)){
+                $this->sendSMS($user->phone, $status[$request->status]);
+
+            }
+
+    }//end fun
 
 
     public function destroy($id)

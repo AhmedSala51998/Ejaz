@@ -188,6 +188,9 @@ Route::group(['prefix' => 'admin'], function () {
 
             // -------------------------------------
             Route::resource('admin-orders', 'AdminOrderController');
+                        Route::post('admin-orders_update/{id}', 'AdminOrderController@update')->name('admin-orders.post');
+            Route::post('updateContactNum/{id}', 'AdminOrderController@updateContactNum')->name('contactNum.post');
+
             Route::delete('admin-orders/delete/bulk', 'AdminOrderController@delete_all')
                 ->name('admin-orders.delete.bulk');
 

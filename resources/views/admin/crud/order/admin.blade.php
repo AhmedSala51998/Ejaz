@@ -58,7 +58,7 @@
                             <th> موظف خدمة العملاء</th>
                             <th>السيرة الذاتية</th>
                             <th>رقم جواز السفر</th>
-{{--                            <th>رقم سجل السيرة الذاتية</th>--}}
+   <th>رقم العقد </th>
                             <th>الجنسية</th>
                             <th>الحالة</th>
                             <th>التاريخ</th>
@@ -123,7 +123,7 @@
                 {"data": "admin", orderable: false, searchable: false},
                 {"data": "image", orderable: false, searchable: false},
                 {"data": "passport_number", orderable: false, searchable: true},
-                // {"data": "biography_number", orderable: false, searchable: true},
+                {"data": "contact_num", orderable: false, searchable: true},
                 {"data": "nationalitie_id", orderable: false, searchable: true},
                 {"data": "status", orderable: false, searchable: true},
                 {"data": "created_at", searchable: false},
@@ -250,7 +250,149 @@
             });
 
         });
+  $(document).on('click', '.update-contract-at', function () {
+            var id = $(this).attr('id');
+            var status =$(this).attr("data-status");
 
+
+            Swal.fire({
+                html: `  <input type="text"  class="swal2-input" id="contact_num" placeholder="رقم التعاقد" name="contact_num" required>` ,
+                title: "برجاء ادخال رقم التعاقد",
+                text: "لا يمكنك التراجع بعد ذلك !",
+                type: "input",
+                showCancelButton: true,
+                animation: "slide-from-top",
+                onOpen: function() {
+
+                },
+                confirmButtonColor: '#ff675e',
+                confirmButtonText: "موافق",
+                cancelButtonText: "إلغاء",
+                okButtonText: "موافق",
+                closeOnConfirm: false,
+                preConfirm: () => {
+                    if (document.getElementById('contact_num').value ) {
+                        // Handle return value
+                    } else {
+                        Swal.showValidationMessage('برجاء ادخل الرقم التعاقد')
+                    }
+                }
+            }).then((result) => {
+                // console.log(result)
+                if (result.value) {
+                    console.log( $('input[type=file]')[0].files[0])
+                    var contact_num =document.getElementById('contact_num').value;
+
+                    var formData = new FormData();
+                    formData.append('contact_num', document.getElementById('contact_num').value);
+                    formData.append('status', status);
+                    formData.append('id', id);
+
+
+
+                    var url = '{{ route("admin-orders.post", ":id")}}';
+                    url = url.replace(':id', id);
+                    $.ajax({
+                        url: url,
+                        type: 'POST',
+                        data:formData,
+                        processData: false,
+                        contentType: false,
+                        success: function (data) {
+                            cuteToast({
+                                type: "success", // or 'info', 'error', 'warning'
+                                message: "تم تنفيذ العملية بنجاح",
+                                timer: 3000
+                            });
+                            datatable_selector.draw();
+                            //console.log(200)
+                        }, error: function (data) {
+                            //console.log(500)
+                            swal.close()
+                            cuteToast({
+                                type: "error", // or 'info', 'error', 'warning'
+                                message: "أنت لا تملك الصلاحية لفعل هذا ",
+                                timer: 3000
+                            });
+                        }
+
+                    });
+                }
+            });
+
+        });
+
+  $(document).on('click', '.update-contract', function () {
+            var id = $(this).attr('id');
+            var status =$(this).attr("data-status");
+
+
+            Swal.fire({
+                html: `  <input type="text"  class="swal2-input" id="contact_num" placeholder="رقم التعاقد" name="contact_num" required>` ,
+                title: "برجاء ادخال رقم التعاقد",
+                text: "لا يمكنك التراجع بعد ذلك !",
+                type: "input",
+                showCancelButton: true,
+                animation: "slide-from-top",
+                onOpen: function() {
+
+                },
+                confirmButtonColor: '#ff675e',
+                confirmButtonText: "موافق",
+                cancelButtonText: "إلغاء",
+                okButtonText: "موافق",
+                closeOnConfirm: false,
+                preConfirm: () => {
+                    if (document.getElementById('contact_num').value ) {
+                        // Handle return value
+                    } else {
+                        Swal.showValidationMessage('برجاء ادخل الرقم التعاقد')
+                    }
+                }
+            }).then((result) => {
+                // console.log(result)
+                if (result.value) {
+                    console.log( $('input[type=file]')[0].files[0])
+                    var contact_num =document.getElementById('contact_num').value;
+
+                    var formData = new FormData();
+                    formData.append('contact_num', document.getElementById('contact_num').value);
+                    formData.append('status', status);
+                    formData.append('id', id);
+
+
+
+                    var url = '{{ route("contactNum.post", ":id")}}';
+                    url = url.replace(':id', id);
+                    $.ajax({
+                        url: url,
+                        type: 'POST',
+                        data:formData,
+                        processData: false,
+                        contentType: false,
+                        success: function (data) {
+                            cuteToast({
+                                type: "success", // or 'info', 'error', 'warning'
+                                message: "تم تنفيذ العملية بنجاح",
+                                timer: 3000
+                            });
+                            datatable_selector.draw();
+                            //console.log(200)
+                        }, error: function (data) {
+                            //console.log(500)
+                            swal.close()
+                            cuteToast({
+                                type: "error", // or 'info', 'error', 'warning'
+                                message: "أنت لا تملك الصلاحية لفعل هذا ",
+                                timer: 3000
+                            });
+                        }
+
+                    });
+                }
+            });
+
+        });
 
         /*======================================================*/
         /*======================================================*/
