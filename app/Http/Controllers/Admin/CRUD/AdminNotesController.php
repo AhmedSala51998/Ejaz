@@ -87,10 +87,50 @@ class AdminNotesController extends Controller
      */
     public function store(Request $request,$id)
     {
-dd( $request,$id);
-        $data['name'] = $request->name;
+
+        $data = $this->validate($request, [
+            /* 'image'=>'nullable|file|image',*/
+            'note' => 'required',
+            'order_id' => 'required',
+            /* 'desc'=>'required|array',
+             'desc.*'=>'required',*/
+        ]);
+        $data['note'] = $request->note;
+        $data['order_id'] = $id;
         /*  $data ['image'] = $this->uploadFiles('our_services',$request->file('image'),null );*/
         Notes::create($data);
+        $params=array(
+            'token' => '4swdwztymusjggiv',
+            'to' => '+201278295433',
+            'body' => $request->note
+        );
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://api.ultramsg.com/instance54417/",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_SSL_VERIFYHOST => 0,
+            CURLOPT_SSL_VERIFYPEER => 0,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => http_build_query($params),
+            CURLOPT_HTTPHEADER => array(
+                "content-type: application/x-www-form-urlencoded"
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+            echo "cURL Error #:" . $err;
+        } else {
+            echo $response;
+        }
         return response()->json(1, 200);
 
     }
@@ -136,7 +176,7 @@ dd( $request,$id);
         $slider = Notes::findOrFail($id);
         $data = $this->validate($request, [
             /* 'image'=>'nullable|file|image',*/
-            'note' => 'required|array',
+            'note' => 'required',
             'order_id' => 'required',
             /* 'desc'=>'required|array',
              'desc.*'=>'required',*/
