@@ -11,6 +11,7 @@ class OrdersCollection extends ResourceCollection
     {
         return [
             'data' => $this->collection->transform(function($data) {
+         
                 if ($data->status == "canceled"){
                  $status= __('frontend.orderCanceled');
                  $status_1="محذوف";
@@ -42,6 +43,7 @@ class OrdersCollection extends ResourceCollection
                $status= __('frontend.orderDone');
                  $status_1="تم تسليم العاملة";
                 }
+
 
                 return [
                     'id' => $data->id,

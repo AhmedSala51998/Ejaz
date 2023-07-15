@@ -49,7 +49,6 @@ Route::group(['namespace' => 'API'], function () {
 
         
 
-
         Route::post('get_client_orders', 'HomeController@getClientOrders'); // home/products
         Route::get('get_request_info', 'HomeController@getRequestInfo'); // settings/categories
 

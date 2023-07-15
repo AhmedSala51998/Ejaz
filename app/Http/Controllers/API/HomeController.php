@@ -5,32 +5,22 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\OrdersCollection;
 use App\Http\Resources\WorkersCollection;
-use App\Models\AgeRange;
 use App\Models\Biography;
 use App\Models\Contact;
-use App\Models\Job;
 use App\Models\Nationalitie;
 use App\Models\Order;
+
+
 use App\Models\User;
-use App\Services\SMS\MesgatSMS;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Models\Admin;
+
 class HomeController extends Controller
 {
-    use MesgatSMS;
     public function getRequestInfo(Request $request)
     {
         $nationalities = Nationalitie::get()->pluck('id','title');
-
-        $admins = \App\Models\Admin::where('admin_type','!=',0)->pluck('whats_up_number','name');
-//        $admins_array=[];
-//        foreach ($admins as $key=>$val){
-//            $admins_array[$val->id]['name']=$val->name;
-//            $admins_array[$val->id]['']=$val->name;
-//
-//        }
-
+        $admins = \App\Models\Admin::where('admin_type','!=',0)->get()->pluck('id','name');
         return response()->json([
             'success' => true,
             'nationalities' => $nationalities,
@@ -49,203 +39,14 @@ class HomeController extends Controller
             ->with('recruitment_office', 'nationalitie', 'language_title',
                 'religion', 'job', 'social_type', 'admin', 'images', 'skills')
             ->latest()
-
-            ->paginate(2);
-
+            ->paginate(12);
+        $current_page = $cvs->currentPage() ;
+        $last_page =  $cvs->lastPage();
 
         return new WorkersCollection($cvs);
 
 
     }
-    public function transferService(Request $request){
-        $cvs = Biography::where('status','new')
-            ->where('order_type','normal')
-            ->FilterByAge($request->age)
-            ->FilterByJob($request->job)
-            ->FilterByNationality($request->nationality)->where('type','transport')
-            ->with('recruitment_office','nationalitie','language_title',
-                'religion','job','social_type','admin','images','skills')->where('type','transport')
-            ->latest()
-            ->paginate(2);
-        return new WorkersCollection($cvs);
-    }
-       public function send_code_phone_exit(Request $request)
-    {
-        if($request->phone) {
-//            ALTER TABLE `users` ADD `check_phone_api` VARCHAR(256) NULL AFTER `phone_code`;
-          $phone=  str_replace("+966 ", '', $request->phone);
-
-        $check_user = User::where('phone', $phone)->first();
-        if (!empty($check_user)){
-            //   $code="1234";
-            if (env('SMS_Work') == 'work') {
-                $code = rand(1111, 9999);
-                $this->sendSMS($request->phone, "كود التحقق هو $code");
-
-               
-            }
-          
-            $check_user->check_phone_api=$code;
-            $check_user->save();
-            return response()->json(['success' => true,"code"=>$code],200);
-
-        }else{
-             return response()->json(['success' => false, 'msg' => 'عزيزي العميل رقم الجوال المرسل غير موجد لدينا في الموقع الالكتروني يمكننا مساعدتكم من خلال الاتي '], 400);
-
-        }}
-
-    }
-     public function verfiy_phone(Request $request)
-    {
-             $phone=  str_replace("+966 ", '', $request->phone);
-          $regex = "/^(05)[0-9]{8}$|^(5)[0-9]{8}$/";
-        if (!preg_match($regex, $phone)) {
-             return response()->json(['success' => false, 
-             'msg' => 'رقم الجوال غير صحيح'], 400);
-        }else{
-                $user = User::where([
-            'phone'=>$phone,
-            'type'=>'normal_user',
-        ])->first();
-       
-        if (!empty($user) ){
-               return response(['success' => false,"msg"=>" نأسف رقم الهاتف مسجل لدينا بالموقع رجاء ادخال رقم جديد "], 400);
-
-        }else{
-      
-            return response()->json(['success' => true, 'msg' =>"ادخل رقم هاتفك على الصيغة التالية لاستكمال طلبك"]);
-        }
-        }
-         
-    }
-    public function send_code(Request $request)
-    {
-         $phone=  str_replace("+966 ", '', $request->phone);
-          $regex = "/^(05)[0-9]{8}$|^(5)[0-9]{8}$/";
-        if (!preg_match($regex, $phone)) {
-             return response()->json(['success' => false, 
-             'msg' => 'رقم الجوال غير صحيح'], 400);
-        }
-         
-        if($request->phone) {
-//            ALTER TABLE `users` ADD `check_phone_api` VARCHAR(256) NULL AFTER `phone_code`;
-         
-        
-
-        // $check_user = User::where('phone', $phone)->first();
-        // if (!empty($check_user)){
-        //  $code="1234";
-            if (env('SMS_Work') == 'work') {
-                $code = rand(1111, 9999);
-                $this->sendSMS($phone, "كود التحقق هو $code");
-
-            //      $code;
-            }
-           
-            // $check_user->check_phone_api=$code;
-            // $check_user->save();
-            return response()->json(['success' => true, 'msg' =>"عزيزي العميل يرجي تزويدنا في رقم التحقق التي ارساله الي (رقم الجوال ) ","code"=>$code],200);
-
-        
-            
-        }else{
-                return response()->json(['success' => false, 'msg' => 'رقم الجوال لم يرسل '], 400);
-
-        }
-
-    }
- 
-       public function completeTheRecruitmentRequest( Request $request)
-    {
-        
-        
-        $cv = Biography::where('passport_number',$request->cv)->first();
-                $phone=  str_replace("+966 ", '', $request->phone);
-
-        if ($cv->status != 'new') {
-            return response(['success' => false,"نأسف لا يمكن اتمام طلبك الان"], 400);
-        }
-       
-        $user = User::where([
-            'phone'=>$phone,
-            'type'=>'normal_user',
-        ])->first();
-       
-        if (!empty($user) ){
-            return response(['success' => false,"msg"=>" نأسف رقم الهاتف مسجل لدينا بالموقع رجاء ادخال رقم جديد "], 400);
-
-        }
-      
-           $use_data = [
-            'phone_code' => $request->code,
-            'phone' => $phone,
-            "name" => $request->name,
-           
-        ];
-
- $user = User::create($use_data);
-         $admin=Admin::where('whats_up_number',$request->whats_up_number)->first();
-
-        $order_data = [
-            'user_id' => $user->id,
-            'status' => "under_work",
-            "admin_id" => $admin->id,
-            'order_date' => now()
-        ];
-
-        $this->sendSMS( $user->phone, 'لقد قمت بطلب استقدام جديد ');
-        $msg =   " عزيزى الموظف " . " قام العميل " . $user->name . " رقم جواله " . $user->phone . " \nبحجز السيرة الذاتية الاتية " . $cv->name;
-        // $admin=Admin::find($request->customerSupport);
-
-        if(!empty($admin->phone)) {
-            $this->sendSMS($admin->phone, $msg);
-        }
-        Biography::where('id', $cv->id)->update($order_data);
-        $order_data['biography_id'] = $cv->id;
-        $order_data['order_code'] = "NK" . $cv->id . time();
-        Order::create($order_data);
-        return response(['success' => true, "msg"=>"تم تنفيذ طلبك بنجاح"], 200);
-    }//end fun
-    public function verify_code(Request $request)
-    {
-        if($request->phone) {
-//            ALTER TABLE `users` ADD `check_phone_api` VARCHAR(256) NULL AFTER `phone_code`;
-
-            $phone=  str_replace("+966 ", '', $request->phone);
-            $check_user = User::where('phone', $phone)->first();
-
-            // if ($check_user->check_phone_api == $request->code ){
-                $ordersHistory = Order::where(['user_id'=>$check_user->id])
-                    ->whereIn('status',['under_work','visa','traning','musaned','contract','finished','canceled'])
-                    ->whereHas('admin', function ($q) {
-                        $q->where('id','!=',null);
-                    })
-                    ->whereHas('biography', function ($q) {
-                        $q->where('id','!=',null);
-                    })->with('admin','biography','biography.recruitment_office','biography.nationalitie',
-                        'biography.language_title',
-                        'biography.religion','biography.job',
-                        'biography.social_type','biography.images','biography.skills')
-                    ->latest()
-                    ->get();
-               if(!empty($ordersHistory)){
-                return new OrdersCollection($ordersHistory);
-            // }
-            // else{
-            //     return response()->json(['success' => false, 'msg' => 'عزيزي العميل رقم التحقق غير صحيح  يمكننا مساعدتكم من خلال الاتي '], 400);
-
-            // }
-        }else{
-                return response()->json(['success' => false, 'msg' => 'عزيزى العميل لا يوجد لك طلبات حتى الأن.يمكننا مساعدتك من خلال الاتى'], 400);
-
-
-            }
-            
-        }
-
-    }
-
-
     public function contact_us_action(Request $request)
     {
         $data = $request->validate([
@@ -254,23 +55,20 @@ class HomeController extends Controller
             'phone'=>'required',
             'message'=>'required',
         ]);
-        if(!empty( $request->phone)){
-         $data['phone']=  str_replace("+966 ", '', $request->phone);
-         }
         Contact::create($data);
         return response()->json([  'success' => true],200);
     }//end fun
 
 
-     public function getClientOrders(Request $request)
+    public function getClientOrders(Request $request)
     {
 
-        if($request->contact_num) {
-            $order = Order::where('contact_num', $request->contact_num)->first();
+        if($request->user_phone) {
+            $user = User::where('phone', $request->user_phone)->first();
 
-            if (!empty($order)) {
+            if (!empty($user)) {
                 $currentOrders = Order::where([
-                    'contact_num' =>$request->contact_num,
+                    'user_id' => $user->id,
 
                 ])->whereHas('admin', function ($q) {
                     $q->where('id', '!=', null);
@@ -288,12 +86,11 @@ class HomeController extends Controller
 
 
             } else {
-                                return response()->json(['success' => false, 'msg' => 'ﻻ يوجد طلب استقدام برقم العقد يمكننى مساعدتك من خلال الاتى'], 400);
-
+                return response()->json(['success' => false, 'msg' => 'هذا الرقم غير مسجل فى سجلتنا'], 400);
 
             }
         }else{
-            return response()->json(['success' => false, 'msg' => 'برجاء ارسل رقم العقد الخاص بطلب الاستقدام  لدينا'], 400);
+            return response()->json(['success' => false, 'msg' => 'برجاء ارسل رقمك المسجل لدينا'], 400);
 
         }
     }//end fun

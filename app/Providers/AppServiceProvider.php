@@ -9,7 +9,6 @@ use Laravel\Passport\Passport;
 
 use App\Http\Resources\WorkersCollection;
 
-
 class AppServiceProvider extends ServiceProvider
 {
     /**
