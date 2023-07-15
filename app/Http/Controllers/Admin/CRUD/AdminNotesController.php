@@ -106,7 +106,7 @@ class AdminNotesController extends Controller
         );
         $curl = curl_init();
         curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://api.ultramsg.com/instance54417/",
+            CURLOPT_URL => "https://api.ultramsg.com/instance54417/messages/chat'",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
