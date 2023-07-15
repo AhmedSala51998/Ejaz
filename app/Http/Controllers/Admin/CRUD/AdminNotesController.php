@@ -91,7 +91,7 @@ class AdminNotesController extends Controller
         $data = $this->validate($request, [
             /* 'image'=>'nullable|file|image',*/
             'note' => 'required',
-            'order_id' => 'required',
+            'id' => 'required',
             /* 'desc'=>'required|array',
              'desc.*'=>'required',*/
         ]);
