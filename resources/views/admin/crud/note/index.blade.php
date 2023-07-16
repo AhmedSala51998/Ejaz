@@ -136,7 +136,8 @@
 
     <script>
         $(document).ready(function () {
-            @if (flash()->message)
+
+            @if (isset(flash()->message))
 
             cuteToast({
                 type: "{{ flash()->class }}", // or 'info', 'error', 'warning'

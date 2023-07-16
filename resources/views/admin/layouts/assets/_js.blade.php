@@ -10,7 +10,7 @@
 <!-- dashboard init -->
 <script src="{{asset('dashboard')}}/assets/js/pages/dashboard.init.js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 
 
 <!-- App js -->
