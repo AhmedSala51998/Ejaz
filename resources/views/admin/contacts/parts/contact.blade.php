@@ -24,10 +24,14 @@
                                 <button id="delete_button" data-id="{{$contact->id}}"
                                         class="btn btn-danger deleteContact">حذف
                                 </button>
+                                @if($contact->is_reply==0)
                                 <button id="send_reply" data-id="{{$contact->id}}"
-                                        class="btn btn-danger sendReply">ارسال رد
+                                        class="btn btn-success sendReply">ارسال رد
                                 </button>
-
+                                @else
+                                    <button class="btn btn-info ">تم الرد
+                                    </button>
+                                @endif
                             @endif
                         </div>
                     </div>
