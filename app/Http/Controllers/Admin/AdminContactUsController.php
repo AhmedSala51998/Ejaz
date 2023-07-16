@@ -69,6 +69,7 @@ class AdminContactUsController extends Controller
     }
     public function sendReplyContact(Request $request)
     {
+
         $contact=Contact::findOrFail($request->id);
         $contact->reply=$request->reply;
         $contact->is_reply=1;
