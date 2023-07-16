@@ -141,8 +141,8 @@ curl_close($curl);
         $use_phone=$user_data->phone;
         $params=array(
             'token' => env('TOKEN_WHATSAPP'),
-//            'to' => $use_phone,
-            'to' => "01278295433",
+            'to' => $use_phone,
+//            'to' => "01278295433",
             'body' => $note->note
         );
         $curl = curl_init();
