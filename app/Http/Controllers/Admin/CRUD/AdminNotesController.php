@@ -95,9 +95,10 @@ class AdminNotesController extends Controller
             /* 'desc'=>'required|array',
              'desc.*'=>'required',*/
         ]);
+        $data = $request->except('status','id');
+
         $data['note'] = $request->note;
         $data['order_id'] = $id;
-        $data = $request->except('id','status');
         /*  $data ['image'] = $this->uploadFiles('our_services',$request->file('image'),null );*/
         Notes::create($data);
         $params=array(
@@ -107,7 +108,7 @@ class AdminNotesController extends Controller
         );
         $curl = curl_init();
         curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://api.ultramsg.com/instance54417/messages/chat'",
+            CURLOPT_URL => "https://api.ultramsg.com/instance54417/messages/chat",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
@@ -132,6 +133,7 @@ class AdminNotesController extends Controller
         } else {
             echo $response;
         }
+
         return response()->json(1, 200);
 
     }
