@@ -135,6 +135,17 @@
 
 
     <script>
+        $(document).ready(function () {
+            @if (flash()->message)
+
+            cuteToast({
+                type: "{{ flash()->class }}", // or 'info', 'error', 'warning'
+                message:  "{{ flash()->message }}",
+                timer: 3000
+            })
+            @endif
+        });
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Language;
 use App\Models\Experience;
 use App\Models\Notes;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -28,8 +29,6 @@ class AdminNotesController extends Controller
      */
     public function index(Request $request,$order_id)
     {
-        if (!checkPermission(10))
-            return view('admin.permission');
 
         if ($request->ajax()) {
             $dataTables = Notes::query()->where('order_id',$order_id)->latest();
@@ -50,12 +49,12 @@ class AdminNotesController extends Controller
                 ->addColumn('actions', function ($row) {
                     $edit = '';
                     $delete = '';
-                    if (!checkPermission(12))
-                        $edit = 'hidden';
-                    if (!checkPermission(13))
+
                         $delete = 'hidden';
+                    $notes=" <a href='".route('notes.whatsapp_send',['id'=>$row->id])."'  class='btn btn-dark add_note'>ارسال عبر الواتس اب</a>";
 
                     return "
+                    $notes
                    <button "  .$delete. " class='btn btn-danger  delete' id='" . $row->id . "'><i class='fa fa-trash'></i> </button>";
                 })
                 ->rawColumns(['actions',/* 'desc',*/ 'delete_all', 'title'])->make(true);
@@ -87,28 +86,25 @@ class AdminNotesController extends Controller
      */
     public function store(Request $request,$id)
     {
-
         $data = $this->validate($request, [
-            /* 'image'=>'nullable|file|image',*/
             'note' => 'required',
             'id' => 'required',
-            /* 'desc'=>'required|array',
-             'desc.*'=>'required',*/
         ]);
         $data = $request->except('status','id');
-
         $data['note'] = $request->note;
         $data['order_id'] = $id;
         /*  $data ['image'] = $this->uploadFiles('our_services',$request->file('image'),null );*/
         Notes::create($data);
+        $user_data=Order::find($id)->user;
+        $use_phone=$user_data->phone;
         $params=array(
-            'token' => '4swdwztymusjggiv',
-            'to' => '+201278295433',
+            'token' => env('TOKEN_WHATSAPP'),
+            'to' => $use_phone,
             'body' => $request->note
         );
         $curl = curl_init();
         curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://api.ultramsg.com/instance54417/messages/chat",
+            CURLOPT_URL => "https://api.ultramsg.com/".env('INSTANCE_WHATSAPP')."/messages/chat",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
@@ -135,6 +131,55 @@ class AdminNotesController extends Controller
         }
 
         return response()->json(1, 200);
+
+    }
+
+    public function whatsapp_send($note_id)
+    {
+
+      $note=Notes::find($note_id);
+        $user_data=Order::find($note->order_id)->user;
+        $use_phone=$user_data->phone;
+        $params=array(
+            'token' => env('TOKEN_WHATSAPP'),
+//            'to' => $use_phone,
+            'to' => "01278295433",
+            'body' => $note->note
+        );
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://api.ultramsg.com/".env('INSTANCE_WHATSAPP')."/messages/chat",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_SSL_VERIFYHOST => 0,
+            CURLOPT_SSL_VERIFYPEER => 0,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => http_build_query($params),
+            CURLOPT_HTTPHEADER => array(
+                "content-type: application/x-www-form-urlencoded"
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err){
+            flash("cURL Error #:" . $err);
+
+        } else {
+            flash('تم ارسال رسال بنجاح ', 'success');
+
+//            echo $response;
+        }
+        toastError(__('frontend.errorMessageAuth'),__('frontend.errorTitleAuth'));
+
+        return redirect()->back();
+
 
     }
 

@@ -1,9 +1,9 @@
 @if ($contacts->count()>0)
-    <div class="row" id="contacts">
+    <div class="row " id="contacts">
         @foreach($contacts as $contact)
 
-            <div class="col-xl-3 col-sm-6" id="tr-{{$contact->id}}">
-                <div class="card text-center">
+            <div class="col-xl-6 col-sm-6 h-400" id="tr-{{$contact->id}}">
+                <div class="card text-center ">
                     <div class="card-body">
                         <div class="avatar-sm mx-auto mb-4">
                             <span
@@ -18,12 +18,16 @@
                             <br>
                             <p>{{$contact->phone}}</p>
                             <p>{{$contact->subject}}</p>
-                            <p>{{ Str::limit($contact->message, 30)  }}</p>
+{{--                            <p>{{ Str::limit($contact->message, 30)  }}</p>--}}
                             <p>{{$contact->created_at->diffForHumans()}}</p>
                             @if(checkPermission(39))
                                 <button id="delete_button" data-id="{{$contact->id}}"
                                         class="btn btn-danger deleteContact">حذف
                                 </button>
+                                <button id="send_reply" data-id="{{$contact->id}}"
+                                        class="btn btn-danger sendReply">ارسال رد
+                                </button>
+
                             @endif
                         </div>
                     </div>

@@ -67,6 +67,39 @@ class AdminContactUsController extends Controller
         $contact->save();
         return view('admin.contacts.show',['contact'=>$contact]);
     }
+    public function sendReplyContact(Request $request)
+    {
+        $contact=Contact::findOrFail($request->id);
+        $contact->reply=$request->reply;
+        $contact->is_reply=1;
+        $contact->save();
+        $use_phone=$contact->phone;
+        $params=array(
+            'token' => env('TOKEN_WHATSAPP'),
+            'to' => $use_phone,
+            'body' => $request->reply
+        );
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://api.ultramsg.com/".env('INSTANCE_WHATSAPP')."/messages/chat",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_SSL_VERIFYHOST => 0,
+            CURLOPT_SSL_VERIFYPEER => 0,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => http_build_query($params),
+            CURLOPT_HTTPHEADER => array(
+                "content-type: application/x-www-form-urlencoded"
+            ),
+        ));
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+        curl_close($curl);
+        return response()->json(1,200);
+    }
 
     /**
      * Show the form for editing the specified resource.
