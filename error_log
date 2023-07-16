@@ -2,3 +2,4 @@
 Stack trace:
 #0 {main}
   thrown in /home2/aljawhra/public_html/index.php on line 2
+[16-Jul-2023 12:44:34 America/Chicago] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.3.33. in /home2/aljawhra/test/vendor/composer/platform_check.php on line 24

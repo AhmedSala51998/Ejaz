@@ -36,7 +36,7 @@ Route::group(['prefix' => 'admin'], function () {
 
         Route::resource('contacts', 'AdminContactUsController');
         Route::get('deleteContact/{id}',[\App\Http\Controllers\Admin\AdminContactUsController::class,'delete'])->name('admin.deleteContact');
-
+        Route::post('sendReplyContact/{id}',[\App\Http\Controllers\Admin\AdminContactUsController::class,'sendReplyContact'])->name('Contact.sendReply');
 
         /*================Admin send firebase control =========================*/
 
@@ -110,6 +110,7 @@ Route::group(['prefix' => 'admin'], function () {
             Route::resource('notes', 'AdminNotesController');
             Route::get('notes/index/{id}', 'AdminNotesController@index')->name('notes.list');
             Route::post('notes/add/{id}', 'AdminNotesController@store')->name('notes.add');
+            Route::get('notes/whatsapp_send/{id}', 'AdminNotesController@whatsapp_send')->name('notes.whatsapp_send');
 
 
             //الخبرة للسيرة الذاتية

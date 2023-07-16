@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Notes;
 use App\Models\ReservationStatus;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
@@ -11,7 +12,7 @@ class OrdersCollection extends ResourceCollection
     {
         return [
             'data' => $this->collection->transform(function($data) {
-         
+
                 if ($data->status == "canceled"){
                  $status= __('frontend.orderCanceled');
                  $status_1="محذوف";
@@ -28,7 +29,7 @@ class OrdersCollection extends ResourceCollection
                 elseif ($data->status == "musaned"){
                                 $status= 'تم ربط العقد الخاص بكم في مساند بنجاح  ';
                                   $status_1="مساند";
-   
+
                 }
 
                 elseif ($data->status == "traning"){
@@ -58,6 +59,7 @@ class OrdersCollection extends ResourceCollection
                     'adminstaff_user' =>!empty($data->Adminstaff)?$data->Adminstaff:"",
                     'admin_whats_link'=>'https://api.whatsapp.com/send?phone='.$data->admin->whats_up_number ,
                     'phone'=>$data->admin->phone,
+                    'notes'=>Notes::where('order_id', $data->id)->latest()->first()->note,
 
 
                 ];
