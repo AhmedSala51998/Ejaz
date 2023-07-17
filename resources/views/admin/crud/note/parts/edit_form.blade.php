@@ -1,20 +1,18 @@
-<form action="{{route('experiences.update',$obj->id)}}" method="post" id="Form">
+<form action="{{route('notes.update',$obj->id)}}" method="post" id="Form">
     @csrf
     @method('PUT')
 
     <div class="row ">
-        @foreach($languages as $index=>$language)
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+            <div class="col-xl-12 col-lg-6 col-md-6 col-sm-6 col-12">
                 <div class="form-group">
-                    <label for="{{$language->title}}_title">{{__('admin.Experience title')}} {{--({{__('admin.'.$language->title)}}
-                        )--}} </label>
+                    <label >تعديل الملحوظة</label>
                     <input data-validation="required" type="text" class="form-control"
-                           value="{{$obj->getTranslation('title', $language->title)}}"
-                           id="{{$language->title}}_title" name="title[]"
-                           placeholder="{{__('admin.Experience title')}} {{--({{__('admin.'.$language->title)}}) --}}">
+                           value="{{$obj->note}}"
+                          name="note"
+                           placeholder="ملحوظة">
                 </div>
             </div>
-        @endforeach
+
 
       {{--  @foreach($languages as $index=>$language)
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mt-2">

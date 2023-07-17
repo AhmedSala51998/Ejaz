@@ -44,16 +44,16 @@
 
                     {{---------------------------------}}
                     <div class="row mb-2">
-                        @if(checkPermission(11))
-{{--                            <div class="col-sm-4">--}}
-{{--                                <div class="text-sm-start">--}}
-{{--                                    <button id="addButton" type="button"--}}
-{{--                                            class="btn btn-success  waves-effect waves-light mb-2 me-2">--}}
-{{--                                        <i class="mdi mdi-plus me-1"></i> أضف جديد--}}
-{{--                                    </button>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-                        @endif
+{{--                        @if(checkPermission(11))--}}
+                            <div class="col-sm-4">
+                                <div class="text-sm-start">
+                                    <button id="addButton" type="button" data-order="{{$order_id}}"
+                                            class="btn btn-success  waves-effect waves-light mb-2 me-2">
+                                        <i class="mdi mdi-plus me-1"></i> أضف جديد
+                                    </button>
+                                </div>
+                            </div>
+{{--                        @endif--}}
                         <div class="col-sm-8">
                             {{--                            <div class="text-sm-end">--}}
                             {{--                                <button id="bulk_delete" type="button" class="btn btn-danger  waves-effect waves-light mb-2 me-2">--}}
@@ -209,9 +209,17 @@
         $(document).on('click', '#addButton', function (e) {
             e.preventDefault()
             var url = '{{route('notes.create')}}';
+            var order_id=$(this).attr("data-order") ;
+            {{--var url = '{{route('notes.store',":id")}}';--}}
+
+            // url = url.replace(':id', order_id);
+            // console.log(order_id);
             $.ajax({
                 url: url,
                 type: 'GET',
+                data: {
+                    order_id: order_id
+                },
                 beforeSend: function () {
                     $('.loader-ajax').show()
                 },

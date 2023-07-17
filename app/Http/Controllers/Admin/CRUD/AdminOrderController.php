@@ -164,7 +164,7 @@ class AdminOrderController extends Controller
                     $status='';
                     $delete='';
 $add_note= " <a href='#'  class='btn btn-warning add_note' id='" . $row->id . "'> اضافة ملاحظة  </a>";
-                    $notes=" <a href='".route('notes.list',['id'=>$row->id])."'  class='btn btn-dark add_note'>ملاحظات</a>";
+                    $notes=" <a href='".route('notes.list',['id'=>$row->id])."'  class='btn btn-dark '>ملاحظات</a>";
 
 
                     if ($row->status == "new" || $row->status == "under_work") {

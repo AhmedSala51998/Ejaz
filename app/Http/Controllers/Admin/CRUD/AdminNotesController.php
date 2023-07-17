@@ -50,11 +50,12 @@ class AdminNotesController extends Controller
                     $edit = '';
                     $delete = '';
 
-                        $delete = 'hidden';
                     $notes=" <a href='".route('notes.whatsapp_send',['id'=>$row->id])."'  class='btn btn-dark add_note'>ارسال عبر الواتس اب</a>";
 
                     return "
                     $notes
+                    <button  " .$edit. "  class='btn btn-info editButton' id='" . $row->id . "'> <i class='fa fa-edit'></i></button>
+
                    <button "  .$delete. " class='btn btn-danger  delete' id='" . $row->id . "'><i class='fa fa-trash'></i> </button>";
                 })
                 ->rawColumns(['actions',/* 'desc',*/ 'delete_all', 'title'])->make(true);
@@ -72,6 +73,7 @@ class AdminNotesController extends Controller
         if ($request->ajax()) {
             $returnHTML = view("admin.crud.note.parts.add_form")->with([
                 'languages' => Language::where('is_active', 'active')->get(),
+                'order_id'=>$request->order_id,
             ])->render();
             return response()->json(array('success' => true, 'html' => $returnHTML));
         }
@@ -84,13 +86,14 @@ class AdminNotesController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request,$id)
     {
         $data = $this->validate($request, [
             'note' => 'required',
-            'id' => 'required',
+
         ]);
-                $data = $request->except('status','id');
+        $data = $request->except('status','id');
 
 
         $data['note'] = $request->note;
@@ -99,34 +102,34 @@ class AdminNotesController extends Controller
         Notes::create($data);
 
 
-        $user_data=Order::find($id)->user;
-        $use_phone=$user_data->phone;
-        $params=array(
-            'token' => env('TOKEN_WHATSAPP'),
-            'to' => $use_phone,
-            'body' => $request->note
-        );
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://api.ultramsg.com/".env('INSTANCE_WHATSAPP')."/messages/chat",
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_SSL_VERIFYHOST => 0,
-            CURLOPT_SSL_VERIFYPEER => 0,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => http_build_query($params),
-            CURLOPT_HTTPHEADER => array(
-                "content-type: application/x-www-form-urlencoded"
-            ),
-        ));
-
-$response = curl_exec($curl);
-$err = curl_error($curl);
-
-curl_close($curl);
+//        $user_data=Order::find($id)->user;
+//        $use_phone=$user_data->phone;
+//        $params=array(
+//            'token' => env('TOKEN_WHATSAPP'),
+//            'to' => $use_phone,
+//            'body' => $request->note
+//        );
+//        $curl = curl_init();
+//        curl_setopt_array($curl, array(
+//            CURLOPT_URL => "https://api.ultramsg.com/".env('INSTANCE_WHATSAPP')."/messages/chat",
+//            CURLOPT_RETURNTRANSFER => true,
+//            CURLOPT_ENCODING => "",
+//            CURLOPT_MAXREDIRS => 10,
+//            CURLOPT_TIMEOUT => 30,
+//            CURLOPT_SSL_VERIFYHOST => 0,
+//            CURLOPT_SSL_VERIFYPEER => 0,
+//            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+//            CURLOPT_CUSTOMREQUEST => "POST",
+//            CURLOPT_POSTFIELDS => http_build_query($params),
+//            CURLOPT_HTTPHEADER => array(
+//                "content-type: application/x-www-form-urlencoded"
+//            ),
+//        ));
+//
+//$response = curl_exec($curl);
+//$err = curl_error($curl);
+//
+//curl_close($curl);
 
 
         return response()->json(1, 200);
@@ -204,7 +207,7 @@ curl_close($curl);
         if ($request->ajax()) {
             $returnHTML = view("admin.crud.note.parts.edit_form")
                 ->with([
-                    'obj' => Experience::findOrFail($id)
+                    'obj' => Notes::findOrFail($id)
                 ])
                 ->render();
             return response()->json(array('success' => true, 'html' => $returnHTML));
@@ -220,25 +223,14 @@ curl_close($curl);
      */
     public function update(Request $request, $id)
     {
+
         $slider = Notes::findOrFail($id);
         $data = $this->validate($request, [
-            /* 'image'=>'nullable|file|image',*/
             'note' => 'required',
-            'order_id' => 'required',
-            /* 'desc'=>'required|array',
-             'desc.*'=>'required',*/
         ]);
         try {
-            /*if ($request->hasFile('image')){
-                $data ['image'] = $this->uploadFiles('our_services',$request->file('image'),$slider->image );
-            }else{
-                $data ['image'] = $slider->image;
-            }*/
-            $name = [];
-            /* $desc = [];*/
 
-            $data['name'] = $request->name;
-            $data['order_id'] = $request->order_id;
+            $data['note'] = $request->note;
 
             /*  $data['desc'] = $desc;*/
             $slider->update($data);
