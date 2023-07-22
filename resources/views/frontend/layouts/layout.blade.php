@@ -343,7 +343,7 @@
          </span>
 
         <span class="float-element">
-                    <a href="tel:{{$settings->callNumber}}" target="_blank" >
+                    <a href="mailto::{{$settings->email1}}" target="_blank" >
 
           <i style="color: white" class="material-icons">mail</i>
                          </a>
