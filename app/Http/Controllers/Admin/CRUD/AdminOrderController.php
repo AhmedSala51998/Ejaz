@@ -50,10 +50,21 @@ class AdminOrderController extends Controller
         if (!checkPermission(31))
             return view('admin.permission');
 
-           $admin=  \App\Models\Admin::find(admin()->id());
-           $roles= $admin->roles;
-           $count=0;
-           foreach ($roles as $role)
+        $admin=  \App\Models\Admin::find(admin()->id());
+        $roles= $admin->roles;
+        $count=0;
+        $passport_key = $request->passport_key;
+        $nationality_id = $request->nationality_id;
+        $social_type_id = $request->social_type;
+        $booking_status = $request->booking_status ? $request->booking_status : '';
+        $recruitment_office_id = $request->recruitment_office_id;
+        $natinalities = Nationalitie::get();
+        $users = User::get();
+        $recruitment_office = RecruitmentOffice::get();
+        $social_type = SocialType::get();
+        $type = $request->type;
+
+        foreach ($roles as $role)
            {
               if($role->id==1){
                   ++$count;
@@ -88,6 +99,58 @@ class AdminOrderController extends Controller
 
 
             }
+
+            if ($request->passport_key != null) {
+                $dataTables = $dataTables->whereHas('biography', function ($q) use ($passport_key) {
+                    $q->where('passport_number', 'like', '%' . $passport_key . '%');
+                });
+            }
+
+            if ($request->social_type != null) {
+                $dataTables = $dataTables->whereHas('biography', function ($q) use ($social_type_id) {
+                    if ($social_type_id == 1) {
+                        $q->where('type_of_experience', 'new');
+                    } else if ($social_type_id == 2) {
+                        $q->where('type_of_experience', 'with_experience');
+
+
+                    }
+
+                });
+            }
+            if ($request->nationality_id != null) {
+                $dataTables = $dataTables->whereHas('biography', function ($q) use ($nationality_id) {
+                    $q->whereHas('nationalitie', function ($q2) use ($nationality_id) {
+                        $q2->where('id', $nationality_id);
+                    });
+                });
+            }
+
+            if ($request->booking_status != null) {
+                $dataTables = $dataTables->where('status', $booking_status);
+            }
+            if ($request->recruitment_office_id != null) {
+//                $dataTables = $dataTables->where('recruitment_office_id', $recruitment_office_id);
+                $dataTables = $dataTables->whereHas('biography', function ($q) use ($recruitment_office_id) {
+                    $q->whereHas('recruitment_office', function ($q2) use ($recruitment_office_id) {
+                        $q2->where('id', $recruitment_office_id);
+                    });
+                });
+            }
+            if ($request->type != null) {
+//                $dataTables = $dataTables->where('type', $type);
+                $dataTables = $dataTables->whereHas('biography', function ($q) use ($type) {
+                    if ($type == 'admission') {
+                        $q->where('type', 'admission');
+                    } else if ($type == 'transport') {
+                        $q->where('type', 'transport');
+
+
+                    }
+
+                });
+            }
+
             return DataTables::of($dataTables)
                 ->editColumn('image', function ($row) {
                     $cv = (isset($row->biography->cv_file))? $row->biography->cv_file:"";
@@ -128,9 +191,7 @@ class AdminOrderController extends Controller
                 ->addColumn('passport_number', function ($row) {
                     return (isset($row->biography->passport_number)) ? $row->biography->passport_number : "غير محدد ";
                 })
-                ->addColumn('biography_number', function ($row) {
-                    return (isset($row->biography->biography_number)) ? $row->biography->biography_number : "غير محدد ";
-                })
+
                 ->addColumn('user', function ($row) {
                     return (isset($row->user->name)) ? $row->user->name : "غير محدد ";
                 }) ->addColumn('user_phone', function ($row) {
@@ -139,8 +200,17 @@ class AdminOrderController extends Controller
                 ->addColumn('admin', function ($row) {
                     return (isset($row->admin->name)) ? $row->admin->name : "غير محدد ";
                 })
-                  ->editColumn('contact_num', function ($row) {
-                    return $row->contact_num ??'--';
+                ->editColumn('contact_num', function ($row) {
+                return $row->contact_num ??'--';
+            })
+                ->editColumn('recruitment_office_id', function ($row) {
+                    return $row->biography->recruitment_office->title;
+                })
+                ->editColumn('type', function ($row) {
+                    if ($row->biography->type == 'admission')
+                        return 'استقدام ';
+                    else
+                        return 'نقل خدمات  ';
                 })
 //                ->addColumn('actions', function ($row) {
 //                    $compelete = '';
@@ -263,11 +333,11 @@ $add_note $notes
                     }
 
                 })
-                ->rawColumns(['image', 'created_at', 'status', 'nationalitie_id', 'passport_number',
-                    'biography_number', 'user', 'admin', 'actions','contact_num'
+                ->rawColumns(['image', 'created_at', 'status', 'nationalitie_id', 'passport_number', 'recruitment_office_id',
+                    'type', 'user', 'admin', 'actions','contact_num'
                 ])->make(true);
         }
-        return view('admin.crud.order.admin');
+        return view('admin.crud.order.admin', compact('natinalities', 'nationality_id', 'social_type', 'social_type_id', 'booking_status', 'recruitment_office', 'recruitment_office_id', 'type'));
     }
 
     /**

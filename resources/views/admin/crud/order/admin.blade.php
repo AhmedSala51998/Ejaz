@@ -39,6 +39,102 @@
 
     <div class="row">
         <div class="col-12">
+{{--            <div class="card">--}}
+{{--                <div class="card-header  d-flex align-items-center bg-orange">--}}
+{{--                    <h4 class="card-title mb-0 text-white"> {{__('admin.sSearch')}}</h4>--}}
+{{--                    <div class="card-actions ms-auto">--}}
+{{--                        <a class="text-dark" data-action="collapse"><i class="ti-minus"></i></a>--}}
+{{--                        <a class="btn-close ms-1" data-action="close"></a>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                <div class=" card-body collapse show">--}}
+
+{{--                    --}}{{--                        <form class="" id="sort_customers" action="" method="GET">--}}
+{{--                    --}}{{--                            @csrf--}}
+{{--                    <div class="row">--}}
+
+{{--                        <div class="col-md-2 ">--}}
+{{--                            <div class='input-group mb-3'>--}}
+{{--                                <input type="text" class="form-control" id="passport_key" name="passport_key"--}}
+{{--                                       @isset($passport_key) value="{{ $passport_key }}"--}}
+{{--                                       @endisset placeholder="رقم جواز السفر">--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+
+{{--                        <div class="col-md-2 ">--}}
+{{--                            <div class='input-group mb-3'>--}}
+{{--                                <select class="form-control " name="nationality_id" id="nationality_id">--}}
+{{--                                    <option value="" selected> اختيار الجنسية</option>--}}
+{{--                                    @foreach ($natinalities as $key => $country)--}}
+{{--                                        <option value="{{ $country->id }}"--}}
+{{--                                                @if($nationality_id== $country->id ) selected @endif>{{ $country->title }}</option>--}}
+{{--                                    @endforeach--}}
+{{--                                </select>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        <div class="col-md-2 ">--}}
+{{--                            <div class='input-group mb-3'>--}}
+{{--                                <select class="form-control " name="social_type" id="social_type">--}}
+{{--                                    <option value="" selected>الخبرة السابقة</option>--}}
+{{--                                    <option value="1" @if($social_type_id==1 ) selected @endif >قادم جديد</option>--}}
+{{--                                    <option value="2" @if($social_type_id==2 ) selected @endif >لديه خبرة سابقة</option>--}}
+
+{{--                                </select>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        <div class="col-lg-2 ml-auto">--}}
+{{--                            <select class="form-control " name="booking_status" id="booking_status">--}}
+{{--                                <option value=" " selected>حالة الطلب</option>--}}
+{{--                                <option value="new" @if ($booking_status == 'new') selected @endif >{{__('admin.Not booked')}}</option>--}}
+{{--                                <option value="under_work" @if ($booking_status == 'under_work') selected @endif>--}}
+{{--                                   قيد الحجز--}}
+{{--                                </option>--}}
+{{--                                <option value="contract" @if ($booking_status == 'contract') selected @endif >--}}
+{{--                                  تم التعاقد--}}
+{{--                                </option>--}}
+{{--                                <option value="musaned" @if ($booking_status == 'musaned') selected @endif >--}}
+{{--                                   تم الربط في مساند--}}
+{{--                                </option>--}}
+{{--                                <option value="traning" @if ($booking_status == 'traning') selected @endif >--}}
+{{--                                   تحت الاجراء والتدريب--}}
+{{--                                </option>--}}
+{{--                                <option value="finished" @if ($booking_status == 'finished') selected @endif >--}}
+{{--                                   تم وصول العمالة--}}
+{{--                                </option>--}}
+{{--                                <option value="canceled" @if ($booking_status == 'canceled') selected @endif>طلب ملغي--}}
+{{--                                </option>--}}
+
+{{--                            </select>--}}
+{{--                        </div>--}}
+{{--                        <div class="col-md-2 ">--}}
+{{--                            <div class='input-group mb-3'>--}}
+{{--                                <select class="form-control " name="recruitment_office_id" id="recruitment_office_id">--}}
+{{--                                    <option value="" selected>المكتب الخارجي</option>--}}
+{{--                                    @foreach ($recruitment_office as $key => $office)--}}
+{{--                                        <option value="{{$office->id}}"--}}
+{{--                                                @if($recruitment_office_id== $office->id ) selected @endif>{{ $office->title }}</option>--}}
+{{--                                    @endforeach--}}
+{{--                                </select>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        <div class="col-lg-2 ml-auto">--}}
+{{--                            <select class="form-control " name="type" id="type">--}}
+{{--                                <option value=" " selected>نوع الطلب</option>--}}
+{{--                                <option value="admission" @if ($type == 'admission') selected @endif >استقدام</option>--}}
+{{--                                <option value="transport" @if ($type == 'transport') selected @endif > نقل خدمات</option>--}}
+
+{{--                            </select>--}}
+{{--                        </div>--}}
+{{--                        <div class="col-md-2 text-end">--}}
+{{--                            @if(count($_GET)>0 )--}}
+{{--                                <a id="cancel_request" href="{{ route('admin-orders.index') }}" class="btn btn-danger">--}}
+{{--                                   الغاء البحث</a>--}}
+{{--                            @endif--}}
+{{--                            <button id="btnSubmit" class="btn btn-info">{{__('admin.sSearch')}}</button>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
             <div class="card">
                 <div class="card-body">
 
@@ -46,21 +142,23 @@
                     <table id="Datatable" class="table table-striped table-bordered dt-responsive  nowrap w-100">
                         <thead>
                         <tr>
-                         {{--   <th>
-                                <input id="checkAll" type='checkbox' class='check-all form-check-input' data-tablesaw-checkall>
+                            {{--   <th>
+                                   <input id="checkAll" type='checkbox' class='check-all form-check-input' data-tablesaw-checkall>
 
-                                <a  id="bulk_delete" href="#"  style="display: none;" class=" text-danger p-2">
-                                    <i  class="mdi mdi-trash-can-outline me-1  " style=" width: 50% !important;height: 50% !important;"></i>
-                                </a>
-                            </th>--}}
+                                   <a  id="bulk_delete" href="#"  style="display: none;" class=" text-danger p-2">
+                                       <i  class="mdi mdi-trash-can-outline me-1  " style=" width: 50% !important;height: 50% !important;"></i>
+                                   </a>
+                               </th>--}}
                             <th>العميل</th>
                             <th>رقم الجوال</th>
                             <th> موظف خدمة العملاء</th>
                             <th>السيرة الذاتية</th>
                             <th>رقم جواز السفر</th>
-   <th>رقم العقد </th>
+                            <th>رقم العقد </th>
                             <th>الجنسية</th>
                             <th>الحالة</th>
+                            <th>الوكيل الخارجي</th>
+                            <th>نوع الطلب</th>
                             <th>التاريخ</th>
                             <th>التحكم</th>
                         </tr>
@@ -115,17 +213,34 @@
             "ordering": true,
             "searching": true,
             'iDisplayLength': 20,
-            "ajax": "{{route('admin-orders.index')}}",
+            "ajax": {
+                url: "{{ route('admin-orders.index') }}",
+                data: function (d) {
+                    d.passport_key = $('#passport_key').val(),
+                        d.social_type = $('#social_type').val(),
+                        // d.selected_staff = $('#selected_staff').val(),
+                        d.booking_status = $('#booking_status').val(),
+                        // d.cv_type=$('#cv_type').val(),
+                        // d.occuption_id=$('#occuption_id').val(),
+                        d.nationality_id = $('#nationality_id').val(),
+                        d.recruitment_office_id = $('#recruitment_office_id').val(),
+                        d.type = $('#type').val()
+
+                    // d.date = $('#date').val()
+                }
+            },
             "columns": [
-             /*   {"data": "delete_all", orderable: false, searchable: false},*/
-                {"data": "user", orderable: false, searchable: false},
+                /*   {"data": "delete_all", orderable: false, searchable: false},*/
+                {"data": "user", orderable: false, searchable: true},
                 {"data": "user_phone", orderable: false, searchable: true},
-                {"data": "admin", orderable: false, searchable: false},
+                {"data": "admin", orderable: false, searchable: true},
                 {"data": "image", orderable: false, searchable: false},
                 {"data": "passport_number", orderable: false, searchable: true},
                 {"data": "contact_num", orderable: false, searchable: true},
                 {"data": "nationalitie_id", orderable: false, searchable: true},
                 {"data": "status", orderable: false, searchable: true},
+                {"data": "recruitment_office_id", orderable: false, searchable: true},
+                {"data": "type", orderable: false, searchable: true},
                 {"data": "created_at", searchable: false},
                 {"data": "actions", orderable: false, searchable: false}
             ],
@@ -150,7 +265,12 @@
                 [2, "desc"]
             ],
         });
-
+        $("#btnSubmit").click(function () {
+            if ($("#cancel_request").html() == undefined && $('.cancel_request_add').hide()) {
+                $('   <a  href="{{route('admin-orders.index')}}" class="btn btn-danger cancel_request_add " style="margin:5px 5px 5px 5px;">  الغاء البحث </a>').insertAfter("#btnSubmit");
+            }
+            datatable_selector.ajax.reload();
+        });
 
         /*======================================================*/
         /*======================================================*/
@@ -227,7 +347,7 @@
                         type: 'PUT',
                         data: {id: id,status:status},
 
-                    success: function (data) {
+                        success: function (data) {
                             cuteToast({
                                 type: "success", // or 'info', 'error', 'warning'
                                 message: "تم تنفيذ العملية بنجاح",
@@ -250,7 +370,7 @@
             });
 
         });
-  $(document).on('click', '.update-contract-at', function () {
+        $(document).on('click', '.update-contract-at', function () {
             var id = $(this).attr('id');
             var status =$(this).attr("data-status");
 
@@ -322,7 +442,7 @@
 
         });
 
-  $(document).on('click', '.update-contract', function () {
+        $(document).on('click', '.update-contract', function () {
             var id = $(this).attr('id');
             var status =$(this).attr("data-status");
 
