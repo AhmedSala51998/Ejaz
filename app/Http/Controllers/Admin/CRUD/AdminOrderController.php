@@ -55,7 +55,7 @@ class AdminOrderController extends Controller
         $count=0;
         $passport_key = $request->passport_key;
         $nationality_id = $request->nationality_id;
-        $social_type_id = $request->social_type;
+        $social_type_id = $request->social_type ? $request->social_type : '';;
         $booking_status = $request->booking_status ? $request->booking_status : '';
         $recruitment_office_id = $request->recruitment_office_id;
         $natinalities = Nationalitie::get();

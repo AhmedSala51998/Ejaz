@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\Frontend\CvDesignController;
 
 Route::group(
     [
@@ -139,6 +139,9 @@ Route::group(
 
     Route::get('musanedInitiative',[\App\Http\Controllers\Frontend\MusanedInitiative\MusanedInitiativeFrontController::class,'index'])->name('frontend.musande');
 
+    #cvDesign
+
+    Route::get('cvs',[\App\Http\Controllers\Frontend\Cvs\CvDesignController::class,'index'])->name('frontend.cvDesign');
 
     ### blogs
 
@@ -194,5 +197,3 @@ Route::group(
         return redirect()->route('home');
     })->name('auth.logout');
 });
-
-

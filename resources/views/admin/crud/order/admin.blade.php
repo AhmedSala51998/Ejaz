@@ -39,102 +39,104 @@
 
     <div class="row">
         <div class="col-12">
-{{--            <div class="card">--}}
-{{--                <div class="card-header  d-flex align-items-center bg-orange">--}}
-{{--                    <h4 class="card-title mb-0 text-white"> {{__('admin.sSearch')}}</h4>--}}
-{{--                    <div class="card-actions ms-auto">--}}
-{{--                        <a class="text-dark" data-action="collapse"><i class="ti-minus"></i></a>--}}
-{{--                        <a class="btn-close ms-1" data-action="close"></a>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--                <div class=" card-body collapse show">--}}
 
-{{--                    --}}{{--                        <form class="" id="sort_customers" action="" method="GET">--}}
-{{--                    --}}{{--                            @csrf--}}
-{{--                    <div class="row">--}}
+            <div class="card">
+                <div class="card-header  d-flex align-items-center bg-orange">
+                    <h4 class="card-title mb-0 text-white"> {{__('admin.sSearch')}}</h4>
+                    <div class="card-actions ms-auto">
+                        <a class="text-dark" data-action="collapse"><i class="ti-minus"></i></a>
+                        <a class="btn-close ms-1" data-action="close"></a>
+                    </div>
+                </div>
+                <div class=" card-body collapse show">
 
-{{--                        <div class="col-md-2 ">--}}
-{{--                            <div class='input-group mb-3'>--}}
-{{--                                <input type="text" class="form-control" id="passport_key" name="passport_key"--}}
-{{--                                       @isset($passport_key) value="{{ $passport_key }}"--}}
-{{--                                       @endisset placeholder="رقم جواز السفر">--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
+                                            <form class="" id="sort_customers" action="" method="GET">
+                                                @csrf
+                    <div class="row">
 
-{{--                        <div class="col-md-2 ">--}}
-{{--                            <div class='input-group mb-3'>--}}
-{{--                                <select class="form-control " name="nationality_id" id="nationality_id">--}}
-{{--                                    <option value="" selected> اختيار الجنسية</option>--}}
-{{--                                    @foreach ($natinalities as $key => $country)--}}
-{{--                                        <option value="{{ $country->id }}"--}}
-{{--                                                @if($nationality_id== $country->id ) selected @endif>{{ $country->title }}</option>--}}
-{{--                                    @endforeach--}}
-{{--                                </select>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <div class="col-md-2 ">--}}
-{{--                            <div class='input-group mb-3'>--}}
-{{--                                <select class="form-control " name="social_type" id="social_type">--}}
-{{--                                    <option value="" selected>الخبرة السابقة</option>--}}
-{{--                                    <option value="1" @if($social_type_id==1 ) selected @endif >قادم جديد</option>--}}
-{{--                                    <option value="2" @if($social_type_id==2 ) selected @endif >لديه خبرة سابقة</option>--}}
+                        <div class="col-md-2 ">
+                            <div class='input-group mb-3'>
+                                <input type="text" class="form-control" id="passport_key" name="passport_key"
+                                       @isset($passport_key) value="{{ $passport_key }}"
+                                       @endisset placeholder="رقم جواز السفر">
+                            </div>
+                        </div>
 
-{{--                                </select>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <div class="col-lg-2 ml-auto">--}}
-{{--                            <select class="form-control " name="booking_status" id="booking_status">--}}
-{{--                                <option value=" " selected>حالة الطلب</option>--}}
-{{--                                <option value="new" @if ($booking_status == 'new') selected @endif >{{__('admin.Not booked')}}</option>--}}
-{{--                                <option value="under_work" @if ($booking_status == 'under_work') selected @endif>--}}
-{{--                                   قيد الحجز--}}
-{{--                                </option>--}}
-{{--                                <option value="contract" @if ($booking_status == 'contract') selected @endif >--}}
-{{--                                  تم التعاقد--}}
-{{--                                </option>--}}
-{{--                                <option value="musaned" @if ($booking_status == 'musaned') selected @endif >--}}
-{{--                                   تم الربط في مساند--}}
-{{--                                </option>--}}
-{{--                                <option value="traning" @if ($booking_status == 'traning') selected @endif >--}}
-{{--                                   تحت الاجراء والتدريب--}}
-{{--                                </option>--}}
-{{--                                <option value="finished" @if ($booking_status == 'finished') selected @endif >--}}
-{{--                                   تم وصول العمالة--}}
-{{--                                </option>--}}
-{{--                                <option value="canceled" @if ($booking_status == 'canceled') selected @endif>طلب ملغي--}}
-{{--                                </option>--}}
+                        <div class="col-md-2 ">
+                            <div class='input-group mb-3'>
+                                <select class="form-control " name="nationality_id" id="nationality_id">
+                                    <option value="" selected> اختيار الجنسية</option>
+                                    @foreach ($natinalities as $key => $country)
+                                        <option value="{{ $country->id }}"
+                                                @if($nationality_id== $country->id ) selected @endif>{{ $country->title }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2 ">
+                            <div class='input-group mb-3'>
+                                <select class="form-control " name="social_type" id="social_type">
+                                    <option value="" selected>الخبرة السابقة</option>
+                                    <option value="1" @if($social_type_id==1 ) selected @endif >قادم جديد</option>
+                                    <option value="2" @if($social_type_id==2 ) selected @endif >لديه خبرة سابقة</option>
 
-{{--                            </select>--}}
-{{--                        </div>--}}
-{{--                        <div class="col-md-2 ">--}}
-{{--                            <div class='input-group mb-3'>--}}
-{{--                                <select class="form-control " name="recruitment_office_id" id="recruitment_office_id">--}}
-{{--                                    <option value="" selected>المكتب الخارجي</option>--}}
-{{--                                    @foreach ($recruitment_office as $key => $office)--}}
-{{--                                        <option value="{{$office->id}}"--}}
-{{--                                                @if($recruitment_office_id== $office->id ) selected @endif>{{ $office->title }}</option>--}}
-{{--                                    @endforeach--}}
-{{--                                </select>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <div class="col-lg-2 ml-auto">--}}
-{{--                            <select class="form-control " name="type" id="type">--}}
-{{--                                <option value=" " selected>نوع الطلب</option>--}}
-{{--                                <option value="admission" @if ($type == 'admission') selected @endif >استقدام</option>--}}
-{{--                                <option value="transport" @if ($type == 'transport') selected @endif > نقل خدمات</option>--}}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 ml-auto">
+                            <select class="form-control " name="booking_status" id="booking_status">
+                                <option value=" " selected>حالة الطلب</option>
+                                <option value="new" @if ($booking_status == 'new') selected @endif >{{__('admin.Not booked')}}</option>
+                                <option value="under_work" @if ($booking_status == 'under_work') selected @endif>
+                                   قيد الحجز
+                                </option>
+                                <option value="contract" @if ($booking_status == 'contract') selected @endif >
+                                  تم التعاقد
+                                </option>
+                                <option value="musaned" @if ($booking_status == 'musaned') selected @endif >
+                                   تم الربط في مساند
+                                </option>
+                                <option value="traning" @if ($booking_status == 'traning') selected @endif >
+                                   تحت الاجراء والتدريب
+                                </option>
+                                <option value="finished" @if ($booking_status == 'finished') selected @endif >
+                                   تم وصول العمالة
+                                </option>
+                                <option value="canceled" @if ($booking_status == 'canceled') selected @endif>طلب ملغي
+                                </option>
 
-{{--                            </select>--}}
-{{--                        </div>--}}
-{{--                        <div class="col-md-2 text-end">--}}
-{{--                            @if(count($_GET)>0 )--}}
-{{--                                <a id="cancel_request" href="{{ route('admin-orders.index') }}" class="btn btn-danger">--}}
-{{--                                   الغاء البحث</a>--}}
-{{--                            @endif--}}
-{{--                            <button id="btnSubmit" class="btn btn-info">{{__('admin.sSearch')}}</button>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
+                            </select>
+                        </div>
+                        <div class="col-md-2 ">
+                            <div class='input-group mb-3'>
+                                <select class="form-control " name="recruitment_office_id" id="recruitment_office_id">
+                                    <option value="" selected>المكتب الخارجي</option>
+                                    @foreach ($recruitment_office as $key => $office)
+                                        <option value="{{$office->id}}"
+                                                @if($recruitment_office_id== $office->id ) selected @endif>{{ $office->title }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 ml-auto">
+                            <select class="form-control " name="type" id="type">
+                                <option value=" " selected>نوع الطلب</option>
+                                <option value="admission" @if ($type == 'admission') selected @endif >استقدام</option>
+                                <option value="transport" @if ($type == 'transport') selected @endif > نقل خدمات</option>
+
+                            </select>
+                        </div>
+                        <div class="col-md-2 text-end">
+                            @if(count($_GET)>0 )
+                                <a id="cancel_request" href="{{ route('admin-orders.index') }}" class="btn btn-danger">
+                                   الغاء البحث</a>
+                            @endif
+                            <button id="btnSubmit" class="btn btn-info">{{__('admin.sSearch')}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="card">
                 <div class="card-body">
 
