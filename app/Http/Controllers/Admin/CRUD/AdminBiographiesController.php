@@ -19,6 +19,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 use App\Models\Language;
+use Illuminate\Support\Str;
 
 class AdminBiographiesController extends Controller
 {
