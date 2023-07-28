@@ -14,6 +14,7 @@ use App\Models\Religion;
 use App\Models\Biography;
 use App\Models\Skill;
 use App\Models\SocialType;
+use ConvertApi\ConvertApi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
