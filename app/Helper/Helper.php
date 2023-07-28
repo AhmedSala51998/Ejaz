@@ -18,7 +18,7 @@ function worker_new_cv($id)
 
             $name = Str::random(5) . '_' . time() . '.png';
             $dirname = 'new_cvs/time_' . $name;
-            $result->saveFiles(base_path('/storage/app/public/' . $dirname));
+            $result->saveFiles(base_path('/storage/app/public/uploads/' . $dirname));
             return $dirname;
         }else{
 

@@ -130,7 +130,7 @@ class AdminBiographiesController extends Controller
         );
         $name=Str::random(5).'_'.time().'.png';
         $dirname='new_cvs/time_'.$name;
-        $result->saveFiles(base_path('/storage/app/public/'.$dirname));
+        $result->saveFiles(base_path('/storage/app/public/uploads/'.$dirname));
         $cv->new_image=$dirname;
         $cv->save();
         return redirect()->route('biographies.index');
