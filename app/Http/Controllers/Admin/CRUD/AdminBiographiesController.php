@@ -49,7 +49,7 @@ class AdminBiographiesController extends Controller
                              onclick="window.open(this.src)">';
                 })
                 ->editColumn('smart_image', function ($row) {
-                    return ' <img src="'.get_file($row->new_image).'" class="rounded" style="height:60px;width:60px;object-fit: contain;"
+                    return ' <img src="'.get_new_file($row->new_image).'" class="rounded" style="height:60px;width:60px;object-fit: contain;"
                              onclick="window.open(this.src)">';
                 })
                 ->editColumn('created_at', function ($row) {
@@ -129,8 +129,8 @@ class AdminBiographiesController extends Controller
         ], 'html'
         );
         $name=Str::random(5).'_'.time().'.png';
-        $dirname='new_cvs/time_'.$name;
-        $result->saveFiles(base_path('/public/uploads/'.$dirname));
+        $dirname='uploads/new_cvs/time_'.$name;
+        $result->saveFiles(base_path('/storage/app/public/'.$dirname));
         $cv->new_image=$dirname;
         $cv->save();
         return redirect()->route('biographies.index');
