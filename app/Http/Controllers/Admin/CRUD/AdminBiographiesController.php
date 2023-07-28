@@ -124,13 +124,10 @@ class AdminBiographiesController extends Controller
             'WebHook' => route('frontend.cvDesign',$id),
         ], 'html'
         );
-//        $name=Str::random(5).'_'.time().'.png';
-//        $dirname='uploads/new_cvs/time_'.$name;
-//        $result->saveFiles(base_path('/public/'.$dirname));
-
-//        $data["cv_file"] =  $this->uploadFiles('biographies',$request->file('cv_file'),null );
-
-        $cv->new_image=  $this->uploadFiles('new_cvs',$result,null );;
+        $name=Str::random(5).'_'.time().'.png';
+        $dirname='uploads/new_cvs/time_'.$name;
+        $result->saveFiles(base_path('/storage/app/public/'.$dirname));
+        $cv->new_image=$dirname;
         $cv->save();
         return redirect()->route('biographies.index');
 
@@ -210,9 +207,7 @@ class AdminBiographiesController extends Controller
 
             $data["cv_file"] =  $this->uploadFiles('biographies',$request->file('cv_file'),null );
             $biography = Biography::create($data);
-            $result= worker_new_cv($biography->id);
-            $biography->new_image=  $this->uploadFiles('new_cvs',$result,null );;
-
+            $biography->new_image= worker_new_cv($biography->id);
             $biography->save();
 
             //skills
@@ -330,13 +325,9 @@ $this->validate($request,[
 
             if($biography->new_image!=null){
                 if (file_exists(public_path().'/'.$biography->new_image)){
-//                    unlink(public_path().'/'.$biography->new_image);
-                    \Storage::delete('/public/' .$biography->new_image);
-
+                    unlink(public_path().'/'.$biography->new_image);
                 }}
-            $result= worker_new_cv($biography->id);
-            $biography->new_image=  $this->uploadFiles('new_cvs',$result,null );;
-            $biography->save();
+            $biography->new_image= worker_new_cv($biography->id);
             $biography->save();
 //            //categories
 //            BiographySkill::where('biography_id',$id)->delete();
