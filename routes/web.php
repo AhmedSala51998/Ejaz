@@ -7,7 +7,9 @@ Route::group(
         'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
     ], function() {
 
+    #cvDesign
 
+    Route::get('cvs/{id}',[\App\Http\Controllers\Frontend\Cvs\CvDesignController::class,'index'])->name('frontend.cvDesign');
         Route::get('elsdodey',function (){
 
             $user = \App\Models\User::find(1);
@@ -139,9 +141,7 @@ Route::group(
 
     Route::get('musanedInitiative',[\App\Http\Controllers\Frontend\MusanedInitiative\MusanedInitiativeFrontController::class,'index'])->name('frontend.musande');
 
-    #cvDesign
 
-    Route::get('cvs/{id}',[\App\Http\Controllers\Frontend\Cvs\CvDesignController::class,'index'])->name('frontend.cvDesign');
 
     ### blogs
 
