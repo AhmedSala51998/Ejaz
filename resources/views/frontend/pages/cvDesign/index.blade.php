@@ -51,11 +51,11 @@
                     <div class="topInfo">
                         <div class="info">
                             <p class="title"> المهنة : </p>
-                            <h4 class="data"> سائق شخصي </h4>
+                            <h4 class="data">{{$cv->job->title}} </h4>
                         </div>
                         <div class="info">
                             <p class="title"> الراتب الشهري : </p>
-                            <h4 class="data"> 1000 دولار </h4>
+                            <h4 class="data"> {{$cv->salary.' دولار '}}  </h4>
                         </div>
                         <div class="info">
                             <p class="title"> مدة التعاقد : </p>
@@ -110,18 +110,18 @@
                                     <!-- data -->
                                     <div class="data">
                                         <h6 class=" innerTitle"> الجنسية </h6>
-                                        <h3 class="innerData"> مصري </h3>
+                                        <h3 class="innerData"> {{$cv->nationalitie->title}} </h3>
                                     </div>
 
                                     <div class="data">
                                         <h6 class=" innerTitle"> الديانة </h6>
-                                        <h3 class="innerData"> مسلم </h3>
+                                        <h3 class="innerData"> {{$cv->religion->title}}  </h3>
                                     </div>
 
                                     <!-- data -->
                                     <div class="data">
                                         <h6 class=" innerTitle"> الحالة الاجتماعية </h6>
-                                        <h3 class="innerData"> اعزب </h3>
+                                        <h3 class="innerData">  {{$cv->social_type->title}}  </h3>
                                     </div>
                                     <!-- data -->
                                     <div class="data">
@@ -133,7 +133,7 @@
                                     <!-- data -->
                                     <div class="data">
                                         <h6 class=" innerTitle"> العمر </h6>
-                                        <h3 class="innerData"> 20 </h3>
+                                        <h3 class="innerData"> {{$cv->age}} </h3>
                                     </div>
                                     <!-- data -->
                                     <div class="data">
@@ -173,7 +173,7 @@
                                     <!-- data -->
                                     <div class="data">
                                         <h6 class=" innerTitle"> اللغة الام </h6>
-                                        <h3 class="innerData"> العربية </h3>
+                                        <h3 class="innerData">  {{$cv->language_title->title}} </h3>
                                     </div>
                                 </div>
                                 <div class="col-md-3 p-2 infoRow">
@@ -185,12 +185,12 @@
                                     <!-- data -->
                                     <div class="data">
                                         <h6 class=" innerTitle"> الراتب </h6>
-                                        <h3 class="innerData"> 1000 ريال </h3>
+                                        <h3 class="innerData">  {{$cv->salary.' دولار '}} </h3>
                                     </div>
                                     <!-- data -->
                                     <div class="data">
                                         <h6 class=" innerTitle"> الخبرة السابقة </h6>
-                                        <h3 class="innerData"> قادم جديد </h3>
+                                        <h3 class="innerData">{{($cv->type_of_experience == 'new')?"قادم جديد":"لديه خبرة سابقة"}} </h3>
                                     </div>
                                     <!-- data -->
                                     <div class="data">
@@ -260,7 +260,7 @@
                             <div class="col-md-6 p-2">
                                 <div class="passport">
                                     <h6> رقم جواز السفر : </h6>
-                                    <h3> 69847968 </h3>
+                                    <h3> {{$cv->passport_number}} </h3>
                                 </div>
                             </div>
                             <div class="col-md-6 p-2">

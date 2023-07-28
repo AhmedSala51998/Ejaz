@@ -3,6 +3,34 @@
 
 use Carbon\Carbon;
 
+function worker_new_cv($id)
+{
+    try {
+        ConvertApi::setApiSecret(env('FILE_CONVERTER_KEY'));
+
+        $result = ConvertApi::convert('png', [
+            'File' => route('cvs_view', $id),
+            'WebHook' => route('cvs_view', $id),
+        ], 'html'
+        );
+
+        if(isset($result->response['Files'][0])&&!empty($result->response['Files'][0])) {
+
+            $name = Str::random(5) . '_' . time() . '.png';
+            $dirname = 'uploads/new_cvs/time_' . $name;
+            $result->saveFiles(base_path('/public/' . $dirname));
+            return $dirname;
+        }else{
+
+            return null;
+
+        }
+    } catch (\Exception $e) {
+        return null;
+
+    }
+
+}
 if (!function_exists('setting')) {
     function setting()
     {

@@ -14,7 +14,7 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "mcamara/laravel-localization": "^1.6",
-        "realrashid/sweet-alert": "^5.0",
+        "realrashid/sweet-alert": "^7.0",
         "spatie/laravel-flash": "^1.9",
         "spatie/laravel-permission": "^3.13",
         "spatie/laravel-translatable": "^4.6",

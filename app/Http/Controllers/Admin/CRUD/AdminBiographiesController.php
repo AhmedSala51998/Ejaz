@@ -91,21 +91,44 @@ class AdminBiographiesController extends Controller
                         $edit = 'hidden';
                     if (!checkPermission(21))
                         $delete = 'hidden';
+                    $actions = '<a href="' . route('biographies_download.view', $row->id) . '" title="السيرة المختصرة"  style="margin-left: 2px;"  class="btn btn-secondary  mr-2"> <i class="fa fa-arrows-alt-v"></i></a>';
+
                     if($row->status=="pending"){
-                        return "<a " .$edit. "  href='" . route('biographies.edit',$row->id) . "'  class='btn btn-info editButton' id='" . $row->id . "'> <i class='fa fa-edit'></i></a> <a  href='" . route('biographies.unban',$row->id) . "' class='btn btn-success benButton' ><i class='fa fa-unlock'></i></a>
+                        return $actions."<a " .$edit. "  href='" . route('biographies.edit',$row->id) . "'  class='btn btn-info editButton' id='" . $row->id . "'> <i class='fa fa-edit'></i></a> <a  href='" . route('biographies.unban',$row->id) . "' class='btn btn-success benButton' ><i class='fa fa-unlock'></i></a>
                    <a " .$delete. " style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
                     }elseif($row->status=="new"){
-                        return "<a " .$edit. "  href='" . route('biographies.edit',$row->id) . "'  class='btn btn-info editButton' id='" . $row->id . "'> <i class='fa fa-edit'></i></a> <a  href='" . route('biographies.ban',$row->id) . "' class='btn btn-warning benButton' ><i class='fa fa-unlock-alt'></i></a>
+                        return $actions."<a " .$edit. "  href='" . route('biographies.edit',$row->id) . "'  class='btn btn-info editButton' id='" . $row->id . "'> <i class='fa fa-edit'></i></a> <a  href='" . route('biographies.ban',$row->id) . "' class='btn btn-warning benButton' ><i class='fa fa-unlock-alt'></i></a>
                    <a " .$delete. " style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
 
                     }else{
-                        return "<a " .$edit. "  href='" . route('biographies.edit',$row->id) . "'  class='btn btn-info editButton' id='" . $row->id . "'> <i class='fa fa-edit'></i></a>
+                        return $actions."<a " .$edit. "  href='" . route('biographies.edit',$row->id) . "'  class='btn btn-info editButton' id='" . $row->id . "'> <i class='fa fa-edit'></i></a>
                    <a " .$delete. " style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
                     }
 
                 })->rawColumns(['actions','image','delete_all','nationalitie_id','status'])->make(true);
         }
         return view('admin.crud.biographies.index');
+    }
+    public function cvsDownload($id)
+    {
+        $cv=Biography::find($id);
+        if($cv->new_image!=null){
+            if (file_exists(public_path().'/'.$cv->new_image)){
+                unlink(public_path().'/'.$cv->new_image);
+            }}
+        ConvertApi::setApiSecret(env('FILE_CONVERTER_KEY'));
+        $result = ConvertApi::convert('png', [
+            'File' => route('cvs_view',$id),
+            'WebHook' => route('cvs_view',$id),
+        ], 'html'
+        );
+        $name=Str::random(5).'_'.time().'.png';
+        $dirname='uploads/new_cvs/time_'.$name;
+        $result->saveFiles(base_path('/public/'.$dirname));
+        $cv->new_image=$dirname;
+        $cv->save();
+        return redirect()->route('biographies.index');
+
     }
     public function ban_biographies($id)
     {
@@ -154,7 +177,7 @@ class AdminBiographiesController extends Controller
      */
     public function store(Request $request)
     {
-    
+
  $this->validate($request,[
             'cv_file'=>'required',
             'recruitment_office_id'=>'required',
@@ -182,6 +205,8 @@ class AdminBiographiesController extends Controller
 
             $data["cv_file"] =  $this->uploadFiles('biographies',$request->file('cv_file'),null );
             $biography = Biography::create($data);
+            $biography->new_image= worker_new_cv($biography->id);
+            $biography->save();
 
             //skills
 //            foreach ($request->skills as $index=>$skillid){
@@ -294,9 +319,14 @@ $this->validate($request,[
             if($request->cv_file)
             $data["cv_file"] =  $this->uploadFiles('biographies',$request->file('cv_file'),null );
 
-            Biography::find($id)->update($data);
+         $biography=   Biography::find($id)->update($data);
 
-
+            if($biography->new_image!=null){
+                if (file_exists(public_path().'/'.$biography->new_image)){
+                    unlink(public_path().'/'.$biography->new_image);
+                }}
+            $biography->new_image= worker_new_cv($biography->id);
+            $biography->save();
 //            //categories
 //            BiographySkill::where('biography_id',$id)->delete();
 //

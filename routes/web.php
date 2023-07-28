@@ -141,7 +141,7 @@ Route::group(
 
     #cvDesign
 
-    Route::get('cvs',[\App\Http\Controllers\Frontend\Cvs\CvDesignController::class,'index'])->name('frontend.cvDesign');
+    Route::get('cvs/{id}',[\App\Http\Controllers\Frontend\Cvs\CvDesignController::class,'index'])->name('frontend.cvDesign');
 
     ### blogs
 
