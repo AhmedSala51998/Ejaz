@@ -9,8 +9,8 @@ function worker_new_cv($id)
         ConvertApi::setApiSecret(env('FILE_CONVERTER_KEY'));
 
         $result = ConvertApi::convert('png', [
-            'File' => route('cvs_view', $id),
-            'WebHook' => route('cvs_view', $id),
+            'File' => route('frontend.cvDesign', $id),
+            'WebHook' => route('frontend.cvDesign', $id),
         ], 'html'
         );
 

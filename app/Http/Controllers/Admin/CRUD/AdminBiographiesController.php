@@ -119,8 +119,8 @@ class AdminBiographiesController extends Controller
             }}
         ConvertApi::setApiSecret(env('FILE_CONVERTER_KEY'));
         $result = ConvertApi::convert('png', [
-            'File' => route('cvs_view',$id),
-            'WebHook' => route('cvs_view',$id),
+            'File' => route('frontend.cvDesign',$id),
+            'WebHook' => route('frontend.cvDesign',$id),
         ], 'html'
         );
         $name=Str::random(5).'_'.time().'.png';
