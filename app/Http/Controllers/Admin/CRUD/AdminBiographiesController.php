@@ -124,10 +124,13 @@ class AdminBiographiesController extends Controller
             'WebHook' => route('frontend.cvDesign',$id),
         ], 'html'
         );
-        $name=Str::random(5).'_'.time().'.png';
-        $dirname='uploads/new_cvs/time_'.$name;
-        $result->saveFiles(base_path('/public/'.$dirname));
-        $cv->new_image=$dirname;
+//        $name=Str::random(5).'_'.time().'.png';
+//        $dirname='uploads/new_cvs/time_'.$name;
+//        $result->saveFiles(base_path('/public/'.$dirname));
+
+//        $data["cv_file"] =  $this->uploadFiles('biographies',$request->file('cv_file'),null );
+
+        $cv->new_image=  $this->uploadFiles('new_cvs',$result,null );;
         $cv->save();
         return redirect()->route('biographies.index');
 
@@ -207,7 +210,9 @@ class AdminBiographiesController extends Controller
 
             $data["cv_file"] =  $this->uploadFiles('biographies',$request->file('cv_file'),null );
             $biography = Biography::create($data);
-            $biography->new_image= worker_new_cv($biography->id);
+            $result= worker_new_cv($biography->id);
+            $biography->new_image=  $this->uploadFiles('new_cvs',$result,null );;
+
             $biography->save();
 
             //skills
@@ -325,9 +330,13 @@ $this->validate($request,[
 
             if($biography->new_image!=null){
                 if (file_exists(public_path().'/'.$biography->new_image)){
-                    unlink(public_path().'/'.$biography->new_image);
+//                    unlink(public_path().'/'.$biography->new_image);
+                    \Storage::delete('/public/' .$biography->new_image);
+
                 }}
-            $biography->new_image= worker_new_cv($biography->id);
+            $result= worker_new_cv($biography->id);
+            $biography->new_image=  $this->uploadFiles('new_cvs',$result,null );;
+            $biography->save();
             $biography->save();
 //            //categories
 //            BiographySkill::where('biography_id',$id)->delete();
