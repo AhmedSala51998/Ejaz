@@ -49,7 +49,7 @@ class AdminBiographiesController extends Controller
                              onclick="window.open(this.src)">';
                 })
                 ->editColumn('smart_image', function ($row) {
-                    return ' <img src="'.get_file($row->new_image).'" class="rounded" style="height:60px;width:60px;object-fit: contain;"
+                    return ' <img src="'.get_new_file($row->new_image).'" class="rounded" style="height:60px;width:60px;object-fit: contain;"
                              onclick="window.open(this.src)">';
                 })
                 ->editColumn('created_at', function ($row) {

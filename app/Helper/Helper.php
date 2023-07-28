@@ -96,7 +96,21 @@ if (!function_exists('get_file')) {
         return $file_path;
     }//end
 }
+if (!function_exists('get_new_file')) {
 
+    function get_new_file($file)
+    {
+        // Storage::exists( $file )
+        if (filter_var($file, FILTER_VALIDATE_URL)) {
+            $file_path = $file;
+        } elseif ($file) {
+            $file_path = asset('storage/app/public/') . '/' . $file;
+        } else {
+            $file_path=asset('dashboard/assets/images/companies/img-1.png');
+        }
+        return $file_path;
+    }//end
+}
 
 if (!function_exists('permissionsList')) {
     function permissionsList()
