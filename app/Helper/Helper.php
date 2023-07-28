@@ -17,8 +17,8 @@ function worker_new_cv($id)
         if(isset($result->response['Files'][0])&&!empty($result->response['Files'][0])) {
 
             $name = Str::random(5) . '_' . time() . '.png';
-            $dirname = 'uploads/new_cvs/time_' . $name;
-            $result->saveFiles(base_path('/storage/app/public/' . $dirname));
+            $dirname = 'new_cvs/time_' . $name;
+            $result->saveFiles(base_path('public/uploads/' . $dirname));
             return $dirname;
         }else{
 
