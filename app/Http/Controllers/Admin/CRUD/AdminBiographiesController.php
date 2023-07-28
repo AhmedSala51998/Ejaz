@@ -48,6 +48,10 @@ class AdminBiographiesController extends Controller
                     return ' <img src="'.get_file($row->cv_file).'" class="rounded" style="height:60px;width:60px;object-fit: contain;"
                              onclick="window.open(this.src)">';
                 })
+                ->editColumn('smart_image', function ($row) {
+                    return ' <img src="'.get_file($row->new_image).'" class="rounded" style="height:60px;width:60px;object-fit: contain;"
+                             onclick="window.open(this.src)">';
+                })
                 ->editColumn('created_at', function ($row) {
                     return date('Y/m/d',strtotime($row->created_at));
                 })
@@ -107,7 +111,7 @@ class AdminBiographiesController extends Controller
                    <a " .$delete. " style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
                     }
 
-                })->rawColumns(['actions','image','delete_all','nationalitie_id','status'])->make(true);
+                })->rawColumns(['actions','image','delete_all','nationalitie_id','status','smart_image'])->make(true);
         }
         return view('admin.crud.biographies.index');
     }

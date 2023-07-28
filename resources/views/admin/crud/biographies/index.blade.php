@@ -77,6 +77,8 @@
                             </th>
 
                             <th>الصورة</th>
+                            <th>التصميم الموحد</th>
+
                             <th>الحالة</th>
                             <th>الجنسية</th>
                             <th>رقم جواز السفر</th>
@@ -162,6 +164,9 @@
             "columns": [
                 {"data": "delete_all", orderable: false, searchable: false},
                 {"data": "image", orderable: false, searchable: false},
+                {"data": "smart_image", orderable: false, searchable: false},
+
+
                 {"data": "status", orderable: false, searchable: true},
                 {"data": "nationalitie_id", orderable: false, searchable: true},
                 {"data": "passport_number", orderable: false, searchable: true},
