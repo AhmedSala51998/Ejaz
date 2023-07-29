@@ -45,9 +45,10 @@
         <div class="container-fluid">
             <!--main Info  -->
             <div class="mainInfo">
-                <img class="userImg" src="{{asset('frontend')}}/img/users/4.webp" alt="">
+                <img class="userImg" src="{{get_file($cv->cv_file)}}" alt="">
                 <div class="sideData">
-                    <h1 class="name"> حسن سعيد الصالح </h1>
+                    <h1 class="name">{{$cv->cv_name}} </h1>
+
                     <div class="topInfo">
                         <div class="info">
                             <p class="title"> المهنة : </p>

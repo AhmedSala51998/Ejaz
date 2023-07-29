@@ -117,14 +117,14 @@
                                         </div>
                                     </div>
 
-{{--                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <label for="biography_number">رقم سجل السيرة الذاتية </label>--}}
-{{--                                            <input data-validation="required" required type="number" class="form-control"--}}
-{{--                                                   value=""--}}
-{{--                                                   id="biography_number" name="biography_number" placeholder="">--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <div class="form-group">
+                                            <label for="cv_name">الاسم </label>
+                                            <input data-validation="required" required type="text" class="form-control"
+                                                   value=""
+                                                   id="cv_name" name="cv_name" placeholder="">
+                                        </div>
+                                    </div>
 
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                         <div class="form-group">

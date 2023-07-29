@@ -2,6 +2,7 @@
 
 
 use Carbon\Carbon;
+use ConvertApi\ConvertApi;
 
 function worker_new_cv($id)
 {
@@ -177,4 +178,3 @@ function checkPermission($permission_id){
         return false;
     return true;
 }
-

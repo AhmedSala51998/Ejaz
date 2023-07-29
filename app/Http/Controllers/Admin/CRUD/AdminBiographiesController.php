@@ -194,7 +194,7 @@ class AdminBiographiesController extends Controller
             'social_type_id'=>'required',
             'age'=>'required',
             'salary'=>'required',
-//            'biography_number'=>'required',
+            'cv_name'=>'required',
            'passport_number' => 'required|max:255|unique:biographies,passport_number',
 //            'skills'=>'required|array',
             'certificates.*'=>'required|file|image',
