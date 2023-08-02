@@ -63,7 +63,8 @@ class AdminOrderController extends Controller
         $recruitment_office = RecruitmentOffice::get();
         $social_type = SocialType::get();
         $type = $request->type;
-
+        $selected_staff = $request->selected_staff;
+        $date = $request->date;
         foreach ($roles as $role)
            {
               if($role->id==1){
@@ -75,30 +76,9 @@ class AdminOrderController extends Controller
 
         if ($request->ajax()) {
 
-            if(admin()->user()->admin_type == 0){
-                if ($count>0)
-                {
-                    $dataTables = Order::query()->orderBy("id", "DESC")->get();
-
-                }
-                else
-                {
-                    $dataTables = Order::query()->where('admin_id',$admin->id)->orderBy("id", "DESC")->get();
-
-                }
-            }else{
-
-                if ($count>0) {
-                    $dataTables = Order::query()->where("admin_id",$admin->id)->orderBy("id", "DESC")->get();
-
-                }
-                else {
-                    $dataTables = Order::query()->where('admin_id',$admin->id)->orderBy("id", "DESC")->get();
-
-                }
 
 
-            }
+            $dataTables = Order::query()->orderBy("id", "DESC");
 
             if ($request->passport_key != null) {
                 $dataTables = $dataTables->whereHas('biography', function ($q) use ($passport_key) {
@@ -129,6 +109,7 @@ class AdminOrderController extends Controller
             if ($request->booking_status != null) {
                 $dataTables = $dataTables->where('status', $booking_status);
             }
+
             if ($request->recruitment_office_id != null) {
 //                $dataTables = $dataTables->where('recruitment_office_id', $recruitment_office_id);
                 $dataTables = $dataTables->whereHas('biography', function ($q) use ($recruitment_office_id) {
@@ -150,7 +131,13 @@ class AdminOrderController extends Controller
 
                 });
             }
+            if ($request->selected_staff != null) {
+                $dataTables = $dataTables->where('admin_id', $selected_staff);
+            }
 
+            if ($date != null) {
+                $dataTables = $dataTables->whereDate('created_at', '>=', date('Y-m-d', strtotime(explode(" - ", $date)[0])))->whereDate('created_at', '<=', date('Y-m-d', strtotime(explode(" - ", $date)[1])));
+            }
             return DataTables::of($dataTables)
                 ->editColumn('image', function ($row) {
                     $cv = (isset($row->biography->cv_file))? $row->biography->cv_file:"";
@@ -337,7 +324,7 @@ $add_note $notes
                     'type', 'user', 'admin', 'actions','contact_num'
                 ])->make(true);
         }
-        return view('admin.crud.order.admin', compact('natinalities', 'nationality_id', 'social_type', 'social_type_id', 'booking_status', 'recruitment_office', 'recruitment_office_id', 'type'));
+        return view('admin.crud.order.admin', compact('natinalities', 'nationality_id', 'social_type', 'social_type_id', 'booking_status', 'recruitment_office', 'recruitment_office_id', 'type','passport_key','selected_staff','date'));
     }
 
     /**

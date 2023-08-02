@@ -86,9 +86,8 @@
                         <div class="col-lg-2 ml-auto">
                             <select class="form-control " name="booking_status" id="booking_status">
                                 <option value=" " selected>حالة الطلب</option>
-                                <option value="new" @if ($booking_status == 'new') selected @endif >{{__('admin.Not booked')}}</option>
                                 <option value="under_work" @if ($booking_status == 'under_work') selected @endif>
-                                   قيد الحجز
+                                   حجز السيرة الذاتية
                                 </option>
                                 <option value="contract" @if ($booking_status == 'contract') selected @endif >
                                   تم التعاقد
@@ -109,6 +108,20 @@
                         </div>
                         <div class="col-md-2 ">
                             <div class='input-group mb-3'>
+                                <select class="form-control" name="selected_staff" id="selected_staff">
+                                    <option value=" " selected >المسوقين </option>
+                                    @foreach(\App\Models\Admin::where('admin_type',1)->get() as $staff)
+
+                                            <option value="{{$staff->id}}" @if ($selected_staff == $staff->id) selected @endif>{{$staff->name}}</option>
+
+                                    @endforeach
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2 ">
+                            <div class='input-group mb-3'>
                                 <select class="form-control " name="recruitment_office_id" id="recruitment_office_id">
                                     <option value="" selected>المكتب الخارجي</option>
                                     @foreach ($recruitment_office as $key => $office)
@@ -125,6 +138,18 @@
                                 <option value="transport" @if ($type == 'transport') selected @endif > نقل خدمات</option>
 
                             </select>
+                        </div>
+                        <div class="col-md-2 ">
+                            <div class='input-group mb-3'>
+                                <input type='text' class="form-control aiz-date-range" id="date" name="date"
+                                       @isset($date) value="{{ $date }}" @endisset
+                                       placeholder="مدى التاريخ"
+                                       data-separator=" - "  autocomplete="off"  data-advanced-range="true" />
+
+                                <span class="input-group-text">
+                                            <i data-feather="calendar" class="feather-sm"></i>
+                                        </span>
+                            </div>
                         </div>
                         <div class="col-md-2 text-end">
                             @if(count($_GET)>0 )
@@ -213,22 +238,21 @@
             "lengthChange": true,
             "serverSide": true,
             "ordering": true,
-            "searching": true,
+            "searching": false,
             'iDisplayLength': 20,
             "ajax": {
                 url: "{{ route('admin-orders.index') }}",
                 data: function (d) {
-                    d.passport_key = $('#passport_key').val(),
+                        d.passport_key = $('#passport_key').val(),
                         d.social_type = $('#social_type').val(),
-                        // d.selected_staff = $('#selected_staff').val(),
+                        d.selected_staff = $('#selected_staff').val(),
                         d.booking_status = $('#booking_status').val(),
                         // d.cv_type=$('#cv_type').val(),
                         // d.occuption_id=$('#occuption_id').val(),
                         d.nationality_id = $('#nationality_id').val(),
                         d.recruitment_office_id = $('#recruitment_office_id').val(),
-                        d.type = $('#type').val()
-
-                    // d.date = $('#date').val()
+                        d.type = $('#type').val(),
+                        d.date = $('#date').val()
                 }
             },
             "columns": [
@@ -241,8 +265,8 @@
                 {"data": "contact_num", orderable: false, searchable: true},
                 {"data": "nationalitie_id", orderable: false, searchable: true},
                 {"data": "status", orderable: false, searchable: true},
-                {"data": "recruitment_office_id", orderable: false, searchable: true},
-                {"data": "type", orderable: false, searchable: true},
+                {"data": "recruitment_office_id", orderable: false, searchable: false},
+                {"data": "type", orderable: false, searchable: false},
                 {"data": "created_at", searchable: false},
                 {"data": "actions", orderable: false, searchable: false}
             ],
@@ -673,5 +697,31 @@
 
 
     </script>
+    <script type="text/javascript">
+        $(function() {
 
+            var start = moment().subtract(29, 'days');
+            var end = moment();
+
+            function cb(start, end) {
+                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+            }
+
+            $('#reportrange').daterangepicker({
+                startDate: start,
+                endDate: end,
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                }
+            }, cb);
+
+            cb(start, end);
+
+        });
+    </script>
 @endsection

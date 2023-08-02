@@ -194,14 +194,30 @@ class AdminBiographiesController extends Controller
             'social_type_id'=>'required',
             'age'=>'required',
             'salary'=>'required',
-            'cv_name'=>'required',
+
            'passport_number' => 'required|max:255|unique:biographies,passport_number',
-//            'skills'=>'required|array',
+            'skills'=>'required|array',
             'certificates.*'=>'required|file|image',
             'high_degree'=>'nullable',
            'type'=>'required',
            'reasonService'=>'nullable',
            'periodService'=>'nullable',
+           //new
+           'passport_created_at' => 'required',
+           'passport_ended_at' => 'required',
+           'passport_place' => 'required',
+           'cv_name'=>'required',
+          'weight' => 'required',
+          'height' => 'required',
+          'childern_number' => 'required',
+          'living_location' => 'required',
+          'arabic_degree' => 'required',
+          'english_degree' => 'required',
+          'video' => 'nullable',
+          'type_of_experience' => 'required',
+          'experience_country'=>'nullable',
+          'experience_year'=>'nullable',
+          'notes'=>'nullable',
        ]);
 
         $data = $request->except(['images','cv_file']);
@@ -215,12 +231,12 @@ class AdminBiographiesController extends Controller
             $biography->save();
 
             //skills
-//            foreach ($request->skills as $index=>$skillid){
-//                BiographySkill::create([
-//                    'biography_id'=>$biography->id,
-//                    'skill_id'=>$skillid,
-//                ]);
-//            }
+            foreach ($request->skills as $index=>$skillid){
+                BiographySkill::create([
+                    'biography_id'=>$biography->id,
+                    'skill_id'=>$skillid,
+                ]);
+            }
 
             //biography galary
             if(isset($request->images)){
