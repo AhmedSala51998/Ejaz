@@ -271,10 +271,9 @@ class AdminBiographiesController extends Controller
        ]);
 
         $data = $request->except(['images','cv_file']);
-
         try {
             DB::beginTransaction();
-
+            $data["is_cv_out"] =($request->is_cv_out== 'on')?1:0;
             $data["cv_file"] =  $this->uploadFiles('biographies',$request->file('cv_file'),null );
             $biography = Biography::create($data);
             $biography->new_image= worker_new_cv($biography->id);
@@ -390,9 +389,10 @@ $this->validate($request,[
 
             if($request->cv_file)
             $data["cv_file"] =  $this->uploadFiles('biographies',$request->file('cv_file'),null );
+            $data["is_cv_out"] =($request->is_cv_out== 'on')?1:0;
 
          $biography=   Biography::find($id)->update($data);
-
+        $biography=   Biography::find($id);
             if($biography->new_image!=null){
                 if (file_exists(public_path().'/'.$biography->new_image)){
                     unlink(public_path().'/'.$biography->new_image);

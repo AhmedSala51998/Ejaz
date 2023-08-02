@@ -50,8 +50,8 @@
                 </div>
                 <div class=" card-body collapse show">
 
-                                            <form class="" id="sort_customers" action="" method="GET">
-                                                @csrf
+{{--                                            <form class="" id="sort_customers" action="" method="GET">--}}
+{{--                                                @csrf--}}
                     <div class="row">
 
                         <div class="col-md-2 ">
@@ -141,13 +141,13 @@
                         </div>
                         <div class="col-md-2 ">
                             <div class='input-group mb-3'>
-                                <input type='text' class="form-control aiz-date-range" id="date" name="date"
+                                <input type='text' class="form-control " id="reportrange" name="date"
                                        @isset($date) value="{{ $date }}" @endisset
                                        placeholder="مدى التاريخ"
                                        data-separator=" - "  autocomplete="off"  data-advanced-range="true" />
 
                                 <span class="input-group-text">
-                                            <i data-feather="calendar" class="feather-sm"></i>
+                                            <i class="feather-sm fa fa-calendar"></i>
                                         </span>
                             </div>
                         </div>
@@ -243,6 +243,7 @@
             "ajax": {
                 url: "{{ route('admin-orders.index') }}",
                 data: function (d) {
+
                         d.passport_key = $('#passport_key').val(),
                         d.social_type = $('#social_type').val(),
                         d.selected_staff = $('#selected_staff').val(),
@@ -252,7 +253,7 @@
                         d.nationality_id = $('#nationality_id').val(),
                         d.recruitment_office_id = $('#recruitment_office_id').val(),
                         d.type = $('#type').val(),
-                        d.date = $('#date').val()
+                        d.date = $('#reportrange').val()
                 }
             },
             "columns": [
@@ -703,13 +704,12 @@
             var start = moment().subtract(29, 'days');
             var end = moment();
 
-            function cb(start, end) {
-                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-            }
+            // function cb(start, end) {
+            //     $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+            // }
 
             $('#reportrange').daterangepicker({
-                startDate: start,
-                endDate: end,
+
                 ranges: {
                     'Today': [moment(), moment()],
                     'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
@@ -718,9 +718,9 @@
                     'This Month': [moment().startOf('month'), moment().endOf('month')],
                     'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
                 }
-            }, cb);
+            });
 
-            cb(start, end);
+            // cb(start, end);
 
         });
     </script>
