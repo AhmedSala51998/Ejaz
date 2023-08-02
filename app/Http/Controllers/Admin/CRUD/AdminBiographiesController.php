@@ -41,8 +41,58 @@ class AdminBiographiesController extends Controller
     {
         if(!checkPermission(18))
             return view('admin.permission');
+
+        $admin=  \App\Models\Admin::find(admin()->id());
+        $roles= $admin->roles;
+        $count=0;
+        $passport_key=$request->passport_key;
+        $nationality_id=$request->nationality_id ;
+        $social_type_id=$request->social_type ;
+        $booking_status = $request->booking_status?$request->booking_status:'';
+        $recruitment_office_id = $request->recruitment_office_id;
+        $natinalities=Nationalitie::get();
+        $recruitment_office = RecruitmentOffice::get();
+        $social_type = SocialType::get();
+        $type = $request->type;
+
         if ($request->ajax()) {
             $biographies= Biography::query()->where("order_type","normal")->orderBy("id","DESC");
+
+
+            if ($request->passport_key != null) {
+                $biographies = $biographies->  where('passport_number', $passport_key);
+//
+            }
+
+            if ($request->social_type != null) {
+
+                if ($social_type_id == 1) {
+                    $biographies = $biographies->  where('type_of_experience', 'new');
+
+                } else if ($social_type_id == 2) {
+                    $biographies = $biographies->  where('type_of_experience','with_experience');
+
+
+                }
+            }
+
+            if ($request->nationality_id != null) {
+                $biographies = $biographies->  where('nationalitie_id', $nationality_id);
+
+            }
+
+            if ($request->recruitment_office_id != null) {
+                $biographies = $biographies->where('recruitment_office_id', $recruitment_office_id);
+
+            }
+            if ($request->booking_status != null) {
+                $biographies = $biographies->where('status', $booking_status);
+            }
+            if ($request->type != null) {
+                $biographies = $biographies->where('type', $type);
+            }
+
+
             return DataTables::of($biographies)
                 ->editColumn('image', function ($row) {
                     return ' <img src="'.get_file($row->cv_file).'" class="rounded" style="height:60px;width:60px;object-fit: contain;"
@@ -113,7 +163,7 @@ class AdminBiographiesController extends Controller
 
                 })->rawColumns(['actions','image','delete_all','nationalitie_id','status','smart_image'])->make(true);
         }
-        return view('admin.crud.biographies.index');
+        return view('admin.crud.biographies.index', compact('natinalities', 'nationality_id', 'social_type', 'social_type_id', 'booking_status', 'recruitment_office', 'recruitment_office_id', 'type'));
     }
     public function cvsDownload($id)
     {
