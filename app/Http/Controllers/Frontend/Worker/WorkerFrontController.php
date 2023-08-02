@@ -33,6 +33,7 @@ class WorkerFrontController extends Controller
 
             $cvs = Biography::where('status', 'new')
                 ->where('order_type', 'normal')
+                ->where('is_cv_out',0)
                 ->FilterByAge($request->age)
                 ->FilterByJob($request->job)
                 ->FilterByNationality($country->id)->where('type','admission')
@@ -46,6 +47,7 @@ class WorkerFrontController extends Controller
             $cvs = Biography::where('status', 'new')
                 ->where('order_type', 'normal')
                 ->FilterByAge($request->age)
+                ->where('is_cv_out',0)
                 ->FilterByJob($request->job)
                 ->FilterByNationality($request->nationality)->where('type','admission')
                 ->with('recruitment_office', 'nationalitie', 'language_title',

@@ -11,8 +11,8 @@
 
 
 
-<link rel="stylesheet" media="all" href="{{asset('dashboard/cute-alert-master/style.css')}}"/>
 <link rel="stylesheet" href="https://jeremyfagis.github.io/dropify/dist/css/dropify.min.css">
+<link rel="stylesheet" type="text/css" href="{{asset('frontend/daterangepicker/daterangepicker.css')}}" />
 
 
 <style>

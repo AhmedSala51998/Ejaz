@@ -159,7 +159,15 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 
+                                        <div class="form-group">
+                                            <br>
+                                            <label for="is_cv_out">  هل تريد اضافتها كسيره داخلية فقط ؟</label>
+                                            <input id="is_cv_out" type="checkbox" name="is_cv_out" @if($biography->is_cv_out==1) checked @endif>
+
+                                        </div>
+                                    </div>
 
                                 </div>
                             </section>

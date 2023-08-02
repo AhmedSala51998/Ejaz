@@ -65,6 +65,7 @@ class AdminOrderController extends Controller
         $type = $request->type;
         $selected_staff = $request->selected_staff;
         $date = $request->date;
+//        dd($date);
         foreach ($roles as $role)
            {
               if($role->id==1){

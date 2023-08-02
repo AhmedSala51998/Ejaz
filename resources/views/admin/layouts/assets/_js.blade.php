@@ -25,6 +25,9 @@
 
 <script src="https://jeremyfagis.github.io/dropify/dist/js/dropify.min.js"></script>
 <script src="{{asset('dashboard/form-validator/jquery.form-validator.js')}}"></script>
+<script type="text/javascript" src="{{asset('frontend/daterangepicker/moment.min.js')}}"></script>
+
+<script type="text/javascript" src="{{asset('frontend/daterangepicker/daterangepicker.js')}}"></script>
 
 <script>
 
