@@ -709,6 +709,7 @@
             // }
 
             $('#reportrange').daterangepicker({
+                autoUpdateInput: false,
 
                 ranges: {
                     'Today': [moment(), moment()],
