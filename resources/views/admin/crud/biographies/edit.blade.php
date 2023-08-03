@@ -99,7 +99,7 @@
                                         <div class="form-group">
                                             <label for="recruitment_office_id"> مكاتب السيرة الذاتيه </label>
                                             <select data-validation="required" required name="recruitment_office_id"
-                                                    id="recruitment_office_id" class="form-control">
+                                                    id="recruitment_office_id" class="form-control default_rer">
                                                 @foreach($recruitment_office as $one)
                                                     <option value="{{$one->id}}"
                                                         {{($biography->recruitment_office_id == $one->id)? "selected":""}} >{{$one->title}}</option>
@@ -111,7 +111,7 @@
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                         <div class="form-group">
                                             <label for="salary">الراتب </label>
-                                            <input data-validation="required" required type="number" class="form-control"
+                                            <input data-validation="required" required type="number" class="form-control default_rer"
                                                    value="{{$biography->salary}}"
                                                    id="salary" name="salary" placeholder="">
                                         </div>
@@ -129,7 +129,7 @@
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                         <div class="form-group">
                                             <label for="passport_number">رقم جواز السفر </label>
-                                            <input data-validation="required" required type="text" class="form-control"
+                                            <input data-validation="required" required type="text" class="form-control default_rer"
                                                    value="{{$biography->passport_number}}"
                                                    id="passport_number" name="passport_number" placeholder="">
                                         </div>
@@ -150,8 +150,8 @@
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                         <div class="form-group">
                                             <label for="passport_number">الجنسية </label>
-                                            <select data-validation="required" required name="nationalitie_id"
-                                                    class="form-control select2Users">
+                                            <select data-validation="required" required name="nationalitie_id" id="nationalitie_id"
+                                                    class="form-control select2Users default_rer">
                                                 @foreach($nationalitie as $one)
                                                     <option value="{{$one->id}}"
                                                         {{($biography->nationalitie_id == $one->id)? "selected":""}} >{{$one->title}}</option>
@@ -180,7 +180,7 @@
                                         <div class="form-group">
                                             <label for="passport_number">المهنة </label>
                                             <select data-validation="required" required name="job_id"
-                                                    class="form-control select2Users">
+                                                    class="form-control select2Users default_rer">
                                                 @foreach($job as $one)
                                                     <option value="{{$one->id}}"
                                                         {{($biography->job_id == $one->id)? "selected":""}} >{{$one->title}}</option>
@@ -193,7 +193,7 @@
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                         <div class="form-group">
                                             <label for="age">العمر </label>
-                                            <input data-validation="required" required type="number" class="form-control"
+                                            <input data-validation="required" required type="number" class="form-control default_rer"
                                                    value="{{$biography->age}}"
                                                    id="age" name="age" placeholder="العمر">
                                         </div>
@@ -203,7 +203,7 @@
                                         <div class="form-group">
                                             <label for="passport_number">ديانة العامل </label>
                                             <select data-validation="required" required name="religion_id"
-                                                    class="form-control select2Users">
+                                                    class="form-control select2Users default_rer">
                                                 @foreach($religion as $one)
                                                     <option value="{{$one->id}}"
                                                         {{($biography->religion_id == $one->id)? "selected":""}}>{{$one->title}}</option>
@@ -218,7 +218,7 @@
                                         <div class="form-group">
                                             <label for="passport_number">نوع السيرة الذاتية</label>
                                             <select id="cvTypeSelect" data-validation="required" required name="type"
-                                                    class="form-control select2Users">
+                                                    class="form-control select2Users default_rer">
                                                 <option @if($biography->type=='admission') selected @endif  value="admission">استقدام</option>
                                                 <option @if($biography->type=='transport') selected @endif  value="transport">نقل خدمات</option>
 
@@ -229,7 +229,7 @@
                                         <div class="form-group">
                                             <div id="showtransporttwo" class="transferReason">
                                                 <label for="reasonService">سبب التنازل </label>
-                                                <input data-validation="optional" required type="text" class="form-control"
+                                                <input data-validation="optional" required type="text" class="form-control default_rer"
                                                        value="{{$biography->reasonService}}"
                                                        id="reasonService" name="reasonService" placeholder="">
                                             </div>
@@ -240,7 +240,7 @@
                                         <div class="form-group">
                                             <div id="showtransportone" class="transferReason">
                                                 <label for="periodService">مدة العمل عند الكفيل السابق</label>
-                                                <input data-validation="optional" required type="text" class="form-control"
+                                                <input data-validation="optional" required type="text" class="form-control default_rer"
                                                        value="{{$biography->periodService}}"
                                                        id="periodService" name="periodService" placeholder=" ">
 
@@ -251,7 +251,7 @@
                                         <div class="form-group">
                                             <label for="passport_number">اللغة التى يتحدث بها العامل</label>
                                             <select data-validation="required" required name="language_title_id"
-                                                    class="form-control select2Users">
+                                                    class="form-control select2Users default_rer">
                                                 @foreach($language_title as  $one)
                                                     <option value="{{$one->id}}"
                                                         {{($biography->language_title_id == $one->id)? "selected":""}}>{{$one->title}}</option>
@@ -264,7 +264,7 @@
                                         <div class="form-group">
                                             <label for="passport_number"> الحالة الاجتماعية</label>
                                             <select data-validation="required" required name="social_type_id"
-                                                    class="form-control select2Users">
+                                                    class="form-control select2Users default_rer">
                                                 @foreach($social_type as  $one)
                                                     <option value="{{$one->id}}"
                                                         {{($biography->social_type_id == $one->id)? "selected":""}}>{{$one->title}}</option>
@@ -289,7 +289,7 @@
                                         <div class="form-group">
                                             <label for="passport_number">حالة العامل</label>
                                             <select data-validation="required" required name="type_of_experience"
-                                                    class="form-control select2Users">
+                                                    class="form-control select2Users default_rer">
                                                 <option value="new" {{($biography->type_of_experience == 'new')? "selected":""}}>قادم جديد</option>
                                                 <option value="with_experience" {{($biography->type_of_experience == 'with_experience')? "selected":""}}>لديه خبرة سابقة</option>
                                             </select>
@@ -326,6 +326,21 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/localization/messages_ar.min.js" integrity="sha512-bGOftAqe7xfGxaWMsVQR187i+R9E0tXZIUL0idz1NKBBZIW78hoDtFY9gGLEGJFwHPjQSmPiHdm+80QParVi1A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="{{asset('dashboard/backEndFiles/uploadMultiImages/image-uploader.min.js')}}"></script>
     <script>
+        $(document).ready(function() {
+            //set initial state.
+            $('#is_cv_out').val(this.checked);
+
+            $('#is_cv_out').change(function() {
+                if(this.checked) {
+                    $('input').removeAttr('required');
+                    // $('#cv_name').prop('required',true);
+                    $('#nationalitie_id').prop('required',true);
+                    $('#passport_number').prop('required',true);
+                }else {
+                    $('.default_rer').prop('required',true);
+                }
+            });
+        });
         $(document).ready(function(){
             $("div.transferReason").hide();
 

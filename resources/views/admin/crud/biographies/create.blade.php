@@ -94,7 +94,7 @@
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                         <div class="form-group">
                                             <label for="name"> الاسم الشخصي </label>
-                                            <input data-validation="required" required type="text" class="form-control"
+                                            <input data-validation="required" required type="text" class="form-control default_rer"
                                                    value=""
                                                    id="cv_name" name="cv_name" placeholder="">
                                         </div>
@@ -115,7 +115,7 @@
                                         <div class="form-group">
                                             <label for="recruitment_office_id"> مكاتب السيرة الذاتية </label>
                                             <select data-validation="required" required name="recruitment_office_id"
-                                                    id="recruitment_office_id" class="form-control">
+                                                    id="recruitment_office_id" class="form-control default_rer">
                                                 @foreach($recruitment_office as $one)
                                                     <option value="{{$one->id}}">{{$one->title}}</option>
                                                 @endforeach
@@ -127,7 +127,7 @@
                                         <div class="form-group">
                                             <label for="salary">الراتب </label>
                                             <input data-validation="required" required type="number"
-                                                   class="form-control"
+                                                   class="form-control default_rer"
                                                    value=""
                                                    id="salary" name="salary" placeholder=""
                                                    data-validation-has-keyup-event="true">
@@ -139,6 +139,13 @@
                                             <input data-validation="nullable" required type="text" class="form-control"
                                                    value="2 سنة"
                                                    id="contract_num" name="contract_num" placeholder="">
+                                            <label for="passport_number">الجنسية </label>
+                                            <select data-validation="required" required name="nationalitie_id" id="nationalitie_id"
+                                                    class="form-control select2Users default_rer">
+                                                @foreach($nationalitie as $one)
+                                                    <option value="{{$one->id}}">{{$one->title}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
 
@@ -168,7 +175,7 @@
                                         <div class="form-group">
                                             <label for="passport_number">المهنة </label>
                                             <select data-validation="required" required name="job_id"
-                                                    class="form-control select2Users">
+                                                    class="form-control select2Users default_rer">
                                                 @foreach($job as $one)
                                                     <option value="{{$one->id}}">{{$one->title}}</option>
                                                 @endforeach
@@ -181,7 +188,7 @@
                                         <div class="form-group">
                                             <label for="age">العمر </label>
                                             <input data-validation="required" required type="number"
-                                                   class="form-control"
+                                                   class="form-control default_rer"
                                                    value=""
                                                    id="age" name="age" placeholder="العمر">
                                         </div>
@@ -191,7 +198,7 @@
                                         <div class="form-group">
                                             <label for="passport_number">ديانة العامل </label>
                                             <select data-validation="required" required name="religion_id"
-                                                    class="form-control select2Users">
+                                                    class="form-control select2Users default_rer">
                                                 @foreach($religion as $one)
                                                     <option value="{{$one->id}}">{{$one->title}}</option>
                                                 @endforeach
@@ -204,7 +211,7 @@
                                         <div class="form-group">
                                             <label for="passport_number">نوع السيرة الذاتية</label>
                                             <select id="cvTypeSelect" data-validation="required" required name="type"
-                                                    class="form-control select2Users">
+                                                    class="form-control select2Users default_rer">
                                                 <option value="admission">استقدام</option>
                                                 <option value="transport">نقل خدمات</option>
 
@@ -215,7 +222,7 @@
                                         <div class="form-group">
                                             <div id="showtransporttwo" class="transferReason">
                                                 <label for="reasonService">سبب التنازل </label>
-                                                <input data-validation="optional" required type="text" class="form-control"
+                                                <input data-validation="optional" required type="text" class="form-control default_rer"
                                                        value=""
                                                        id="reasonService" name="reasonService" placeholder="">
                                             </div>
@@ -225,7 +232,7 @@
                                         <div class="form-group">
                                             <div id="showtransportone" class="transferReason">
                                                 <label for="periodService">مدة العمل عند الكفيل السابق</label>
-                                                <input data-validation="optional" required type="text" class="form-control"
+                                                <input data-validation="optional" required type="text" class="form-control default_rer"
                                                        value=""
                                                        id="periodService" name="periodService" placeholder=" ">
 
@@ -237,7 +244,7 @@
                                         <div class="form-group">
                                             <label for="passport_number">اللغة التي يتحدث بها العامل</label>
                                             <select data-validation="required" required name="language_title_id"
-                                                    class="form-control select2Users">
+                                                    class="form-control select2Users default_rer">
                                                 @foreach($language_title as  $one)
                                                     <option value="{{$one->id}}">{{$one->title}}</option>
                                                 @endforeach
@@ -249,7 +256,7 @@
                                         <div class="form-group">
                                             <label for="passport_number"> الحالة الاجتماعية</label>
                                             <select data-validation="required" required name="social_type_id"
-                                                    class="form-control select2Users">
+                                                    class="form-control select2Users default_rer">
                                                 @foreach($social_type as  $one)
                                                     <option value="{{$one->id}}">{{$one->title}}</option>
                                                 @endforeach
@@ -286,7 +293,7 @@
                                         <div class="form-group">
                                             <label for="passport_number">حالة العامل</label>
                                             <select id="experience" data-validation="required" required name="type_of_experience"
-                                                    class="form-control select2Users">
+                                                    class="form-control select2Users default_rer">
                                                 <option value="new">قادم جديد</option>
                                                 <option value="with_experience">لديه خبرة سابقة</option>
                                             </select>
@@ -296,7 +303,7 @@
                                         <div class="form-group">
                                             <div id="showwith_experiencetwo" class="previousExperience">
                                                 <label for="reasonService">البلد </label>
-                                                <input data-validation="optional" required type="text" class="form-control"
+                                                <input data-validation="optional" required type="text" class="form-control default_rer"
                                                        value=""
                                                        id="experience_country" name="experience_country" placeholder="">
                                             </div>
@@ -306,7 +313,7 @@
                                         <div class="form-group">
                                             <div id="showwith_experienceone" class="previousExperience">
                                                 <label for="periodService">عدد سنين الخبرة</label>
-                                                <input data-validation="optional" required type="number" class="form-control"
+                                                <input data-validation="optional" required type="number" class="form-control default_rer"
                                                        value=""
                                                        id="experience_year" name="experience_year" placeholder=" ">
 
@@ -359,7 +366,7 @@
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label for="passport_number">رقم جواز السفر </label>
-                                        <input data-validation="required" required type="text" class="form-control"
+                                        <input data-validation="required" required type="text" class="form-control default_rer"
                                                value=""
                                                id="passport_number" name="passport_number" placeholder="">
                                     </div>
@@ -368,7 +375,7 @@
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label for="passport_place"> بلد جواز السفر </label>
-                                        <input data-validation="required" required type="text" class="form-control"
+                                        <input data-validation="required" required type="text" class="form-control default_rer"
                                                value=""
                                                id="passport_place" name="passport_place" placeholder="">
                                     </div>
@@ -378,7 +385,7 @@
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label for="passport_created_at"> تاريخ اصدار جواز السفر </label>
-                                        <input data-validation="required" required type="date" class="form-control"
+                                        <input data-validation="required" required type="date" class="form-control default_rer"
                                                value=""
                                                id="passport_created_at" name="passport_created_at" placeholder="">
                                     </div>
@@ -388,7 +395,7 @@
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label for="passport_ended_at"> تاريخ انتهاء جواز السفر </label>
-                                        <input data-validation="required" required type="date" class="form-control"
+                                        <input data-validation="required" required type="date" class="form-control default_rer"
                                                value=""
                                                id="passport_ended_at" name="passport_ended_at" placeholder="">
                                     </div>
@@ -402,7 +409,7 @@
                                     <div class="form-group">
                                         <label for="weight"> الوزن</label>
                                         <input data-validation="required" required type="number" step=".5"
-                                               class="form-control"
+                                               class="form-control default_rer"
                                                value=""
                                                id="weight" name="weight" placeholder="">
                                     </div>
@@ -413,7 +420,7 @@
                                     <div class="form-group">
                                         <label for="height"> الطول</label>
                                         <input data-validation="required" required type="number" step=".5"
-                                               class="form-control"
+                                               class="form-control default_rer"
                                                value=""
                                                id="height" name="height" placeholder="">
                                     </div>
@@ -425,7 +432,7 @@
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label for="childern_number">عدد الاطفال</label>
-                                        <input data-validation="required" required type="number" class="form-control"
+                                        <input data-validation="required" required type="number" class="form-control default_rer"
                                                value=""
                                                id="childern_number" name="childern_number" placeholder="">
                                     </div>
@@ -435,7 +442,7 @@
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label for="living_location">مكان الميلاد</label>
-                                        <input data-validation="nullable"  type="text" class="form-control"
+                                        <input data-validation="required" required type="text" class="form-control default_rer"
                                                value=""
                                                id="living_location" name="living_location" placeholder="">
                                     </div>
@@ -443,7 +450,7 @@
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label for="notes"> ملاحظات </label>
-                                        <input data-validation="nullable" required type="text" class="form-control"
+                                        <input data-validation="nullable" required type="text" class="form-control default_rer"
                                                value=""
                                                id="notes" name="notes" placeholder="">
                                     </div>
@@ -451,7 +458,7 @@
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label for="video"> لينك الفديو</label>
-                                        <input data-validation="nullable"  type="text" class="form-control"
+                                        <input data-validation="nullable" required type="text" class="form-control default_rer"
                                                value=""
                                                id="video" name="video" placeholder="">
                                     </div>
@@ -466,7 +473,7 @@
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label for="high_degree"> الدرجة العلمية</label>
-                                        <input data-validation="required" required type="text" class="form-control"
+                                        <input data-validation="required" required type="text" class="form-control default_rer"
                                                value=""
                                                id="high_degree" name="high_degree" placeholder="">
                                     </div>
@@ -476,7 +483,7 @@
                                     <div class="form-group">
                                         <label for="passport_number">مستوي اجادة اللغة العربية</label>
                                         <select data-validation="required" required name="arabic_degree"
-                                                class="form-control select2Users">
+                                                class="form-control select2Users default_rer">
                                             <option value="25">% 25</option>
                                             <option value="50">% 50</option>
                                             <option value="70">% 70</option>
@@ -491,7 +498,7 @@
                                     <div class="form-group">
                                         <label for="passport_number">مستوي اجادة اللغة الانجليزية</label>
                                         <select data-validation="required" required name="english_degree"
-                                                class="form-control select2Users">
+                                                class="form-control select2Users default_rer">
                                             <option value="25">% 25</option>
                                             <option value="50">% 50</option>
                                             <option value="70">% 70</option>
@@ -581,6 +588,22 @@
     </script>
     <script>
 
+
+        $(document).ready(function() {
+            //set initial state.
+            $('#is_cv_out').val(this.checked);
+
+            $('#is_cv_out').change(function() {
+                if(this.checked) {
+                    $('input').removeAttr('required');
+                    $('#cv_name').prop('required',true);
+                    $('#nationalitie_id').prop('required',true);
+                    $('#passport_number').prop('required',true);
+                }else {
+                    $('.default_rer').prop('required',true);
+                }
+            });
+        });
         var index = 1;
         // $(function(){
         //

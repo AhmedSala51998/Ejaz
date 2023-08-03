@@ -709,6 +709,7 @@
             // }
 
             $('#reportrange').daterangepicker({
+                autoUpdateInput: false,
 
                 ranges: {
                     'اليوم': [moment(), moment()],
