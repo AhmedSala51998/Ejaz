@@ -457,6 +457,7 @@
             // }
 
             $('#reportrange').daterangepicker({
+                autoUpdateInput: false,
 
                 ranges: {
 
