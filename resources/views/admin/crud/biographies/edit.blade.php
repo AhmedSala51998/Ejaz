@@ -150,7 +150,7 @@
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                         <div class="form-group">
                                             <label for="passport_number">الجنسية </label>
-                                            <select data-validation="required" required name="nationalitie_id"
+                                            <select data-validation="required" required name="nationalitie_id" id="nationalitie_id"
                                                     class="form-control select2Users default_rer">
                                                 @foreach($nationalitie as $one)
                                                     <option value="{{$one->id}}"
@@ -333,7 +333,7 @@
             $('#is_cv_out').change(function() {
                 if(this.checked) {
                     $('input').removeAttr('required');
-                    $('#cv_name').prop('required',true);
+                    // $('#cv_name').prop('required',true);
                     $('#nationalitie_id').prop('required',true);
                     $('#passport_number').prop('required',true);
                 }else {
