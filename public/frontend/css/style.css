@@ -4972,7 +4972,7 @@ p {
     display: none;
 }
 @media print {
-    .workerDetails .printFooter {
+    .cvPrint .printFooter {
         display: flex;
     }
 }
@@ -4985,7 +4985,7 @@ p {
 .workerDetails .printFooter .contact i {
     font-size: 24px;
 }
-.workerDetails .printFooter .logo {
+.cvPrint .printFooter .logo {
     height: 70px;
     -o-object-fit: contain;
     object-fit: contain;

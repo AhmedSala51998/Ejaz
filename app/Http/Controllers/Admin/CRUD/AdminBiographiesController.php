@@ -54,6 +54,7 @@ class AdminBiographiesController extends Controller
         $recruitment_office = RecruitmentOffice::get();
         $social_type = SocialType::get();
         $type = $request->type;
+        $date = $request->date;
 
         if ($request->ajax()) {
             $biographies= Biography::query()->where("order_type","normal")->orderBy("id","DESC");
@@ -91,7 +92,9 @@ class AdminBiographiesController extends Controller
             if ($request->type != null) {
                 $biographies = $biographies->where('type', $type);
             }
-
+            if ($date != null) {
+                $biographies = $biographies->whereDate('created_at', '>=', date('Y-m-d', strtotime(explode(" - ", $date)[0])))->whereDate('created_at', '<=', date('Y-m-d', strtotime(explode(" - ", $date)[1])));
+            }
 
             return DataTables::of($biographies)
                 ->editColumn('image', function ($row) {
@@ -163,7 +166,7 @@ class AdminBiographiesController extends Controller
 
                 })->rawColumns(['actions','image','delete_all','nationalitie_id','status','smart_image'])->make(true);
         }
-        return view('admin.crud.biographies.index', compact('natinalities', 'nationality_id', 'social_type', 'social_type_id', 'booking_status', 'recruitment_office', 'recruitment_office_id', 'type'));
+        return view('admin.crud.biographies.index', compact('natinalities', 'nationality_id', 'social_type', 'social_type_id', 'booking_status', 'recruitment_office', 'recruitment_office_id', 'type','date'));
     }
     public function cvsDownload($id)
     {
@@ -255,12 +258,12 @@ class AdminBiographiesController extends Controller
            //new
            'passport_created_at' => 'required',
            'passport_ended_at' => 'required',
-           'passport_place' => 'required',
+           'passport_place' => 'nullable',
            'cv_name'=>'required',
-          'weight' => 'required',
-          'height' => 'required',
-          'childern_number' => 'required',
-          'living_location' => 'required',
+          'weight' => 'nullable',
+          'height' => 'nullable',
+          'childern_number' => 'nullable',
+          'living_location' => 'nullable',
           'arabic_degree' => 'required',
           'english_degree' => 'required',
           'video' => 'nullable',
@@ -268,6 +271,10 @@ class AdminBiographiesController extends Controller
           'experience_country'=>'nullable',
           'experience_year'=>'nullable',
           'notes'=>'nullable',
+          'contract_num' => 'nullable',
+          'contact_number' => 'nullable',
+          'period_time' => 'nullable',
+          'birth_date' => 'nullable'
        ]);
 
         $data = $request->except(['images','cv_file']);

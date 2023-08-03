@@ -81,7 +81,7 @@
                                 <div class="row">
 
 
-                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" >
                                         <div class="form-group">
                                             <label for="cv_file"> ارفق صور السيرة الذاتية </label>
                                             <input data-validation="required" required type="file"
@@ -99,11 +99,21 @@
                                                    id="cv_name" name="cv_name" placeholder="">
                                         </div>
                                     </div>
-
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <div class="form-group">
+                                            <label for="passport_number">الجنسية </label>
+                                            <select data-validation="required" required name="nationalitie_id"
+                                                    class="form-control select2Users">
+                                                @foreach($nationalitie as $one)
+                                                    <option value="{{$one->id}}">{{$one->title}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
 
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                         <div class="form-group">
-                                            <label for="recruitment_office_id"> مكاتب السيرة الذاتيه </label>
+                                            <label for="recruitment_office_id"> مكاتب السيرة الذاتية </label>
                                             <select data-validation="required" required name="recruitment_office_id"
                                                     id="recruitment_office_id" class="form-control">
                                                 @foreach($recruitment_office as $one)
@@ -123,19 +133,16 @@
                                                    data-validation-has-keyup-event="true">
                                         </div>
                                     </div>
-
-
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                         <div class="form-group">
-                                            <label for="passport_number">الجنسية </label>
-                                            <select data-validation="required" required name="nationalitie_id"
-                                                    class="form-control select2Users">
-                                                @foreach($nationalitie as $one)
-                                                    <option value="{{$one->id}}">{{$one->title}}</option>
-                                                @endforeach
-                                            </select>
+                                            <label for="contract_num"> مدة التعاقد </label>
+                                            <input data-validation="nullable" required type="text" class="form-control"
+                                                   value="2 سنة"
+                                                   id="contract_num" name="contract_num" placeholder="">
                                         </div>
                                     </div>
+
+
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 
                                     <div class="form-group">
@@ -228,7 +235,7 @@
 
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                         <div class="form-group">
-                                            <label for="passport_number">اللغة التى يتحدث بها العامل</label>
+                                            <label for="passport_number">اللغة التي يتحدث بها العامل</label>
                                             <select data-validation="required" required name="language_title_id"
                                                     class="form-control select2Users">
                                                 @foreach($language_title as  $one)
@@ -250,6 +257,30 @@
                                         </div>
                                     </div>
 
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <div class="form-group">
+                                            <label for="contact_number">  رقم التواصل </label>
+                                            <input data-validation="nullable"  type="text" class="form-control"
+                                                   value=""
+                                                   id="contact_number" name="contact_number" placeholder="">
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <div class="form-group">
+                                            <label for="period_time"> مدة الضمان </label>
+                                            <input data-validation="nullable"  type="text" class="form-control"
+                                                   value=""
+                                                   id="period_time" name="period_time" placeholder="">
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <div class="form-group">
+                                            <label for="birth_date"> تاريخ الميلاد </label>
+                                            <input data-validation="nullable"  type="date" class="form-control"
+                                                   value=""
+                                                   id="birth_date" name="birth_date" placeholder="">
+                                        </div>
+                                    </div>
 
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                         <div class="form-group">
@@ -282,9 +313,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-
-
                                 </div>
                             </section>
 
@@ -407,7 +435,7 @@
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label for="living_location">مكان الميلاد</label>
-                                        <input data-validation="required" required type="text" class="form-control"
+                                        <input data-validation="nullable"  type="text" class="form-control"
                                                value=""
                                                id="living_location" name="living_location" placeholder="">
                                     </div>
@@ -423,7 +451,7 @@
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label for="video"> لينك الفديو</label>
-                                        <input data-validation="nullable" required type="text" class="form-control"
+                                        <input data-validation="nullable"  type="text" class="form-control"
                                                value=""
                                                id="video" name="video" placeholder="">
                                     </div>
@@ -449,11 +477,11 @@
                                         <label for="passport_number">مستوي اجادة اللغة العربية</label>
                                         <select data-validation="required" required name="arabic_degree"
                                                 class="form-control select2Users">
-                                            <option value="weak">ضعيف</option>
-                                            <option value="average">متوسط</option>
-                                            <option value="good"> جيد</option>
-                                            <option value="very good"> جيد جدا</option>
-                                            <option value="excellent"> ممتاز</option>
+                                            <option value="25">% 25</option>
+                                            <option value="50">% 50</option>
+                                            <option value="70">% 70</option>
+                                            <option value="90">% 90</option>
+                                            <option value="100">% 100</option>
 
                                         </select>
                                     </div>
@@ -464,11 +492,11 @@
                                         <label for="passport_number">مستوي اجادة اللغة الانجليزية</label>
                                         <select data-validation="required" required name="english_degree"
                                                 class="form-control select2Users">
-                                            <option value="weak">ضعيف</option>
-                                            <option value="average">متوسط</option>
-                                            <option value="good"> جيد</option>
-                                            <option value="very good"> جيد جدا</option>
-                                            <option value="excellent"> ممتاز</option>
+                                            <option value="25">% 25</option>
+                                            <option value="50">% 50</option>
+                                            <option value="70">% 70</option>
+                                            <option value="90">% 90</option>
+                                            <option value="100">% 100</option>
                                         </select>
                                     </div>
                                 </div>

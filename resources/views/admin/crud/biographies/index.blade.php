@@ -128,7 +128,18 @@
 
                             </select>
                         </div>
+                        <div class="col-md-2 ">
+                            <div class='input-group mb-3' style="width: 228px">
+                                <input type='text' class="form-control " id="reportrange" name="date"
+                                       @isset($date) value="{{ $date }}" @endisset
+                                       placeholder="مدى التاريخ"
+                                       data-separator=" - "  autocomplete="off"  data-advanced-range="true"  />
 
+                                <span class="input-group-text">
+                                            <i class="feather-sm fa fa-calendar"></i>
+                                        </span>
+                            </div>
+                        </div>
                         <div class="col-md-2 text-end">
                             <button id="btnSubmit" class="btn btn-info">بحث</button>
                             @if(count($_GET)>0 )
@@ -252,8 +263,8 @@
                         // d.occuption_id=$('#occuption_id').val(),
                         d.nationality_id = $('#nationality_id').val(),
                         d.recruitment_office_id = $('#recruitment_office_id').val(),
-                        d.type = $('#type').val()
-                    // d.date = $('#date').val()
+                        d.type = $('#type').val(),
+                        d.date = $('#reportrange').val()
                 }
             },
             "columns": [
@@ -435,5 +446,31 @@
 
 
     </script>
+    <script type="text/javascript">
+        $(function() {
 
+            var start = moment().subtract(29, 'days');
+            var end = moment();
+
+            // function cb(start, end) {
+            //     $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+            // }
+
+            $('#reportrange').daterangepicker({
+
+                ranges: {
+
+                    'اليوم': [moment(), moment()],
+                    'امس': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'اخر ٧ ايام': [moment().subtract(6, 'days'), moment()],
+                    'اخر ٣٠ يوم': [moment().subtract(29, 'days'), moment()],
+                    'هذا الشهر': [moment().startOf('month'), moment().endOf('month')],
+                    'الشهر الماضي': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                }
+            });
+
+            // cb(start, end);
+
+        });
+    </script>
 @endsection

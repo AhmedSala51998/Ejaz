@@ -140,7 +140,7 @@
                             </select>
                         </div>
                         <div class="col-md-2 ">
-                            <div class='input-group mb-3'>
+                            <div class='input-group mb-3' style="width: 228px">
                                 <input type='text' class="form-control " id="reportrange" name="date"
                                        @isset($date) value="{{ $date }}" @endisset
                                        placeholder="مدى التاريخ"
@@ -711,12 +711,12 @@
             $('#reportrange').daterangepicker({
 
                 ranges: {
-                    'Today': [moment(), moment()],
-                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                    'This Month': [moment().startOf('month'), moment().endOf('month')],
-                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                    'اليوم': [moment(), moment()],
+                    'امس': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'اخر ٧ ايام': [moment().subtract(6, 'days'), moment()],
+                    'اخر ٣٠ يوم': [moment().subtract(29, 'days'), moment()],
+                    'هذا الشهر': [moment().startOf('month'), moment().endOf('month')],
+                    'الشهر الماضي': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
                 }
             });
 

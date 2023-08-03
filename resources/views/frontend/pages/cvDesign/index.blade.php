@@ -60,14 +60,14 @@
                         </div>
                         <div class="info">
                             <p class="title"> مدة التعاقد : </p>
-                            <h4 class="data"> 1 سنة </h4>
+                            <h4 class="data"> {{$cv->contract_num}}  </h4>
                         </div>
                     </div>
                     <!-- Percentages -->
                     <div class="Percentages">
                         <div class="percentDiv">
                             <!-- circle percent -->
-                            <div class="percent p75 ">
+                            <div class="percent p75">
                                 <p class="percentNum">75 <span> % </span> </p>
                                 <div class="slice">
                                     <div class="bar"></div>
@@ -127,7 +127,7 @@
                                     <!-- data -->
                                     <div class="data">
                                         <h6 class=" innerTitle"> التعليم </h6>
-                                        <h3 class="innerData"> اعدادي </h3>
+                                        <h3 class="innerData"> {{$cv->high_degree}} </h3>
                                     </div>
                                 </div>
                                 <div class="col-md-3 p-2 infoRow">
@@ -139,18 +139,18 @@
                                     <!-- data -->
                                     <div class="data">
                                         <h6 class=" innerTitle"> عدد الاطفال </h6>
-                                        <h3 class="innerData"> 2 </h3>
+                                        <h3 class="innerData"> {{$cv->childern_number}} </h3>
                                     </div>
 
                                     <!-- data -->
                                     <div class="data">
                                         <h6 class=" innerTitle"> الطول </h6>
-                                        <h3 class="innerData"> 180 </h3>
+                                        <h3 class="innerData"> {{$cv->height}}</h3>
                                     </div>
                                     <!-- data -->
                                     <div class="data">
                                         <h6 class=" innerTitle"> الوزن </h6>
-                                        <h3 class="innerData"> 70 </h3>
+                                        <h3 class="innerData"> {{$cv->weight}} </h3>
                                     </div>
                                 </div>
                                 <div class="col-md-3 p-2 infoRow">
@@ -164,12 +164,12 @@
                                     <!-- data -->
                                     <div class="data">
                                         <h6 class=" innerTitle"> مكان الميلاد </h6>
-                                        <h3 class="innerData"> مصر </h3>
+                                        <h3 class="innerData"> {{$cv->living_location}} </h3>
                                     </div>
                                     <!-- data -->
                                     <div class="data">
                                         <h6 class=" innerTitle"> رقم التواصل </h6>
-                                        <h3 class="innerData"> 0564553535 </h3>
+                                        <h3 class="innerData">  {{$cv->contact_number}}  </h3>
                                     </div>
                                     <!-- data -->
                                     <div class="data">
@@ -181,12 +181,12 @@
                                     <!-- data -->
                                     <div class="data">
                                         <h6 class=" innerTitle"> سعر الاستقدام </h6>
-                                        <h3 class="innerData"> 9200  شامل الضريبة  </h3>
+                                        <h3 class="innerData"> {{$cv->nationalitie->price??''}} ريال </h3>
                                     </div>
                                     <!-- data -->
                                     <div class="data">
                                         <h6 class=" innerTitle"> الراتب </h6>
-                                        <h3 class="innerData">  {{$cv->salary.' دولار '}} </h3>
+                                        <h3 class="innerData">  {{$cv->salary.' ريال '}} </h3>
                                     </div>
                                     <!-- data -->
                                     <div class="data">
@@ -196,13 +196,14 @@
                                     <!-- data -->
                                     <div class="data">
                                         <h6 class=" innerTitle"> مدة الضمان </h6>
-                                        <h3 class="innerData"> ٣ شهور + تامين </h3>
+                                        <h3 class="innerData"> {{$cv->period_time}} </h3>
                                     </div>
 
                                 </div>
                             </div>
                         </div>
                     </div>
+                    @if($cv->skills && count($cv->skills)>0)
                     <!--info Div  -->
                     <div class="infoDiv">
                         <div class="title">
@@ -212,26 +213,46 @@
                         <table class="table table-bordered">
                             <thead>
                             <tr>
-                                <th> تربية الاطفال </th>
-                                <th> التنظيف </th>
-                                <th> الطبخ </th>
-                                <th> كي الملابس </th>
+                                @foreach($cv->skills as $skill)
+                                    <th> {{$skill->title}}</th>
+                                @endforeach
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td> جيد </td>
-                                <td> جيد </td>
-                                <td> جيد </td>
-                                <td> جيد </td>
-                            </tr>
+                        <tr>
+                                @foreach($cv->skills as $skill)
+
+                                    @php
+                                        $degree=\App\Models\BiographySkill::where('skill_id',$skill->id)->where('biography_id',$cv->id)->first()->degree??''
+
+                                    @endphp
+                                    <td>
+
+                                    @if($degree=="weak")
+                                        <td> ضعيف </td>
+                                    @elseif($degree=="average")
+                                        <td> متوسط </td>
+                                    @elseif($degree=="good")
+                                        <td> جيد </td>
+                                    @elseif($degree=="very good")
+                                        <td> جيد جدا </td>
+                                    @elseif($degree=="excellent")
+                                        <td> ممتاز </td>
+                                    @endif
+
+                                    </td>
+                                @endforeach
+                        </tr>
                             </tbody>
                         </table>
                     </div>
+                    @endif
+
+                    @if( $cv->type_of_experience == 'with_experience')
                     <!--info Div  -->
                     <div class="infoDiv">
                         <div class="title">
-                            <h4> خبرة العمل </h4>
+                            <h4> تفاصيل الخبرة السابقة </h4>
                         </div>
                         <!-- table -->
                         <table class="table table-bordered">
@@ -244,14 +265,15 @@
                             </thead>
                             <tbody>
                             <tr>
-                                <td> المملكة العربية السعودية </td>
-                                <td> ٤ سنوات </td>
-                                <td> سائق خاص </td>
+                                <td> {{$cv->experience_country}} </td>
+                                <td>  {{$cv->experience_year}} </td>
+                                <td> {{$cv->job->title}} </td>
 
                             </tr>
                             </tbody>
                         </table>
                     </div>
+                    @endif
                     <!--info Div  -->
                     <div class="infoDiv">
                         <div class="title">
@@ -267,19 +289,19 @@
                             <div class="col-md-6 p-2">
                                 <div class="passport">
                                     <h6> تاريخ الإصدار : </h6>
-                                    <h3> 10 / 10 / 2022 </h3>
+                                    <h3>{{$cv->passport_created_at}} </h3>
                                 </div>
                             </div>
                             <div class="col-md-6 p-2">
                                 <div class="passport">
                                     <h6> مكان الإصدار : </h6>
-                                    <h3> الفلبين   </h3>
+                                    <h3> {{$cv->passport_place}}   </h3>
                                 </div>
                             </div>
                             <div class="col-md-6 p-2">
                                 <div class="passport">
                                     <h6> تاريخ الانتهاء : </h6>
-                                    <h3> 10 / 10 / 2022 </h3>
+                                    <h3>{{$cv->passport_ended_at}} </h3>
                                 </div>
                             </div>
                         </div>
@@ -290,6 +312,7 @@
         </div>
         <!--  print Footer -->
         <div class="printFooter">
+
             <div class="contact">
                 <h4> aljawahra </h4>
                 <i class="ri-twitter-fill ms-2"></i>
@@ -302,7 +325,10 @@
                 <h4> www.aljawhra.sa</h4>
                 <i class="ri-global-fill ms-2"></i>
             </div>
+
+
         </div>
+
     </section>
 </content>
 

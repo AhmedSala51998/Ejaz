@@ -69,13 +69,13 @@
         this.cancelButtonClasses = 'btn-default';
 
         this.locale = {
-            direction: 'ltr',
+            direction: 'rtl',
             format: moment.localeData().longDateFormat('L'),
             separator: ' - ',
-            applyLabel: 'Apply',
-            cancelLabel: 'Cancel',
+            applyLabel: 'تطبيق',
+            cancelLabel: 'الغاء',
             weekLabel: 'W',
-            customRangeLabel: 'Custom Range',
+            customRangeLabel: 'نطاق مخصص',
             daysOfWeek: moment.weekdaysMin(),
             monthNames: moment.monthsShort(),
             firstDay: moment.localeData().firstDayOfWeek()
