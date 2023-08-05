@@ -157,7 +157,7 @@
                                     <!-- data -->
                                     <div class="data">
                                         <h6 class=" innerTitle"> تاريخ الميلاد </h6>
-                                        <h3 class="innerData"> 10 / 10 / 2022 </h3>
+                                        <h3 class="innerData"> {{$cv->birth_date}} </h3>
                                     </div>
 
 
