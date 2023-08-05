@@ -238,43 +238,49 @@ class AdminBiographiesController extends Controller
     {
 
  $this->validate($request,[
-            'cv_file'=>'required',
-            'recruitment_office_id'=>'required',
-            'nationalitie_id'=>'required',
-            'language_title_id'=>'required',
-            'religion_id'=>'required',
-            'job_id'=>'required',
-            'social_type_id'=>'required',
-            'age'=>'required',
-            'salary'=>'required',
 
-           'passport_number' => 'required|max:255|unique:biographies,passport_number',
-            'skills'=>'required|array',
-            'certificates.*'=>'required|file|image',
-            'high_degree'=>'nullable',
-           'type'=>'required',
-           'reasonService'=>'nullable',
-           'periodService'=>'nullable',
-           //new
-           'passport_created_at' => 'required',
-           'passport_ended_at' => 'required',
-           'passport_place' => 'nullable',
-           'cv_name'=>'required',
-          'weight' => 'nullable',
-          'height' => 'nullable',
-          'childern_number' => 'nullable',
-          'living_location' => 'nullable',
-          'arabic_degree' => 'required',
-          'english_degree' => 'required',
-          'video' => 'nullable',
-          'type_of_experience' => 'required',
-          'experience_country'=>'nullable',
-          'experience_year'=>'nullable',
-          'notes'=>'nullable',
-          'contract_num' => 'nullable',
-          'contact_number' => 'nullable',
-          'period_time' => 'nullable',
-          'birth_date' => 'nullable'
+             'cv_file'=>'required',
+             'cv_name'=>'required',
+             'nationalitie_id'=>'required',
+             'recruitment_office_id'=>'required',
+             'salary'=>'required',
+             'contract_num' => 'nullable',
+
+             'job_id'=>'required',
+             'age'=>'required',
+             'religion_id'=>'required',
+             'type'=>'required',
+             'transferReason'=>'nullable',
+             'periodService'=>'nullable',
+             'language_title_id'=>'required',
+             'social_type_id'=>'required',
+             'contact_number' => 'nullable',
+             'period_time' => 'nullable',
+             'birth_date' => 'nullable',
+             'type_of_experience' => 'required',
+             'experience_country'=>'nullable',
+             'experience_year'=>'nullable',
+
+             'skills'=>'required|array',
+
+             'passport_number' => 'required|max:255|unique:biographies,passport_number',
+             'passport_created_at' => 'required',
+             'passport_ended_at' => 'required',
+             'passport_place' => 'nullable',
+
+             'weight' => 'nullable',
+             'height' => 'nullable',
+             'childern_number' => 'nullable',
+             'living_location' => 'nullable',
+             'notes'=>'nullable',
+             'video' => 'nullable',
+
+             'high_degree'=>'nullable',
+             'arabic_degree' => 'required',
+             'english_degree' => 'required',
+
+//             'cv_image.*'=>'required|file|image',
+
        ]);
 
         $data = $request->except(['images','cv_file']);

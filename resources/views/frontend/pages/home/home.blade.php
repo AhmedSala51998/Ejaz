@@ -45,7 +45,7 @@
                 @include('frontend.pages.home.parts.recruitmentSteps')
                 @include('frontend.pages.home.parts.ourStatistics')
                 @include('frontend.pages.home.parts.contactUs')
-
+                @include('frontend.pages.home.parts.references')
 
 
     </content>

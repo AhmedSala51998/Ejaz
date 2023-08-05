@@ -139,13 +139,7 @@
                                             <input data-validation="nullable" required type="text" class="form-control"
                                                    value="2 سنة"
                                                    id="contract_num" name="contract_num" placeholder="">
-                                            <label for="passport_number">الجنسية </label>
-                                            <select data-validation="required" required name="nationalitie_id" id="nationalitie_id"
-                                                    class="form-control select2Users default_rer">
-                                                @foreach($nationalitie as $one)
-                                                    <option value="{{$one->id}}">{{$one->title}}</option>
-                                                @endforeach
-                                            </select>
+
                                         </div>
                                     </div>
 
@@ -242,7 +236,7 @@
 
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                         <div class="form-group">
-                                            <label for="passport_number">اللغة التي يتحدث بها العامل</label>
+                                            <label for="passport_number">اللغة الام</label>
                                             <select data-validation="required" required name="language_title_id"
                                                     class="form-control select2Users default_rer">
                                                 @foreach($language_title as  $one)
@@ -302,7 +296,7 @@
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                         <div class="form-group">
                                             <div id="showwith_experiencetwo" class="previousExperience">
-                                                <label for="reasonService">البلد </label>
+                                                <label for="reasonService">بلد الخبرة </label>
                                                 <input data-validation="optional" required type="text" class="form-control default_rer"
                                                        value=""
                                                        id="experience_country" name="experience_country" placeholder="">
