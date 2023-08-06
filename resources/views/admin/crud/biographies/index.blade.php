@@ -451,6 +451,483 @@
 
             var start = moment().subtract(29, 'days');
             var end = moment();
+            @extends('admin.layouts.layout')
+            @section('styles')
+            <!-- Data Tables -->
+            <!-- DataTables -->
+            <link href="{{asset('dashboard')}}/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css"
+                  rel="stylesheet" type="text/css"/>
+            <link href="{{asset('dashboard')}}/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css"
+                  rel="stylesheet" type="text/css"/>
+
+            <!-- Responsive datatable examples -->
+            <link href="{{asset('dashboard')}}/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css"
+                  rel="stylesheet" type="text/css"/>
+
+
+            <style>
+                .dropify-font-upload:before,
+                .dropify-wrapper .dropify-message span.file-icon:before {
+                content: "\f382";
+                font-weight: 100;
+                color: #000;
+                font-size: 26px;
+            }
+
+                .dropify-wrapper .dropify-message p {
+                text-align: center;
+                font-size: 15px;
+            }
+
+            </style>
+
+            @endsection
+
+                @section('page-title')
+                السير الذاتية
+            @endsection
+
+
+            @section('content')
+
+            <div class="row">
+                <div class="col-12">
+                <div class="card">
+                <div class="card-header  d-flex align-items-center bg-orange">
+                <h4 class="card-title mb-0 text-white"> البحث</h4>
+            <div class="card-actions ms-auto">
+                <a class="text-dark" data-action="collapse"><i class="ti-minus"></i></a>
+                <a class="btn-close ms-1" data-action="close"></a>
+            </div>
+        </div>
+            <div class=" card-body collapse show">
+
+                {{--                        <form class="" id="sort_customers" action="" method="GET">--}}
+                {{--                            @csrf--}}
+                <div class="row">
+
+                <div class="col-md-2 ">
+                    <div class='input-group mb-3'>
+                        <input type="text" class="form-control" id="passport_key" name="passport_key"
+                               @isset($passport_key) value="{{ $passport_key }}"
+                               @endisset placeholder="رقم الجواز">
+                    </div>
+                </div>
+                <div class="col-md-2 ">
+                    <div class='input-group mb-3'>
+                        <select class="form-control " name="nationality_id" id="nationality_id">
+                            <option value="" selected>الجنسية</option>
+                            @foreach ($natinalities as $key => $country)
+                            <option value="{{ $country->id }}"
+                                    @if($nationality_id== $country->id ) selected @endif>{{ $country->title }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2 ">
+                    <div class='input-group mb-3'>
+                        <select class="form-control " name="recruitment_office_id" id="recruitment_office_id">
+                            <option value="" selected>الوكيل الخارجي</option>
+                            @foreach ($recruitment_office as $key => $office)
+                            <option value="{{$office->id}}"
+                                    @if($recruitment_office_id== $office->id ) selected @endif>{{ $office->title }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-2 ml-auto">
+                    <select class="form-control " name="type" id="type">
+                        <option value=" " selected>نوع السيرة الذاتية</option>
+                        <option value="admission" @if ($type == 'admission') selected @endif >استقدام</option>
+                        <option value="transport" @if ($type == 'transport') selected @endif >نقل خدمات</option>
+
+                    </select>
+                </div>
+                <div class="col-md-2 ">
+                    <div class='input-group mb-3'>
+                        <select class="form-control " name="social_type" id="social_type">
+                            <option value="" selected>الخبرة</option>
+                            <option value="1" @if($social_type_id==1 ) selected @endif >قادم جديد </option>
+                            <option value="2" @if($social_type_id==2 ) selected @endif >لديه خبرة سابقة</option>
+
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-2 ml-auto">
+                    <select class="form-control " name="booking_status" id="booking_status">
+                        <option value=" " selected>حالة السيرة الذاتية</option>
+                        <option value="new" @if ($booking_status == 'new') selected @endif >غير محجوز</option>
+                        <option value="under_work" @if ($booking_status == 'under_work') selected @endif>
+                            حجز السيرة الذاتية
+                        </option>
+                        <option value="contract" @if ($booking_status == 'contract') selected @endif >
+                            تم التعاقد
+                        </option>
+                        <option value="musaned" @if ($booking_status == 'musaned') selected @endif >
+                            تم الربط في مساند
+                        </option>
+                        <option value="traning" @if ($booking_status == 'traning') selected @endif >
+                            تحت الاجراء والتدريب
+                        </option>
+                        <option value="visa" @if ($booking_status == 'visa') selected @endif >
+                            ختم التاشيره
+                        </option>
+                        <option value="finished" @if ($booking_status == 'finished') selected @endif >
+                            وصول العمالة
+                        </option>
+                        <option value="canceled" @if ($booking_status == 'canceled') selected @endif>
+                            ملغى
+                        </option>
+
+                    </select>
+                </div>
+                <div class="col-md-2 ">
+                    <div class='input-group mb-3' style="width: 228px">
+                        <input type='text' class="form-control " id="reportrange" name="date"
+                               @isset($date) value="{{ $date }}" @endisset
+                                   placeholder="مدى التاريخ"
+                               data-separator=" - "  autocomplete="off"  data-advanced-range="true"  />
+
+                        <span class="input-group-text">
+                                            <i class="feather-sm fa fa-calendar"></i>
+                                        </span>
+                    </div>
+                </div>
+                <div class="col-md-2 text-end">
+                    <button id="btnSubmit" class="btn btn-info">بحث</button>
+                    @if(count($_GET)>0 )
+                    <a id="cancel_request" href="{{route('biographies.index')}}" class="btn btn-danger">
+                    إلغاء البحث
+                    </a>
+                    @endif
+
+                </div>
+                @if(checkPermission(19))
+                <div class="col-sm-4">
+                <div class="text-sm-start">
+                    <a href="{{route('biographies.create')}}" id="addButton" type="button"
+                       class="btn btn-success  waves-effect waves-light mb-2 me-2">
+                        <i class="mdi mdi-plus me-1"></i> أضف جديد </a>
+                </div>
+                </div>
+                @endif
+                </div>
+            </div>
+        </div>
+        </div>
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        {{---------------------------------}}
+                        <div class="row mb-2">
+
+                        <div class="col-sm-8">
+                            {{--                            <div class="text-sm-end">--}}
+                            {{--                                <button id="bulk_delete" type="button" class="btn btn-danger  waves-effect waves-light mb-2 me-2">--}}
+                            {{--                                    </button>--}}
+                            {{--                            </div>--}}
+                        </div><!-- end col-->
+                        </div>
+
+                        {{---------------------------------}}
+
+                        <table id="Datatable" class="table table-striped table-bordered dt-responsive  nowrap w-100">
+                        <thead>
+                        <tr>
+                            <th>
+                                <input id="checkAll" type='checkbox' class='check-all form-check-input'
+                                       data-tablesaw-checkall>
+
+                                    <a id="bulk_delete" href="#" style="display: none;" class=" text-danger p-2">
+                                        <i class="mdi mdi-trash-can-outline me-1  "
+                                           style=" width: 50% !important;height: 50% !important;"></i>
+                                    </a>
+                            </th>
+
+                            <th>الصورة</th>
+                            <th>التصميم الموحد</th>
+
+                            <th>الحالة</th>
+                            <th>الجنسية</th>
+                            <th>رقم جواز السفر</th>
+                            <th>التاريخ</th>
+                            <th>التحكم</th>
+                        </tr>
+                        </thead>
+
+
+                        <tbody>
+
+                        </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        </div>
+
+
+            @endsection
+
+            @section('js')
+
+            <!-- Required datatable js -->
+            <script src="{{asset('dashboard')}}/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="{{asset('dashboard')}}/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <!-- Buttons examples -->
+    <!-- Responsive examples -->
+    <script src="{{asset('dashboard')}}/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script
+        src="{{asset('dashboard')}}/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+
+
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        /*======================================================*/
+        /*======================================================*/
+        /*====================Datatable Example=================*/
+        /*======================================================*/
+        /*======================================================*/
+
+        let datatable_selector;
+        datatable_selector = $('#Datatable').DataTable({
+            dom: 'Bfrtip',
+            responsive: 1,
+            "processing": true,
+            "lengthChange": true,
+            "serverSide": true,
+            "ordering": true,
+            "searching": false,
+            'iDisplayLength': 20,
+            "ajax":  {
+                url: "{{route('biographies.index')}}",
+                data: function (d) {
+                    d.passport_key = $('#passport_key').val(),
+                        d.social_type = $('#social_type').val(),
+                        // d.selected_staff = $('#selected_staff').val(),
+                        d.booking_status = $('#booking_status').val(),
+                        // d.cv_type=$('#cv_type').val(),
+                        // d.occuption_id=$('#occuption_id').val(),
+                        d.nationality_id = $('#nationality_id').val(),
+                        d.recruitment_office_id = $('#recruitment_office_id').val(),
+                        d.type = $('#type').val(),
+                        d.date = $('#reportrange').val()
+                }
+            },
+            "columns": [
+                {"data": "delete_all", orderable: false, searchable: false},
+                {"data": "image", orderable: false, searchable: false},
+                {"data": "smart_image", orderable: false, searchable: false},
+
+
+                {"data": "status", orderable: false, searchable: true},
+                {"data": "nationalitie_id", orderable: false, searchable: true},
+                {"data": "passport_number", orderable: false, searchable: true},
+                {"data": "created_at", searchable: false},
+                {"data": "actions", orderable: false, searchable: false}
+            ],
+            "language": {
+                "sProcessing": "{{__('admin.sProcessing')}}",
+                "sLengthMenu": "{{__('admin.sLengthMenu')}}",
+                "sZeroRecords": "{{__('admin.sZeroRecords')}}",
+                "sInfo": "{{__('admin.sInfo')}}",
+                "sInfoEmpty": "{{__('admin.sInfoEmpty')}}",
+                "sInfoFiltered": "{{__('admin.sInfoFiltered')}}",
+                "sInfoPostFix": "",
+                "sSearch": "{{__('admin.sSearch')}}:",
+                "sUrl": "",
+                "oPaginate": {
+                    "sFirst": "{{__('admin.sFirst')}}",
+                    "sPrevious": "{{__('admin.sPrevious')}}",
+                    "sNext": "{{__('admin.sNext')}}",
+                    "sLast": "{{__('admin.sLast')}}"
+                }
+            },
+            order: [
+                [2, "desc"]
+            ],
+        });
+
+        $("#btnSubmit").click(function () {
+            if ($("#cancel_request").html() == undefined && $('.cancel_request_add').hide()) {
+                $('   <a  href="{{route('biographies.index')}}" class="btn btn-danger cancel_request_add " style="margin:5px 5px 5px 5px;"> إلغاء البحث </a>').insertAfter("#btnSubmit");
+            }
+            datatable_selector.ajax.reload();
+        });
+
+        /*======================================================*/
+        /*======================================================*/
+        /*====================Delete Single Row=================*/
+        /*======================================================*/
+        /*======================================================*/
+
+
+        $(document).on('click', '.delete', function () {
+            var id = $(this).attr('id');
+            Swal.fire({
+                title: "هل أنت متأكد من تنفيذ هذا الإجراء ؟",
+                text: "لا يمكنك التراجع بعد ذلك !",
+                showCancelButton: true,
+                type: "warning",
+                confirmButtonColor: '#ff675e',
+                confirmButtonText: "موافق",
+                cancelButtonText: "إلغاء",
+                okButtonText: "موافق",
+                closeOnConfirm: false
+            }).then((result) => {
+                // console.log(result)
+                if (result.value) {
+                    var url = '{{ route("biographies.destroy", ":id")}}';
+                    url = url.replace(':id', id);
+                    $.ajax({
+                        url: url,
+                        type: 'DELETE',
+                        data: {id: id},
+                        success: function (data) {
+                            cuteToast({
+                                type: "success", // or 'info', 'error', 'warning'
+                                message: "تم تنفيذ العملية بنجاح",
+                                timer: 3000
+                            });
+                            datatable_selector.draw();
+                        }, error: function (data) {
+                            swal.close()
+                            cuteToast({
+                                type: "error", // or 'info', 'error', 'warning'
+                                message: "أنت لا تملك الصلاحية لفعل هذا ",
+                                timer: 3000
+                            });
+                        }
+
+                    });
+                }
+            });
+
+        });
+
+
+        /*======================================================*/
+        /*======================================================*/
+        /*====================Delete Multi Row=================*/
+        /*======================================================*/
+        /*======================================================*/
+
+
+        $(document).on('click', '#bulk_delete', function (e) {
+            e.preventDefault()
+            var id = [];
+            $('.delete-all:checked').each(function () {
+                id.push($(this).attr('id'));
+            });
+            if (id.length > 0) {
+                Swal.fire({
+                    title: "هل أنت متأكد من تنفيذ هذا الإجراء ؟",
+                    text: "لا يمكنك التراجع بعد ذلك !",
+                    showCancelButton: true,
+                    confirmButtonColor: '#ff675e',
+                    type: "warning",
+                    confirmButtonText: "موافق",
+                    cancelButtonText: "إلغاء",
+                    okButtonText: "موافق",
+                    closeOnConfirm: false
+
+                }).then((result) => {
+                    if (result.value) {
+                        if (id.length > 0) {
+
+                            $.ajax({
+                                url: '{{route('biographies.delete.bulk')}}',
+                                type: 'DELETE',
+                                data: {id: id},
+                                success: function (data) {
+                                    $("#bulk_delete").hide()
+                                    $("#checkAll").prop('checked', false);
+                                    cuteToast({
+                                        type: "success", // or 'info', 'error', 'warning'
+                                        message: "تم تنفيذ العملية بنجاح",
+                                        timer: 3000
+                                    });
+                                    datatable_selector.draw();
+
+
+                                }, error: function (data) {
+                                    swal.close()
+                                    cuteToast({
+                                        type: "error", // or 'info', 'error', 'warning'
+                                        message: "أنت لا تملك الصلاحية لفعل هذا ",
+                                        timer: 3000
+                                    });
+                                }
+                            });
+                        }
+                    }
+                });
+            } else {
+                Swal.fire({
+                    title: "هذه العملية لم تكتمل",
+                    text: "من فضلك قم باختيار ما تريد حذفه",
+                    type: "error",
+                    confirmButtonText: "تم الأمر"
+                });
+            }
+
+        });
+
+
+        /*======================================================*/
+        /*======================================================*/
+        /*====================toggle for checkbox===============*/
+        /*======================================================*/
+        /*======================================================*/
+
+
+        $(document).on('click', '#checkAll', function () {
+            var check = true;
+            $('.delete-all:checked').each(function () {
+                check = false;
+            });
+            if (check == true) $("#bulk_delete").show()
+            else $("#bulk_delete").hide()
+            $('.delete-all').prop('checked', check);
+        });
+
+
+    </script>
+    <script type="text/javascript">
+        $(function() {
+
+            var start = moment().subtract(29, 'days');
+            var end = moment();
+
+            // function cb(start, end) {
+            //     $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+            // }
+
+            $('#reportrange').daterangepicker({
+                autoUpdateInput: false,
+
+                ranges: {
+
+                    'اليوم': [moment(), moment()],
+                    'امس': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'اخر ٧ ايام': [moment().subtract(6, 'days'), moment()],
+                    'اخر ٣٠ يوم': [moment().subtract(29, 'days'), moment()],
+                    'هذا الشهر': [moment().startOf('month'), moment().endOf('month')],
+                    'الشهر الماضي': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                }
+            });
+
+            // cb(start, end);
+
+        });
+    </script>
+@endsection
 
             // function cb(start, end) {
             //     $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));

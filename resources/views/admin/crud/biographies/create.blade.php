@@ -261,7 +261,7 @@
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                         <div class="form-group">
                                             <label for="contact_number">  رقم التواصل </label>
-                                            <input data-validation="nullable"  type="text" class="form-control"
+                                            <input data-validation="nullable"  type="number" class="form-control"
                                                    value=""
                                                    id="contact_number" name="contact_number" placeholder="">
                                         </div>
@@ -478,11 +478,11 @@
                                         <label for="passport_number">مستوي اجادة اللغة العربية</label>
                                         <select data-validation="required" required name="arabic_degree"
                                                 class="form-control select2Users default_rer">
-                                            <option value="25">% 25</option>
-                                            <option value="50">% 50</option>
-                                            <option value="70">% 70</option>
-                                            <option value="90">% 90</option>
-                                            <option value="100">% 100</option>
+                                            <option value="weak">ضعيف</option>
+                                            <option value="average">متوسط</option>
+                                            <option value="good"> جيد</option>
+                                            <option value="very good"> جيد جدا</option>
+                                            <option value="excellent"> ممتاز</option>
 
                                         </select>
                                     </div>
@@ -493,11 +493,11 @@
                                         <label for="passport_number">مستوي اجادة اللغة الانجليزية</label>
                                         <select data-validation="required" required name="english_degree"
                                                 class="form-control select2Users default_rer">
-                                            <option value="25">% 25</option>
-                                            <option value="50">% 50</option>
-                                            <option value="70">% 70</option>
-                                            <option value="90">% 90</option>
-                                            <option value="100">% 100</option>
+                                            <option value="weak">ضعيف</option>
+                                            <option value="average">متوسط</option>
+                                            <option value="good"> جيد</option>
+                                            <option value="very good"> جيد جدا</option>
+                                            <option value="excellent"> ممتاز</option>
                                         </select>
                                     </div>
                                 </div>
@@ -687,7 +687,7 @@
                             message: "تمت العملية بنجاح",
                             timer: 3000
                         })
-                        window.location.href = '{{route('biographies.index')}}';
+                        window.location.href = '';
                         $('.loader-ajax').hide()
                     }, 20);
                 },
