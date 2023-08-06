@@ -184,58 +184,70 @@ class AdminBiographiesController extends Controller
     public function store(Request $request)
     {
 
- $this->validate($request,[
-            'cv_file'=>'required',
-            'recruitment_office_id'=>'required',
-            'nationalitie_id'=>'required',
-            'language_title_id'=>'required',
-            'religion_id'=>'required',
-            'job_id'=>'required',
-            'social_type_id'=>'required',
-            'age'=>'required',
-            'salary'=>'required',
+        if($request->is_cv_out == 'on'){
+            $this->validate($request, [
+                'nationalitie_id' => 'required',
+                'passport_number' => 'required|max:255|unique:biographies,passport_number',
+                'cv_name' => 'required',
+            ]);
+        }else {
+            $this->validate($request, [
+                'cv_file' => 'nullable',
+                'recruitment_office_id' => 'required',
+                'nationalitie_id' => 'required',
+                'language_title_id' => 'required',
+                'religion_id' => 'required',
+                'job_id' => 'required',
+                'social_type_id' => 'required',
+                'age' => 'required',
+                'salary' => 'required',
+                'passport_number' => 'required|max:255|unique:biographies,passport_number',
+                'skills' => 'nullable|array',
+                'certificates.*' => 'required|file|image',
+                'high_degree' => 'nullable',
+                'type' => 'required',
+                'reasonService' => 'nullable',
+                'periodService' => 'nullable',
+                //new
+                'passport_created_at' => 'required',
+                'passport_ended_at' => 'required',
+                'passport_place' => 'required',
+                'cv_name' => 'required',
+                'weight' => 'required',
+                'height' => 'required',
+                'childern_number' => 'required',
+                'living_location' => 'required',
+                'arabic_degree' => 'required',
+                'english_degree' => 'required',
+                'video' => 'nullable',
+                'type_of_experience' => 'required',
+                'experience_country' => 'nullable',
+                'experience_year' => 'nullable',
+                'notes' => 'nullable',
+            ]);
+        }
 
-           'passport_number' => 'required|max:255|unique:biographies,passport_number',
-            'skills'=>'required|array',
-            'certificates.*'=>'required|file|image',
-            'high_degree'=>'nullable',
-           'type'=>'required',
-           'reasonService'=>'nullable',
-           'periodService'=>'nullable',
-           //new
-           'passport_created_at' => 'required',
-           'passport_ended_at' => 'required',
-           'passport_place' => 'required',
-           'cv_name'=>'required',
-          'weight' => 'required',
-          'height' => 'required',
-          'childern_number' => 'required',
-          'living_location' => 'required',
-          'arabic_degree' => 'required',
-          'english_degree' => 'required',
-          'video' => 'nullable',
-          'type_of_experience' => 'required',
-          'experience_country'=>'nullable',
-          'experience_year'=>'nullable',
-          'notes'=>'nullable',
-       ]);
-
-        $data = $request->except(['images','cv_file']);
+        $data = $request->except(array_merge(['skills','images','cv_file'],range(0,100)));
         try {
             DB::beginTransaction();
             $data["is_cv_out"] =($request->is_cv_out== 'on')?1:0;
-            $data["cv_file"] =  $this->uploadFiles('biographies',$request->file('cv_file'),null );
+        if(isset($request->cv_file)) {
+            $data["cv_file"] = $this->uploadFiles('biographies', $request->file('cv_file'), null);
+        }
             $biography = Biography::create($data);
+
             $biography->new_image= worker_new_cv($biography->id);
             $biography->save();
-
             //skills
-            foreach ($request->skills as $index=>$skillid){
+        if(isset($request->skills)) {
+            foreach ($request->skills as $index => $skillid) {
                 BiographySkill::create([
-                    'biography_id'=>$biography->id,
-                    'skill_id'=>$skillid,
+                    'biography_id' => $biography->id,
+                    'skill_id' => $skillid,
+                    'level' => $request->$skillid,
                 ]);
             }
+        }
 
             //biography galary
             if(isset($request->images)){
@@ -313,6 +325,7 @@ class AdminBiographiesController extends Controller
      */
     public function update(Request $request,$id)
     {
+
 $this->validate($request,[
     'cv_file'=>'nullable',
             'recruitment_office_id'=>'required',
@@ -325,7 +338,7 @@ $this->validate($request,[
             'salary'=>'required',
 //            'biography_number'=>'required',
             'passport_number' => 'required|max:255|unique:biographies,passport_number,'.$id,
-//            'skills'=>'required|array',
+            'skills'=>'nullable|array',
             'certificates.*'=>'nullable|file|image',
             'high_degree'=>'nullable',
             'type'=>'required',

@@ -68,7 +68,23 @@
                         <div class="percentDiv">
                             <!-- circle percent -->
                             <div class="percent p75 ">
-                                <p class="percentNum">75 <span> % </span> </p>
+                                @if($cv->arabic_degree=="weak")
+                                        <?php $arabic_degree=0; ?>
+                                @elseif($cv->arabic_degree=="average")
+                                        <?php $arabic_degree=25; ?>
+
+                                @elseif($cv->arabic_degree=="good")
+                                        <?php $arabic_degree=50; ?>
+
+                                @elseif($cv->arabic_degree=="very good")
+                                        <?php $arabic_degree=70; ?>
+
+                                @elseif($cv->arabic_degree=="excellent")
+                                        <?php $arabic_degree=100; ?>
+                                @else
+                                        <?php $arabic_degree=25; ?>
+                                @endif
+                                <p class="percentNum">{{$arabic_degree}} <span> % </span> </p>
                                 <div class="slice">
                                     <div class="bar"></div>
                                     <div class="fill"></div>
@@ -79,7 +95,23 @@
                         <div class="percentDiv">
                             <!-- circle percent -->
                             <div class="percent p100 ">
-                                <p class="percentNum"> 100 <span> % </span> </p>
+                                @if($cv->english_degree=="weak")
+                                    <?php $degree_english=0; ?>
+                                @elseif($cv->english_degree=="average")
+                                        <?php $degree_english=25; ?>
+
+                                @elseif($cv->english_degree=="good")
+                                        <?php $degree_english=50; ?>
+
+                                @elseif($cv->english_degree=="very good")
+                                        <?php $degree_english=70; ?>
+
+                                @elseif($cv->english_degree=="excellent")
+                                        <?php $degree_english=100; ?>
+                                @else
+                                        <?php $degree_english=25; ?>
+                                @endif
+                                <p class="percentNum"> {{$degree_english}} <span> % </span> </p>
                                 <div class="slice">
                                     <div class="bar"></div>
                                     <div class="fill"></div>
@@ -139,18 +171,18 @@
                                     <!-- data -->
                                     <div class="data">
                                         <h6 class=" innerTitle"> عدد الاطفال </h6>
-                                        <h3 class="innerData"> 2 </h3>
+                                        <h3 class="innerData"> {{$cv->childern_number}} </h3>
                                     </div>
 
                                     <!-- data -->
                                     <div class="data">
                                         <h6 class=" innerTitle"> الطول </h6>
-                                        <h3 class="innerData"> 180 </h3>
+                                        <h3 class="innerData"> {{$cv->height}} </h3>
                                     </div>
                                     <!-- data -->
                                     <div class="data">
                                         <h6 class=" innerTitle"> الوزن </h6>
-                                        <h3 class="innerData"> 70 </h3>
+                                        <h3 class="innerData"> {{$cv->weight}} </h3>
                                     </div>
                                 </div>
                                 <div class="col-md-3 p-2 infoRow">
@@ -164,7 +196,7 @@
                                     <!-- data -->
                                     <div class="data">
                                         <h6 class=" innerTitle"> مكان الميلاد </h6>
-                                        <h3 class="innerData"> مصر </h3>
+                                        <h3 class="innerData"> {{$cv->living_location}} </h3>
                                     </div>
                                     <!-- data -->
                                     <div class="data">
@@ -210,22 +242,37 @@
                         </div>
                         <!-- table -->
                         <table class="table table-bordered">
+@if(!empty( $cv->skills))
+
                             <thead>
                             <tr>
-                                <th> تربية الاطفال </th>
-                                <th> التنظيف </th>
-                                <th> الطبخ </th>
-                                <th> كي الملابس </th>
+                                @foreach($cv->skills as $skill)
+
+                                <th>{{$skill->title}} </th>
+                                @endforeach
+
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
-                                <td> جيد </td>
-                                <td> جيد </td>
-                                <td> جيد </td>
-                                <td> جيد </td>
+                                @foreach($cv->biography_skill as $skill)
+                                    @if($skill->level=="weak")
+                                    <th>ضعيف</th>
+                                    @elseif($skill->level=="average")
+                                        <th>متوسط</th>
+                                    @elseif($skill->level=="good")
+                                        <th> جيد</th>
+                                    @elseif($skill->level=="very good")
+                                        <th>جيد جدا</th>
+                                    @elseif($skill->level=="excellent")
+                                        <th>ممتاز</th>
+                                 @endif
+                                @endforeach
+
                             </tr>
+
                             </tbody>
+                            @endif
                         </table>
                     </div>
                     <!--info Div  -->
@@ -244,9 +291,9 @@
                             </thead>
                             <tbody>
                             <tr>
-                                <td> المملكة العربية السعودية </td>
-                                <td> ٤ سنوات </td>
-                                <td> سائق خاص </td>
+                                <td> {{$cv->experience_country}} </td>
+                                <td> {{$cv->experience_year}} </td>
+                                <td> {{$cv->job->title}}</td>
 
                             </tr>
                             </tbody>
@@ -267,19 +314,19 @@
                             <div class="col-md-6 p-2">
                                 <div class="passport">
                                     <h6> تاريخ الإصدار : </h6>
-                                    <h3> 10 / 10 / 2022 </h3>
+                                    <h3>    {{$cv->passport_created_at}}</h3>
                                 </div>
                             </div>
                             <div class="col-md-6 p-2">
                                 <div class="passport">
                                     <h6> مكان الإصدار : </h6>
-                                    <h3> الفلبين   </h3>
+                                    <h3>    {{$cv->passport_place}}   </h3>
                                 </div>
                             </div>
                             <div class="col-md-6 p-2">
                                 <div class="passport">
                                     <h6> تاريخ الانتهاء : </h6>
-                                    <h3> 10 / 10 / 2022 </h3>
+                                    <h3> {{$cv->passport_ended_at}}  </h3>
                                 </div>
                             </div>
                         </div>
