@@ -67,8 +67,24 @@
                     <div class="Percentages">
                         <div class="percentDiv">
                             <!-- circle percent -->
-                            <div class="percent p75">
-                                <p class="percentNum">75 <span> % </span> </p>
+                            <div class="percent p75 ">
+                                @if($cv->arabic_degree=="weak")
+                                        <?php $arabic_degree=0; ?>
+                                @elseif($cv->arabic_degree=="average")
+                                        <?php $arabic_degree=25; ?>
+
+                                @elseif($cv->arabic_degree=="good")
+                                        <?php $arabic_degree=50; ?>
+
+                                @elseif($cv->arabic_degree=="very good")
+                                        <?php $arabic_degree=70; ?>
+
+                                @elseif($cv->arabic_degree=="excellent")
+                                        <?php $arabic_degree=100; ?>
+                                @else
+                                        <?php $arabic_degree=25; ?>
+                                @endif
+                                <p class="percentNum">{{$arabic_degree}} <span> % </span> </p>
                                 <div class="slice">
                                     <div class="bar"></div>
                                     <div class="fill"></div>
@@ -79,7 +95,23 @@
                         <div class="percentDiv">
                             <!-- circle percent -->
                             <div class="percent p100 ">
-                                <p class="percentNum"> 100 <span> % </span> </p>
+                                @if($cv->english_degree=="weak")
+                                    <?php $degree_english=0; ?>
+                                @elseif($cv->english_degree=="average")
+                                        <?php $degree_english=25; ?>
+
+                                @elseif($cv->english_degree=="good")
+                                        <?php $degree_english=50; ?>
+
+                                @elseif($cv->english_degree=="very good")
+                                        <?php $degree_english=70; ?>
+
+                                @elseif($cv->english_degree=="excellent")
+                                        <?php $degree_english=100; ?>
+                                @else
+                                        <?php $degree_english=25; ?>
+                                @endif
+                                <p class="percentNum"> {{$degree_english}} <span> % </span> </p>
                                 <div class="slice">
                                     <div class="bar"></div>
                                     <div class="fill"></div>
@@ -203,7 +235,6 @@
                             </div>
                         </div>
                     </div>
-                    @if($cv->skills && count($cv->skills)>0)
                     <!--info Div  -->
                     <div class="infoDiv">
                         <div class="title">
@@ -211,39 +242,37 @@
                         </div>
                         <!-- table -->
                         <table class="table table-bordered">
+@if(!empty( $cv->skills))
+
                             <thead>
                             <tr>
                                 @foreach($cv->skills as $skill)
-                                    <th> {{$skill->title}}</th>
+
+                                <th>{{$skill->title}} </th>
                                 @endforeach
+
                             </tr>
                             </thead>
                             <tbody>
-                        <tr>
-                                @foreach($cv->skills as $skill)
-
-                                    @php
-                                        $degree=\App\Models\BiographySkill::where('skill_id',$skill->id)->where('biography_id',$cv->id)->first()->degree??''
-
-                                    @endphp
-                                    <td>
-
-                                    @if($degree=="weak")
-                                        <td> ضعيف </td>
-                                    @elseif($degree=="average")
-                                        <td> متوسط </td>
-                                    @elseif($degree=="good")
-                                        <td> جيد </td>
-                                    @elseif($degree=="very good")
-                                        <td> جيد جدا </td>
-                                    @elseif($degree=="excellent")
-                                        <td> ممتاز </td>
-                                    @endif
-
-                                    </td>
+                            <tr>
+                                @foreach($cv->biography_skill as $skill)
+                                    @if($skill->level=="weak")
+                                    <th>ضعيف</th>
+                                    @elseif($skill->level=="average")
+                                        <th>متوسط</th>
+                                    @elseif($skill->level=="good")
+                                        <th> جيد</th>
+                                    @elseif($skill->level=="very good")
+                                        <th>جيد جدا</th>
+                                    @elseif($skill->level=="excellent")
+                                        <th>ممتاز</th>
+                                 @endif
                                 @endforeach
-                        </tr>
+
+                            </tr>
+
                             </tbody>
+                            @endif
                         </table>
                     </div>
                     @endif
@@ -273,7 +302,6 @@
                             </tbody>
                         </table>
                     </div>
-                    @endif
                     <!--info Div  -->
                     <div class="infoDiv">
                         <div class="title">
@@ -312,7 +340,6 @@
         </div>
         <!--  print Footer -->
         <div class="printFooter">
-
             <div class="contact">
                 <h4> aljawahra </h4>
                 <i class="ri-twitter-fill ms-2"></i>
@@ -325,10 +352,7 @@
                 <h4> www.aljawhra.sa</h4>
                 <i class="ri-global-fill ms-2"></i>
             </div>
-
-
         </div>
-
     </section>
 </content>
 

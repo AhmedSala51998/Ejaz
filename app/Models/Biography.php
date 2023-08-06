@@ -104,6 +104,10 @@ class Biography extends Model
     {
         return $this->belongsToMany(Skill::class,BiographySkill::class,'biography_id','skill_id');
     }
+    public function biography_skill()
+    {
+        return $this->hasMany(BiographySkill::class,'biography_id');
+    }
 
 
 

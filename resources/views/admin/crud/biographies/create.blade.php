@@ -585,7 +585,7 @@
 
         $(document).ready(function() {
             //set initial state.
-            $('#is_cv_out').val(this.checked);
+            // $('#is_cv_out').val(this.checked);
 
             $('#is_cv_out').change(function() {
                 if(this.checked) {
