@@ -488,8 +488,11 @@ $add_note $notes
             $order->contact_num=$request->contact_num;
             $order->save();
 
-        $msg= $admin. " الرجاء المتابعه مع ".$order->contact_num. "عزيزي العميل رقم العقد الخاص بيك ";
-
+        $msg = "عزيزي العميل تم قبول التعاقد الخاص بك برقم عقد
+( $order->contact_num )
+الرجاء المتابعه مع
+( $admin )"
+        ;
         $status['contract']=$msg;
             $user=User::find($order->user_id);
             if(!empty($user)){

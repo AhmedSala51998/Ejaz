@@ -281,17 +281,17 @@ class AdminBiographiesController extends Controller
         }
 
         $data = $request->except(array_merge(['skills','images','cv_file'],range(0,100)));
-        try {
-            DB::beginTransaction();
-            $data["is_cv_out"] =($request->is_cv_out== 'on')?1:0;
+
+        DB::beginTransaction();
+        $data["is_cv_out"] =($request->is_cv_out== 'on')?1:0;
         if(isset($request->cv_file)) {
             $data["cv_file"] = $this->uploadFiles('biographies', $request->file('cv_file'), null);
         }
-            $biography = Biography::create($data);
+        $biography = Biography::create($data);
 
-            $biography->new_image= worker_new_cv($biography->id);
-            $biography->save();
-            //skills
+        $biography->new_image= worker_new_cv($biography->id);
+        $biography->save();
+        //skills
         if(isset($request->skills)) {
             foreach ($request->skills as $index => $skillid) {
                 BiographySkill::create([
@@ -314,9 +314,7 @@ class AdminBiographiesController extends Controller
 
         DB::commit();
 
-        }catch (\Exception $exception){
-            DB::rollBack();
-        }
+
         return response()->json([],200);
     }//end fun
 

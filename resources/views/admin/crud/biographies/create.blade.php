@@ -452,7 +452,7 @@
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label for="video"> لينك الفديو</label>
-                                        <input data-validation="nullable" required type="text" class="form-control default_rer"
+                                        <input data-validation="nullable"  type="text" class="form-control default_rer"
                                                value=""
                                                id="video" name="video" placeholder="">
                                     </div>
@@ -687,7 +687,7 @@
                             message: "تمت العملية بنجاح",
                             timer: 3000
                         })
-                        window.location.href = '';
+                        window.location.href = '{{route('biographies.index')}}';
                         $('.loader-ajax').hide()
                     }, 20);
                 },

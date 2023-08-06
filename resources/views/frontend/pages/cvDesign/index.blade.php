@@ -3,30 +3,30 @@
 
 <head>
     <!-- Required meta tags -->
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="" />
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
     <!-- title -->
     <title>الجوهرة الاولي للاستقدام </title>
     <!-- favicon -->
-    <link rel="icon" type="image/x-icon" href="img/fav.svg" />
+    <link rel="icon" type="image/x-icon" href="img/fav.svg"/>
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="{{asset('frontend')}}/css/bootstrap.rtl.min.css" />
+    <link rel="stylesheet" href="{{asset('frontend')}}/css/bootstrap.rtl.min.css"/>
     <!-- icons -->
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <!-- swiper -->
-    <link rel="stylesheet" href="{{asset('frontend')}}/css/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="{{asset('frontend')}}/css/swiper-bundle.min.css"/>
     <!-- aos -->
-    <link rel="stylesheet" href="{{asset('frontend')}}/css/aos.css" />
+    <link rel="stylesheet" href="{{asset('frontend')}}/css/aos.css"/>
     <!-- select2 -->
-    <link rel="stylesheet" href="{{asset('frontend')}}/css/select2.min.css" />
+    <link rel="stylesheet" href="{{asset('frontend')}}/css/select2.min.css"/>
     <!-- img gallery -->
-    <link rel="stylesheet" href="{{asset('frontend')}}/css/jquery.fancybox.min.css" />
+    <link rel="stylesheet" href="{{asset('frontend')}}/css/jquery.fancybox.min.css"/>
     <!-- odometer -->
-    <link rel="stylesheet" href="{{asset('frontend')}}/css/odometer.min.css" />
+    <link rel="stylesheet" href="{{asset('frontend')}}/css/odometer.min.css"/>
     <!-- Custom style  -->
-    <link rel="stylesheet" href="{{asset('frontend')}}/css/style.css" />
+    <link rel="stylesheet" href="{{asset('frontend')}}/css/style.css"/>
 </head>
 
 <body>
@@ -69,22 +69,22 @@
                             <!-- circle percent -->
                             <div class="percent p75 ">
                                 @if($cv->arabic_degree=="weak")
-                                        <?php $arabic_degree=0; ?>
+                                        <?php $arabic_degree = 0; ?>
                                 @elseif($cv->arabic_degree=="average")
-                                        <?php $arabic_degree=25; ?>
+                                        <?php $arabic_degree = 25; ?>
 
                                 @elseif($cv->arabic_degree=="good")
-                                        <?php $arabic_degree=50; ?>
+                                        <?php $arabic_degree = 50; ?>
 
                                 @elseif($cv->arabic_degree=="very good")
-                                        <?php $arabic_degree=70; ?>
+                                        <?php $arabic_degree = 70; ?>
 
                                 @elseif($cv->arabic_degree=="excellent")
-                                        <?php $arabic_degree=100; ?>
+                                        <?php $arabic_degree = 100; ?>
                                 @else
-                                        <?php $arabic_degree=25; ?>
+                                        <?php $arabic_degree = 25; ?>
                                 @endif
-                                <p class="percentNum">{{$arabic_degree}} <span> % </span> </p>
+                                <p class="percentNum">{{$arabic_degree}} <span> % </span></p>
                                 <div class="slice">
                                     <div class="bar"></div>
                                     <div class="fill"></div>
@@ -96,22 +96,22 @@
                             <!-- circle percent -->
                             <div class="percent p100 ">
                                 @if($cv->english_degree=="weak")
-                                    <?php $degree_english=0; ?>
+                                        <?php $degree_english = 0; ?>
                                 @elseif($cv->english_degree=="average")
-                                        <?php $degree_english=25; ?>
+                                        <?php $degree_english = 25; ?>
 
                                 @elseif($cv->english_degree=="good")
-                                        <?php $degree_english=50; ?>
+                                        <?php $degree_english = 50; ?>
 
                                 @elseif($cv->english_degree=="very good")
-                                        <?php $degree_english=70; ?>
+                                        <?php $degree_english = 70; ?>
 
                                 @elseif($cv->english_degree=="excellent")
-                                        <?php $degree_english=100; ?>
+                                        <?php $degree_english = 100; ?>
                                 @else
-                                        <?php $degree_english=25; ?>
+                                        <?php $degree_english = 25; ?>
                                 @endif
-                                <p class="percentNum"> {{$degree_english}} <span> % </span> </p>
+                                <p class="percentNum"> {{$degree_english}} <span> % </span></p>
                                 <div class="slice">
                                     <div class="bar"></div>
                                     <div class="fill"></div>
@@ -242,98 +242,99 @@
                         </div>
                         <!-- table -->
                         <table class="table table-bordered">
-@if(!empty( $cv->skills))
+                            @if(!empty( $cv->skills))
 
-                            <thead>
-                            <tr>
-                                @foreach($cv->skills as $skill)
+                                <thead>
+                                <tr>
+                                    @foreach($cv->skills as $skill)
 
-                                <th>{{$skill->title}} </th>
-                                @endforeach
+                                        <th>{{$skill->title}} </th>
+                                    @endforeach
 
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                @foreach($cv->biography_skill as $skill)
-                                    @if($skill->level=="weak")
-                                    <th>ضعيف</th>
-                                    @elseif($skill->level=="average")
-                                        <th>متوسط</th>
-                                    @elseif($skill->level=="good")
-                                        <th> جيد</th>
-                                    @elseif($skill->level=="very good")
-                                        <th>جيد جدا</th>
-                                    @elseif($skill->level=="excellent")
-                                        <th>ممتاز</th>
-                                 @endif
-                                @endforeach
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    @foreach($cv->biography_skill as $skill)
+                                        @if($skill->level=="weak")
+                                            <th>ضعيف</th>
+                                        @elseif($skill->level=="average")
+                                            <th>متوسط</th>
+                                        @elseif($skill->level=="good")
+                                            <th> جيد</th>
+                                        @elseif($skill->level=="very good")
+                                            <th>جيد جدا</th>
+                                        @elseif($skill->level=="excellent")
+                                            <th>ممتاز</th>
+                                        @endif
+                                    @endforeach
 
-                            </tr>
+                                </tr>
 
-                            </tbody>
+                                </tbody>
                             @endif
                         </table>
                     </div>
-                    @endif
+
 
                     @if( $cv->type_of_experience == 'with_experience')
-                    <!--info Div  -->
-                    <div class="infoDiv">
-                        <div class="title">
-                            <h4> تفاصيل الخبرة السابقة </h4>
-                        </div>
-                        <!-- table -->
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <th> البلد </th>
-                                <th> المدة </th>
-                                <th> الوظيفة </th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td> {{$cv->experience_country}} </td>
-                                <td>  {{$cv->experience_year}} </td>
-                                <td> {{$cv->job->title}} </td>
+                        <!--info Div  -->
+                        <div class="infoDiv">
+                            <div class="title">
+                                <h4> تفاصيل الخبرة السابقة </h4>
+                            </div>
+                            <!-- table -->
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th> البلد</th>
+                                    <th> المدة</th>
+                                    <th> الوظيفة</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td> {{$cv->experience_country}} </td>
+                                    <td>  {{$cv->experience_year}} </td>
+                                    <td> {{$cv->job->title}} </td>
 
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <!--info Div  -->
-                    <div class="infoDiv">
-                        <div class="title">
-                            <h4> تفاصيل جواز السفر</h4>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="row py-4 px-2">
-                            <div class="col-md-6 p-2">
-                                <div class="passport">
-                                    <h6> رقم جواز السفر : </h6>
-                                    <h3> {{$cv->passport_number}} </h3>
-                                </div>
+                    @endif
+                        <!--info Div  -->
+                        <div class="infoDiv">
+                            <div class="title">
+                                <h4> تفاصيل جواز السفر</h4>
                             </div>
-                            <div class="col-md-6 p-2">
-                                <div class="passport">
-                                    <h6> تاريخ الإصدار : </h6>
-                                    <h3>{{$cv->passport_created_at}} </h3>
+                            <div class="row py-4 px-2">
+                                <div class="col-md-6 p-2">
+                                    <div class="passport">
+                                        <h6> رقم جواز السفر : </h6>
+                                        <h3> {{$cv->passport_number}} </h3>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6 p-2">
-                                <div class="passport">
-                                    <h6> مكان الإصدار : </h6>
-                                    <h3> {{$cv->passport_place}}   </h3>
+                                <div class="col-md-6 p-2">
+                                    <div class="passport">
+                                        <h6> تاريخ الإصدار : </h6>
+                                        <h3>{{$cv->passport_created_at}} </h3>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6 p-2">
-                                <div class="passport">
-                                    <h6> تاريخ الانتهاء : </h6>
-                                    <h3>{{$cv->passport_ended_at}} </h3>
+                                <div class="col-md-6 p-2">
+                                    <div class="passport">
+                                        <h6> مكان الإصدار : </h6>
+                                        <h3> {{$cv->passport_place}}   </h3>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 p-2">
+                                    <div class="passport">
+                                        <h6> تاريخ الانتهاء : </h6>
+                                        <h3>{{$cv->passport_ended_at}} </h3>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
                 </div>
             </div>

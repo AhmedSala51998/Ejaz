@@ -6,7 +6,10 @@ use App\Http\Traits\CheckPermission;
 use App\Http\Traits\Upload_Files;
 use App\Http\Controllers\Controller;
 use App\Models\Biography;
+use App\Models\Nationalitie;
 use App\Models\Order;
+use App\Models\RecruitmentOffice;
+use App\Models\SocialType;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
@@ -32,6 +35,8 @@ class AdminUserController extends Controller
 
         if (!\checkPermission(22))
             return view('admin.permission');
+
+
 
         if ($request->ajax()) {
             $users = User::normalUser()->orderBy('id',"DESC")->get();
@@ -129,12 +134,6 @@ class AdminUserController extends Controller
         }
 
 
-
-
-
-
-
-
         if($request->logo){
             $data ['logo'] = $this->uploadFiles('users', $request->file('logo'), null);
 
@@ -163,6 +162,9 @@ $data['phone']=$number;
     public function selectOrderForUser($id){
         if (!\checkPermission(24))
             return view('admin.permission');
+
+
+
         $user=User::findOrFail($id);
         $cvs = Biography::where('status', 'new')
             ->where('order_type', 'normal')
@@ -170,6 +172,7 @@ $data['phone']=$number;
                 'religion', 'job', 'social_type', 'admin', 'images', 'skills')
             ->latest()
             ->get();
+
         return view('admin.users.parts.recruitmentRequest',compact('cvs','user'));
 
     }
@@ -181,7 +184,7 @@ $data['phone']=$number;
             'religion','job','social_type','admin','images','skills')
             ->where('id',$cv_id)
             ->firstOrFail();
-        $admins = \App\Models\Admin::where('admin_type','!=',0)->take(3)->get();
+        $admins = \App\Models\Admin::where('admin_type','!=',0)->take(12)->get();
         return view('admin.users.parts.customerService',compact('cv','user','admins'));
 
     }
