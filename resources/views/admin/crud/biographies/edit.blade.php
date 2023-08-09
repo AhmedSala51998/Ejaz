@@ -82,7 +82,7 @@
                         <div id="vertical-example" class="vertical-wizard">
 
                             <!-- Seller Details -->
-                            <h3>البيانات الرئيسية </h3>
+                            <h3>البيانات الشخصية </h3>
                             <section>
                                 <div class="row">
 
@@ -94,7 +94,26 @@
                                         </div>
 
                                     </div>
-
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <div class="form-group">
+                                            <label for="name"> الاسم الشخصي </label>
+                                            <input data-validation="required" required type="text" class="form-control default_rer"
+                                                   value="{{$biography->cv_name}}"
+                                                   id="cv_name" name="cv_name" placeholder="">
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <div class="form-group">
+                                            <label for="passport_number">الجنسية </label>
+                                            <select data-validation="required" required name="nationalitie_id" id="nationalitie_id"
+                                                    class="form-control select2Users default_rer">
+                                                @foreach($nationalitie as $one)
+                                                    <option value="{{$one->id}}"
+                                                        {{($biography->nationalitie_id == $one->id)? "selected":""}} >{{$one->title}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                         <div class="form-group">
                                             <label for="recruitment_office_id"> مكاتب السيرة الذاتيه </label>
@@ -116,49 +135,17 @@
                                                    id="salary" name="salary" placeholder="">
                                         </div>
                                     </div>
-
-{{--                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <label for="biography_number">رقم سجل السيرة الذاتية </label>--}}
-{{--                                            <input data-validation="required" required type="number" class="form-control"--}}
-{{--                                                   value="{{$biography->biography_number}}"--}}
-{{--                                                   id="biography_number" name="biography_number" placeholder="">--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                         <div class="form-group">
-                                            <label for="passport_number">رقم جواز السفر </label>
-                                            <input data-validation="required" required type="text" class="form-control default_rer"
-                                                   value="{{$biography->passport_number}}"
-                                                   id="passport_number" name="passport_number" placeholder="">
+                                            <label for="contract_num"> مدة التعاقد </label>
+                                            <input data-validation="nullable" required type="text" class="form-control"
+                                                   value="{{$biography->contract_num}}"
+                                                   id="contract_num" name="contract_num" placeholder="">
+
                                         </div>
                                     </div>
 
-{{--                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <label for="passport_number">المهارات </label>--}}
-{{--                                            <select multiple required name="skills[]" class="form-control select2Users">--}}
-{{--                                                @foreach($skills as $skill)--}}
-{{--                                                    <option value="{{$skill->id}}"--}}
-{{--                                                        {{in_array($skill->id,$skill_ids)?"selected":""}}>{{$skill->title}}</option>--}}
-{{--                                                @endforeach--}}
-{{--                                            </select>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
 
-                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                        <div class="form-group">
-                                            <label for="passport_number">الجنسية </label>
-                                            <select data-validation="required" required name="nationalitie_id" id="nationalitie_id"
-                                                    class="form-control select2Users default_rer">
-                                                @foreach($nationalitie as $one)
-                                                    <option value="{{$one->id}}"
-                                                        {{($biography->nationalitie_id == $one->id)? "selected":""}} >{{$one->title}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 
                                         <div class="form-group">
@@ -249,7 +236,7 @@
                                     </div>
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                         <div class="form-group">
-                                            <label for="passport_number">اللغة التى يتحدث بها العامل</label>
+                                            <label for="passport_number">اللغةالام</label>
                                             <select data-validation="required" required name="language_title_id"
                                                     class="form-control select2Users default_rer">
                                                 @foreach($language_title as  $one)
@@ -273,17 +260,30 @@
                                         </div>
                                     </div>
 
-
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                         <div class="form-group">
-                                            <label for="passport_number">الدرجة العلمية</label>
-                                            <input type="text" class="form-control"
-                                                   value="{{$biography->high_degree}}"
-                                                   id="passport_number" name="high_degree" placeholder="">
+                                            <label for="contact_number">  رقم التواصل </label>
+                                            <input data-validation="nullable"  type="number" class="form-control"
+                                                   value="{{$biography->contact_number}}"
+                                                   id="contact_number" name="contact_number" placeholder="">
                                         </div>
                                     </div>
-
-
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <div class="form-group">
+                                            <label for="period_time"> مدة الضمان </label>
+                                            <input data-validation="nullable"  type="text" class="form-control"
+                                                   value="{{$biography->period_time}}"
+                                                   id="period_time" name="period_time" placeholder="">
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <div class="form-group">
+                                            <label for="birth_date"> تاريخ الميلاد </label>
+                                            <input data-validation="nullable"  type="date" class="form-control"
+                                                   value="{{$biography->birth_date}}"
+                                                   id="birth_date" name="birth_date" placeholder="">
+                                        </div>
+                                    </div>
 
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                         <div class="form-group">
@@ -295,8 +295,215 @@
                                             </select>
                                         </div>
                                     </div>
+                                    @if($biography->type_of_experience == 'with_experience')
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <div class="form-group">
+                                            <div id="showwith_experiencetwo" class="previousExperience">
+                                                <label for="reasonService">بلد الخبرة </label>
+                                                <input data-validation="optional" required type="text" class="form-control default_rer"
+                                                       value="{{$biography->experience_country}}"
+                                                       id="experience_country" name="experience_country" placeholder="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <div class="form-group">
+                                            <div id="showwith_experienceone" class="previousExperience">
+                                                <label for="periodService">عدد سنين الخبرة</label>
+                                                <input data-validation="optional" required type="number" class="form-control default_rer"
+                                                       value="{{$biography->experience_year}}"
+                                                       id="experience_year" name="experience_year" placeholder=" ">
 
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endif
                                 </div>
+                            </section>
+                            <h3>المهارات</h3>
+
+                            <section>
+                                @foreach($skills as $skill)
+
+                                    <div class="row align-items-center g-2 mb-3">
+
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
+                                            <div class="form-group">
+
+                                                <input id="{{$skill->id}}" type="checkbox" name="skills[]"
+                                                       value="{{$skill->id}}">
+                                                <label for="{{$skill->id}}">  {{$skill->title}}</label>
+                                                <br>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+                                            <div class="form-group">
+                                                <select name="{{$skill->id}}" class="form-control select2Users">
+                                                    <option value="weak">ضعيف</option>
+                                                    <option value="average">متوسط</option>
+                                                    <option value="good"> جيد</option>
+                                                    <option value="very good"> جيد جدا</option>
+                                                    <option value="excellent"> ممتاز</option>
+                                                </select>
+
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                @endforeach
+
+
+                            </section>
+                            <h3>تفاصيل جواز السفر </h3>
+                            <section>
+
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="passport_number">رقم جواز السفر </label>
+                                        <input data-validation="required" required type="text" class="form-control default_rer"
+                                               value="{{$biography->passport_number}}"
+                                               id="passport_number" name="passport_number" placeholder="">
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="passport_place"> بلد جواز السفر </label>
+                                        <input data-validation="required" required type="text" class="form-control default_rer"
+                                               value="{{$biography->passport_place}}"
+                                               id="passport_place" name="passport_place" placeholder="">
+                                    </div>
+                                </div>
+
+
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="passport_created_at"> تاريخ اصدار جواز السفر </label>
+                                        <input data-validation="required" required type="date" class="form-control default_rer"
+                                               value="{{$biography->passport_created_at}}"
+                                               id="passport_created_at" name="passport_created_at" placeholder="">
+                                    </div>
+                                </div>
+
+
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="passport_ended_at"> تاريخ انتهاء جواز السفر </label>
+                                        <input data-validation="required" required type="date" class="form-control default_rer"
+                                               value="{{$biography->passport_ended_at}}"
+                                               id="passport_ended_at" name="passport_ended_at" placeholder="">
+                                    </div>
+                                </div>
+
+                            </section>
+                            <h3>بيانات شخصية</h3>
+                            <section>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="weight"> الوزن</label>
+                                        <input data-validation="required" required type="number" step=".5"
+                                               class="form-control default_rer"
+                                               value="{{$biography->weight}}"
+                                               id="weight" name="weight" placeholder="">
+                                    </div>
+                                </div>
+
+
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="height"> الطول</label>
+                                        <input data-validation="required" required type="number" step=".5"
+                                               class="form-control default_rer"
+                                               value="{{$biography->height}}"
+                                               id="height" name="height" placeholder="">
+                                    </div>
+                                </div>
+
+
+
+
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="childern_number">عدد الاطفال</label>
+                                        <input data-validation="required" required type="number" class="form-control default_rer"
+                                               value="{{$biography->childern_number}}"
+                                               id="childern_number" name="childern_number" placeholder="">
+                                    </div>
+                                </div>
+
+
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="living_location">مكان الميلاد</label>
+                                        <input data-validation="required" required type="text" class="form-control default_rer"
+                                               value="{{$biography->living_location}}"
+                                               id="living_location" name="living_location" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="notes"> ملاحظات </label>
+                                        <input data-validation="nullable" required type="text" class="form-control default_rer"
+                                               value="{{$biography->notes}}"
+                                               id="notes" name="notes" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="video"> لينك الفديو</label>
+                                        <input data-validation="nullable"  type="text" class="form-control default_rer"
+                                               value="{{$biography->video}}"
+                                               id="video" name="video" placeholder="">
+                                    </div>
+                                </div>
+
+                            </section>
+
+                            <h3>بيانات علمية</h3>
+
+                            <section>
+
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="high_degree"> الدرجة العلمية</label>
+                                        <input data-validation="required" required type="text" class="form-control default_rer"
+                                               value="{{$biography->high_degree}}"
+                                               id="high_degree" name="high_degree" placeholder="">
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="passport_number">مستوي اجادة اللغة العربية</label>
+                                        <select data-validation="required" required name="arabic_degree"
+                                                class="form-control select2Users default_rer">
+                                            <option value="weak">ضعيف</option>
+                                            <option value="average">متوسط</option>
+                                            <option value="good"> جيد</option>
+                                            <option value="very good"> جيد جدا</option>
+                                            <option value="excellent"> ممتاز</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="passport_number">مستوي اجادة اللغة الانجليزية</label>
+                                        <select data-validation="required" required name="english_degree"
+                                                class="form-control select2Users default_rer">
+                                            <option value="weak">ضعيف</option>
+                                            <option value="average">متوسط</option>
+                                            <option value="good"> جيد</option>
+                                            <option value="very good"> جيد جدا</option>
+                                            <option value="excellent"> ممتاز</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
                             </section>
 
                             <h3>صور السيرة الذاتية </h3>

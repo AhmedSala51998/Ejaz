@@ -335,7 +335,22 @@
                                 </div>
                             </div>
                         </div>
+                    @if($cv->notes != null)
+                        <div class="infoDiv">
+                            <div class="title">
+                                <h4> ملاحظات</h4>
+                            </div>
+                            <div class="row py-4 px-2">
+                                <div class="col-md-6 p-2">
+                                    <div class="passport">
+                                       <h6>الملاحظات الاتية :</h6>
+                                        <h3> {{$cv->notes}} </h3>
+                                    </div>
+                                </div>
 
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
