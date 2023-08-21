@@ -376,6 +376,7 @@ class AdminBiographiesController extends Controller
      */
     public function update(Request $request,$id)
     {
+
        $this->validate($request,[
             'cv_file'=>'nullable',
             'recruitment_office_id'=>'required',
@@ -412,7 +413,9 @@ class AdminBiographiesController extends Controller
             'notes' => 'nullable',
         ]);
 
-        $data = $request->except(['skills','images','cv_file','old']);
+//        $data = $request->except(['skills','images','cv_file','old']);
+        $data = $request->except(array_merge(['skills','images','cv_file','old','cv_file'],range(0,100)));
+
 //        try {
 //
 //        }catch (\Exception $exception){
@@ -420,7 +423,7 @@ class AdminBiographiesController extends Controller
 //            DB::rollBack();
 //        }
 
-        DB::beginTransaction();
+//        DB::beginTransaction();
 
         if($request->cv_file)
             $data["cv_file"] =  $this->uploadFiles('biographies',$request->file('cv_file'),null );
@@ -439,12 +442,17 @@ class AdminBiographiesController extends Controller
         //skills
         if (isset($request->skills)) {
             foreach ($request->skills as  $skillid) {
-                BiographySkill::create([
-                    'biography_id' => $id,
-                    'level' => $request->$skillid,
-                    'skill_id' => $skillid
-
-                ]);
+                if(BiographySkill::where('biography_id',$id)->where('skill_id',$skillid)->count()==0) {
+                    BiographySkill::create([
+                        'biography_id' => $id,
+                        'level' => $request->$skillid,
+                        'skill_id' => $skillid
+                    ]);
+                }else{
+                   $skill= BiographySkill::where('biography_id',$id)->where('skill_id',$skillid)->first();
+                    $skill->level=$request->$skillid;
+                    $skill->save();
+                }
             }
         }
 
@@ -469,7 +477,7 @@ class AdminBiographiesController extends Controller
                 ]);
             }
         }
-        DB::commit();
+//        DB::commit();
 
         return response()->json([],200);
     }//end fun

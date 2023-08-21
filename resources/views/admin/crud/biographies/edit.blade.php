@@ -324,37 +324,58 @@
 
                             <section>
                                 @foreach($skills as $skill)
-
                                     <div class="row align-items-center g-2 mb-3">
-
                                         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
                                             <div class="form-group">
 
                                                 <input id="{{$skill->id}}" type="checkbox" name="skills[]"
-                                                       value="{{$skill->id}}">
+                                                       @foreach($biography->skills as $skl) @if($skl->id==$skill->id)  checked
+                                                       @endif   @endforeach value="{{$skill->id}}">
                                                 <label for="{{$skill->id}}">  {{$skill->title}}</label>
                                                 <br>
                                             </div>
                                         </div>
-
                                         <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
                                             <div class="form-group">
-                                                <select name="{{$skill->id}}" class="form-control select2Users">
-                                                    <option value="average">متوسط</option>
-                                                    <option value="good"> جيد</option>
-                                                    <option value="very good"> جيد جدا</option>
-                                                    <option value="excellent"> ممتاز</option>
+
+                                                @php
+                                                    $degrees=\App\Models\BiographySkill::where('biography_id',$biography->id)->where('skill_id',$skill->id)->get();
+
+                                                @endphp
+
+
+                                                <select id="{{$skill->id}}" name="{{$skill->id}}"
+                                                        class="form-control select2Users text-end">
+                                                    <option value="weak"
+                                                            @foreach($degrees as $degree) @if($degree->skill_id==$skill->id) @if($degree->degree=="weak") selected @endif  @endif  @endforeach>
+                                                        ضعيف
+                                                    </option>
+                                                    <option value="average"
+                                                            @foreach($degrees as $degree) @if($degree->skill_id==$skill->id) @if($degree->degree=="average") selected @endif  @endif  @endforeach>
+                                                        متوسط
+                                                    </option>
+                                                    <option value="good"
+                                                            @foreach($degrees as $degree) @if($degree->skill_id==$skill->id) @if($degree->degree=="good") selected @endif  @endif  @endforeach >
+                                                        جيد
+                                                    </option>
+                                                    <option value="very good"
+                                                            @foreach($degrees as $degree) @if($degree->skill_id==$skill->id) @if($degree->degree=="very good") selected @endif  @endif  @endforeach>
+                                                        جيد جدا
+                                                    </option>
+                                                    <option value="excellent"
+                                                            @foreach($degrees as $degree) @if($degree->skill_id==$skill->id) @if($degree->degree=="excellent") selected @endif  @endif  @endforeach>
+                                                        ممتاز
+                                                    </option>
                                                 </select>
+
 
                                             </div>
                                         </div>
-
-
                                     </div>
+
                                 @endforeach
-
-
                             </section>
+
                             <h3>تفاصيل جواز السفر </h3>
                             <section>
 
