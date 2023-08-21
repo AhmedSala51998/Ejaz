@@ -56,7 +56,7 @@
                         </div>
                         <div class="info">
                             <p class="title"> الراتب الشهري : </p>
-                            <h4 class="data"> {{$cv->salary.' دولار '}}  </h4>
+                            <h4 class="data"> {{$cv->salary.' ريال '}}  </h4>
                         </div>
                         <div class="info">
                             <p class="title"> مدة التعاقد : </p>
