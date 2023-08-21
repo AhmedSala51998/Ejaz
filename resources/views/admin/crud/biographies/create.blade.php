@@ -444,7 +444,7 @@
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label for="notes"> ملاحظات </label>
-                                        <input data-validation="nullable" required type="text" class="form-control default_rer"
+                                        <input data-validation="nullable"  type="text" class="form-control default_rer"
                                                value=""
                                                id="notes" name="notes" placeholder="">
                                     </div>

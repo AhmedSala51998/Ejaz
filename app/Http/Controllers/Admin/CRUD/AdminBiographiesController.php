@@ -358,7 +358,7 @@ class AdminBiographiesController extends Controller
             'social_type'=>SocialType::get(),
             'skills'=>Skill::get(),
             'language_title'=>LanguageTitle::get(),
-            'skill_ids'=>$skill_ids,
+            'skill_ids'=>json_encode($skill_ids),
             'images'=>$images,
             'biography'=>$biography,
             'reasonService'=>'nullable',
@@ -376,8 +376,8 @@ class AdminBiographiesController extends Controller
      */
     public function update(Request $request,$id)
     {
-$this->validate($request,[
-    'cv_file'=>'nullable',
+       $this->validate($request,[
+            'cv_file'=>'nullable',
             'recruitment_office_id'=>'required',
             'nationalitie_id'=>'required',
             'language_title_id'=>'required',
@@ -394,62 +394,83 @@ $this->validate($request,[
             'type'=>'required',
             'reasonService'=>'nullable',
             'periodService'=>'nullable',
+            //new
+            'passport_created_at' => 'required',
+            'passport_ended_at' => 'required',
+            'passport_place' => 'required',
+            'cv_name' => 'required',
+            'weight' => 'required',
+            'height' => 'required',
+            'childern_number' => 'required',
+            'living_location' => 'required',
+            'arabic_degree' => 'required',
+            'english_degree' => 'required',
+            'video' => 'nullable',
+            'type_of_experience' => 'required',
+            'experience_country' => 'nullable',
+            'experience_year' => 'nullable',
+            'notes' => 'nullable',
         ]);
 
         $data = $request->except(['skills','images','cv_file','old']);
-        try {
-            DB::beginTransaction();
-
-            if($request->cv_file)
-            $data["cv_file"] =  $this->uploadFiles('biographies',$request->file('cv_file'),null );
-            $data["is_cv_out"] =($request->is_cv_out== 'on')?1:0;
-
-         $biography=   Biography::find($id)->update($data);
-        $biography=   Biography::find($id);
-            if($biography->new_image!=null){
-                if (file_exists(public_path().'/'.$biography->new_image)){
-                    unlink(public_path().'/'.$biography->new_image);
-                }}
-            $biography->new_image= worker_new_cv($biography->id);
-            $biography->save();
-//            //categories
-//            BiographySkill::where('biography_id',$id)->delete();
+//        try {
 //
-//            //skills
-//            foreach ($request->skills as $index=>$skillid){
-//                BiographySkill::create([
-//                    'biography_id'=>$id,
-//                    'skill_id'=>$skillid,
-//                ]);
-//            }
+//        }catch (\Exception $exception){
+//
+//            DB::rollBack();
+//        }
 
+        DB::beginTransaction();
 
-            //product galary
-            if($request->old) {
-                BiographyImage::where('biography_id', $id)
-                    ->whereNotIn('id', $request->old)
-                    ->delete();
+        if($request->cv_file)
+            $data["cv_file"] =  $this->uploadFiles('biographies',$request->file('cv_file'),null );
+        $data["is_cv_out"] =($request->is_cv_out== 'on')?1:0;
+
+        $biography=   Biography::find($id)->update($data);
+        $biography=   Biography::find($id);
+
+        if($biography->new_image!=null){
+            if (file_exists(public_path().'/'.$biography->new_image)){
+                unlink(public_path().'/'.$biography->new_image);
+            }}
+        $biography->new_image= worker_new_cv($biography->id);
+        $biography->save();
+
+        //skills
+        if (isset($request->skills)) {
+            foreach ($request->skills as  $skillid) {
+                BiographySkill::create([
+                    'biography_id' => $id,
+                    'level' => $request->$skillid,
+                    'skill_id' => $skillid
+
+                ]);
             }
-            else
-            {
-                BiographyImage::where('biography_id', $id)
-                    ->delete();
-            }
-
-            if (isset($request->images) && count($request->images) > 0) {
-                foreach ($request->images as $single_image){
-                    BiographyImage::create([
-                        'biography_id'=>$id,
-                        'image'=> $this->uploadFiles('biographies',$single_image,null )
-                    ]);
-                }
-            }
-            DB::commit();
-
-        }catch (\Exception $exception){
-
-            DB::rollBack();
         }
+
+
+        //product galary
+        if($request->old) {
+            BiographyImage::where('biography_id', $id)
+                ->whereNotIn('id', $request->old)
+                ->delete();
+        }
+        else
+        {
+            BiographyImage::where('biography_id', $id)
+                ->delete();
+        }
+
+        if (isset($request->images) && count($request->images) > 0) {
+            foreach ($request->images as $single_image){
+                BiographyImage::create([
+                    'biography_id'=>$id,
+                    'image'=> $this->uploadFiles('biographies',$single_image,null )
+                ]);
+            }
+        }
+        DB::commit();
+
         return response()->json([],200);
     }//end fun
 

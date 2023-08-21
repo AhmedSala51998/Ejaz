@@ -340,7 +340,6 @@
                                         <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
                                             <div class="form-group">
                                                 <select name="{{$skill->id}}" class="form-control select2Users">
-                                                    <option value="weak">ضعيف</option>
                                                     <option value="average">متوسط</option>
                                                     <option value="good"> جيد</option>
                                                     <option value="very good"> جيد جدا</option>
@@ -445,7 +444,7 @@
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label for="notes"> ملاحظات </label>
-                                        <input data-validation="nullable" required type="text" class="form-control default_rer"
+                                        <input data-validation="nullable"  type="text" class="form-control default_rer"
                                                value="{{$biography->notes}}"
                                                id="notes" name="notes" placeholder="">
                                     </div>
@@ -504,6 +503,16 @@
                                 </div>
 
 
+                            </section>
+                            <h3>الصورة الشخصية</h3>
+                            <section>
+
+                                <div class="col-12 p-2">
+                                    <input type="file"
+                                           data-default-file=""
+                                           class="form-control dropify" id="header_logo" name="image"
+                                           placeholder="صورة العامل">
+                                </div>
                             </section>
 
                             <h3>صور السيرة الذاتية </h3>
@@ -565,6 +574,8 @@
         var index = 1;
         // $(function(){
         //
+        // $(function(){
+        //
         $("#vertical-example").steps({
             headerTag:"h3",
             bodyTag:"section",
@@ -577,22 +588,19 @@
 
                 $('#vertical-example').find('a[href="#finish"]').remove();
 
-                if(currentIndex == 1 && $('#Form').valid()){
+                if(currentIndex == 6 && $('#Form').valid()){
                     var $input = $('<input id="submit_button" style="border: none !important;background-color: #556ee6;border-radius: 4px;padding: 8px 15px;color: #fff;" type="submit" value="حفظ" />');
                     $input.appendTo($('ul[aria-label=Pagination]'));
                 }
                 else {
                     $('ul[aria-label=Pagination] input[value="حفظ"]').remove();
                 }
-
-                if(newIndex==0){
+                if(newIndex!==7){
                     $('ul[aria-label=Pagination] input[value="حفظ"]').remove();
 
                 }
-                if(newIndex==1){
-                    $('ul[aria-label=Pagination] input[value="حفظ"]').remove();
 
-                }
+
                 $('#Form').validate().settings.ignore = ":disabled,:hidden";
                 return  $('#Form').valid();
 
@@ -617,6 +625,7 @@
                 },
 
         })
+
 
 
         $("#select2,.select2Users").select2({

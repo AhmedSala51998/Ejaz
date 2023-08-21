@@ -355,13 +355,28 @@
             </div>
         </div>
         <!--  print Footer -->
+        <div class="container-fluid">
+            <!--main Info  -->
+            <div class="mainInfo2">
+                <img class="qrCode1" src="{{asset('frontend')}}/img/qrcode/wh_qrCode.jpeg" alt="">
+                <div class="logo">
+                    <img src="{{asset('frontend')}}/img/logoH.svg" alt="">
+                </div>
+                <img class="qrCode2" src="{{asset('frontend')}}/img/qrcode/wp_qrCode.jpeg" alt="">
+                <!-- logo -->
+{{--                <div class="logo">--}}
+{{--                    <img src="{{asset('frontend')}}/img/logoH.svg" alt="">--}}
+{{--                </div>--}}
+            </div>
+
+        </div>
         <div class="printFooter">
             <div class="contact">
-                <h4> aljawahra </h4>
+                <h4> aljawhra2030 </h4>
                 <i class="ri-twitter-fill ms-2"></i>
             </div>
             <div class="contact">
-                <h4> 0123456789 </h4>
+                <h4> 0554362226</h4>
                 <i class="ri-phone-fill ms-2"></i>
             </div>
             <div class="contact">

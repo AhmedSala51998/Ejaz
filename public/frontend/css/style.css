@@ -5232,6 +5232,95 @@ p {
     -o-object-fit: contain;
     object-fit: contain;
 }
+
+
+/* Qr Code */
+
+.cvPrint .mainInfo2 {
+    padding: 16px;
+    border-radius: 20px;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgba(226, 226, 226, 0.03);
+    text-align: center;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+@media (max-width: 768px) {
+    .cvPrint .mainInfo2 {
+        flex-direction: column;
+        justify-content: center;
+        padding: 16px 16px 16px 16px;
+    }
+}
+.cvPrint .mainInfo2 .qrCode1 {
+    -o-object-fit: cover;
+    object-fit: cover;
+    border-radius: 20px;
+    min-width: 200px;
+    height: 200px;
+}
+.cvPrint .mainInfo2 .qrCode2 {
+    -o-object-fit: cover;
+    object-fit: cover;
+    border-radius: 20px;
+    min-width: 200px;
+    height: 200px;
+}
+.cvPrint .mainInfo2 .sideData {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 24px;
+}
+@media (max-width: 768px) {
+    .cvPrint .mainInfo2 .sideData {
+        align-items: center;
+    }
+}
+.cvPrint .mainInfo2 .sideData .name {
+    font-weight: bold;
+    color: #09463f;
+}
+.cvPrint .mainInfo2 .sideData .topInfo {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 48px;
+    flex-wrap: wrap;
+}
+@media (max-width: 768px) {
+    .cvPrint .mainInfo2 .sideData .topInfo {
+        justify-content: center;
+        gap: 16px;
+    }
+}
+.cvPrint .mainInfo2 .sideData .topInfo .info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.cvPrint .mainInfo2 .sideData .topInfo .info .title {
+    font-weight: bold;
+    text-align: start;
+    color: #555555;
+}
+.cvPrint .mainInfo2 .sideData .topInfo .info .data {
+    font-weight: bold;
+}
+.cvPrint .mainInfo2 .logo {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: auto;
+    margin-left: auto;
+}
+.cvPrint .mainInfo2 .logo img {
+    height: 150px;
+    -o-object-fit: contain;
+    object-fit: contain;
+}
+/*End Cv Print*/
 .cvPrint .Percentages {
     display: flex;
     align-items: center;
