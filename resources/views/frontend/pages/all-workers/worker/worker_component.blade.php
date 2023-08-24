@@ -24,9 +24,17 @@
     <div class="swiper workerCvSlider ">
         <div class="swiper-wrapper">
             <div class="swiper-slide ">
+
+                @if(get_file($cv->new_image) != NULL)
+
                 <a data-fancybox="users{{$cv->id}}-CV" href="{{get_file($cv->cv_file)}}">
                     <img src="{{get_file($cv->cv_file)}}" alt="">
                 </a>
+                @else
+                    <a data-fancybox="users{{$cv->id}}-CV" href="{{get_file($cv->new_image)}}">
+                        <img src="{{get_file($cv->new_image)}}" alt="">
+                    </a>
+                @endif
             </div>
 
 
@@ -110,9 +118,6 @@
                 <p> {{$cv->religion->title??''}} </p>
             </li>
 
-
-
-
             <li>
                 <h6> المهنة : </h6>
                 <p> {{$cv->job->title??''}}</p>
@@ -156,11 +161,6 @@
 
     @endif
 </div>
-
-
-
-
-
 <script>
     // workerCvSlider
     var workerCvSlider = new Swiper(".workerCvSlider", {
