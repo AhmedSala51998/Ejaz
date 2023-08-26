@@ -25,14 +25,14 @@
         <div class="swiper-wrapper">
             <div class="swiper-slide ">
 
-                @if(get_file($cv->new_image) != NULL)
+                @if(get_file($cv->new_image) != NULL )
 
-                <a data-fancybox="users{{$cv->id}}-CV" href="{{get_file($cv->cv_file)}}">
-                    <img src="{{get_file($cv->cv_file)}}" alt="">
+                <a data-fancybox="users{{$cv->id}}-CV" href="{{get_file($cv->new_image)}}">
+                    <img src="{{get_file($cv->new_image)}}" alt="">
                 </a>
                 @else
-                    <a data-fancybox="users{{$cv->id}}-CV" href="{{get_file($cv->new_image)}}">
-                        <img src="{{get_file($cv->new_image)}}" alt="">
+                    <a data-fancybox="users{{$cv->id}}-CV" href="{{get_file($cv->cv_file)}}">
+                        <img src="{{get_file($cv->cv_file)}}" alt="">
                     </a>
                 @endif
             </div>
