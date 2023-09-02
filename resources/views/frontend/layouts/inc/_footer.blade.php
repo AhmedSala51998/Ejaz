@@ -78,7 +78,14 @@
             </div>
 
             <div class="Copyright">
-  <p>{{__('frontend.Copyright')}} @ {{date("Y")}}. <a target="_blank" href="https://aljawhra.sa"> مكتب الجوهرة للاستقدام </a> </p>
+                <p class="copyR"> كل الحقوق محفوظة
+                    <a href="https://aljawhra.sa">  الجوهرة الاولي للاستقدام
+                        &copy;
+                        <script>
+                            document.write(new Date().getFullYear())
+                        </script>
+                    </a>
+                </p>
             </div>
 
         </div>

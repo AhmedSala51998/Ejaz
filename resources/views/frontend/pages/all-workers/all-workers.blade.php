@@ -375,8 +375,10 @@
                         $('#hereWillDisplayAllWorker').append(data.html);
                         $('#load_more_button').html(`
 
-                    {{__('frontend.load more')}}
+                   <button id="load_more_button" class="animatedLink">
+                        {{__('frontend.load more')}}
                         <i class="fa-regular fa-left-long ms-2"><span></span></i>
+                    </button>
 `)
 
 
@@ -422,8 +424,10 @@
                         if (data.last_page == data.current_page) {
                             document.getElementById("load_more_button").remove();
                         } else {
-                            $("#buttonOfFilter").html(` <button id="load_more_button" class="customBtn" type="button">
+                            $("#buttonOfFilter").html(` <button id="load_more_button" class="animatedLink" type="button">
                             {{__('frontend.load more')}}
+                            <i class="fa-regular fa-left-long ms-2"><span></span></i>
+
                             </button>`)
                         }
 
@@ -464,7 +468,7 @@
             var job = $('#job').val();
             var age = $('#age').val();
             var nationality = $('#nationality').val();
-            if (job == '' && age == '' && nationality == '') {
+            if (job == ''  && nationality == '') {
                 $('#SearchResetButton').hide();
                 $('#SearchWorkerButton').trigger('click');
 

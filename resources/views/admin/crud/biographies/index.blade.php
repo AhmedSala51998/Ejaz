@@ -114,10 +114,10 @@
                                    تم الربط في مساند
                                 </option>
                                 <option value="traning" @if ($booking_status == 'traning') selected @endif >
-                                   تحت الاجراء والتدريب
+                                   تحت ألأجراء والتدريب
                                 </option>
                                 <option value="visa" @if ($booking_status == 'visa') selected @endif >
-                                    ختم التاشيره
+                                    ختم ألتأشيره
                                 </option>
                                 <option value="finished" @if ($booking_status == 'finished') selected @endif >
                                     وصول العمالة

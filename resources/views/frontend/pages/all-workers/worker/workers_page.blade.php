@@ -1,7 +1,7 @@
-@if (count($cvs)>0)
+@if (count($cvs)>0 || count($cvs) != 0 )
 
     @foreach($cvs as $cv)
-        <div class="col-6 col-md-4 p-2 for_count" data-aos="fade-down">
+        <div class="col-md-6 col-lg-4 p-2" data-aos="fade-down">
             <!-- cv -->
             @include('frontend.pages.all-workers.worker.worker_component')
             <!-- end cv -->

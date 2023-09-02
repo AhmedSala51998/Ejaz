@@ -284,7 +284,7 @@ $add_note $notes
                    }
                     }
                     elseif ($row->status == "visa") {
-                        $status="visa";
+                        $status="finished";
                         $text = "وصول العمالة";
                         if (empty($row->contact_num)) {
                         return "

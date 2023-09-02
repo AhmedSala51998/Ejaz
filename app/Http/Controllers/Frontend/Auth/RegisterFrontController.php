@@ -114,7 +114,7 @@ class RegisterFrontController extends Controller
     {
         if (env('SMS_Work')== 'work') {
             $code = rand(1111,9999);
-            $this->sendSMS($phone,"كود التحقق هو $code");
+            $this->sendSMS($phone," كود التحقق هو $code");
 
             return $code;
         }

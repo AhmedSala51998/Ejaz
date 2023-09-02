@@ -32,7 +32,7 @@
             <div class="col-md-4">
                 <div class="workerCv card p-2 rounded-3">
                     <a href="{{route('admins.selectCustomerServiceForCv',[$cv->id,$user->id])}}" class="d-block">
-                        <img src="{{get_file($cv->cv_file)}}" style=" height: 300px; max-width: 100% ; object-fit: cover" alt="">
+                        <img src="{{get_file($cv->new_image)}}" style=" height: 300px; max-width: 100% ; object-fit: cover" alt="">
                     </a>
                     <ul class="info p-0 row g-2">
                         <li style="display: flex; align-items: center" class="col-6 p-2">
@@ -62,6 +62,10 @@
                         <li style="display: flex; align-items: center" class="col-6 p-2">
                             <h6 class="mb-0 "> سعر الاستقدام : </h6>
                             <p class="mb-0 mx-2"> {{$cv->nationalitie->price??''}} ريال </p>
+                        </li>
+                        <li style="display: flex; align-items: center" class="col-6 p-2">
+                            <h6 class="mb-0 "> رقم الجواز : </h6>
+                            <p class="mb-0 mx-2"> {{$cv->passport_number??''}} </p>
                         </li>
                     </ul>
                     <a href="{{route('admins.selectCustomerServiceForCv',[$cv->id,$user->id])}}" class="btn btn-success"> طلب استقدام </a>

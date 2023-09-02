@@ -1069,7 +1069,7 @@ header .headerAnimate {
   color: #09463f;
   transition: all 0.3s ease-in-out;
   position: relative;
-  width: -webkit-fit-content;
+  width: auto;
   width: -moz-fit-content;
   width: fit-content;
   border: none;
@@ -2289,6 +2289,13 @@ header .headerAnimate {
   color: #ffffff;
   padding: 8px 16px;
 }
+.filter .confirm {
+    border-radius: 1000px;
+    background-color: rgba(230, 198, 136, 0.86);
+    color: #ffffff;
+    padding: 8px 16px;
+}
+
 
 .workerCv {
   padding: 10px;
@@ -3012,8 +3019,7 @@ header .headerAnimate {
   background-color: #c7d2d6;
   border-radius: 8px;
   margin-bottom: 50px;
-  height: -webkit-fit-content;
-  height: -moz-fit-content;
+  height: auto;
   height: fit-content;
   transition: all 0.3s ease-in-out;
 }
@@ -6002,7 +6008,6 @@ p {
     height: 80px;
     clip: rect(0px, 40px, 80px, 0px);
     border-radius: 50%;
-    transform: rotate(180deght: 80px;
     clip: rect(0px, 40px, 80px, 0px);
     border-radius: 50%;
     transform: rotate(180deg);
