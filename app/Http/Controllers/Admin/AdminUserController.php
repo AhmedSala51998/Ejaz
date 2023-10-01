@@ -159,21 +159,29 @@ $data['phone']=$number;
 
     }
 
-    public function selectOrderForUser($id){
+    public function selectOrderForUser(Request $request,$id){
         if (!\checkPermission(24))
             return view('admin.permission');
 
-
-
         $user=User::findOrFail($id);
+        $passport_key=$request->passport_key ;
+        $nationalities = Nationalitie::get();
+
+
+
         $cvs = Biography::where('status', 'new')
             ->where('order_type', 'normal')
             ->with('recruitment_office', 'nationalitie', 'language_title',
                 'religion', 'job', 'social_type', 'admin', 'images', 'skills')
+            ->FilterByNationality($request->nationality_id)
+            ->FilterByPassportNumber($request->passport_key)
             ->latest()
             ->get();
 
-        return view('admin.users.parts.recruitmentRequest',compact('cvs','user'));
+
+        return view('admin.users.parts.recruitmentRequest',compact('cvs','user',
+            'passport_key'
+            ,'nationalities'));
 
     }
 

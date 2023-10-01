@@ -43,7 +43,12 @@ class Biography extends Model
             $query->where('nationalitie_id',$id);
         }
     }
-
+    public function scopeFilterByPassportNumber($query,$id)
+    {
+        if ($id != null) {
+            $query->where('passport_number',$id);
+        }
+    }
 
     public function recruitment_office()
     {
