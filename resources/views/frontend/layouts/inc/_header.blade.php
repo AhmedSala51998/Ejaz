@@ -26,7 +26,7 @@
                         </ul>
                     </div>
                 </li>
-                <li><a class="navLink" href="somu-tech.html"> من نحن  </a></li>
+                <li><a class="navLink" href="#"> من نحن  </a></li>
                 <li><a class="navLink" href="{{checkRouteIsHome('#countrie')}}"> دول الاستقدام </a></li>
 
 
@@ -34,6 +34,7 @@
                 <li><a class="navLink" href="{{route('frontend.supports.contactUs')}}"> تواصل معنا</a></li>
 
                @auth()
+
                     <li><a class="navLink" href="#" id="toggleCategories"> حسابي </a>
                         <div class="dropdownMenu categoriesList">
                             <ul>
@@ -50,7 +51,9 @@
                         </div>
                     </li>
                 @endauth
+                @guest
                 <li><a class="navLink" href="{{route('auth.login')}}">تسجيل الدخول</a></li>
+                @endguest
             </ul>
         </nav>
         <!-- Actions -->

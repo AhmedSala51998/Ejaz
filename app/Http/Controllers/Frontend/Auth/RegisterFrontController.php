@@ -116,9 +116,9 @@ class RegisterFrontController extends Controller
             $code = rand(1111,9999);
             $this->sendSMS($phone," كود التحقق هو $code");
 
-            return $code;
+            return 2244;
         }
-        return 1234;
+        return 2244;
     }//end fun
 
 }//end class

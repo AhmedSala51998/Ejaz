@@ -22,11 +22,12 @@
                             <div class="col-12 p-2 text-center">
                                 <label class="form-label"> {{__('frontend.PleaseEnterTheSentCode')}} <span> 5XXXXXXXX </span> </label>
                                 <div class="vCode " id="vCode" >
-                                    <input id="vCodeIdFirst" onkeypress="isNumber(evt)"  type="number" class="vCode-input mx-1" maxlength="1">
-                                    <input type="number"  onkeypress="isNumber(evt)"  class="vCode-input mx-1" maxlength="1">
-                                    <input type="number"   onkeypress="isNumber(evt)" class="vCode-input mx-1" maxlength="1">
-                                    <input type="number"  onkeypress="isNumber(evt)"  class="vCode-input mx-1" maxlength="1">
+                                    <input value="2" id="vCodeIdFirst" onkeypress="isNumber(evt)"  type="number" class="vCode-input mx-1" maxlength="1">
+                                    <input value="2" type="number"  onkeypress="isNumber(evt)"  class="vCode-input mx-1" maxlength="1">
+                                    <input value="4" type="number"   onkeypress="isNumber(evt)" class="vCode-input mx-1" maxlength="1">
+                                    <input value="4" type="number"  onkeypress="isNumber(evt)"  class="vCode-input mx-1" maxlength="1">
                                 </div>
+
                             </div>
                             <div class="col-12 p-2 text-center">
                                 <button type="submit" class="animatedLink">
@@ -35,6 +36,8 @@
                                 </button>
                             </div>
                         </form>
+                        <p class="text-center pt-4 pb-2">تم وضع كود افتراضي لتعذر ارسال رسالة نصية اليكم في الوقت الحالي</p>
+
                         <p class="text-center pt-4 pb-2"> {{__('frontend.I did not receive the activation code')}} <a href="#" id="sendCodeAgain" attr-code-sent="sent"> {{__('frontend.ReSent')}} </a> </p>
                     </div>
                 </div>
