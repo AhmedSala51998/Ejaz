@@ -1,4 +1,22 @@
 $(document).ready(function () {
+    // navbar
+    $(".navbar-toggler").on("click", function () {
+        $(".navbar-nav").toggleClass("show");
+    });
+    $(document).on("click", function (event) {
+        if (!$(event.target).closest(".navbar").length) {
+            $(".navbar-nav").removeClass("show");
+        }
+    });
+    //navbar ainmation
+    $(window).scroll(function () {
+        var appScroll = $(document).scrollTop();
+        if (appScroll >= 1) {
+            $("header").addClass("headerAnimate");
+        } else {
+            $("header").removeClass("headerAnimate");
+        }
+    });
   // navbar hide in scroll down
   // var prevScrollpos = window.pageYOffset;
   // window.onscroll = function () {
@@ -111,24 +129,7 @@ $(document).ready(function () {
     $(".hideSideBtn").click(function () {
         $(".workers-section .allWorkersSide").toggleClass("showSide");
     });
-    // navbar
-    $(".navbar-toggler").on("click", function () {
-        $(".navbar-nav").toggleClass("show");
-    });
-    $(document).on("click", function (event) {
-        if (!$(event.target).closest(".navbar").length) {
-            $(".navbar-nav").removeClass("show");
-        }
-    });
-    //navbar ainmation
-    $(window).scroll(function () {
-        var appScroll = $(document).scrollTop();
-        if (appScroll >= 1) {
-            $("header").addClass("headerAnimate");
-        } else {
-            $("header").removeClass("headerAnimate");
-        }
-    });
+
 });
 // ////////////////////////////////////////
 // ////////////////////////////////////////
