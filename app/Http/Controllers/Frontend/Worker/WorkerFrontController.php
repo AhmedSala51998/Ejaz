@@ -24,6 +24,49 @@ class WorkerFrontController extends Controller
 {
 
     use MesgatSMS;
+
+    public function track_order_view()
+    {
+        return view('frontend.pages.trackOrder.trackOrder');
+    }
+
+    public function track_order(Request $request)
+    {
+
+        if (auth()->check()) {
+            $order = Order::where('order_code', $request->code)->where('user_id', auth()->user()->id)->first();
+            if (!empty($order)) {
+                $admin = Admin::find($order->admin_id);
+                if ($request->ajax()) {
+                    return response()->json(['order_code' => $order->id], 200);
+                }
+                return view("frontend.pages.profile.parts.order_detailes", compact('order', 'admin'));
+            } else {
+                return response()->json([], 403);
+
+//                toastError('ﻻ يمكنك تتبع هذا الطلب', 'حدث خطأ ما');
+//                return back();
+            }
+        } else {
+            return response()->json([], 500);
+
+//            toastError('يجب تسجيل الدخول لاستخدام هذة الخدمة', 'حدث خطأ ما');
+//            return back();
+        }
+
+
+    }
+
+    public function order_details($id)
+    {
+
+
+        $order = Order::find($id);
+        $admin = Admin::find($order->admin_id);
+
+        return view("frontend.pages.profile.parts.order_detailes", compact('order', 'admin'));
+
+    }
     public function showAllWorkers(Request $request,$id=null)
     {
 
@@ -40,7 +83,8 @@ class WorkerFrontController extends Controller
                 ->with('recruitment_office', 'nationalitie', 'language_title',
                     'religion', 'job', 'social_type', 'admin', 'images', 'skills')
                 ->latest()
-                ->paginate(12);
+                ->paginate(18);
+
             $countr_id=$id;
         }
         else{
@@ -53,11 +97,11 @@ class WorkerFrontController extends Controller
                 ->with('recruitment_office', 'nationalitie', 'language_title',
                     'religion', 'job', 'social_type', 'admin', 'images', 'skills')
                 ->latest()
-                ->paginate(12);
+                ->get();
             $countr_id='';
         }
-        $current_page = $cvs->currentPage() ;
-        $last_page =  $cvs->lastPage();
+//        $current_page = $cvs->currentPage() ;
+//        $last_page =  $cvs->lastPage();
 
         if ($request->ajax()) {
             $returnHTML = view('frontend.pages.all-workers.worker.workers_page')
@@ -65,8 +109,8 @@ class WorkerFrontController extends Controller
             return response()->json([
                 'success' => true,
                 'html' => $returnHTML,
-                'current_page' => $current_page,
-                'last_page' => $last_page,
+//                'current_page' => $current_page,
+//                'last_page' => $last_page,
             ]);
         }
 
@@ -83,8 +127,8 @@ class WorkerFrontController extends Controller
             'jobs'=>$jobs,
             'nationalities'=>$nationalities,
             'cvs'=>$cvs,
-            'current_page' => $current_page,
-            'last_page' => $last_page,
+//            'current_page' => $current_page,
+//            'last_page' => $last_page,
             'country_id'=>$countr_id,
         ]);
     }//end fun

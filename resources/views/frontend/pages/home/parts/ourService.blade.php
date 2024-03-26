@@ -1,249 +1,76 @@
+
+<!-- *** services *** -->
 @if (count($ourServices)>0)
+    <section class="popular_service" id="popular_service">
+        <div class="SectionTitle ">
+            <h1 class="title" data-aos="fade-up"> خدمات الاستقدام </h1>
+            <h6 class="hint" data-aos="fade-up"> تعرف علي الخدمات التي نقدمها للمجتمع ... </h6>
+        </div>
 
-    <section class="services" id="services">
+        {{--    <h2>أبرز خدماتنا</h2>--}}
         <div class="container">
-            <!--  section Top -->
-            <div class="sectionTop">
-                <!-- Section Title -->
-                <div class="SectionTitle text-md-start">
-                    <h1 class="title" data-aos="fade-up"> خدمات الاستقدام </h1>
-                    <h6 class="hint" data-aos="fade-up"> تعرف علي الخدمات التي نقدمها للمجتمع ... </h6>
-                </div>
-                <!-- siper conrtol -->
-                <div class="swiperBtns" data-aos="fade-up">
-                    <div class="servicesSliderPrev swiper-button-prev"></div>
-                    <div class="servicesSlidePagination swiper-pagination"></div>
-                    <div class="servicesSliderNext swiper-button-next"></div>
-                </div>
-            </div>
-            <!-- slider -->
-            <div class="swiper servicesSlider">
-                <div class="swiper-wrapper">
-
-                    <!-- slide -->
-                    @foreach($ourServices as $service)
-
-                    <div class="swiper-slide">
-                        <div class="flipCard" data-aos="zoom-in-up">
-                            <div class="cardFront"
-                                 style="background: linear-gradient(to top, #000000a3, #0000001a), url({{get_file($service->image)}});">
-                                <div class="content">
-                                    <h3>{{$service->title}} </h3>
-                                    <a href="#!" class="animatedLink">
-                                        <i class="fa-light fa-bullseye-arrow"><span></span></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="cardBack">
-                                <div class="content">
-                                    <img src="{{asset('frontend')}}/img/pattern.svg" alt="">
-                                    <h3>{{$service->title}} </h3>
-                                    <p>
-                                  {{$service->desc}}
-                                    </p>
-                                    <!-- <a href="#!" class="animatedLink">
-                                      التفاصيل
-                                      <i class="fa-regular fa-left-long ms-2"><span></span></i>
-                                    </a> -->
-                                </div>
-                            </div>
-                        </div>
+            <div class="row">
+                @foreach($ourServices as $service)
+                <div class="col-lg-3 col-md-4 col-6 p-2" >
+                    <a href="{{route('all-workers')}}">
+                    <div class="service">
+                        <img src="{{get_file($service->image)}}" alt="">
+                        <h6> {{$service->title}}</h6>
+                        <p> {{$service->desc}} </p>
                     </div>
-                    @endforeach
+                    </a>
                 </div>
+                @endforeach
+
             </div>
         </div>
     </section>
-
 @else
+<section class="popular_service">
+    <div class="SectionTitle ">
+                            <h2 class="title" data-aos="fade-up"> خدمات الاستقدام </h2>
+                            <h6 class="hint" data-aos="fade-up"> تعرف علي الخدمات التي نقدمها للمجتمع ... </h6>
+    </div>
 
-    <section class="services" id="services" >
-        <div class="container">
-            <!--  section Top -->
-            <div class="sectionTop">
-                <!-- Section Title -->
-                <div class="SectionTitle text-md-start">
-                    <h1 class="title" data-aos="fade-up"> خدمات الاستقدام </h1>
-                    <h6 class="hint" data-aos="fade-up"> تعرف علي الخدمات التي نقدمها للمجتمع ... </h6>
-                </div>
-                <!-- siper conrtol -->
-                <div class="swiperBtns" data-aos="fade-up">
-                    <div class="servicesSliderPrev swiper-button-prev"></div>
-                    <div class="servicesSlidePagination swiper-pagination"></div>
-                    <div class="servicesSliderNext swiper-button-next"></div>
+{{--    <h2>أبرز خدماتنا</h2>--}}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-6 p-2">
+                <div class="service">
+                    <img src="{{asset('frontend')}}/img/icons/icon1.svg" alt="">
+                    <h6> طلب استقدام </h6>
+                    <p> دفع رسوم الاستقدام عبر التعاقد في برنامج مساند </p>
                 </div>
             </div>
-            <!-- slider -->
-            <div class="swiper servicesSlider">
-                <div class="swiper-wrapper">
-                    <!-- slide -->
-                    <div class="swiper-slide">
-                        <div class="flipCard" data-aos="zoom-in-up">
-                            <div class="cardFront"
-                                 style="background: linear-gradient(to top, #000000a3, #0000001a), url({{asset('frontend')}}/img/service1.webp);">
-                                <div class="content">
-                                    <h3> إصدار التأشيرة </h3>
-                                    <a href="#!" class="animatedLink">
-                                        <i class="fa-light fa-bullseye-arrow"><span></span></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="cardBack">
-                                <div class="content">
-                                    <img src="{{asset('frontend')}}/img/pattern.svg" alt="">
-                                    <h3> إصدار التأشيرة </h3>
-                                    <p>
-                                        طلب اصدار تاشيرة العمالة المنزلية الخاصة بك في برنامج مساند
-                                    </p>
-                                    <!-- <a href="#!" class="animatedLink">
-                                      التفاصيل
-                                      <i class="fa-regular fa-left-long ms-2"><span></span></i>
-                                    </a> -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- slide -->
-                    <div class="swiper-slide">
-                        <div class="flipCard" data-aos="zoom-in-up">
-                            <div class="cardFront"
-                                 style="background: linear-gradient(to top, #000000a3, #0000001a), url({{asset('frontend')}}/img/service2.webp);">
-                                <div class="content">
-                                    <h3> اختيار العمالة </h3>
-                                    <a href="#!" class="animatedLink">
-                                        <i class="fa-light fa-bullseye-arrow"><span></span></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="cardBack">
-                                <div class="content">
-                                    <img src="{{asset('frontend')}}/img/pattern.svg" alt="">
-                                    <h3> اختيار العمالة </h3>
-                                    <p>
-                                        اختيار السيره الذاتيه للعمالة المنزلية عبر البحث في
-                                        برنامج مساند
-                                    </p>
-                                    <!-- <a href="#!" class="animatedLink">
-                                      التفاصيل
-                                      <i class="fa-regular fa-left-long ms-2"><span></span></i>
-                                    </a> -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- slide -->
-                    <div class="swiper-slide">
-                        <div class="flipCard" data-aos="zoom-in-up">
-                            <div class="cardFront"
-                                 style="background: linear-gradient(to top, #000000a3, #0000001a), url({{asset('frontend')}}/img/service4.webp);">
-                                <div class="content">
-                                    <h3> تعاقد الاستقدام </h3>
-                                    <a href="#!" class="animatedLink">
-                                        <i class="fa-light fa-bullseye-arrow"><span></span></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="cardBack">
-                                <div class="content">
-                                    <img src="{{asset('frontend')}}/img/pattern.svg" alt="">
-                                    <h3> تعاقد الاستقدام </h3>
-                                    <p>دفع رسوم الاستقدام عبر التعاقد في برنامج مساند</p>
-                                    <!-- <a href="#!" class="animatedLink">
-                                      التفاصيل
-                                      <i class="fa-regular fa-left-long ms-2"><span></span></i>
-                                    </a> -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- slide -->
-                    <div class="swiper-slide">
-                        <div class="flipCard" data-aos="zoom-in-up">
-                            <div class="cardFront"
-                                 style="background: linear-gradient(to top, #000000a3, #0000001a), url({{asset('frontend')}}/img/service3.webp);">
-                                <div class="content">
-                                    <h3> وصول العمالة </h3>
-                                    <a href="#!" class="animatedLink">
-                                        <i class="fa-light fa-bullseye-arrow"><span></span></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="cardBack">
-                                <div class="content">
-                                    <img src="{{asset('frontend')}}/img/pattern.svg" alt="">
-                                    <h3> وصول العمالة </h3>
-                                    <p>وصول العمالة المنزلية من المطار المحلي الى المكتب</p>
-                                    <!-- <a href="#!" class="animatedLink">
-                                      التفاصيل
-                                      <i class="fa-regular fa-left-long ms-2"><span></span></i>
-                                    </a> -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- slide -->
-{{--                    <div class="swiper-slide">--}}
-{{--                        <div class="flipCard" data-aos="zoom-in-up">--}}
-{{--                            <div class="cardFront"--}}
-{{--                                 style="background: linear-gradient(to top, #000000a3, #0000001a), url({{asset('frontend')}}/img/service5.webp);">--}}
-{{--                                <div class="content">--}}
-{{--                                    <h3> إصدار التأشيرة </h3>--}}
-{{--                                    <a href="#!" class="animatedLink">--}}
-{{--                                        <i class="fa-light fa-bullseye-arrow"><span></span></i>--}}
-{{--                                    </a>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                            <div class="cardBack">--}}
-{{--                                <div class="content">--}}
-{{--                                    <img src="{{asset('frontend')}}/img/pattern.svg" alt="">--}}
-{{--                                    <h3> إصدار التأشيرة </h3>--}}
-{{--                                    <p>--}}
-{{--                                        طلب اصدار تاشيرة العمالة المنزلية الخاصة بك في برنامج مساند--}}
-{{--                                    </p>--}}
-{{--                                    <!-- <a href="#!" class="animatedLink">--}}
-{{--                                      التفاصيل--}}
-{{--                                      <i class="fa-regular fa-left-long ms-2"><span></span></i>--}}
-{{--                                    </a> -->--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    <!-- slide -->--}}
-{{--                    <div class="swiper-slide">--}}
-{{--                        <div class="flipCard" data-aos="zoom-in-up">--}}
-{{--                            <div class="cardFront"--}}
-{{--                                 style="background: linear-gradient(to top, #000000a3, #0000001a), url({{asset('frontend')}}/img/service6.webp);">--}}
-{{--                                <div class="content">--}}
-{{--                                    <h3> طلب عماله مهنيه </h3>--}}
-{{--                                    <a href="#!" class="animatedLink">--}}
-{{--                                        <i class="fa-light fa-bullseye-arrow"><span></span></i>--}}
-{{--                                    </a>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                            <div class="cardBack">--}}
-{{--                                <div class="content">--}}
-{{--                                    <img src="{{asset('frontend')}}/img/pattern.svg" alt="">--}}
-{{--                                    <h3> طلب عماله مهنيه </h3>--}}
-{{--                                    <p>--}}
-{{--                                        اننا قادرون علي جلب افضل انواع العمالة المهنيه من الدول المختلفه وكافة فائت--}}
-{{--                                        العمله من العمل الى--}}
-{{--                                        الطبيب--}}
-{{--                                    </p>--}}
-{{--                                    <!-- <a href="#!" class="animatedLink">--}}
-{{--                                      التفاصيل--}}
-{{--                                      <i class="fa-regular fa-left-long ms-2"><span></span></i>--}}
-{{--                                    </a> -->--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
+            <div class="col-lg-3 col-md-4 col-6 p-2">
+                <div class="service">
+                    <img src="{{asset('frontend')}}/img/icons/icon2.svg" alt="">
+                    <h6> اختيار العمالة</h6>
+                    <p>ت اختيار السيره الذاتيه للعماله المنزليه عبر البحث في برنامج مساند ومن خلال الموقع الالكتروني</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-6 p-2">
+                <div class="service">
+                    <img src="{{asset('frontend')}}/img/icons/icon3.svg" alt="">
+                    <h6>رعاية الأطفال والمسنين</h6>
+                    <p>توفير جليسات الأطفال ورعاية وكبار السن.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-6 p-2">
+                <div class="service">
+                    <img src="{{asset('frontend')}}/img/icons/icon4.svg" alt="">
+                    <h6>خدمات الضيافة والخدم</h6>
+                    <p>توفير موظفين لخدمة الضيوف في المناسبات والفعاليات.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-6 p-2">
+                <div class="service">
+                    <img src="{{asset('frontend')}}/img/icons/icon4.svg" alt="">
+                    <h6>خدمات الضيافة والخدم</h6>
+                    <p>توفير موظفين لخدمة الضيوف في المناسبات والفعاليات.</p>
                 </div>
             </div>
         </div>
-    </section>
-
-
+    </div>
+</section>
 @endif
-
-

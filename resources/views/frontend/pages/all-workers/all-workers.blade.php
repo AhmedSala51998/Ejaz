@@ -117,115 +117,251 @@
 
         <!-- ================  / banner ================= -->
         <!-- ================ filter ================= -->
-        <section class="filter">
-            <div class="container">
-                <h4 class="px-3"> {{__('frontend.advanced search')}} </h4>
-                <div action="" class="row align-items-center align-items-md-end">
-                    <div class="col-sm-10 col-md-8 p-2">
-                        <div class="row flex-wrap">
-                            <!-- age -->
-                            <!--@if(count($ages) > 0)-->
+{{--        <section class="filter">--}}
+{{--            <div class="container">--}}
+{{--                <h4 class="px-3"> {{__('frontend.advanced search')}} </h4>--}}
+{{--                <div action="" class="row align-items-center align-items-md-end">--}}
+{{--                    <div class="col-sm-10 col-md-8 p-2">--}}
+{{--                        <div class="row flex-wrap">--}}
+{{--                            <!-- Nationality -->--}}
+{{--                            @if(count($nationalities) > 0)--}}
+{{--                                <div class="col p-2">--}}
+{{--                                    <label for="nationality"> <i--}}
+{{--                                            class="fa-duotone fa-flag me-1"></i> {{__('frontend.nationalities')}}--}}
+{{--                                    </label>--}}
+{{--                                    <select id="nationality" name="nationality" class="select2">--}}
+{{--                                        <option value=""  > {{__('frontend.all')}} </option>--}}
+{{--                                        @foreach($nationalities as $nationalitie)--}}
+{{--                                            <option value="{{$nationalitie->id}}" @isset($country_id)@if( $country_id == $nationalitie->id) selected   @endif @endisset > {{$nationalitie->title}} </option>--}}
+{{--                                        @endforeach--}}
+{{--                                    </select>--}}
+{{--                                </div>--}}
+{{--                            @endif--}}
+{{--                            <!-- age -->--}}
+{{--                           @if(count($ages) > 0)--}}
 
-                            <!--    <div class="col p-2">-->
-                            <!--        <label for="age"> <i class="fa-duotone fa-hourglass me-1"></i> العمر </label>-->
-                            <!--        <select id="age" name="age" class="select2">-->
-                            <!--            <option value="" selected> {{__('frontend.all')}} </option>-->
-                            <!--            @foreach($ages as $age)-->
-                            <!--                <option-->
-                            <!--                    value="{{$age->id}}">{{__('frontend.from')}} {{$age->from}} {{__('frontend.to')}} {{$age->to}} </option>-->
-                            <!--            @endforeach-->
-                            <!--        </select>-->
-                            <!--    </div>-->
-                            <!--@endif-->
+{{--                               <div class="col p-2">--}}
+{{--                                    <label for="age"> <i class="fa-duotone fa-hourglass me-1"></i> العمر </label>--}}
+{{--                                    <select id="age" name="age" class="select2">--}}
+{{--                                      <option value="" selected> {{__('frontend.all')}} </option>--}}
+{{--                                        @foreach($ages as $age)--}}
+{{--                                         <option--}}
+{{--                                                value="{{$age->id}}">{{__('frontend.from')}} {{$age->from}} {{__('frontend.to')}} {{$age->to}} </option>--}}
+{{--                                       @endforeach--}}
+{{--                                   </select>--}}
+{{--                              </div>--}}
+{{--                           @endif--}}
 
-                            <!-- Occupation -->
-                            @if(count($jobs) > 0)
+{{--                            <!-- Occupation -->--}}
+{{--                            @if(count($jobs) > 0)--}}
 
-                                <div class="col p-2">
-                                    <label for="job"> <i
-                                            class="fa-duotone fa-briefcase me-1"></i> {{__('frontend.Job')}}
-                                    </label>
-                                    <select id="job" name="job" class="select2">
-                                        <option value="" selected> {{__('frontend.all')}} </option>
-                                        @foreach($jobs as $job)
-                                            <option value="{{$job->id}}"> {{$job->title}} </option>
-                                        @endforeach
-                                    </select>
+{{--                                <div class="col p-2">--}}
+{{--                                    <label for="job"> <i--}}
+{{--                                            class="fa-duotone fa-briefcase me-1"></i> {{__('frontend.Job')}}--}}
+{{--                                    </label>--}}
+{{--                                    <select id="job" name="job" class="select2">--}}
+{{--                                        <option value="" selected> {{__('frontend.all')}} </option>--}}
+{{--                                        @foreach($jobs as $job)--}}
+{{--                                            <option value="{{$job->id}}"> {{$job->title}} </option>--}}
+{{--                                        @endforeach--}}
+{{--                                    </select>--}}
+{{--                                </div>--}}
+
+{{--                            @endif--}}
+
+
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <div class="col-sm-2 col-md-4 p-2 d-flex align-items-center justify-content-end flex-wrap">--}}
+{{--                        <button id="SearchResetButton" type="button" class=" btn clear m-1 "> {{__('frontend.Clear')}}--}}
+{{--                            <span></span>--}}
+{{--                        </button>--}}
+{{--                        <button id="SearchWorkerButton" type="submit" class="btn confirm">--}}
+{{--                            <span></span>--}}
+
+{{--                            {{__('frontend.Apply')}}--}}
+{{--                        </button>--}}
+
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </section>--}}
+
+
+        <!-- INNER PAGE BANNER END -->
+        <div class="workers-section">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-3 col-md-12 rightSidebar">
+                        <div class="side-bar">
+                            <h4> {{__('frontend.advanced search')}}  </h4>
+                            <form class="allWorkersSide" action="{{route('all-workers')}}" method="get">
+                                @csrf
+                                <!-- hide filter in small media -->
+                                <div class="hideSideBtn">
+                                    <h4> {{__('frontend.Filter results')}} </h4>
+                                    <span class="icon"> <i class="fa-solid fa-close"></i> </span>
                                 </div>
+                                <div class="sidebar-filter">
 
-                            @endif
-                            <!-- Nationality -->
-                            @if(count($nationalities) > 0)
-                                <div class="col p-2">
-                                    <label for="nationality"> <i
-                                            class="fa-duotone fa-flag me-1"></i> {{__('frontend.nationalities')}}
-                                    </label>
-                                    <select id="nationality" name="nationality" class="select2">
-                                        <option value=""  > {{__('frontend.all')}} </option>
-                                        @foreach($nationalities as $nationalitie)
-                                            <option value="{{$nationalitie->id}}" @isset($country_id)@if( $country_id == $nationalitie->id) selected   @endif @endisset > {{$nationalitie->title}} </option>
-                                        @endforeach
-                                    </select>
+                                    @if(count($nationalities) > 0)
+                                        <div class="accordionItem">
+                                            <!-- accordion Button -->
+                                            <button class="accordionButton" type="button" data-bs-toggle="collapse"
+                                                    data-bs-target="#nationalityFilter">
+                                                {{__('frontend.Nationality')}}
+                                                <sapn class="plus"></sapn>
+                                            </button>
+
+                                            <!-- accordion data -->
+                                            <div id="nationalityFilter" class="collapse show">
+                                                <div class="accordionData">
+                                                    @foreach($nationalities as $key=> $nationalitie)
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" name="nationality"
+                                                                   id="{{'nationality'.($key+1)}}"
+                                                                   value="{{$nationalitie->id}}">
+                                                            <label class="form-check-label"
+                                                                   for="{{'nationality'.($key+1)}}"> {{trans($nationalitie->title)}}  </label>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+                                    @if(count($jobs) > 0)
+                                        <!-- item -->
+                                        <div class="accordionItem">
+                                            <!-- accordion Button -->
+                                            <button class="accordionButton" type="button" data-bs-toggle="collapse"
+                                                    data-bs-target="#jobFliter">
+                                                {{__('frontend.Job')}}
+                                                <sapn class="plus"></sapn>
+                                            </button>
+                                            <!-- accordion data -->
+                                            <div id="jobFliter" class=" collapse show">
+                                                <div class="accordionData">
+                                                    @foreach($jobs as$key=> $job)
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" name="job"
+                                                                   id="{{'job'.($key+1)}}" value="{{$job->id}}">
+                                                            <label class="form-check-label"
+                                                                   for="{{'job'.($key+1)}}">{{trans($job->title)}}  </label>
+                                                        </div>
+                                                    @endforeach
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+                                    @if(count($ages) > 0)
+                                        <!-- item -->
+                                        <div class="accordionItem">
+                                            <!-- accordion Button -->
+                                            <button class="accordionButton" type="button" data-bs-toggle="collapse"
+                                                    data-bs-target="#ageFliter">
+                                              العمر
+                                                <sapn class="plus"></sapn>
+                                            </button>
+                                            <!-- accordion data -->
+                                            <div id="ageFliter" class=" collapse show">
+                                                <div class="accordionData">
+                                                    @foreach($ages as $key=>$age)
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" value="{{$age->id}}"
+                                                                   type="radio" name="age" id="{{'age'.($key+1)}}">
+                                                            <label class="form-check-label"
+                                                                   for="{{'age'.($key+1)}}"> {{__('frontend.from')}} {{$age->from}} {{__('frontend.to')}}  {{$age->to}}</label>
+                                                        </div>
+                                                    @endforeach
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+
+                                    <div class="control view-button">
+
+                                        <button href="{{route('all-workers')}}"  id="SearchResetButton" class="btn clear" type="button"> مسح</button>
+                                        <button class="btn confirm" type="submit">تاكيد </button>
+
+
+                                    </div>
                                 </div>
-                            @endif
+                            </form>
 
                         </div>
-                    </div>
-                    <div class="col-sm-2 col-md-4 p-2 d-flex align-items-center justify-content-end flex-wrap">
-                        <button id="SearchResetButton" type="button" class=" btn clear m-1 "> {{__('frontend.Clear')}}
-                            <span></span>
-                        </button>
-                        <button id="SearchWorkerButton" type="submit" class="btn confirm">
-                            <span></span>
-
-                            {{__('frontend.Apply')}}
-                        </button>
 
                     </div>
+
+                    <div class="col-lg-9 col-md-12">
+                        <div class="hideSideBtn">
+                            <h4> {{__('frontend.Filter results')}} </h4>
+                            <span class="icon"> <i class="fa-solid fa-sliders"></i> </span>
+                        </div>
+
+                        <div class="workers-list">
+                            <div class="row" id="hereWillDisplayAllWorker">
+                                @include('frontend.pages.all-workers.worker.workers_page')
+                            </div>
+                        </div>
+
+
+                        <!-- Modal -->
+                        <div class="modal fade cvModal" id="showDetails" tabindex="-1">
+                            <div class="modal-dialog modal-dialog-centered modal-lg">
+                                <div class="modal-content" id="CVHere">
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
                 </div>
             </div>
-        </section>
-
-        <!-- ================ filter ================= -->
+        </div>
         <!-- ================ all workers ================= -->
-        <section class="allWorkers">
-            <div class="container">
-                <div id="hereWillDisplayAllWorker" class="row">
-                    <!-- cv -->
+{{--        <section class="allWorkers">--}}
+{{--            <div class="container">--}}
+{{--                <div id="hereWillDisplayAllWorker" class="row">--}}
+{{--                    <!-- cv -->--}}
 
-                    @include('frontend.pages.all-workers.worker.workers_page')
-
-
-                </div>
-                <!-- pagination -->
-
-                <div style="{{$last_page == $current_page ?"display:none !important;":""}}"
-                     class="d-flex align-items-center justify-content-center py-5 register-submit" id="buttonOfFilter">
-                    <!-- <button id="load_more_button" class="customBtn" type="button">
-                    {{__('frontend.load more')}}
-                    </button> -->
-
-                    <button id="load_more_button" class="animatedLink">
-                        {{__('frontend.load more')}}
-                        <i class="fa-regular fa-left-long ms-2"><span></span></i>
-                    </button>
+{{--                    @include('frontend.pages.all-workers.worker.workers_page')--}}
 
 
-                </div>
+{{--                </div>--}}
+{{--                <!-- pagination -->--}}
 
-                <!-- custom Order -->
-                <div class="alert  fade show customOrder " data-aos="fade-up" role="alert">
-                    <button type="button" class="btn-close p-2" data-bs-dismiss="alert" aria-label="Close"></button>
-                    <h5>{{__('frontend.We can provide the right manpower according to your specifications')}} </h5>
+{{--                <div style="{{$last_page == $current_page ?"display:none !important;":""}}"--}}
+{{--                     class="d-flex align-items-center justify-content-center py-5 register-submit" id="buttonOfFilter">--}}
+{{--                    <!-- <button id="load_more_button" class="customBtn" type="button">--}}
+{{--                    {{__('frontend.load more')}}--}}
+{{--                    </button> -->--}}
 
-                    <a href="{{route('custom-worker-request')}}" class="animatedLink">
-                        {{__('frontend.Submit a special request')}}
-                        <i class="fa-regular fa-left-long ms-2"><span></span></i>
-                    </a>
+{{--                    <button id="load_more_button" class="animatedLink">--}}
+{{--                        {{__('frontend.load more')}}--}}
+{{--                        <i class="fa-regular fa-left-long ms-2"><span></span></i>--}}
+{{--                    </button>--}}
 
-                </div>
-            </div>
-        </section>
+
+{{--                </div>--}}
+
+{{--                <!-- custom Order -->--}}
+{{--                <div class="alert  fade show customOrder " data-aos="fade-up" role="alert">--}}
+{{--                    <button type="button" class="btn-close p-2" data-bs-dismiss="alert" aria-label="Close"></button>--}}
+{{--                    <h5>{{__('frontend.We can provide the right manpower according to your specifications')}} </h5>--}}
+
+{{--                    <a href="{{route('custom-worker-request')}}" class="animatedLink">--}}
+{{--                        {{__('frontend.Submit a special request')}}--}}
+{{--                        <i class="fa-regular fa-left-long ms-2"><span></span></i>--}}
+{{--                    </a>--}}
+
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </section>--}}
+
     </content>
 @endsection
 
@@ -350,7 +486,7 @@
 
         function loadMoreData(new_page) {
 
-            url = link_only + "?page=" + new_page + "&age=" + "" + "&job=" + job + "&nationality=" + nationality
+            url = link_only + "?page=" + new_page + "&age=" + age + "&job=" + job + "&nationality=" + nationality +"&experience" + experience
             $.ajax({
                 url: url,
                 type: 'GET',
@@ -373,27 +509,20 @@
                         // var elements = document.getElementsByClassName("loader_html");
                         //while (elements.length > 0) elements[0].remove();
                         $('#hereWillDisplayAllWorker').append(data.html);
-                        $('#load_more_button').html(`
-
-                   <button id="load_more_button" class="animatedLink">
-                        {{__('frontend.load more')}}
-                        <i class="fa-regular fa-left-long ms-2"><span></span></i>
-                    </button>
-`)
-
-
+                        $('#load_more_button').html("{{__('frontend.load more')}}")
                     }, 100);
                 },
                 error: function (data) {
                     alert('Something went wrong.');
-                }, //end error method
+                },//end error method
 
                 cache: false,
                 contentType: false,
                 processData: false
             });
 
-        } //end fun
+        }//end fun
+
 
 
         $(document).on('click', '#SearchWorkerButton', function (e) {
@@ -468,7 +597,7 @@
             var job = $('#job').val();
             var age = $('#age').val();
             var nationality = $('#nationality').val();
-            if (job == ''  && nationality == '') {
+            if (job == ''  && nationality == '' && age=='') {
                 $('#SearchResetButton').hide();
                 $('#SearchWorkerButton').trigger('click');
 

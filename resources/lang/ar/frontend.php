@@ -270,6 +270,6 @@ return [
     'no result for search'=>' لا توجد نتائج للبحث ',
     'job'=> ' وظيفة ',
     "Musaned"=>"مساند",
-
+    'Filter results'=>'تصفية النتائج',
 
 ];

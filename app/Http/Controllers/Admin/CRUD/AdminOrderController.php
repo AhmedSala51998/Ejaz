@@ -221,32 +221,29 @@ class AdminOrderController extends Controller
                 ->addColumn('actions', function ($row) {
                     $status='';
                     $delete='';
-$add_note= " <a href='#'  class='btn btn-warning add_note' id='" . $row->id . "'> اضافة ملاحظة  </a>";
-                    $notes=" <a href='".route('notes.list',['id'=>$row->id])."'  class='btn btn-dark '>ملاحظات</a>";
-
+//$add_note= " <a href='#'  class='btn btn-warning add_note' id='" . $row->id . "'> اضافة ملاحظة  </a>";
+//                    $notes=" <a href='".route('notes.list',['id'=>$row->id])."'  class='btn btn-dark '>ملاحظات</a>";
+//
 
                     if ($row->status == "new" || $row->status == "under_work") {
                         $status="contract";
                         $text = "إتمام التعاقد";
-                        return "
-                    <a href='#' $status data-status='".$status."' class='btn btn-info update-contract-at' id='" . $row->id . "'> ".$text."  </a>
-$add_note $notes
+                        if (empty($row->contact_num)) {
+                            return "
+                    <a href='#' $status data-status='".$status."' class='btn btn-info update-status' id='" . $row->id . "'> ".$text."  </a>
                    <a  $delete style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
 
-
-                    } elseif ($row->status == "contract") {
+                    }} elseif ($row->status == "contract") {
                         $status="musaned";
                         $text = "الربط في مساند";
                           if (empty($row->contact_num)) {
                         return "
                     <a href='#' $status data-status='".$status."' class='btn btn-info update-status' id='" . $row->id . "'> ".$text."  </a>
-                  $add_note $notes
-                    <a href='#' $status data-status='".$status."' class='btn btn-success update-contract' id='" . $row->id . "'> رقم العقد  </a>
                    <a  $delete style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
                    }else{
                           return "
                     <a href='#' $status data-status='".$status."' class='btn btn-info update-status' id='" . $row->id . "'> ".$text."  </a>
-                    $add_note $notes
+
                    <a  $delete style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
                    }
                     }
@@ -256,13 +253,11 @@ $add_note $notes
                         if (empty($row->contact_num)) {
                         return "
                     <a href='#' $status data-status='".$status."' class='btn btn-info update-status' id='" . $row->id . "'> ".$text."  </a>
-                    $add_note $notes
-                      <a href='#' $status data-status='".$status."' class='btn btn-success update-contract' id='" . $row->id . "'> رقم العقد  </a>
                    <a  $delete style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
                        }else{
                           return "
                     <a href='#' $status data-status='".$status."' class='btn btn-info update-status' id='" . $row->id . "'> ".$text."  </a>
-                    $add_note $notes
+
                    <a  $delete style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
                    }
                     }
@@ -272,14 +267,13 @@ $add_note $notes
                         if (empty($row->contact_num)) {
                         return "
                     <a href='#' $status data-status='".$status."' class='btn btn-info update-status' id='" . $row->id . "'> ".$text."  </a>
-                    $add_note $notes
-                      <a href='#' $status data-status='".$status."' class='btn btn-success update-contract' id='" . $row->id . "'> رقم العقد  </a>
+
 
                    <a  $delete style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
                        }else{
                           return "
                     <a href='#' $status data-status='".$status."' class='btn btn-info update-status' id='" . $row->id . "'> ".$text."  </a>
-                    $add_note $notes
+
                    <a  $delete style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
                    }
                     }
@@ -289,33 +283,24 @@ $add_note $notes
                         if (empty($row->contact_num)) {
                         return "
                     <a href='#' $status data-status='".$status."' class='btn btn-info update-status' id='" . $row->id . "'> ".$text."  </a>
-                                        <a href='#' $status data-status='".$status."' class='btn btn-success update-contract' id='" . $row->id . "'> رقم العقد  </a>
-$add_note $notes
                    <a  $delete style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
                        }else{
                           return "
                     <a href='#' $status data-status='".$status."' class='btn btn-info update-status' id='" . $row->id . "'> ".$text."  </a>
-                    $add_note $notes
+
                    <a  $delete style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
                    }
                     }
                     elseif ($row->status == "finished") {
                         $status="finished";
 
-                        if (empty($row->contact_num)) {
-                            return "
-                                        <a href='#' $status data-status='".$status."' class='btn btn-success update-contract' id='" . $row->id . "'> رقم العقد  </a>
-$add_note $notes
-                                     <a  $delete style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
+                        return "
 
-                        }else{
-                            return "
-                            $add_note $notes
                    <a  $delete style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
-                        }
+
                     }
                     else {
-                        return "         $add_note $notes          <a  $delete style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
+                        return "            <a  $delete style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
 
 
                     }

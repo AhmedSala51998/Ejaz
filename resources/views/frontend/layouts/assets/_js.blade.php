@@ -30,6 +30,8 @@
 <script src="{{asset('frontend')}}/js/particles.js"></script>
 <script src="{{asset('frontend/js/dropify.min.js')}}"></script>
 <script src="{{asset('frontend/js/Custom.js')}}"></script>
+<script src="{{asset('frontend/js/app.js')}}"></script>
+
 <script>
     // goBack
     function goBack() {

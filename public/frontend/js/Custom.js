@@ -108,7 +108,9 @@ $(document).ready(function () {
     },
   });
 
-
+    $(".hideSideBtn").click(function () {
+        $(".workers-section .allWorkersSide").toggleClass("showSide");
+    });
 
 });
 // ////////////////////////////////////////
@@ -202,4 +204,44 @@ a.forEach((item) => {
   item.addEventListener("mouseleave", () => {
     cursor.classList.remove("customHover");
   });
+});
+let categoriesToggler = document.getElementById("toggleCategories");
+let categories = document.querySelector(".categoriesList");
+categoriesToggler.addEventListener("mouseenter", () => {
+    if (categories.classList.contains("show") == false) {
+        categories.classList.add("show");
+    }
+});
+categoriesToggler.addEventListener("mouseleave", () => {
+    if (categories.classList.contains("show") == true) {
+        categories.classList.remove("show");
+    }
+});
+categories.addEventListener("mouseenter", () => {
+    categories.classList.add("show");
+});
+categories.addEventListener("mouseleave", () => {
+    categories.classList.remove("show");
+});
+
+let toggleInnerLinks = document.getElementById("toggleInnerLinks");
+let innerLinks = document.querySelector(".innerLinks");
+toggleInnerLinks.addEventListener("mouseenter", () => {
+    if (innerLinks.classList.contains("show") == false) {
+        innerLinks.classList.add("show");
+    }
+});
+toggleInnerLinks.addEventListener("mouseleave", () => {
+    if (innerLinks.classList.contains("show") == true) {
+        innerLinks.classList.remove("show");
+    }
+});
+innerLinks.addEventListener("mouseenter", () => {
+    innerLinks.classList.add("show");
+});
+innerLinks.addEventListener("mouseleave", () => {
+    innerLinks.classList.remove("show");
+});
+$(document).ready(function () {
+    $(".preloader").delay(1200).fadeOut(300);
 });

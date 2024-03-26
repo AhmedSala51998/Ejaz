@@ -146,15 +146,6 @@
                                     </div>
 
 
-                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-
-                                        <div class="form-group">
-                                            <br>
-                                            <label for="is_cv_out">  هل تريد اضافتها كسيره داخلية فقط ؟</label>
-                                            <input id="is_cv_out" type="checkbox" name="is_cv_out" @if($biography->is_cv_out==1) checked @endif>
-
-                                        </div>
-                                    </div>
 
                                 </div>
                             </section>
@@ -260,22 +251,22 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                        <div class="form-group">
-                                            <label for="contact_number">  رقم التواصل </label>
-                                            <input data-validation="nullable"  type="number" class="form-control"
-                                                   value="{{$biography->contact_number}}"
-                                                   id="contact_number" name="contact_number" placeholder="">
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                        <div class="form-group">
-                                            <label for="period_time"> مدة الضمان </label>
-                                            <input data-validation="nullable"  type="text" class="form-control"
-                                                   value="{{$biography->period_time}}"
-                                                   id="period_time" name="period_time" placeholder="">
-                                        </div>
-                                    </div>
+{{--                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">--}}
+{{--                                        <div class="form-group">--}}
+{{--                                            <label for="contact_number">  رقم التواصل </label>--}}
+{{--                                            <input data-validation="nullable"  type="number" class="form-control"--}}
+{{--                                                   value="{{$biography->contact_number}}"--}}
+{{--                                                   id="contact_number" name="contact_number" placeholder="">--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">--}}
+{{--                                        <div class="form-group">--}}
+{{--                                            <label for="period_time"> مدة الضمان </label>--}}
+{{--                                            <input data-validation="nullable"  type="text" class="form-control"--}}
+{{--                                                   value="{{$biography->period_time}}"--}}
+{{--                                                   id="period_time" name="period_time" placeholder="">--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                         <div class="form-group">
                                             <label for="birth_date"> تاريخ الميلاد </label>
@@ -391,7 +382,7 @@
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label for="passport_place"> بلد جواز السفر </label>
-                                        <input data-validation="required" required type="text" class="form-control default_rer"
+                                        <input data-validation="optional"  type="text" class="form-control default_rer"
                                                value="{{$biography->passport_place}}"
                                                id="passport_place" name="passport_place" placeholder="">
                                     </div>
@@ -401,7 +392,7 @@
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label for="passport_created_at"> تاريخ اصدار جواز السفر </label>
-                                        <input data-validation="required" required type="date" class="form-control default_rer"
+                                        <input data-validation="optional"  type="date" class="form-control default_rer"
                                                value="{{$biography->passport_created_at}}"
                                                id="passport_created_at" name="passport_created_at" placeholder="">
                                     </div>
@@ -411,120 +402,120 @@
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label for="passport_ended_at"> تاريخ انتهاء جواز السفر </label>
-                                        <input data-validation="required" required type="date" class="form-control default_rer"
+                                        <input data-validation="optional"  type="date" class="form-control default_rer"
                                                value="{{$biography->passport_ended_at}}"
                                                id="passport_ended_at" name="passport_ended_at" placeholder="">
                                     </div>
                                 </div>
 
                             </section>
-                            <h3>بيانات شخصية</h3>
-                            <section>
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label for="weight"> الوزن</label>
-                                        <input data-validation="required" required type="number" step=".5"
-                                               class="form-control default_rer"
-                                               value="{{$biography->weight}}"
-                                               id="weight" name="weight" placeholder="">
-                                    </div>
-                                </div>
+{{--                            <h3>بيانات شخصية</h3>--}}
+{{--                            <section>--}}
+{{--                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">--}}
+{{--                                    <div class="form-group">--}}
+{{--                                        <label for="weight"> الوزن</label>--}}
+{{--                                        <input data-validation="required" required type="number" step=".5"--}}
+{{--                                               class="form-control default_rer"--}}
+{{--                                               value="{{$biography->weight}}"--}}
+{{--                                               id="weight" name="weight" placeholder="">--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
 
 
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label for="height"> الطول</label>
-                                        <input data-validation="required" required type="number" step=".5"
-                                               class="form-control default_rer"
-                                               value="{{$biography->height}}"
-                                               id="height" name="height" placeholder="">
-                                    </div>
-                                </div>
+{{--                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">--}}
+{{--                                    <div class="form-group">--}}
+{{--                                        <label for="height"> الطول</label>--}}
+{{--                                        <input data-validation="required" required type="number" step=".5"--}}
+{{--                                               class="form-control default_rer"--}}
+{{--                                               value="{{$biography->height}}"--}}
+{{--                                               id="height" name="height" placeholder="">--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
 
 
 
 
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label for="childern_number">عدد الاطفال</label>
-                                        <input data-validation="required" required type="number" class="form-control default_rer"
-                                               value="{{$biography->childern_number}}"
-                                               id="childern_number" name="childern_number" placeholder="">
-                                    </div>
-                                </div>
+{{--                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">--}}
+{{--                                    <div class="form-group">--}}
+{{--                                        <label for="childern_number">عدد الاطفال</label>--}}
+{{--                                        <input data-validation="required" required type="number" class="form-control default_rer"--}}
+{{--                                               value="{{$biography->childern_number}}"--}}
+{{--                                               id="childern_number" name="childern_number" placeholder="">--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
 
 
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label for="living_location">مكان الميلاد</label>
-                                        <input data-validation="required" required type="text" class="form-control default_rer"
-                                               value="{{$biography->living_location}}"
-                                               id="living_location" name="living_location" placeholder="">
-                                    </div>
-                                </div>
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label for="notes"> ملاحظات </label>
-                                        <input data-validation="nullable"  type="text" class="form-control default_rer"
-                                               value="{{$biography->notes}}"
-                                               id="notes" name="notes" placeholder="">
-                                    </div>
-                                </div>
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label for="video"> لينك الفديو</label>
-                                        <input data-validation="nullable"  type="text" class="form-control default_rer"
-                                               value="{{$biography->video}}"
-                                               id="video" name="video" placeholder="">
-                                    </div>
-                                </div>
+{{--                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">--}}
+{{--                                    <div class="form-group">--}}
+{{--                                        <label for="living_location">مكان الميلاد</label>--}}
+{{--                                        <input data-validation="required" required type="text" class="form-control default_rer"--}}
+{{--                                               value="{{$biography->living_location}}"--}}
+{{--                                               id="living_location" name="living_location" placeholder="">--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">--}}
+{{--                                    <div class="form-group">--}}
+{{--                                        <label for="notes"> ملاحظات </label>--}}
+{{--                                        <input data-validation="nullable"  type="text" class="form-control default_rer"--}}
+{{--                                               value="{{$biography->notes}}"--}}
+{{--                                               id="notes" name="notes" placeholder="">--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">--}}
+{{--                                    <div class="form-group">--}}
+{{--                                        <label for="video"> لينك الفديو</label>--}}
+{{--                                        <input data-validation="nullable"  type="text" class="form-control default_rer"--}}
+{{--                                               value="{{$biography->video}}"--}}
+{{--                                               id="video" name="video" placeholder="">--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
 
-                            </section>
+{{--                            </section>--}}
 
-                            <h3>بيانات علمية</h3>
+{{--                            <h3>بيانات علمية</h3>--}}
 
-                            <section>
+{{--                            <section>--}}
 
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label for="high_degree"> الدرجة العلمية</label>
-                                        <input data-validation="required" required type="text" class="form-control default_rer"
-                                               value="{{$biography->high_degree}}"
-                                               id="high_degree" name="high_degree" placeholder="">
-                                    </div>
-                                </div>
+{{--                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">--}}
+{{--                                    <div class="form-group">--}}
+{{--                                        <label for="high_degree"> الدرجة العلمية</label>--}}
+{{--                                        <input data-validation="required" required type="text" class="form-control default_rer"--}}
+{{--                                               value="{{$biography->high_degree}}"--}}
+{{--                                               id="high_degree" name="high_degree" placeholder="">--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
 
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label for="passport_number">مستوي اجادة اللغة العربية</label>
-                                        <select data-validation="required" required name="arabic_degree"
-                                                class="form-control select2Users default_rer">
-                                            <option value="weak">ضعيف</option>
-                                            <option value="average">متوسط</option>
-                                            <option value="good"> جيد</option>
-                                            <option value="very good"> جيد جدا</option>
-                                            <option value="excellent"> ممتاز</option>
+{{--                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">--}}
+{{--                                    <div class="form-group">--}}
+{{--                                        <label for="passport_number">مستوي اجادة اللغة العربية</label>--}}
+{{--                                        <select data-validation="required" required name="arabic_degree"--}}
+{{--                                                class="form-control select2Users default_rer">--}}
+{{--                                            <option value="weak">ضعيف</option>--}}
+{{--                                            <option value="average">متوسط</option>--}}
+{{--                                            <option value="good"> جيد</option>--}}
+{{--                                            <option value="very good"> جيد جدا</option>--}}
+{{--                                            <option value="excellent"> ممتاز</option>--}}
 
-                                        </select>
-                                    </div>
-                                </div>
+{{--                                        </select>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
 
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label for="passport_number">مستوي اجادة اللغة الانجليزية</label>
-                                        <select data-validation="required" required name="english_degree"
-                                                class="form-control select2Users default_rer">
-                                            <option value="weak">ضعيف</option>
-                                            <option value="average">متوسط</option>
-                                            <option value="good"> جيد</option>
-                                            <option value="very good"> جيد جدا</option>
-                                            <option value="excellent"> ممتاز</option>
-                                        </select>
-                                    </div>
-                                </div>
+{{--                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">--}}
+{{--                                    <div class="form-group">--}}
+{{--                                        <label for="passport_number">مستوي اجادة اللغة الانجليزية</label>--}}
+{{--                                        <select data-validation="required" required name="english_degree"--}}
+{{--                                                class="form-control select2Users default_rer">--}}
+{{--                                            <option value="weak">ضعيف</option>--}}
+{{--                                            <option value="average">متوسط</option>--}}
+{{--                                            <option value="good"> جيد</option>--}}
+{{--                                            <option value="very good"> جيد جدا</option>--}}
+{{--                                            <option value="excellent"> ممتاز</option>--}}
+{{--                                        </select>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
 
 
-                            </section>
+{{--                            </section>--}}
                             <h3>الصورة الشخصية</h3>
                             <section>
 
@@ -609,14 +600,14 @@
 
                 $('#vertical-example').find('a[href="#finish"]').remove();
 
-                if(currentIndex == 6 && $('#Form').valid()){
+                if(currentIndex == 4 && $('#Form').valid()){
                     var $input = $('<input id="submit_button" style="border: none !important;background-color: #556ee6;border-radius: 4px;padding: 8px 15px;color: #fff;" type="submit" value="حفظ" />');
                     $input.appendTo($('ul[aria-label=Pagination]'));
                 }
                 else {
                     $('ul[aria-label=Pagination] input[value="حفظ"]').remove();
                 }
-                if(newIndex!==7){
+                if(newIndex!==5){
                     $('ul[aria-label=Pagination] input[value="حفظ"]').remove();
 
                 }

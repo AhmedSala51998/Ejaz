@@ -21,13 +21,13 @@ RewriteRule ^(.*)$ /public/$1 [L,QSA]
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
-    
-    
-    
+
+
+
 </IfModule>
-RewriteCond %{HTTP_HOST} ^aljawhra\.sa$ [OR]
-RewriteCond %{HTTP_HOST} ^www\.aljawhra\.sa$
-RewriteRule ^/?$ "https\:\/\/aljawhra\.sa\/ar" [R=301,L]
+RewriteCond %{HTTP_HOST} ^ejaz\.sa$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.ejaz\.sa$
+RewriteRule ^/?$ "https\:\/\/ejaz\.sa\/ar" [R=301,L]
 
 
 # php -- BEGIN cPanel-generated handler, do not edit

@@ -102,8 +102,17 @@ class AdminBiographiesController extends Controller
                              onclick="window.open(this.src)">';
                 })
                 ->editColumn('smart_image', function ($row) {
-                    return ' <img src="'.get_file($row->new_image).'" class="rounded" style="height:60px;width:60px;object-fit: contain;"
-                             onclick="window.open(this.src)">';
+                    $imgs='
+                  <div class="moreImgs">';
+
+                    foreach($row->images as $image) {
+                        $imgs .= '<a data-fancybox="users' . $row->id . '-CV" href="' . get_file($image->image) . '" target="_blank">
+                            <img src="' . get_file($image->image) . '" class="rounded" style="height:60px;width:60px;">
+                        </a>';
+                    }
+                    $imgs .= ' </div>';
+
+                    return $imgs ;
                 })
                 ->editColumn('created_at', function ($row) {
                     return date('Y/m/d',strtotime($row->created_at));
@@ -150,7 +159,7 @@ class AdminBiographiesController extends Controller
                         $edit = 'hidden';
                     if (!checkPermission(21))
                         $delete = 'hidden';
-                    $actions = '<a href="' . route('biographies_download.view', $row->id) . '" title="السيرة المختصرة"  style="margin-left: 2px;"  class="btn btn-secondary  mr-2"> <i class="fa fa-arrows-alt-v"></i></a>';
+                    $actions = '';
 
                     if($row->status=="pending"){
                         return $actions."<a " .$edit. "  href='" . route('biographies.edit',$row->id) . "'  class='btn btn-info editButton' id='" . $row->id . "'> <i class='fa fa-edit'></i></a> <a  href='" . route('biographies.unban',$row->id) . "' class='btn btn-success benButton' ><i class='fa fa-unlock'></i></a>
@@ -257,22 +266,22 @@ class AdminBiographiesController extends Controller
                 'passport_number' => 'required|max:255|unique:biographies,passport_number',
                 'skills' => 'nullable|array',
                 'certificates.*' => 'required|file|image',
-                'high_degree' => 'nullable',
+//                'high_degree' => 'nullable',
                 'type' => 'required',
                 'reasonService' => 'nullable',
                 'periodService' => 'nullable',
                 //new
-                'passport_created_at' => 'required',
-                'passport_ended_at' => 'required',
-                'passport_place' => 'required',
+                'passport_created_at' => 'nullable',
+                'passport_ended_at' => 'nullable',
+                'passport_place' => 'nullable',
                 'cv_name' => 'required',
-                'weight' => 'required',
-                'height' => 'required',
-                'childern_number' => 'required',
-                'living_location' => 'required',
-                'arabic_degree' => 'required',
-                'english_degree' => 'required',
-                'video' => 'nullable',
+//                'weight' => 'required',
+//                'height' => 'required',
+//                'childern_number' => 'required',
+//                'living_location' => 'required',
+//                'arabic_degree' => 'required',
+//                'english_degree' => 'required',
+//                'video' => 'nullable',
                 'type_of_experience' => 'required',
                 'experience_country' => 'nullable',
                 'experience_year' => 'nullable',
@@ -396,21 +405,21 @@ class AdminBiographiesController extends Controller
             'reasonService'=>'nullable',
             'periodService'=>'nullable',
             //new
-            'passport_created_at' => 'required',
-            'passport_ended_at' => 'required',
-            'passport_place' => 'required',
+            'passport_created_at' => 'nullable',
+            'passport_ended_at' => 'nullable',
+            'passport_place' => 'nullable',
             'cv_name' => 'required',
-            'weight' => 'required',
-            'height' => 'required',
-            'childern_number' => 'required',
-            'living_location' => 'required',
-            'arabic_degree' => 'required',
-            'english_degree' => 'required',
-            'video' => 'nullable',
+//            'weight' => 'required',
+//            'height' => 'required',
+//            'childern_number' => 'required',
+//            'living_location' => 'required',
+//            'arabic_degree' => 'required',
+//            'english_degree' => 'required',
+//            'video' => 'nullable',
             'type_of_experience' => 'required',
             'experience_country' => 'nullable',
             'experience_year' => 'nullable',
-            'notes' => 'nullable',
+//            'notes' => 'nullable',
         ]);
 
 //        $data = $request->except(['skills','images','cv_file','old']);

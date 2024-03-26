@@ -1,6 +1,25 @@
 @extends('admin.layouts.layout')
 @section('styles')
+    <style>
+        body {
+            background-image: url('{{asset('dashboard')}}/assets/images/login-register.jpg');
+            object-fit: fill;
+            background-repeat: no-repeat;
+            background-size: cover;
 
+        }
+        .text-primary{
+            color: #0b0b0b;
+        }
+        .btn-primary{
+            background-color: #E79124;
+            border-color: #E79124;
+        }
+        .bg-primary{
+            background-color: #E79124;
+            border-color: #E79124;
+        }
+    </style>
 @endsection
 
 @section('page-title')
@@ -20,9 +39,9 @@
                         <div class="bg-primary bg-soft">
                             <div class="row">
                                 <div class="col-7">
-                                    <div class="text-primary p-4">
-                                        <h5 class="text-primary">مرحبا بك مرة أخرى</h5>
-                                        <p>سجل دخول من هنا </p>
+                                    <div class="text-dark p-3">
+                                        <h5 class="text-dark">مرحبا مرة أخرى</h5>
+                                        <p>لوحة التحكم</p>
                                     </div>
                                 </div>
                                 <div class="col-5 align-self-end">
@@ -86,7 +105,7 @@
 
                         </div>
                     </div>
-                  
+
                 </div>
             </div>
         </div>

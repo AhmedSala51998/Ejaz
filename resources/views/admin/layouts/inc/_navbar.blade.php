@@ -31,15 +31,15 @@
                         </a>
                     </li>
                 @endif
-                @if(checkPermission(34))
-                    <li>
-                        <a href="{{route('biographies-special.index')}}" class="waves-effect">
-                            <i class="bx bxs-file-plus"></i>
-                            <span class="badge rounded-pill bg-info float-end"></span>
-                            <span key="t-dashboards">   طلبات الاستقدام الخاصة </span>
-                        </a>
-                    </li>
-                @endif
+{{--                @if(checkPermission(34))--}}
+{{--                    <li>--}}
+{{--                        <a href="{{route('biographies-special.index')}}" class="waves-effect">--}}
+{{--                            <i class="bx bxs-file-plus"></i>--}}
+{{--                            <span class="badge rounded-pill bg-info float-end"></span>--}}
+{{--                            <span key="t-dashboards">   طلبات الاستقدام الخاصة </span>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+{{--                @endif--}}
                 @if(checkPermission(18))
                     <li>
                         <a href="{{route('biographies.index')}}" class="waves-effect">
@@ -114,25 +114,7 @@
                         </a>
                     </li>
                 @endif
-                @if(checkPermission(27))
-                    <li>
-                        <a href="{{route('admin.getPDF')}}" class="waves-effect">
-                            <i class="fa fa-file" aria-hidden="true"></i>
-                            <span class="badge rounded-pill bg-info float-end"></span>
-                            <span key="t-dashboards">فايلات الحقوق والواجبات</span>
-                        </a>
-                    </li>
-                @endif
 
-                @if(checkPermission(29))
-                    <li>
-                        <a href="{{route('admin.getRecruitmentTrip')}}" class="waves-effect">
-                            <i class="bx bxs-user-detail"></i>
-                            <span class="badge rounded-pill bg-info float-end"></span>
-                            <span key="t-dashboards">عن الاستقدام</span>
-                        </a>
-                    </li>
-                @endif
                 @if(checkPermission(10))
                     <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">

@@ -25,29 +25,9 @@
                        placeholder="">
             </div>
         </div>
-
-        <div class="form-group row mb-4">
-            <label for="phone1" class="col-md-2 col-form-label">رقم الجوال
-                (الرئيسى)</label>
-            <div class="col-md-10">
-                <input data-validation="required" name="phone1" type="tel"
-                       value="{{$settings->phone1}}" class="form-control" id="phone1"
-                       placeholder="">
-            </div>
-        </div>
-
-        <div class="form-group row mb-4">
-            <label for="email2" class="col-md-2 col-form-label">رقم الجوال
-                (الإضافى)</label>
-            <div class="col-md-10">
-                <input data-validation="optional" name="phone2" type="tel"
-                       value="{{$settings->phone2}}" class="form-control" id="phone2"
-                       placeholder="">
-            </div>
-        </div>
         <div class="form-group row mb-4">
             <label for="email2" class="col-md-2 col-form-label">رقم الواتساب
-                </label>
+            </label>
             <div class="col-md-10">
                 <input data-validation="optional" name="whatsappNumber" type="tel"
                        value="{{$settings->whatsappNumber}}" class="form-control" id="phone2"
@@ -55,7 +35,7 @@
             </div>
         </div>
         <div class="form-group row mb-4">
-            <label for="email2" class="col-md-2 col-form-label">رقم الاتصال
+            <label for="email2" class="col-md-2 col-form-label">رقم الاتصال الرئيسي
             </label>
             <div class="col-md-10">
                 <input data-validation="optional" name="callNumber" type="tel"
@@ -63,6 +43,46 @@
                        placeholder="">
             </div>
         </div>
+
+        <div class="form-group row mb-4">
+            <label for="email2" class="col-md-2 col-form-label"> رقم الاتصال المبيعات (١)
+            </label>
+            <div class="col-md-10">
+                <input data-validation="optional" name="phone1" type="tel"
+                       value="{{$settings->phone1}}" class="form-control" id="phone1"
+                       placeholder="">
+            </div>
+        </div>
+        <div class="form-group row mb-4">
+            <label for="email2" class="col-md-2 col-form-label"> رقم الاتصال المبيعات (٢)
+            </label>
+            <div class="col-md-10">
+                <input data-validation="optional" name="phone2" type="tel"
+                       value="{{$settings->phone2}}" class="form-control" id="phone2"
+                       placeholder="">
+            </div>
+        </div>
+        <div class="form-group row mb-4">
+            <label for="email2" class="col-md-2 col-form-label"> رقم الاتصال المبيعات (٣)
+            </label>
+            <div class="col-md-10">
+                <input data-validation="optional" name="phone3" type="tel"
+                       value="{{$settings->phone3}}" class="form-control" id="phone3"
+                       placeholder="">
+            </div>
+        </div>
+        <div class="form-group row mb-4">
+            <label for="email2" class="col-md-2 col-form-label"> رقم الاتصال المبيعات (٤)
+            </label>
+            <div class="col-md-10">
+                <input data-validation="optional" name="phone4" type="tel"
+                       value="{{$settings->phone4}}" class="form-control" id="phone4"
+                       placeholder="">
+            </div>
+        </div>
+
+
+
         <div class="row mt-4">
             <div class="col-sm-6">
 

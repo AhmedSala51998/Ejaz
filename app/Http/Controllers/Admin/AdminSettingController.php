@@ -169,6 +169,8 @@ class AdminSettingController extends Controller
             "email2" => $request->email2,
             "phone1" => $request->phone1,
             "phone2" => $request->phone2,
+            "phone3" => $request->phone3,
+            "phone4" => $request->phone4,
             "whatsappNumber" => $request->whatsappNumber,
             "callNumber" => $request->callNumber,
 

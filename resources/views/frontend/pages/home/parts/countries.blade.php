@@ -1,6 +1,6 @@
 @if (count($countries)>0)
 
-    <section class="countries">
+    <section class="countries" id="countrie">
         <div class="container">
             <!-- Section Title -->
             <div class="SectionTitle">

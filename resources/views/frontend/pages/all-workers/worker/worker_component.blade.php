@@ -25,16 +25,9 @@
         <div class="swiper-wrapper">
             <div class="swiper-slide ">
 
-                @if(get_file($cv->new_image) != NULL )
-
-                <a data-fancybox="users{{$cv->id}}-CV" href="{{get_file($cv->new_image)}}">
-                    <img src="{{get_file($cv->new_image)}}" alt="">
+                <a data-fancybox="users{{$cv->id}}-CV" href="{{get_file($cv->cv_file)}}">
+                    <img src="{{get_file($cv->cv_file)}}" alt="">
                 </a>
-                @else
-                    <a data-fancybox="users{{$cv->id}}-CV" href="{{get_file($cv->cv_file)}}">
-                        <img src="{{get_file($cv->cv_file)}}" alt="">
-                    </a>
-                @endif
             </div>
 
 
@@ -95,7 +88,8 @@
         </div>
     @else
      <div class="workerwarn">
-          <h6>نقدم لكم فترة ضمان 3 أشهر + شهرين إضافية من المكتب </h6>
+          <h6>لضمان حقك ,لايتم سداد الرسوم بعد الحجز الا عن طريق منصة مساند
+          </h6>
 
      </div>
         <ul class="info">
@@ -109,10 +103,10 @@
             </li>
 
 
-              <li>
-                <h6> رقم الجواز : </h6>
-                <p> {{$cv->passport_number??''}} </p>
-           </li>
+{{--              <li>--}}
+{{--                <h6> رقم الجواز : </h6>--}}
+{{--                <p> {{$cv->passport_number??''}} </p>--}}
+{{--           </li>--}}
              <li>
                 <h6> الديانة : </h6>
                 <p> {{$cv->religion->title??''}} </p>
@@ -125,7 +119,7 @@
 
 
            <li>
-                <h6> سعر الاستقدام : </h6>
+                <h6> تكلفة الاستقدام : </h6>
                 <p> {{$cv->nationalitie->price??''}} ريال </p>
             </li>
 
@@ -133,11 +127,11 @@
                 <h6> الحالة الاجتماعية : </h6>
                 <p> {{$cv->social_type->title??''}} </p>
             </li>
+            <li>
+                <h6> العمر : </h6>
+                <p> {{$cv->age??''}} </p>
+            </li>
 
-             <li>
-               <h6> العمر : </h6>
-               <p> {{$cv->age??''}} </p>
-             </li>
               <li>
                 <h6> الخبرة العملية : </h6>
                 <p> {{$cv->high_degree}} </p>

@@ -24,8 +24,8 @@
                 <div class="bg-primary bg-soft">
                     <div class="row">
                         <div class="col-7">
-                            <div class="text-primary p-3">
-                                <h5 class="text-primary">مرحبا مرة أخرى</h5>
+                            <div class="text-dark p-3">
+                                <h5 class="text-dark">مرحبا مرة أخرى</h5>
                                 <p>لوحة التحكم</p>
                             </div>
                         </div>

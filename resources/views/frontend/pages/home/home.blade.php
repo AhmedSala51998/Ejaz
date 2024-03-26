@@ -13,32 +13,14 @@
 @section('content')
 
 
-    {{--    <!-- start services -->--}}
-    {{--    <!-- end services -->--}}
-    {{--    <!-- family -->--}}
-    {{--    @include('frontend.pages.home.parts.ourFamily')--}}
-    {{--    <!-- end family -->--}}
-    {{--    <!-- start workers -->--}}
-    {{--    @include('frontend.pages.home.parts.Cvs')--}}
-    {{--    <!-- end workers -->--}}
-    {{--    <!-- start statistics -->--}}
-    {{--    @include('frontend.pages.home.parts.ourStatistics')--}}
-    {{--    <!-- end statistics -->--}}
-    {{--    <!-- start steps -->--}}
-    {{--    @include('frontend.pages.home.parts.recruitmentSteps')--}}
-    {{--    <!-- end steps -->--}}
-    {{--    <!-- start faq  -->--}}
-    {{--    @include('frontend.pages.home.parts.feq')--}}
-    {{--    <!-- end faq  -->--}}
-    {{--    <!-- start contact us  -->--}}
-    {{--    @include('frontend.pages.home.parts.contactUs')--}}
-    {{--    <!-- end contact us -->--}}
-    {{--    <!-- start references -->--}}
-    {{--   @include('frontend.pages.home.parts.references')--}}
-    {{--    <!-- end references -->--}}
     <content>
-
+        <?php
+        $local='ar'
+        ?>
                 @include('frontend.pages.home.parts.slider')
+{{--        <!-- *** about section -->--}}
+{{--        @include('frontend.pages.home.parts.aboutUs')--}}
+
                 @include('frontend.pages.home.parts.ourService')
                 @include('frontend.pages.home.parts.countries')
 {{--                @include('frontend.pages.home.parts.recruitmentOperations')--}}

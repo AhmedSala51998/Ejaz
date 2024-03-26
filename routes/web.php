@@ -59,6 +59,10 @@ Route::group(
     Route::get('reset-password',[\App\Http\Controllers\Frontend\Auth\ResetPasswordFrontController::class,'reset_password_view'])->name('auth.reset_password_view');
     Route::post('reset-password-action',[\App\Http\Controllers\Frontend\Auth\ResetPasswordFrontController::class,'reset_password_action'])->name('auth.reset_password_action');
 
+    Route::get('track-order',[\App\Http\Controllers\Frontend\Worker\WorkerFrontController::class,'track_order_view'])->name('track_order_view');
+    Route::post('post-track-order',[\App\Http\Controllers\Frontend\Worker\WorkerFrontController::class,'track_order'])->name('track_order');
+
+
 
 
     Route::get('completeTheRecruitmentRequest/{id}',[\App\Http\Controllers\Frontend\Worker\WorkerFrontController::class,'completeTheRecruitmentRequest'])->name('front.completeTheRecruitmentRequest');

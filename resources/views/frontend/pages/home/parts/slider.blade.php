@@ -26,9 +26,11 @@
                                     <p class="hint">
                                         {{$slider->desc}}
                                     </p>
+
                                     <a href="{{route('all-workers')}}" class="animatedLink">
                                         طلب استقدام
-                                        <i class="fa-regular fa-left-long ms-2"><span></span></i>
+
+                                        <i class="fa-regular fa-arrow-up-left ms-2"><span></span></i>
                                     </a>
                                 </div>
                             </div>
@@ -84,9 +86,9 @@
                                 <!-- swiper-slide -->
                                 <div class="swiper-slide mainSlideItem">
                                     <div class="info">
-                                        <h1 class="sliderTitle"> الجوهرة الأولى للإستقدام </h1>
+                                        <h1 class="sliderTitle"> شركة ايجاز للاستقدام  </h1>
                                         <p class="hint">
-                                            اكبر مكتب للاستقدام في المملكة العربية السعودية
+                                            اكبر شركة للاستقدام في المملكة العربية السعودية
                                         </p>
                                         <a href="{{route('all-workers')}}" class="animatedLink">
                                             طلب استقدام
