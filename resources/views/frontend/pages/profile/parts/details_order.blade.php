@@ -142,7 +142,7 @@
                                 <div class="row">
                                     <div class="col-md-6 p-1">
                                         <div class="info">
-                                            <img src="{{asset('frontend')}}/img/avater2.webp" alt="">
+                                            <img src="{{asset('frontend')}}/img/customer-service.png" alt="">
                                             <div class="text">
                                                 <h5> {{$order->admin->name}}  </h5>
                                                 <p>خدمة العملاء</p>

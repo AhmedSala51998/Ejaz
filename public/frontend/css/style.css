@@ -7461,14 +7461,14 @@ p {
 .side-bar .sidebar-filter .view-button .clear,
 .side-bar .sidebar-filter .view-button .confirm{
     background: #fff;
-    border: 1px solid #1967d2;
+    border: 1px solid #e79124;
     padding: 8px 17px;
     border-radius: 8px;
     margin-left: 10px;
 }
 .side-bar .sidebar-filter .view-button .confirm{
-    background: #1967d2;
-    border: 1px solid #1967d2;
+    background: #e79124;
+    border: 1px solid #e79124;
     color: #fff;
     padding: 8px 40px;
     border-radius: 8px;
@@ -7530,7 +7530,7 @@ p {
     left: 10px;
 }
 .workers-list .worker-box .work-details-btn {
-    color: #1967d2;
+    color: #e79124;
     font-weight: 600;
     font-size: 15px;
     cursor: pointer;
@@ -7550,7 +7550,7 @@ p {
     font-size: 17px;
 }
 .workers-list .worker-box .worker-right-content .worker-age span {
-    color: #1967d2;
+    color: #e79124;
     font-size: 18px;
     font-weight: 600;
     display: block;
@@ -7713,6 +7713,6 @@ p {
 }
 .pagination-outer .pagination-style1 ul li.active a ,
 .pagination-outer .pagination-style1 ul li:hover a{
-    background-color: #1967d2;
+    background-color: #e79124;
     color: #fff;
 }
