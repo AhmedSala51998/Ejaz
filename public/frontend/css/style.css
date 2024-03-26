@@ -968,6 +968,14 @@ header.headerAnimate {
     background-color: #ffffff;
     box-shadow: 0px 20px 100px rgba(0, 0, 0, 0.1019607843);
 }
+.navbar-toggler {
+    border: none;
+    box-shadow: none !important;
+}
+.navbar-toggler .navbar-toggler-icon {
+    width: 30px;
+    height: 30px;
+}
 
 /*============*/
 
