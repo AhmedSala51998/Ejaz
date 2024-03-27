@@ -134,7 +134,7 @@
 
               <li>
                 <h6> الخبرة العملية : </h6>
-                <p> {{$cv->high_degree}} </p>
+
                   @if($cv->type_of_experience=='new')
                       <p>قادم جديد </p>
                   @elseif($cv->type_of_experience=='with_experience')
