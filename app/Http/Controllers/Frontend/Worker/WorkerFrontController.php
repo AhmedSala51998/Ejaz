@@ -236,7 +236,7 @@ class WorkerFrontController extends Controller
             'religion','job','social_type','admin','images','skills')
             ->where('id',$id)
             ->firstOrFail();
-        $admins = \App\Models\Admin::where('admin_type','!=',0)->take(3)->get();
+        $admins = \App\Models\Admin::where('admin_type','!=',0)->take(12)->get();
        return view("frontend.pages.all-workers.worker.worker_details",compact('cv','admins'));
 
     }
