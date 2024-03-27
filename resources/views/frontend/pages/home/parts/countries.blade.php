@@ -14,6 +14,7 @@
                         <div class="country">
                             <img src="{{get_file($country->image)}}" alt="">
                             <h2> {{$country->country_name}} </h2>
+                            <h5>{{$country->price}} ريال </h5>
                             <p>{{$country->desc}} </p>
                             <a href="{{route('all-workers',$country->id)}}" class="animatedLink">
                                 اطلب الآن

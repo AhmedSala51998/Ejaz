@@ -170,7 +170,7 @@ class WorkerFrontController extends Controller
             'religion','job','social_type','admin','images','skills')
             ->where('id',$id)
             ->firstOrFail();
-        $admins = \App\Models\Admin::where('admin_type','!=',0)->take(3)->get();
+        $admins = \App\Models\Admin::where('admin_type','!=',0)->take(12)->get();
         $returnHTML = view("frontend.pages.all-workers.worker.worker_details")
             ->with(['cv'=>$cv,'admins'=>$admins])
             ->render();
