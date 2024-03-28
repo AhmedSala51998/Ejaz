@@ -9,7 +9,7 @@
             <div class="col-sm-6 col-lg-3 rCol px-2 py-5">
                 <div class="rStep " data-aos="fade-up">
                     <span class="num"> 1 </span>
-                    <h5> سداد التأشيرة </h5>
+                    <h5> سداد رسوم الاجراءات الحكومية </h5>
                     <p> سداد رسوم تأشيرة العمالة المنزلية الخاصة بك عبر الخدمات الحكومية في البنك </p>
                 </div>
             </div>
@@ -17,8 +17,8 @@
             <div class="col-sm-6 col-lg-3 rCol px-2 py-5">
                 <div class="rStep " data-aos="fade-up">
                     <span class="num"> 2 </span>
-                    <h5> إصدار التأشيرة </h5>
-                    <p> يتم اصدار التاشيرة الخاصة بالعامل </p>
+                    <h5>تخليص الاجراءات الحكومية </h5>
+                    <p> يتم تخليص الاجراءات الحكومية الخاصة بالعامل </p>
                 </div>
             </div>
             <!-- recruitmentContract step -->

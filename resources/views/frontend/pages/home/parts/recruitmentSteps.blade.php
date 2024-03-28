@@ -12,7 +12,7 @@
                     <i class="fa-thin fa-wallet"></i>
                 </div>
                 <p>
-                {{$settings->recruitment_step1_desc??" سداد رسوم تاشيرة العمالة المنزلية الخاصة بك عبر الخدمات الحكومية
+                {{$settings->recruitment_step1_desc??" سداد رسوم تخليص اجراءات العمالة المنزلية الخاصة بك عبر الخدمات الحكومية
                     في البنك او عن طريق القنوات التالية"}}
                 <div class="images">
                     <img src="{{asset('frontend')}}/img/mc.webp">
@@ -25,7 +25,7 @@
                 <div class="icon">
                     <i class="fa-thin fa-passport"></i>
                 </div>
-                <p>{{$settings->recruitment_step2_desc??" طلب اصدار تاشيرة العمالة المنزلية الخاصة بك في برنامج مساند"}}</p>
+                <p>{{$settings->recruitment_step2_desc??" طلب تخليص اجراءات  العمالة المنزلية الخاصة بك في برنامج مساند"}}</p>
             </div>
             <div class="step" data-aos="zoom-out-left">
                 <div class="icon">
