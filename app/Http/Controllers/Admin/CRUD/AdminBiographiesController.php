@@ -139,7 +139,7 @@ class AdminBiographiesController extends Controller
                         return "تحت الاجراء و التدريب";
                     }
                     elseif ($row->status == "visa") {
-                        return " ختم التاشيره ";
+                        return " التفييز ";
                     }
                     elseif ($row->status == "finished") {
                         return "وصول العمالة";
