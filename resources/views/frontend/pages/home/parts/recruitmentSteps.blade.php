@@ -12,7 +12,7 @@
                     <i class="fa-thin fa-wallet"></i>
                 </div>
                 <p>
-                {{$settings->recruitment_step1_desc??" سداد رسوم تخليص اجراءات العمالة المنزلية الخاصة بك عبر الخدمات الحكومية
+                {{$settings->recruitment_step1_desc??" سداد رسوم تخليص اجراءات العمالة المنزلية الخاصة بك عبر الخدمات الالكترونية
                     في البنك او عن طريق القنوات التالية"}}
                 <div class="images">
                     <img src="{{asset('frontend')}}/img/mc.webp">
