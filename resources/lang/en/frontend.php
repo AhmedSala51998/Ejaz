@@ -250,8 +250,6 @@ return [
     'Application for the recruitmentContract of domestic workers'=>'Application for the recruitmentContract of domestic workers',
     'selectCity'=>'Select City',
     'HomeWorkerData'=>'Home Worker Data',
-    'visa_number'=>'visa number',
-    'enter_visa_number'=>'enter visa number ',
     'nationality name'=>'nationality name ',
     'requiredJob'=>'required Job ',
     'requiredSocialStatus'=>'required Social Status',

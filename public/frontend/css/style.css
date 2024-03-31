@@ -4871,7 +4871,7 @@ footer .social a:hover {
 }
 
 .policies,
-.visa,
+.tfeez,
 .selectWorker,
 .recruitmentContract {
   margin-top: 100px;
@@ -4882,13 +4882,13 @@ footer .social a:hover {
   background-position: center;
 }
 .policies .container,
-.visa .container,
+.tfeez .container,
 .selectWorker .container,
 .recruitmentContract .container {
   max-width: 900px;
 }
 .policies .container h1,
-.visa .container h1,
+.tfeez .container h1,
 .selectWorker .container h1,
 .recruitmentContract .container h1 {
   font-weight: bold;
@@ -4897,7 +4897,7 @@ footer .social a:hover {
   line-height: 34px;
 }
 .policies .container h4,
-.visa .container h4,
+.tfeez .container h4,
 .selectWorker .container h4,
 .recruitmentContract .container h4 {
   margin: auto;
@@ -4906,13 +4906,13 @@ footer .social a:hover {
   margin-bottom: 20px;
 }
 .policies .container .links,
-.visa .container .links,
+.tfeez .container .links,
 .selectWorker .container .links,
 .recruitmentContract .container .links {
   padding-top: 40px;
 }
 .policies .container .links a,
-.visa .container .links a,
+.tfeez .container .links a,
 .selectWorker .container .links a,
 .recruitmentContract .container .links a {
   padding: 15px 25px;
@@ -4926,7 +4926,7 @@ footer .social a:hover {
   border: 1px solid #231F20;
 }
 .policies .container .links a:hover,
-.visa .container .links a:hover,
+.tfeez .container .links a:hover,
 .selectWorker .container .links a:hover,
 .recruitmentContract .container .links a:hover {
   background-color: #231F20;

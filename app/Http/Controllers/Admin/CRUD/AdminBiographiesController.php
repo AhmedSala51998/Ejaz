@@ -138,7 +138,7 @@ class AdminBiographiesController extends Controller
                     elseif ($row->status == "traning") {
                         return "تحت الاجراء و التدريب";
                     }
-                    elseif ($row->status == "visa") {
+                    elseif ($row->status == "tfeez") {
                         return " التفييز ";
                     }
                     elseif ($row->status == "finished") {

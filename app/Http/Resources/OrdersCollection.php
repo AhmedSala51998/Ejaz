@@ -21,7 +21,7 @@ class OrdersCollection extends ResourceCollection
                     $status='تم حجز السيرة الذاتيه ';
                       $status_1="حجز السيرة الذاتية";
                 }
-                elseif ($data->status == "visa")
+                elseif ($data->status == "tfeez")
                 {
                  $status= 'اصبح التعاقد الخاص بكم  فى مرحلة التفييز بنجاح ';
                    $status_1="التفييز";

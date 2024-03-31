@@ -214,7 +214,7 @@ class WorkerFrontController extends Controller
             'user_id'=>$user->id,
             'status'=>"under_work",
             'order_type'=>"special",
-            'visa_number'=>$request->visa_number,
+            'tfeez_number'=>$request->tfeez_number,
             'nationalitie_id'=>$request->nationalitie_id,
             'job_id'=>$request->job_id,
             'order_of_age_id'=>$request->order_of_age_id,

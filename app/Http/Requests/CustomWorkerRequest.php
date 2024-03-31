@@ -27,7 +27,6 @@ class CustomWorkerRequest extends FormRequest
             'name'=>'required',
             'phone'=>'required',
             'city_id'=>'required',
-            'visa_number'=>'required',
             'nationalitie_id'=>'required',
             'job_id'=>'required',
             'order_of_age_id'=>'required',

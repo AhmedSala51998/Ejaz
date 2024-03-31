@@ -162,7 +162,7 @@ class AdminOrderController extends Controller
                     elseif ($row->status == "traning") {
                         return "تحت الاجراء و التدريب";
                     }
-                    elseif ($row->status == "visa") {
+                    elseif ($row->status == "tfeez") {
                         return " تفييز العمالة ";
                     }
                     elseif ($row->status == "finished") {
@@ -262,7 +262,7 @@ class AdminOrderController extends Controller
                    }
                     }
                     elseif ($row->status == "traning") {
-                        $status="visa";
+                        $status="tfeez";
                         $text = "تفييز العمالة";
                         if (empty($row->contact_num)) {
                         return "
@@ -277,7 +277,7 @@ class AdminOrderController extends Controller
                    <a  $delete style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
                    }
                     }
-                    elseif ($row->status == "visa") {
+                    elseif ($row->status == "tfeez") {
                         $status="finished";
                         $text = "وصول العمالة";
                         if (empty($row->contact_num)) {
@@ -388,12 +388,12 @@ class AdminOrderController extends Controller
         $status['contract']=$msg;
         $status['musaned']="تم ربط العقد الخاص بكم في مساند بنجاح ";
         $status['traning']="اصبح التعاقد الخاص بكم فى مرحلة الاجراءات بنجاح ";
-        $status['visa']="اصبح التعاقد الخاص بكم فى مرحلة التفييز بنجاح ";
+        $status['tfeez']="اصبح التعاقد الخاص بكم فى مرحلة التفييز بنجاح ";
         $status['finished']="تم وصول العمالة بنجاح ";
         $status['canceled']="تم رفض  طلب استقدامكم مع الاسف ";
 
 
-        if($request->status=="contract" or $request->status=="musaned" or $request->status=="traning"or $request->status=="visa"or $request->status=="finished" or $request->status=="canceled"){
+        if($request->status=="contract" or $request->status=="musaned" or $request->status=="traning"or $request->status=="tfeez"or $request->status=="finished" or $request->status=="canceled"){
 //            //$data = $request->except(['title','desc']);
 //            $name = [];
 //            foreach (Language::where('is_active','active')->get() as $index=>$language){

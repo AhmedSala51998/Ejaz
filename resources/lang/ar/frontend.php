@@ -243,8 +243,6 @@ return [
     'Employer data'=>'بيانات صاحب العمل',
     'selectCity'=>'اختر المدينة',
     'HomeWorkerData'=>'بيانات العامل المنزلي',
-    'visa_number'=>'رقم التأشيرة',
-    'enter_visa_number'=>'أدخل رقم التأشيرة ',
     'nationality name'=>'الجنسية المطلوبة ',
     'requiredJob'=>'المهنة المطلوبة ',
     'requiredSocialStatus'=>'الحالة الاجتماعية المطلوبة ',

@@ -143,7 +143,7 @@
                 {"data": "delete_all", orderable: false, searchable: false},
                 {"data": "user", orderable: false, searchable: false},
                 {"data": "phone",   orderable: false,searchable: true},
-                {"data": "visa_number",   orderable: false,searchable: true},
+                // {"data": "visa_number",   orderable: false,searchable: true},
                 {"data": "nationality",   orderable: false,searchable: true},
                 {"data":"religion", orderable: false, searchable: false},
                 {"data": "job",   orderable: false,searchable: true},

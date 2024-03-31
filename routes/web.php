@@ -119,9 +119,6 @@ Route::group(
     Route::get('worker/{id}',[\App\Http\Controllers\Frontend\Worker\WorkerFrontController::class,'show'])->name('frontend.show.worker');
 
 
-    ## visa
-
-    Route::get('visa',[\App\Http\Controllers\Frontend\Visa\VisaFrontController::class,'index'])->name('frontend.visa');
 
     ##recruitmentContract contract
 

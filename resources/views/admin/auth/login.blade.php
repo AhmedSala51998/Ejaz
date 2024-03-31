@@ -7,7 +7,7 @@
             background-repeat: no-repeat;
             background-size: cover;
 
-        }
+        }visa
         .text-primary{
             color: #0b0b0b;
         }

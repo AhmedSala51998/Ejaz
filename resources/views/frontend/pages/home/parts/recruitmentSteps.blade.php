@@ -16,7 +16,6 @@
                     في البنك او عن طريق القنوات التالية"}}
                 <div class="images">
                     <img src="{{asset('frontend')}}/img/mc.webp">
-                    <img src="{{asset('frontend')}}/img/visa.webp">
                     <img src="{{asset('frontend')}}/img/mada.webp">
                 </div>
                 </p>

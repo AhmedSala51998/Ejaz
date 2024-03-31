@@ -60,7 +60,7 @@
                             <!-- status -->
                             <div class="status">
                                 <ol>
-                                    <li @if(in_array($order->status,['new','under_work','contract','musaned','traning','visa','finished'])) class="completed" @endif >
+                                    <li @if(in_array($order->status,['new','under_work','contract','musaned','traning','tfeez','finished'])) class="completed" @endif >
                                         <p>اختيار العمالة </p>
                                     </li>
                                     <li @if(in_array($order->status,['under_work','contract','musaned','traning','visa','finished'])) class="completed" @endif>

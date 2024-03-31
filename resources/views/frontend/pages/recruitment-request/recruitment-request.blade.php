@@ -81,8 +81,6 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-12 pb-3 p-2">
-                                    <label for="visa_number" class="form-label"> {{__('frontend.visa_number')}} </label>
-                                    <input data-validation="required" name="visa_number" type="text" class="form-control" id="visa_number" placeholder=" {{__('frontend.enter_visa_number')}} ">
                                 </div>
                                 <div class="col-sm-6 pb-3 p-2">
                                     <label for="nationalitie_id" class="form-label"> {{__('frontend.nationality name')}} </label>

@@ -34,7 +34,7 @@
                 </ul>
                 @if ($orderHistory->status == "canceled")
                     <h5 class="orderStatus cancel"> {{__('frontend.orderCanceled')}} </h5>
-                @elseif ($orderHistory->status == "visa")
+                @elseif ($orderHistory->status == "tfeez")
                         <h5 class="orderStatus cancel">اصبح العقد الخاص بكم فى مرحلة التفييز بنجاح </h5>
                 @elseif ($orderHistory->status == "musaned")
                     <h5 class="orderStatus cancel"> تم ربط العقد الخاص بكم في مساند بنجاح  </h5>

@@ -99,7 +99,7 @@ class CreateBiographiesTable extends Migration
             $table->double('recruitment_price')->default(0)->comment('سعر الإستقدام');
             $table->string('biography_number')->nullable()->comment('رقم سجل السيرة الذاتية');
             $table->string('passport_number')->nullable()->comment('رقم جواز السفر');
-            $table->string('visa_number')->nullable()->comment('رقم التأشيرة');
+            $table->string('tfeez_number')->nullable()->comment('رقم التفييز');
             $table->text('special_requirement')->nullable()->comment('متطلبات خاصة');
 
             $table->unsignedBigInteger('order_of_age_id')

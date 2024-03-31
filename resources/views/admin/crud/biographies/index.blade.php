@@ -117,7 +117,7 @@
                                    تحت ألأجراء والتدريب
                                 </option>
                                 <option value="visa" @if ($booking_status == 'visa') selected @endif >
-                                    ختم ألتأشيره
+                                    التفييز
                                 </option>
                                 <option value="finished" @if ($booking_status == 'finished') selected @endif >
                                     وصول العمالة
