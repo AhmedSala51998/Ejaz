@@ -7,21 +7,7 @@
             <!-- end cv -->
         </div>
     @endforeach
-{{--    <div class="pagination-outer">--}}
-{{--        {{ $cvs->links() }}--}}
-{{--        <div class="pagination-style1">--}}
 
-{{--            --}}{{--          <ul class="clearfix">--}}
-{{--            --}}{{--              <li class="prev"><a href="javascript:;"><span> <i class="fa fa-angle-right"></i> </span></a></li>--}}
-{{--            --}}{{--              <li><a href="javascript:;">1</a></li>--}}
-{{--            --}}{{--              <li class="active"><a href="javascript:;">2</a></li>--}}
-{{--            --}}{{--              <li><a href="javascript:;">3</a></li>--}}
-{{--            --}}{{--              <li><a class="javascript:;" href="javascript:;"><i class="fa fa-ellipsis-h"></i></a></li>--}}
-{{--            --}}{{--              <li><a href="javascript:;">5</a></li>--}}
-{{--            --}}{{--              <li class="next"><a href="javascript:;"><span> <i class="fa fa-angle-left"></i> </span></a></li>--}}
-{{--            --}}{{--          </ul>--}}
-{{--        </div>--}}
-{{--    </div>--}}
 
 @else
     <div class="d-flex align-items-center justify-content-center py-5 row">

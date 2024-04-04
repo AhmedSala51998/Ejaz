@@ -62,7 +62,7 @@
                 <p> {{$cv->religion->title??''}} </p>
             </li>
             <li>
-                <h6> سبب التنازل : </h6>
+                <h6> سبب النقل : </h6>
                 <p> {{$cv->reasonService??''}} </p>
             </li>
             <li>
@@ -70,7 +70,7 @@
                 <p> {{$cv->periodService??''}} </p>
             </li>
             <li>
-                <h6> راتب العاملة : </h6>
+                <h6> الراتب : </h6>
                 <p> {{$cv->salary??''}} </p>
             </li>
             <li>
@@ -93,20 +93,26 @@
 
      </div>
         <ul class="info">
+            @if($cv->cv_name != NULL)
+            <li>
+                <h6> الاسم : </h6>
+                <p> {{$cv->cv_name??''}} </p>
+            </li>
+            @endif
             <li>
                 <h6> الجنسية : </h6>
                 <p>{{$cv->nationalitie->title??''}} </p>
             </li>
              <li>
-                <h6> راتب العاملة : </h6>
+                <h6> الراتب : </h6>
                 <p> {{$cv->salary??''}} </p>
             </li>
 
 
-{{--              <li>--}}
-{{--                <h6> رقم الجواز : </h6>--}}
-{{--                <p> {{$cv->passport_number??''}} </p>--}}
-{{--           </li>--}}
+              <li>
+                <h6> رقم الجواز : </h6>
+                <p> {{$cv->passport_number??''}} </p>
+           </li>
              <li>
                 <h6> الديانة : </h6>
                 <p> {{$cv->religion->title??''}} </p>
