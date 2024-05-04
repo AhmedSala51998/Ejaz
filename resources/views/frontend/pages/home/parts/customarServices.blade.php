@@ -23,9 +23,9 @@
                                 </div>
                             </div>
                         </div>
-                        @if($key==3 or $key==7 or $key==15)
-                            <div class="col-lg-2"></div>
-                        @endif
+{{--                        @if($key==3 or $key==7 or $key==15)--}}
+{{--                            <div class="col-lg-2"></div>--}}
+{{--                        @endif--}}
                     @endforeach
 
                 </div>
