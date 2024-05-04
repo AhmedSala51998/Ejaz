@@ -182,6 +182,8 @@ Route::group(['prefix' => 'admin'], function () {
 
 
             Route::get('/biographies/download/booking/{id}', 'AdminBiographiesController@cvsDownload')->name('biographies_download.view');
+            Route::get('biographies/ban/{id}', 'AdminBiographiesController@ban_biographies')->name('biographies.ban');
+            Route::get('biographies/unban/{id}', 'AdminBiographiesController@unban_biographies')->name('biographies.unban');
 
             Route::delete('biographies/delete/bulk', 'AdminBiographiesController@delete_all')
                 ->name('biographies.delete.bulk');
