@@ -8,7 +8,7 @@ use App\Http\Traits\Upload_Files;
 use App\Models\User;
 use App\Services\SMS\MesgatSMS;
 use Illuminate\Http\Request;
-
+use TaqnyatSms;
 class RegisterFrontController extends Controller
 {
 
@@ -112,13 +112,28 @@ class RegisterFrontController extends Controller
 
     public function sendOTP($phone)
     {
-        if (env('SMS_Work')== 'work') {
-            $code = rand(1111,9999);
-            $this->sendSMS($phone," كود التحقق هو $code");
 
-            return 2244;
-        }
-        return 2244;
+        $bearer = '2a17275dc72bdb4bd16a93eaf6f6530e';
+        $taqnyt = new TaqnyatSms($bearer);
+
+
+        $code = rand(1111,9999);
+        $msg= "رمز التحقق : ". $code ."  للدخول الي منصة ejazrecruitment.sa ";
+
+//        $this->sendSMS($phone,$msg);
+
+        $sender = 'Ejazrec';
+        $smsId = '25489';
+
+        $phone='966'.$phone;
+
+        $taqnyt->sendMsg($msg, $phone, $sender, $smsId);
+
+
+
+        return $code;
+
+
     }//end fun
 
 }//end class

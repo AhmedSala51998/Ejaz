@@ -82,6 +82,22 @@
                         </a>
                     </li>
                     <li>
+                        <i class="fa-light fa-phone-office"></i>
+                        <a href="https://api.whatsapp.com/send?phone={{$settings->phone1}}">
+                            {{$settings->phone1}}
+                        </a> - <a href="https://api.whatsapp.com/send?phone={{$settings->phone2}}">
+                            {{$settings->phone2}}
+                        </a>
+                    </li>
+                    <li>
+                        <i class="fa-light fa-phone-plus"></i>
+                        <a href="https://api.whatsapp.com/send?phone={{$settings->phone3}}">
+                            {{$settings->phone3}}
+                        </a> - <a href="https://api.whatsapp.com/send?phone={{$settings->phone4}}">
+                            {{$settings->phone4}}
+                        </a>
+                    </li>
+                    <li>
                         <i class="fa-light fa-envelope"></i> <a href="mailto:{{$settings->email1}}">{{$settings->email1}}</a>
                     </li>
                 </ul>

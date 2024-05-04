@@ -41,7 +41,7 @@
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div class="form-group">
                         <label
-                            for="{{$settings->address1}}">العنوان</label>
+                            for="{{$settings->address1}}">عنوان الفرع الاول </label>
                         <input data-validation="required" type="text"
                                class="form-control"
                                value="{{$settings->address1}}"
@@ -49,7 +49,17 @@
                                placeholder="العنوان">
                     </div>
                 </div>
-
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <div class="form-group">
+                    <label
+                        for="{{$settings->address2}}">عنوان الفرع الثاني </label>
+                    <input data-validation="required" type="text"
+                           class="form-control"
+                           value="{{$settings->address2}}"
+                           id="address2" name="address2"
+                           placeholder="العنوان">
+                </div>
+            </div>
         </div>
         <div class="row mt-4">
             <div class="col-sm-6">

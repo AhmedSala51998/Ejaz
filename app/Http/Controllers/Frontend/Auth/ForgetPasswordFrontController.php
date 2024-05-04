@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Services\SMS\MesgatSMS;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use TaqnyatSms;
 
 class ForgetPasswordFrontController extends Controller
 {
@@ -58,10 +59,29 @@ class ForgetPasswordFrontController extends Controller
 
     private function sent_link_of_reset_password($user)
     {
+        $bearer = '2a17275dc72bdb4bd16a93eaf6f6530e';
+        $taqnyt = new TaqnyatSms($bearer);
+
+
         $url = route('auth.reset_password_view')."?token=".$user->token;
+
         $msg = "يمكنك إعادة تعيين كلمة المرور من خلال هذا الرابط : $url ";
-        if (env('SMS_Work')== 'work') {
-            $this->sendSMS($user->phone, $msg);
-        }
+
+
+        $sender = 'Ejazrec';
+        $smsId = '25489';
+
+        $phone='966'.$user->phone;
+
+        $taqnyt->sendMsg($msg, $phone, $sender, $smsId);
+
+
+//        $url = route('auth.reset_password_view')."?token=".$user->token;
+//
+//        $msg = "يمكنك إعادة تعيين كلمة المرور من خلال هذا الرابط : $url ";
+//        // if (env('SMS_Work')== 'work') {
+//            $this->sendSMS($user->phone, $msg);
+//        // }
     }
+
 }//end class

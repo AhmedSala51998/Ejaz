@@ -22,6 +22,7 @@
 {{--        @include('frontend.pages.home.parts.aboutUs')--}}
 
                 @include('frontend.pages.home.parts.ourService')
+        @include('frontend.pages.home.parts.customarServices')
                 @include('frontend.pages.home.parts.countries')
 {{--                @include('frontend.pages.home.parts.recruitmentOperations')--}}
                 @include('frontend.pages.home.parts.recruitmentSteps')

@@ -27,8 +27,13 @@
                         <i class="fa-solid fa-headset me-3"></i>
                         <div class="data">
                             <h6> {{__('frontend.PhoneNumbers')}} </h6>
+                            <p> {{$settings->whatsappNumber??"+996 0123456789"}} </p>
+                            <p> {{$settings->callNumber??"+996 0123456789"}} </p>
                             <p> {{$settings->phone1??"+996 0123456789"}} </p>
                             <p> {{$settings->phone2??"+996 0123456789"}} </p>
+                            <p> {{$settings->phone3??"+996 0123456789"}} </p>
+                            <p> {{$settings->phone4??"+996 0123456789"}} </p>
+
                         </div>
                     </div>
                 </div>

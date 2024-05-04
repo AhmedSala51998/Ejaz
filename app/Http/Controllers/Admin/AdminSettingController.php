@@ -136,6 +136,7 @@ class AdminSettingController extends Controller
             "title" => $request->title ,
             "footer_desc" => $request->footer_desc,
             "address1" => $request->address1,
+            "address2" => $request->address2,
         ];
     }
 

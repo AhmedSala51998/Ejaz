@@ -23,7 +23,9 @@ class HomeFrontController extends Controller
         $statistics = Statistic::latest()->take(4)->get();
         $sponsors = Sponsor::latest()->take(5)->get();
         $questions = FrequentlyQuestion::take(100)->get();
-        $countries=Nationalitie::latest()->take(7)->get();
+        $countries=Nationalitie::latest()->get();
+        $admins = \App\Models\Admin::where('admin_type','!=',0)->get();
+
         $cvs = Biography::where('status','new')
             ->where('order_type','normal')
             ->with('recruitment_office','nationalitie','language_title',
@@ -37,6 +39,7 @@ class HomeFrontController extends Controller
             'questions'=>$questions,
             'cvs'=>$cvs,
             'countries'=>$countries,
+            'admins'=>$admins
         ]);
     }//end fun
 

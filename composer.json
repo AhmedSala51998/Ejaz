@@ -19,6 +19,7 @@
         "spatie/laravel-flash": "^1.9",
         "spatie/laravel-permission": "^3.13",
         "spatie/laravel-translatable": "^4.6",
+        "taqnyat/php": "^1.0",
         "twilio/sdk": "^7.3",
         "ultramsg/whatsapp-php-sdk": "^2.0",
         "yajra/laravel-datatables-oracle": "~9.0",

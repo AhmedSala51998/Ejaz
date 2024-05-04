@@ -77,10 +77,41 @@ class AdminOrderController extends Controller
 
         if ($request->ajax()) {
 
+            if (admin()->user()->admin_type == 0) {
 
 
-            $dataTables = Order::query()->orderBy("id", "DESC");
+                if ($count > 0 ) {
+                    $dataTables = Order::query()->orderBy("id", "DESC");
 
+                } else {
+
+                    if(checkPermission(56)){
+                        $dataTables = Order::query()->orderBy("id", "DESC");
+
+                    }else{
+                        $dataTables = Order::query()->where('admin_id', $admin->id)->orderBy("id", "DESC");
+
+                    }
+
+                }
+
+            } else {
+
+                if ($count > 0) {
+                    $dataTables = Order::query()->where("admin_id",)->orderBy("id", "DESC");
+
+                } else {
+                    if(checkPermission(56)){
+                        $dataTables = Order::query()->orderBy("id", "DESC");
+
+                    }else{
+                        $dataTables = Order::query()->where('admin_id', $admin->id)->orderBy("id", "DESC");
+
+                    }
+
+                }
+
+            }
             if ($request->passport_key != null) {
                 $dataTables = $dataTables->whereHas('biography', function ($q) use ($passport_key) {
                     $q->where('passport_number', 'like', '%' . $passport_key . '%');

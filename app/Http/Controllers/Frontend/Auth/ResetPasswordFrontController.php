@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-
+use TaqnyatSms;
 class ResetPasswordFrontController extends Controller
 {
 

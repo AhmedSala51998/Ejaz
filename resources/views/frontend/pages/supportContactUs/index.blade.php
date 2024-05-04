@@ -70,16 +70,21 @@
                                 <li class="" data-aos="fade-up">
                                     <span><i class="fa-solid fa-map-location"></i></span>
                                     <p class="ms-3">
-                                        عنوان مقرنا :
-                                    <a target="_blank" href="https://goo.gl/maps/p3CTJFUrgS6djGSW6" >   {{$settings->address1??"السعودية - الرياض - شارع الوحدة"}}</a>
+                                        فروعنا :
+                                    <a target="_blank" href="https://goo.gl/maps/p3CTJFUrgS6djGSW6" >   {{$settings->address1??"السعودية - الرياض - شارع الوحدة"}}</a> - <br>
+                                    <a target="_blank" href="https://goo.gl/maps/p3CTJFUrgS6djGSW6" >   {{$settings->address2??"السعودية - الرياض - شارع الوحدة"}}</a>
                                     </p>
                                 </li>
                                 <li class="" data-aos="fade-up">
                                     <span><i class="fa-solid fa-phone"></i></span>
                                     <p class="ms-3">
                                         المبيعات :
-                                    <a href="tel:"> {{$settings->phone1??"+996 0123456789"}} </a>
-                                    <a href="tel:"> {{$settings->phone2??"+996 0123456789"}} </a>
+                                        <a href="tel:"> {{$settings->callNumber??"+996 0123456789"}} </a>
+                                        <a href="tel:"> {{$settings->whatsappNumber??"+996 0123456789"}} </a>
+                                        <a href="tel:"> {{$settings->phone1??"+996 0123456789"}} </a>
+                                        <a href="tel:"> {{$settings->phone2??"+996 0123456789"}} </a>
+                                        <a href="tel:"> {{$settings->phone3??"+996 0123456789"}} </a>
+                                        <a href="tel:"> {{$settings->phone4??"+996 0123456789"}} </a>
                                     </p>
                                 </li>
                                 <li class="" data-aos="fade-up">
