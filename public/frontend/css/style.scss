@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
 $mainColor: #09463f;
 $secondColor: #dcb065;
 $gold: #ffd700;
@@ -9,13 +11,13 @@ $transition: all 0.3s ease-in-out;
 $shadow: 0px 2px 4px #00000020;
 $BigShadow: 0px 8px 24px #00000020;
 
-@font-face {
-    font-family: montserrat;
-    font-display: swap;
-    src: url(../fonts/montserrat-Arabic-Regular.woff);
-}
+//@font-face {
+//    font-family: montserrat;
+//    font-display: swap;
+//    src: url(../fonts/montserrat-Arabic-Regular.woff);
+//}
 * {
-    font-family: "montserrat";
+    font-family: "Noto Kufi Arabic", sans-serif;
     box-sizing: border-box;
     margin: 0;
     padding: 0;
