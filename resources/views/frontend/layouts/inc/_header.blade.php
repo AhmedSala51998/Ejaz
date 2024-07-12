@@ -27,8 +27,9 @@
                     </div>
                 </li>
                 <li><a class="navLink" href="#"> من نحن  </a></li>
-                <li><a class="navLink" href="{{checkRouteIsHome('#countrie')}}"> دول الاستقدام </a></li>
+                <li><a class="navLink" href="{{route('frontend.show.countries')}}"> دول الاستقدام </a></li>
 
+                <li><a class="navLink" href="{{route('frontend.show.ourStaff')}}"> خدمة العملاء </a></li>
 
                 <li><a class="navLink" href="{{route('track_order_view')}}"> تتبع طلبك</a></li>
                 <li><a class="navLink" href="{{route('frontend.supports.contactUs')}}"> تواصل معنا</a></li>

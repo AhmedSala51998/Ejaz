@@ -48,7 +48,10 @@
                     <a href="{{checkRouteIsHome('#popular_service')}}"><span></span> {{__('frontend.OurServices')}} </a>
                     </li>
                     <li>
-                        <a  href="{{checkRouteIsHome('#countrie')}}"> <span></span>دول الاستقدام </a>
+                        <a  href="{{route('frontend.show.countries')}}"> <span></span>دول الاستقدام </a>
+                    </li>
+                    <li>
+                        <a  href="{{route('frontend.show.ourStaff')}}"> <span></span>خدمة العملاء </a>
                     </li>
                     <li>
                         <a  href="{{route('frontend.supports')}}"> <span></span>{{__('frontend.faq')}} </a>
