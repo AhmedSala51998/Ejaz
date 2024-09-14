@@ -202,9 +202,7 @@ $data['phone']=$number;
         if ($cv->status != 'new') {
             return response([],400);
         }
-
-
-
+        
         $order_data = [
             'user_id'=>$user_id,
             'status'=>"under_work",

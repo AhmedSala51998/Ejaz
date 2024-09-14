@@ -21,6 +21,7 @@
         "spatie/laravel-translatable": "^4.6",
         "taqnyat/php": "^1.0",
         "twilio/sdk": "^7.3",
+        "tymon/jwt-auth": "^1.0@dev",
         "ultramsg/whatsapp-php-sdk": "^2.0",
         "yajra/laravel-datatables-oracle": "~9.0",
         "yoeunes/toastr": "^1.2"

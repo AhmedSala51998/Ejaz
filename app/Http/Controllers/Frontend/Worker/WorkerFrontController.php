@@ -44,13 +44,13 @@ class WorkerFrontController extends Controller
             } else {
                 return response()->json([], 403);
 
-//                toastError('ﻻ يمكنك تتبع هذا الطلب', 'حدث خطأ ما');
+//                toastr()->error('ﻻ يمكنك تتبع هذا الطلب', 'حدث خطأ ما');
 //                return back();
             }
         } else {
             return response()->json([], 500);
 
-//            toastError('يجب تسجيل الدخول لاستخدام هذة الخدمة', 'حدث خطأ ما');
+//            toastr()->error('يجب تسجيل الدخول لاستخدام هذة الخدمة', 'حدث خطأ ما');
 //            return back();
         }
 

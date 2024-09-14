@@ -17,7 +17,7 @@ class ForgetPasswordFrontController extends Controller
     public function forget_password_view()
     {
         if (auth()->check()) {
-            toastError(__('frontend.errorMessageAuth'),__('frontend.errorTitleAuth'));
+            toastr()->error(__('frontend.errorMessageAuth'),__('frontend.errorTitleAuth'));
             return redirect()->back();
         }
         return view('frontend.pages.auth.forgetPassword.forgetPassword');
@@ -42,7 +42,7 @@ class ForgetPasswordFrontController extends Controller
     public function forget_password_email_successfully_sent()
     {
         if (auth()->check()) {
-            toastError(__('frontend.errorMessageAuth'),__('frontend.errorTitleAuth'));
+            toastr()->error(__('frontend.errorMessageAuth'),__('frontend.errorTitleAuth'));
             return redirect()->back();
         }
         return view('frontend.pages.auth.forgetPassword.forget-password-link-sent-successfully');

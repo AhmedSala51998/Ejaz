@@ -12,7 +12,7 @@ class LoginFrontController extends Controller
     public function login_view()
     {
         if (auth()->check()) {
-            toastError(__('frontend.errorMessageAuth'),__('frontend.errorTitleAuth'));
+            toastr()->error(__('frontend.errorMessageAuth'),__('frontend.errorTitleAuth'));
             return redirect()->back();
         }
         return view('frontend.pages.auth.login.login');
@@ -29,7 +29,6 @@ class LoginFrontController extends Controller
         if($numlength==10) {
             $number= substr($number, 1);
         }
-
         if (auth()->attempt(['phone' =>$number, 'password' => request('password')], request('remember_me') == 1?true:false)) {
             $user = auth()->user();
             if ($user->is_blocked == "blocked") {

@@ -33,7 +33,7 @@ class AdminOurServicesController extends Controller
             return view('admin.permission');
 
         if ($request->ajax()) {
-            $our_services = OurService::query()->latest();
+    $our_services = OurService::query()->latest();
 
             return DataTables::of($our_services)
                 ->editColumn('image', function ($row) {

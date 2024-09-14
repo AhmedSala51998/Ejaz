@@ -22,7 +22,7 @@ class ProfileFrontController extends Controller
     public function profile_view()
     {
         if (!auth()->check()) {
-            toastError(__('frontend.errorMessageAuth'),__('frontend.errorTitleAuth'));
+            toastr()->error(__('frontend.errorMessageAuth'),__('frontend.errorTitleAuth'));
             return redirect()->back();
         }
         $user = auth()->user();

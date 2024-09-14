@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use Illuminate\Database\Eloquent\Model;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
     use HasApiTokens;
     use HasFactory, Notifiable;
@@ -61,5 +63,23 @@ class User extends Authenticatable
         return $query->where('type','employer');
     }
 
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
 
+    public function isActive()
+    {
+        return $this->activated_at !== null && $this->activated_at <= now();
+    }
+
+    /**
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
 }//end class

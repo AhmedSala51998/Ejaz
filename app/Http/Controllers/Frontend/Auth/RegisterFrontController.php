@@ -18,7 +18,7 @@ class RegisterFrontController extends Controller
     public function register_view($id='')
     {
         if (auth()->check()) {
-            toastError(__('frontend.errorMessageAuth'),__('frontend.errorTitleAuth'));
+            toastr()->error(__('frontend.errorMessageAuth'),__('frontend.errorTitleAuth'));
             return redirect()->back();
         }
         return view('frontend.pages.auth.register.register',compact('id'));
@@ -28,10 +28,9 @@ class RegisterFrontController extends Controller
     public function check_phone_to_send_otp(RegisterRequest $request)
     {
 
-
-        if ($this->check_if_phone_exist_or_not() == "phone_exists") {
-            return response()->json([],403);
-        }
+        // if ($this->check_if_phone_exist_or_not() == "phone_exists") {
+        //     return response()->json([],403);
+        // }
 
         $code = $this->sendOTP($request->phone);
         return response()->json($code,200);
@@ -50,9 +49,9 @@ class RegisterFrontController extends Controller
             $request->password=$number;
         }
 
-        if ($this->check_if_phone_exist_or_not() == "phone_exists") {
-            return response()->json([],403);
-        }
+        // if ($this->check_if_phone_exist_or_not() == "phone_exists") {
+        //     return response()->json([],403);
+        // }
         $data = $request->validated();
         $data['logo'] = $this->upload_image_or_make_new_image($request->logo , substr($request->name, 0, 2) );
         $data['phone_activation_code'] = $request->code;
@@ -63,7 +62,6 @@ class RegisterFrontController extends Controller
         if($numlength==10) {
             $data['phone'] = substr($number, 1);
         }
-
         $user = User::create($data);
         auth()->login($user);
         if ($request->id!=''){
@@ -120,7 +118,7 @@ class RegisterFrontController extends Controller
         $code = rand(1111,9999);
         $msg= "رمز التحقق : ". $code ."  للدخول الي منصة ejazrecruitment.sa ";
 
-//        $this->sendSMS($phone,$msg);
+       $this->sendSMS($phone,$msg);
 
         $sender = 'Ejazrec';
         $smsId = '25489';

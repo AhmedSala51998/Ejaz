@@ -178,7 +178,7 @@ class AdminNotesController extends Controller
 
 //            echo $response;
         }
-        toastError(__('frontend.errorMessageAuth'),__('frontend.errorTitleAuth'));
+        toastr()->error(__('frontend.errorMessageAuth'),__('frontend.errorTitleAuth'));
 
         return redirect()->back();
 

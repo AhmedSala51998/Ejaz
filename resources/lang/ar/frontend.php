@@ -269,5 +269,6 @@ return [
     'job'=> ' وظيفة ',
     "Musaned"=>"مساند",
     'Filter results'=>'تصفية النتائج',
-
+    "with_experience"=>"ذو خبرة سابقة",
+    "new"=>"جديد",
 ];

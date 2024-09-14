@@ -11,5 +11,8 @@ class FirebaseToken extends Model
     protected $table = 'firebase_tokens';
 
     protected $guarded=[];
-
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }
