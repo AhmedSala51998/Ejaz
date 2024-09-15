@@ -42,7 +42,7 @@
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
         }, "files":[
-            "app/Helper/Helper.php",
+            "app/Helper/MainHelper.php",
             "app/Helper/GoogleMaps.php"
         ]
     },

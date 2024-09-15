@@ -269,7 +269,12 @@ if (!function_exists('showFile')) {
         return asset('/storage/' . $fileFullPath);
     }
 }
-
+if (!function_exists('get_file')) {
+    function get_file($fileFullPath)
+    {
+        return asset('/storage/' . $fileFullPath);
+    }
+}
 if (!function_exists('imageOrNull')) {
     function imageOrNull($fileFullPath)
     {
