@@ -5,30 +5,30 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "require": {
-        "php": "^7.3|^8.0",
+        "php": "^8.1",
         "a6digital/laravel-default-profile-image": "^2.0",
-        "convertapi/convertapi-php": "^1.7",
+        "anhskohbo/no-captcha": "^3.5",
+        "astrotomic/laravel-translatable": "^11.12",
+        "doctrine/dbal": "^3.6",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
+        "intervention/image": "^2.5",
         "laravel/framework": "^8.75",
         "laravel/passport": "^10.4",
-        "laravel/sanctum": "^2.11",
+        "laravel/sanctum": "^2.15",
         "laravel/tinker": "^2.5",
-        "mcamara/laravel-localization": "^1.6",
-        "realrashid/sweet-alert": "^7.0",
-        "spatie/laravel-flash": "^1.9",
-        "spatie/laravel-permission": "^3.13",
-        "spatie/laravel-translatable": "^4.6",
-        "taqnyat/php": "^1.0",
-        "twilio/sdk": "^7.3",
+        "mcamara/laravel-localization": "^1.8",
+        "php-flasher/flasher-toastr-laravel": "^1.15",
+        "realrashid/sweet-alert": "^7.2",
+        "santigarcor/laratrust": "^7.1",
+        "spatie/laravel-permission": "^6.9",
+        "spatie/laravel-translatable": "^5.2",
         "tymon/jwt-auth": "^1.0@dev",
-        "ultramsg/whatsapp-php-sdk": "^2.0",
         "yajra/laravel-datatables-oracle": "~9.0",
-        "yoeunes/toastr": "^1.2"
+        "yoeunes/toastr": "^2.3"
     },
     "require-dev": {
-        "arcanedev/laravel-lang": "^9.1",
-        "barryvdh/laravel-ide-helper": "^2.10",
+        "barryvdh/laravel-debugbar": "^3.7",
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
         "laravel/sail": "^1.0.1",
@@ -42,8 +42,10 @@
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
         }, "files":[
-            "app/Helper/MainHelper.php",
-            "app/Helper/GoogleMaps.php"
+            "app/Helper/Helper.php",
+            "app/Helper/GoogleMaps.php",
+            "app/Helper/MainHelper.php"
+
         ]
     },
     "autoload-dev": {
