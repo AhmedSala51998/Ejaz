@@ -7,13 +7,13 @@ use ConvertApi\ConvertApi;
 function worker_new_cv($id)
 {
     try {
-        ConvertApi::setApiSecret(env('FILE_CONVERTER_KEY'));
+      //  ConvertApi::setApiSecret(env('FILE_CONVERTER_KEY'));
 
-        $result = ConvertApi::convert('png', [
-            'File' => route('frontend.cvDesign', $id),
-            'WebHook' => route('frontend.cvDesign', $id),
-        ], 'html'
-        );
+//        $result = ConvertApi::convert('png', [
+//            'File' => route('frontend.cvDesign', $id),
+//            'WebHook' => route('frontend.cvDesign', $id),
+//        ], 'html'
+//        );
 
         if(isset($result->response['Files'][0])&&!empty($result->response['Files'][0])) {
 
