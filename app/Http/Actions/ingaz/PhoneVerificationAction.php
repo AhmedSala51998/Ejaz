@@ -40,8 +40,9 @@ class PhoneVerificationAction extends MainAction
             $user->update([
                 "phone_activation_code" => $code,
             ]);
-            // رمز التحقق  : XXXX لخول منصة ussusalenjaz.sa
-            $msg = "رمز التحقق  : $code  لدخول منصة ejaz.sa";
+            // https://ejazrecruitment.sa/رمز التحقق  : XXXX لخول منصة ussusalenjaz.sa
+            $msg = 'رمز التحقق : ' .  $code . ' لدخول  شركة ejazrecruitment.sa ';
+
             $msg .= "\n";
             $phone = $request->phone;
             if (substr($phone, 0, 2) == '05') {
@@ -66,7 +67,7 @@ class PhoneVerificationAction extends MainAction
             $user_data['password'] = $request->password ;
             $user_data['name'] = $request->name ;
             $user = User::create($user_data);
-            $msg = "رمز التحقق  : $code  لدخول منصة ejaz.sa";
+            $msg = 'رمز التحقق : ' .  $code . ' لدخول  شركة ejazrecruitment.sa ';
             $msg .= "\n";
             $phone = $request->phone;
             if (substr($phone, 0, 2) == '05') {
