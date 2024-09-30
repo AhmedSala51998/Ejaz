@@ -15,7 +15,7 @@ class AddTypeToBiographiesTable extends Migration
     {
         Schema::table('biographies', function (Blueprint $table) {
             //
-            $table->enum('type',['admission','transport'])->default('admission');
+            $table->enum('type',['admission','transport','rental'])->default('admission');
         });
     }
 

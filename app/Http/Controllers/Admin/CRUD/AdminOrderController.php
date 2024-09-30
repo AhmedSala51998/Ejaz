@@ -159,6 +159,10 @@ class AdminOrderController extends Controller
                         $q->where('type', 'transport');
 
 
+                    }else if ($type == 'rental') {
+                        $q->where('type', 'rental');
+
+
                     }
 
                 });

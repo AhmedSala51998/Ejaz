@@ -35,13 +35,13 @@ class MaidAction extends MainAction
     }
 
     public function getMaids($request)
-    { 
+    {
         // dd($request->all());
         $type = $request->type??'admission';
         return $this->model->where('status', 'new')
         ->where('order_type', 'normal')
         ->where('is_cv_out',0)
-        ->where('type',$type)
+       // ->where('type',$type)
         ->with('recruitment_office', 'nationalitie', 'language_title',
             'religion', 'job', 'social_type', 'admin', 'images', 'skills')
         ->when($request->nationality_id && $request->nationality_id != null, function ($q) use ($request) {

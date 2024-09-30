@@ -17,7 +17,7 @@ trait MesgatSMS
         $sender = 'Ejazrec';
         $smsId = '25489';
 
-        $phone='966'.$phone;
+        $phone= $phone;
 
         $message =$taqnyt->sendMsg($msg, $phone, $sender, $smsId);
 

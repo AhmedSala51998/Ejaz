@@ -199,6 +199,7 @@
                                                     class="form-control select2Users default_rer">
                                                 <option @if($biography->type=='admission') selected @endif  value="admission">استقدام</option>
                                                 <option @if($biography->type=='transport') selected @endif  value="transport">نقل خدمات</option>
+                                                <option @if($biography->type=='rental') selected @endif  value="rental">ايجار</option>
 
                                             </select>
                                         </div>

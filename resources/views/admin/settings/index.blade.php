@@ -69,6 +69,11 @@
                         <i class="bx bxs-comment-dots d-block check-nav-icon mt-1 mb-1"></i>
                         <p class="fw-bold mb-4">نبذة عن </p>
                     </a>
+                    <a class="nav-link" id="v-pills-privacy_policy-ta" data-bs-toggle="pill" href="#v-pills-privacy_policy" role="tab"
+                       aria-controls="v-pills-privacy_policy" aria-selected="false">
+                        <i class="bx bxs-comment-dots d-block check-nav-icon mt-1 mb-1"></i>
+                        <p class="fw-bold mb-4">سياسة الخصوص  </p>
+                    </a>
                     {{----------------------------------}}
 
 {{--                    <a class="nav-link" id="v-pills-family-ta" data-bs-toggle="pill" href="#v-pills-family" role="tab"--}}
@@ -130,6 +135,10 @@
                                 @include("admin.settings.parts.about")
                             </div>
 
+                            <div class="tab-pane fade" id="v-pills-privacy_policy" role="tabpanel"
+                                 aria-labelledby="v-pills-privacy_policy-ta">
+                                @include("admin.settings.parts.privacy_policy")
+                            </div>
                             {{----------------------------------}}
 
 {{--                            <div class="tab-pane fade" id="v-pills-family" role="tabpanel"--}}

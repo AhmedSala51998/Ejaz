@@ -208,6 +208,7 @@
                                                     class="form-control select2Users default_rer">
                                                 <option value="admission">استقدام</option>
                                                 <option value="transport">نقل خدمات</option>
+                                                <option value="rental">ايجار</option>
 
                                             </select>
                                         </div>

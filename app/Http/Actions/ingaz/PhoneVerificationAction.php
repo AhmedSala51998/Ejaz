@@ -30,32 +30,32 @@ class PhoneVerificationAction extends MainAction
         $user = User::where('phone',$request->phone)->where('phone_code',$request->phone_code)->first();
 
         if (isset($phone_isset) && isset($user)) {
-            $code = '12345';
+            $code = '1234';
             if(env('MESSAGE_Live')) {
                 $code = sprintf("%05d", rand(0, 9999));
             }
             $phone_isset->update([
-            "code" => $code
+                "code" => $code
             ]);
             $user->update([
                 "phone_activation_code" => $code,
             ]);
-            // https://ejazrecruitment.sa/رمز التحقق  : XXXX لخول منصة ussusalenjaz.sa
-            $msg = 'رمز التحقق : ' .  $code . ' لدخول  شركة ejazrecruitment.sa ';
-
+            // رمز التحقق  : XXXX لخول منصة ussusalenjaz.sa
+            $msg = "رمز التحقق  : $code  لدخول منصة ejaz.sa";
             $msg .= "\n";
             $phone = $request->phone;
             if (substr($phone, 0, 2) == '05') {
                 $phone = ltrim($phone, '0');
-            } elseif (substr($phone, 0, 4) == '9660') {
-                $phone = ltrim($phone, '9660');
+            } elseif (substr($phone, 0, 3) == '966') {
+                $phone = ltrim($phone, '966');
             }
             $phone = '966' . $phone;
             // $result = $this->sendSMS($request->phone, $msg);
             $code = $this->sendOTP($phone);
             return ["code"=>$phone_isset->code];
         } else {
-            $code = '12345';
+
+            $code = '1234';
             if(env('MESSAGE_Live')) {
                 $code = sprintf("%05d", rand(0, 9999));
             }
@@ -67,13 +67,13 @@ class PhoneVerificationAction extends MainAction
             $user_data['password'] = $request->password ;
             $user_data['name'] = $request->name ;
             $user = User::create($user_data);
-            $msg = 'رمز التحقق : ' .  $code . ' لدخول  شركة ejazrecruitment.sa ';
+            $msg = "رمز التحقق  : $code  لدخول منصة ejaz.sa";
             $msg .= "\n";
             $phone = $request->phone;
             if (substr($phone, 0, 2) == '05') {
                 $phone = ltrim($phone, '0');
-            } elseif (substr($phone, 0, 4) == '9660') {
-                $phone = ltrim($phone, '9660');
+            } elseif (substr($phone, 0, 3) == '966') {
+                $phone = ltrim($phone, '966');
             }
             $phone = '966' . $phone;
             // $result =$this->sendSMS($request->phone, $msg);
@@ -88,9 +88,9 @@ class PhoneVerificationAction extends MainAction
     {
 
         $code_isset = $this->model->where('phone',$request->phone)
-                        // ->where('phone_code',$request->phone_code)
-                        ->where('code',$request->code)
-                        ->first();
+            // ->where('phone_code',$request->phone_code)
+            ->where('code',$request->code)
+            ->first();
         if (isset($code_isset)) {
             $user = User::where('phone',$request->phone)->first();
             if ($user) {
@@ -131,12 +131,12 @@ class PhoneVerificationAction extends MainAction
         $code = rand(1111,9999);
         $msg= "رمز التحقق : ". $code ."  للدخول الي منصة ejazrecruitment.sa ";
 
-       $this->sendSMS($phone,$msg);
+        $this->sendSMS($phone,$msg);
 
         $sender = 'Ejazrec';
         $smsId = '25489';
 
-        $phone='966'.$phone;
+        $phone= $phone;
 
         $taqnyt->sendMsg($msg, $phone, $sender, $smsId);
 

@@ -71,7 +71,7 @@ class ForgetPasswordFrontController extends Controller
         $sender = 'Ejazrec';
         $smsId = '25489';
 
-        $phone='966'.$user->phone;
+        $phone=$user->phone;
 
         $taqnyt->sendMsg($msg, $phone, $sender, $smsId);
 

@@ -87,6 +87,7 @@
                                 <option value=" " selected>نوع السيرة الذاتية</option>
                                 <option value="admission" @if ($type == 'admission') selected @endif >استقدام</option>
                                 <option value="transport" @if ($type == 'transport') selected @endif >نقل خدمات</option>
+                                <option value="rental" @if ($type == 'rental') selected @endif >ايجار</option>
 
                             </select>
                         </div>
