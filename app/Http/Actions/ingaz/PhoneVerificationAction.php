@@ -52,7 +52,13 @@ class PhoneVerificationAction extends MainAction
             $phone = '966' . $phone;
             // $result = $this->sendSMS($request->phone, $msg);
             $code = $this->sendOTP($phone);
-            return ["code"=>$phone_isset->code];
+            $phone_isset->update([
+                "code" => $code
+            ]);
+            $user->update([
+                "phone_activation_code" => $code,
+            ]);
+            return ["code"=>$code];
         } else {
 
             $code = '1234';
@@ -123,7 +129,6 @@ class PhoneVerificationAction extends MainAction
 
     public function sendOTP($phone)
     {
-
         $bearer = '2a17275dc72bdb4bd16a93eaf6f6530e';
         $taqnyt = new TaqnyatSms($bearer);
 
@@ -139,7 +144,6 @@ class PhoneVerificationAction extends MainAction
         $phone= $phone;
 
         $taqnyt->sendMsg($msg, $phone, $sender, $smsId);
-
 
 
         return $code;
