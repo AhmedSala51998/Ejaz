@@ -228,6 +228,28 @@
                                     </div>
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                         <div class="form-group">
+                                            <div id="showtransportthree" class="transferReason">
+                                                <label for="transferprice">>تكلفة نقل الخدمات</label>
+                                                <input data-validation="optional" required type="text" class="form-control default_rer"
+                                                       value="{{$biography->transferprice}}"
+                                                       id="transferprice" name="transferprice" placeholder=" ">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <div class="form-group">
+                                            <div id="showrentalone" class="rentalSection">
+                                                <label for="rentalprice">تكلفة الايجار</label>
+                                                <input data-validation="optional" required type="text" class="form-control default_rer"
+                                                       value="{{$biography->rentalprice}}"
+                                                       id="rentalprice" name="rentalprice" placeholder=" ">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <div class="form-group">
                                             <label for="passport_number">اللغةالام</label>
                                             <select data-validation="required" required name="language_title_id"
                                                     class="form-control select2Users default_rer">
@@ -578,7 +600,18 @@
                 $("div.transferReason").hide();
                 $("#show"+demovalue+"one").show();
                 $("#show"+demovalue+"two").show();
+                $("#show"+demovalue+"three").show();
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function(){
+            $("div.rentalSection").hide();
 
+            $('#cvTypeSelect').on('change', function(){
+                var demovalue = $(this).val();
+                $("div.rentalSection").hide();
+                $("#show"+demovalue+"one").show();
             });
         });
     </script>

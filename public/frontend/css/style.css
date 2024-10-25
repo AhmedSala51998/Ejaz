@@ -957,7 +957,7 @@ header .inner .navbar .navbar-nav li .dropdownMenu {
     transition: 0.3s ease-in-out;
 }
 header .inner .navbar .navbar-nav li .dropdownMenu.show {
-    height: 110px;
+    height: 140px;
 }
 header .inner .navbar .navbar-nav li .dropdownMenu.innerLinks.show {
     height: 108px;

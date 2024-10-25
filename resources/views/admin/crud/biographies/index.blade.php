@@ -198,6 +198,7 @@
                             <th>الحالة</th>
                             <th>الجنسية</th>
                             <th>رقم جواز السفر</th>
+                            <th>النوع</th>
                             <th>التاريخ</th>
                             <th>التحكم</th>
                         </tr>
@@ -276,6 +277,7 @@
                 {"data": "status", orderable: false, searchable: true},
                 {"data": "nationalitie_id", orderable: false, searchable: true},
                 {"data": "passport_number", orderable: false, searchable: true},
+                {"data": "type", orderable: false, searchable: true},
                 {"data": "created_at", searchable: false},
                 {"data": "actions", orderable: false, searchable: false}
             ],

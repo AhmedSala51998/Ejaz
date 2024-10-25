@@ -161,6 +161,7 @@ Route::group(
 
     Route::get('transferService',[\App\Http\Controllers\Frontend\TransferServices\TransferServicesFrontController::class,'transferService'])->name('transferService');
 
+    Route::get('rental',[\App\Http\Controllers\Frontend\Rental\RentalController::class,'rental'])->name('rental');
 
 
     ### pdf

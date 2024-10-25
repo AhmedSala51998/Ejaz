@@ -22,7 +22,9 @@
                             <li>
                                 <a  href="{{trans('transferService')}}"> طلب نقل خدمات</a>
                             </li>
-
+                            <li>
+                                <a  href="{{trans('rental')}}">طلب تأجير</a>
+                            </li>
                         </ul>
                     </div>
                 </li>

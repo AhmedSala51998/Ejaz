@@ -75,7 +75,7 @@
             </li>
             <li>
                 <h6> سعر نقل الخدمات : </h6>
-                <p> {{$cv->nationalitie->price_service??''}} ريال </p>
+                <p> {{$cv->transferprice??''}} ريال </p>
             </li>
         </ul>
         <div class="text-center pt-auto pb-3">
@@ -83,6 +83,53 @@
                             <a href="{{$settings->whatsapp}}" class="animatedLink">
 
                 ارسال طلب نقل
+                <i class="fa-regular fa-left-long ms-2"><span></span></i>
+            </a>
+        </div>
+    @elseif(isset($rental))
+
+        <ul class="info">
+            @if($cv->cv_name != NULL)
+                <li>
+                    <h6> الاسم : </h6>
+                    <p> {{$cv->cv_name??''}} </p>
+                </li>
+            @endif
+            <li>
+                <h6> الجنسية : </h6>
+                <p>{{$cv->nationalitie->title??''}} </p>
+            </li>
+            <li>
+                <h6> المهنة : </h6>
+                <p> {{$cv->job->title??''}}</p>
+            </li>
+            <li>
+                <h6> الديانة : </h6>
+                <p> {{$cv->religion->title??''}} </p>
+            </li>
+            <li>
+                <h6> رقم الجواز : </h6>
+                <p> {{$cv->passport_number??''}} </p>
+            </li>
+            <li>
+                <h6> العمر : </h6>
+                <p> {{$cv->age??''}} </p>
+            </li>
+                <li>
+                    <h6> الحالة الاجتماعية : </h6>
+                    <p> {{$cv->social_type->title??''}} </p>
+                </li>
+
+            <li>
+                <h6> تكلفة الايجار : </h6>
+                <p> {{$cv->rentalprice??''}} ريال </p>
+            </li>
+        </ul>
+        <div class="text-center pt-auto pb-3">
+            <!--<a href="https://wa.me/+966{{$settings->whatsapp}}?text={{get_file($cv->cv_file)}}" class="animatedLink">-->
+            <a href="{{$settings->whatsapp}}" class="animatedLink">
+
+                ارسال طلب تاجير
                 <i class="fa-regular fa-left-long ms-2"><span></span></i>
             </a>
         </div>

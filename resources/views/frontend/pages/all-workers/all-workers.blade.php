@@ -1,7 +1,7 @@
 @extends('frontend.layouts.layout')
 
 @section('title')
-    {{__('frontend.Recruitment Request')}}
+    ارسال طلب
 @endsection
 
 @section('styles')
@@ -100,6 +100,15 @@
                 <ul>
                     <li><a href="{{route('home')}}">الرئيسية </a></li>
                     <li><a href="#!" class="active"> طلب نقل خدمات  </a></li>
+                </ul>
+            </div>
+        @elseif(isset($rental))
+
+            <div class="banner">
+                <h1> تأجير </h1>
+                <ul>
+                    <li><a href="{{route('home')}}">الرئيسية </a></li>
+                    <li><a href="#!" class="active"> تأجير  </a></li>
                 </ul>
             </div>
 

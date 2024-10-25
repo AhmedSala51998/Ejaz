@@ -117,6 +117,14 @@ class AdminBiographiesController extends Controller
                 ->editColumn('created_at', function ($row) {
                     return date('Y/m/d',strtotime($row->created_at));
                 })
+                ->editColumn('type', function ($row) {
+                    if ($row->type == 'admission')
+                        return 'استقدام ';
+                    else if ($row->type == 'rental')
+                        return 'تاجير ';
+                    else
+                        return 'نقل خدمات  ';
+                })
                 ->addColumn('delete_all', function ($row) {
                     return "<input type='checkbox' class=' delete-all form-check-input' data-tablesaw-checkall name='delete_all' id='" . $row->id . "'>";
                 })
@@ -270,6 +278,8 @@ class AdminBiographiesController extends Controller
                 'type' => 'required',
                 'reasonService' => 'nullable',
                 'periodService' => 'nullable',
+                'transferprice' => 'nullable',
+                'rentalprice' => 'nullable',
                 //new
                 'passport_created_at' => 'nullable',
                 'passport_ended_at' => 'nullable',
@@ -372,6 +382,8 @@ class AdminBiographiesController extends Controller
             'biography'=>$biography,
             'reasonService'=>'nullable',
             'periodService'=>'nullable',
+            'transferprice'=>'nullable',
+            'rentalprice'=>'nullable',
         ];
         return  view('admin.crud.biographies.edit',$data);
     }
@@ -404,6 +416,8 @@ class AdminBiographiesController extends Controller
             'type'=>'required',
             'reasonService'=>'nullable',
             'periodService'=>'nullable',
+            'transferprice'=>'nullable',
+            'rentalprice'=>'nullable',
             //new
             'passport_created_at' => 'nullable',
             'passport_ended_at' => 'nullable',
