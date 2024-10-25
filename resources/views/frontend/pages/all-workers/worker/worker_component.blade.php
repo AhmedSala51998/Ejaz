@@ -80,7 +80,7 @@
         </ul>
         <div class="text-center pt-auto pb-3">
             <!--<a href="https://wa.me/+966{{$settings->whatsapp}}?text={{get_file($cv->cv_file)}}" class="animatedLink">-->
-                            <a href="{{$settings->whatsapp}}" class="animatedLink">
+                            <a href="https://api.whatsapp.com/send?phone={{$settings->whatsappNumber}}" class="animatedLink">
 
                 ارسال طلب نقل
                 <i class="fa-regular fa-left-long ms-2"><span></span></i>
@@ -127,7 +127,7 @@
         </ul>
         <div class="text-center pt-auto pb-3">
             <!--<a href="https://wa.me/+966{{$settings->whatsapp}}?text={{get_file($cv->cv_file)}}" class="animatedLink">-->
-            <a href="{{$settings->whatsapp}}" class="animatedLink">
+            <a href="https://api.whatsapp.com/send?phone={{$settings->whatsappNumber}}" class="animatedLink">
 
                 ارسال طلب تاجير
                 <i class="fa-regular fa-left-long ms-2"><span></span></i>
