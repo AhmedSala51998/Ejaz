@@ -124,9 +124,11 @@
                                     وصول العمالة
                                 </option>
                                 <option value="canceled" @if ($booking_status == 'canceled') selected @endif>
-                                    ملغى
+                                    سير ملغية
                                 </option>
-
+                                <option value="pending" @if ($booking_status == 'pending') selected @endif>
+                                    سير معلقة
+                                </option>
                             </select>
                         </div>
                         <div class="col-md-2 ">
@@ -256,7 +258,7 @@
             "ajax":  {
                 url: "{{route('biographies.index')}}",
                 data: function (d) {
-                    d.passport_key = $('#passport_key').val(),
+                        d.passport_key = $('#passport_key').val(),
                         d.social_type = $('#social_type').val(),
                         // d.selected_staff = $('#selected_staff').val(),
                         d.booking_status = $('#booking_status').val(),

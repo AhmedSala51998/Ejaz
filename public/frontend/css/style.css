@@ -1104,8 +1104,8 @@ header.headerAnimate {
 .about .img img {
     width: 100%;
     height: 100%;
-    -o-object-fit: cover;
-    object-fit: cover;
+    -o-object-fit: fill;
+    object-fit: fill;
     -o-object-position: center;
     object-position: center;
 }
@@ -1181,7 +1181,7 @@ header.headerAnimate {
     margin-bottom: 0px;
 }
 .about .about_text .description-list li i {
-    background-color: #00897e;
+    background-color: #e79124;
     color: #fff;
     line-height: 26px;
     position: absolute;
@@ -1223,6 +1223,7 @@ header.headerAnimate {
 }
 .popular_service .service img {
     height: 48px;
+    object-fit: cover;
 }
 .popular_service .service h6 {
     color: #191936;

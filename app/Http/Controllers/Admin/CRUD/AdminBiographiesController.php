@@ -152,8 +152,14 @@ class AdminBiographiesController extends Controller
                     elseif ($row->status == "finished") {
                         return "وصول العمالة";
                     }
+                    elseif ($row->status == "canceled") {
+                        return "ملغية";
+                    }
+                    elseif ($row->status == "pending") {
+                        return "معلق";
+                    }
                     else {
-                        return "ملغى";
+                        return "لاتوجد حالة بعد";
                     }
 
                 })

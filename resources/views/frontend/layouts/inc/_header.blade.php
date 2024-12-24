@@ -28,7 +28,7 @@
                         </ul>
                     </div>
                 </li>
-                <li><a class="navLink" href="#"> من نحن  </a></li>
+                <li><a class="navLink" href="{{route('frontend.aboutUs')}}"> من نحن  </a></li>
                 <li><a class="navLink" href="{{route('frontend.show.countries')}}"> دول الاستقدام </a></li>
 
                 <li><a class="navLink" href="{{route('frontend.show.ourStaff')}}"> خدمة العملاء </a></li>

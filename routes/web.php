@@ -65,6 +65,7 @@ Route::group(
 
     Route::get('countries',[\App\Http\Controllers\Frontend\CountriesController::class,'index'])->name('frontend.show.countries');
     Route::get('ourStaff',[\App\Http\Controllers\Frontend\OurStaffController::class,'index'])->name('frontend.show.ourStaff');
+    Route::get('about',[\App\Http\Controllers\Frontend\AbouUsController::class,'index'])->name('frontend.aboutUs');
 
 
     Route::get('completeTheRecruitmentRequest/{id}',[\App\Http\Controllers\Frontend\Worker\WorkerFrontController::class,'completeTheRecruitmentRequest'])->name('front.completeTheRecruitmentRequest');
