@@ -143,11 +143,7 @@
                         <a target="_blank" href="{{$settings->instagram}}"><i class="fab fa-instagram"></i></a>
                             </li>
                     @endif
-                    @if ($settings->email1 !=  null )
-                            <li>
-                        <a target="_blank" href="mailto:{{$settings->email1}}"><i class="fas fa-envelope"></i></a>
-                            </li>
-                    @endif
+
 
                 </ul>
             </div>
