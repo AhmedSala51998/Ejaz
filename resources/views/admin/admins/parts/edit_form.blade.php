@@ -71,7 +71,7 @@
         <div class=" col-md-4 p-2 pt-3">
             <div class="form-group">
                 <label for="whats_up_number">الواتساب</label>
-                <input data-validation="required" value="{{$admin->whats_up_number}}" type="text" class="form-control"
+                <input data-validation="optional" value="{{$admin->whats_up_number}}" type="text" class="form-control"
                        id="whats_up_number" name="whats_up_number" placeholder=" ">
             </div>
         </div>

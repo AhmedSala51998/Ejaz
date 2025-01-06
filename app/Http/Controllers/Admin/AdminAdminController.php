@@ -105,8 +105,8 @@ class AdminAdminController extends Controller
             'email' => 'required|unique:admins,email',
             'password' => 'required',
             'phone' => 'required',
-            'whats_up_number' => 'required',
-            'image' => 'required|file|image',
+            'whats_up_number' => 'nullable',
+            'image' => 'nullable|file|image',
             'admin_type'=>'required',
         ]);
         $data['password'] = bcrypt($request->password);
@@ -179,7 +179,7 @@ class AdminAdminController extends Controller
             'password' => 'nullable',
             'image' => 'nullable',
             'phone' => 'required',
-            'whats_up_number' => 'required',
+            'whats_up_number' => 'nullable',
             'admin_type'=>'required',
 
         ]);

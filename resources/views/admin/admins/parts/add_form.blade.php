@@ -14,7 +14,7 @@
         <div class="col-12 ">
             <div class="form-group">
                 <label for="address1">الصورة </label>
-                <input data-validation="required" type="file" data-default-file="" class="form-control dropify"
+                <input data-validation="optional" type="file" data-default-file="" class="form-control dropify"
                        id="image" name="image">
             </div>
         </div>
@@ -76,10 +76,10 @@
         <div class="col-md-4 p-2 pt-3">
             <div class="form-group">
                 <label for="phone">الواتساب</label>
-                <input data-validation="required" type="text" class="form-control" id="whats_up_number"
+                <input data-validation="optional" type="text" class="form-control" id="whats_up_number"
                        name="whats_up_number" placeholder=" ">
             </div>
-        </div>  
+        </div>
 
 
     </div>
