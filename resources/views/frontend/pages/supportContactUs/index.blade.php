@@ -71,8 +71,8 @@
                                     <span><i class="fa-solid fa-map-location"></i></span>
                                     <p class="ms-3">
                                         فروعنا :
-                                    <a target="_blank" href="" >   {{$settings->address1??"السعودية - الرياض - شارع الوحدة"}}</a> - <br>
-                                    <a target="_blank" href="" >   {{$settings->address2??"السعودية - الرياض - شارع الوحدة"}}</a>
+                                    <a target="_blank" href="https://goo.gl/maps/p3CTJFUrgS6djGSW6" >   {{$settings->address1??"السعودية - الرياض - شارع الوحدة"}}</a> - <br>
+                                    <a target="_blank" href="https://goo.gl/maps/p3CTJFUrgS6djGSW6" >   {{$settings->address2??"السعودية - الرياض - شارع الوحدة"}}</a>
                                     </p>
                                 </li>
                                 <li class="" data-aos="fade-up">
