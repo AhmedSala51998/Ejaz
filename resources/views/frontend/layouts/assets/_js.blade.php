@@ -16,9 +16,13 @@
 <!-- odometer counterUp  -->
 <script src="{{asset('frontend')}}/js/odometer.min.js"></script>
 <!-- orbit -->
-<script src="{{asset('frontend')}}/js/three.js"></script>
+<!--<script src="{{asset('frontend')}}/js/three.js"></script>
 <script src="{{asset('frontend')}}/js/orbit.js"></script>
-<script src="{{asset('frontend')}}/js/custom_orbit.js"></script>
+<script src="{{asset('frontend')}}/js/custom_orbit.js"></script>-->
+<script src="https://unpkg.com/three@0.152.2/build/three.min.js"></script>
+<script src="https://unpkg.com/globe.gl"></script>
+<script src="https://unpkg.com/topojson@3"></script>
+
 <!-- introjs -->
 <script src="{{asset('frontend')}}/js/intro.js"></script>
 

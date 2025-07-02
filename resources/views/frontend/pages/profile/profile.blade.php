@@ -43,7 +43,7 @@
                     <!-- content -->
                     <div class=" col-lg-9 p-2 ">
                         <div class="profileContent" id="display_profile_part">
-                            <div >
+                            <div>
                                 <div  class="d-flex justify-content-center align-content-center">
                                     <img style="width: 500px;height: 500px ; object-fit: contain;" class="image_for_profile" src="{{asset('frontend/img/register.svg')}}">
                                 </div>

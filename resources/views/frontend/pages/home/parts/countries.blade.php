@@ -1,238 +1,183 @@
-{{--@if (count($countries)>0)--}}
+<style>
+:root {
+    --orange: #D89835;
+    --orange-dark: #c8812a;
+    --gray-dark: #5F5F5F;
+    --text-main: #212121;
+    --card-bg: rgba(255, 255, 255, 0.2);
+    --border-color: rgba(255, 255, 255, 0.2);
+}
 
-{{--    <section class="countries" id="countrie">--}}
-{{--        <div class="container">--}}
-{{--            <!-- Section Title -->--}}
-{{--            <div class="SectionTitle">--}}
-{{--                <h1 class="title" data-aos="fade-up"> دول الاستقدام </h1>--}}
-{{--                <h6 class="hint" data-aos="fade-up"> نقوم بالاستقدام من مختلف الدول التي توفر عمالة مهرة ... </h6>--}}
-{{--            </div>--}}
-{{--            <div class="allCountries">--}}
-{{--                <div class="row justify-content-center">--}}
-{{--                     @foreach($countries as $country)--}}
-{{--                    <div class="col-6 col-md-3 p-1" data-aos="flip-left">--}}
-{{--                        <div class="country">--}}
-{{--                            <img src="{{get_file($country->image)}}" alt="">--}}
-{{--                            <h2> {{$country->country_name}} </h2>--}}
-{{--                            <h5>{{$country->price}} ريال </h5>--}}
-{{--                            <p>{{$country->desc}} </p>--}}
-{{--                            <a href="{{route('all-workers',$country->id)}}" class="animatedLink">--}}
-{{--                                اطلب الآن--}}
-{{--                                <i class="fa-regular fa-left-long ms-2"><span></span></i>--}}
-{{--                            </a>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    @endforeach--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </section>--}}
+/* الخلفية */
+.countries {
+    background: radial-gradient(circle at center, #fef6ea, #fff);
+    padding: 60px 0;
+}
 
+.sectionTitle {
+    text-align: center;
+    margin-bottom: 50px;
+}
 
+.sectionTitle h1 {
+    font-size: 2.8rem;
+    font-weight: bold;
+    color: var(--text-main);
+}
 
+.sectionTitle h6 {
+    font-size: 1.1rem;
+    color: var(--gray-dark);
+}
 
+.allCountries {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 30px;
+}
 
+/* كارت الدولة */
+.country {
+    position: relative;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 60px 20px 30px;
+    text-align: center;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(10px);
+    transition: all 0.4s ease;
+    overflow: visible;
+}
 
+.country:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 36px rgba(228, 147, 37, 0.45) !important;
+}
 
+/* شعار الدولة */
+.flag-wrapper {
+    position: absolute;
+    top: 0;
+    right: 20px;
+    transform: translateY(-50%);
+    width: 90px;
+    height: 90px;
+    border-radius: 16px;
+    border: 3px solid var(--orange);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    z-index: 5;
+    overflow: hidden;
+    transition: border-color 0.3s ease;
+    opacity: 1;
+}
 
+/* حركة الشعار مرة واحدة */
+.animate-flag-once {
+    animation: flag-move-in 1.5s ease-out forwards;
+}
 
-{{--@else--}}
-{{--    <section class="countries">--}}
-{{--        <div class="container">--}}
-{{--            <!-- Section Title -->--}}
-{{--            <div class="SectionTitle">--}}
-{{--                <h1 class="title" data-aos="fade-up"> دول الاستقدام </h1>--}}
-{{--                <h6 class="hint" data-aos="fade-up"> نقوم بالاستقدام من مختلف الدول التي توفر عمالة مهرة ... </h6>--}}
-{{--            </div>--}}
-{{--            <div class="allCountries">--}}
-{{--                <div class="row justify-content-center">--}}
-{{--                    <div class="col-6 col-md-3 p-1" data-aos="flip-left">--}}
-{{--                        <div class="country">--}}
-{{--                            <img src="{{asset('frontend')}}/img/countries/1.png" alt="">--}}
-{{--                            <h2> اوغندا </h2>--}}
-{{--                            <p>مدة الاستقدام في خلال 60 يوم </p>--}}
-{{--                            <a href="#!" class="animatedLink">--}}
-{{--                                اطلب الآن--}}
-{{--                                <i class="fa-regular fa-left-long ms-2"><span></span></i>--}}
-{{--                            </a>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    <div class="col-6 col-md-3 p-1" data-aos="flip-left">--}}
-{{--                        <div class="country">--}}
-{{--                            <img src="{{asset('frontend')}}/img/countries/2.png" alt="">--}}
-{{--                            <h2> كينيا </h2>--}}
-{{--                            <p>مدة الاستقدام في خلال 60 يوم </p>--}}
-{{--                            <a href="#!" class="animatedLink">--}}
-{{--                                اطلب الآن--}}
-{{--                                <i class="fa-regular fa-left-long ms-2"><span></span></i>--}}
-{{--                            </a>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    <div class="col-6 col-md-3 p-1" data-aos="flip-left">--}}
-{{--                        <div class="country">--}}
-{{--                            <img src="{{asset('frontend')}}/img/countries/3.jpeg" alt="">--}}
-{{--                            <h2> بنغلادش </h2>--}}
-{{--                            <p>مدة الاستقدام في خلال 60 يوم </p>--}}
-{{--                            <a href="#!" class="animatedLink">--}}
-{{--                                اطلب الآن--}}
-{{--                                <i class="fa-regular fa-left-long ms-2"><span></span></i>--}}
-{{--                            </a>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    <div class="col-6 col-md-3 p-1" data-aos="flip-left">--}}
-{{--                        <div class="country">--}}
-{{--                            <img src="{{asset('frontend')}}/img/countries/4.jpeg" alt="">--}}
-{{--                            <h2> الفلبين </h2>--}}
-{{--                            <p>مدة الاستقدام في خلال 60 يوم </p>--}}
-{{--                            <a href="#!" class="animatedLink">--}}
-{{--                                اطلب الآن--}}
-{{--                                <i class="fa-regular fa-left-long ms-2"><span></span></i>--}}
-{{--                            </a>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    <div class="col-6 col-md-3 p-1" data-aos="flip-left">--}}
-{{--                        <div class="country">--}}
-{{--                            <img src="{{asset('frontend')}}/img/countries/5.png" alt="">--}}
-{{--                            <h2> الهند </h2>--}}
-{{--                            <p>مدة الاستقدام في خلال 60 يوم </p>--}}
-{{--                            <a href="#!" class="animatedLink">--}}
-{{--                                اطلب الآن--}}
-{{--                                <i class="fa-regular fa-left-long ms-2"><span></span></i>--}}
-{{--                            </a>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    <div class="col-6 col-md-3 p-1" data-aos="flip-left">--}}
-{{--                        <div class="country">--}}
-{{--                            <img src="{{asset('frontend')}}/img/countries/6.png" alt="">--}}
-{{--                            <h2> موريتانيا </h2>--}}
-{{--                            <p>مدة الاستقدام في خلال 60 يوم </p>--}}
-{{--                            <a href="#!" class="animatedLink">--}}
-{{--                                اطلب الآن--}}
-{{--                                <i class="fa-regular fa-left-long ms-2"><span></span></i>--}}
-{{--                            </a>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    <div class="col-6 col-md-3 p-1" data-aos="flip-left">--}}
-{{--                        <div class="country">--}}
-{{--                            <img src="{{asset('frontend')}}/img/countries/7.png" alt="">--}}
-{{--                            <h2> جيبوتي </h2>--}}
-{{--                            <p>مدة الاستقدام في خلال 60 يوم </p>--}}
-{{--                            <a href="#!" class="animatedLink">--}}
-{{--                                اطلب الآن--}}
-{{--                                <i class="fa-regular fa-left-long ms-2"><span></span></i>--}}
-{{--                            </a>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </section>--}}
-{{--@endif--}}
+@keyframes flag-move-in {
+    0% {
+        transform: translate(150%, -50%);
+        opacity: 0;
+    }
+    70% {
+        transform: translate(30%, -50%);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-50%);
+    }
+}
+
+.flag-wrapper:hover {
+    border-color: var(--orange-dark);
+}
+
+.flag-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 0;
+}
+
+/* محتوى البطاقة */
+.country h4 {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--orange);
+    margin-top: 40px;
+    margin-bottom: 5px;
+}
+
+.country h5 {
+    font-size: 1.1rem;
+    color: var(--text-main);
+    margin-bottom: 10px;
+}
+
+.country p {
+    font-size: 0.95rem;
+    color: var(--gray-dark);
+    min-height: 50px;
+    margin-bottom: 18px;
+}
+
+.country a {
+    display: inline-block;
+    background: var(--orange);
+    color: white;
+    font-weight: 600;
+    padding: 10px 22px;
+    border-radius: 50px;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.country a:hover {
+    background: var(--orange-dark);
+}
+</style>
+
+<script>
+    // تشغيل الحركة مرة واحدة عند أول تحميل
+    window.addEventListener("DOMContentLoaded", function () {
+        const flags = document.querySelectorAll(".flag-wrapper");
+        flags.forEach(flag => {
+            flag.classList.add("animate-flag-once");
+        });
+    });
+</script>
 
 @if (count($countries)>0)
-
-    <section class="countries" id="countries">
-        <div class="container">
-            <!-- Section Title -->
-            <div class="SectionTitle">
-                <h1 class="title" data-aos="fade-up"> دول الاستقدام </h1>
-                <h6 class="hint" data-aos="fade-up"> نقوم بالاستقدام من مختلف الدول التي توفر عمالة مهرة ... </h6>
-            </div>
-            <div class="allCountries">
-
-                @foreach($countries as $country)
-                    <!-- country -->
-                    <div class="country" data-aos="fade-down">
-                        <div class="flag">
-                            <img src="{{get_file($country->image)}}" alt="">
-                        </div>
-                        <h4> {{$country->title}} </h4>
-                        <h5>{{$country->price}} ريال </h5>
-                        <p>{{$country->description}}</p>
-                        <a href="{{route('all-workers',$country->id)}}" class="animatedLink">
-                            اطلب الآن
-                            <i class="fa-regular fa-left-long ms-2"><span></span></i>
-                        </a>                    </div>
-
-                @endforeach
-
-            </div>
+<section class="countries" id="countries">
+    <div class="container">
+        <div class="sectionTitle" data-aos="fade-up">
+            <h1>دول الاستقدام</h1>
+            <h6>نقوم بالاستقدام من مختلف الدول التي توفر عمالة مهرة ...</h6>
         </div>
-    </section>
 
-@else
-    <section class="countries" id="countries">
-        <div class="container">
-            <div class="sectionTitle align-items-center">
-                <h1> دول الإستقدام </h1>
-                <p> نتعامل مع جميع دول الاستقدام و نستقدم افضل العمالة ... </p>
-            </div>
-            <div class="allCountries">
-                <!-- country -->
-                <div class="country" data-aos="fade-down">
-                    <div class="flag">
-                        <img src="{{asset('frontend')}}/img/countries/1.webp" alt="">
+        <div class="allCountries">
+            @foreach($countries as $country)
+                <div class="country" data-aos="zoom-in">
+                    <!-- شعار الدولة -->
+                    <div class="flag-wrapper">
+                        <img src="{{ asset('frontend/img/countries/1.png') }}" alt="{{ $country->title }}">
                     </div>
-                    <h4> اوغندا </h4>
-                    <p>مدة الاستقدام في خلال 60 يوم اي مبالغ مالية عن طريق مساند</p>
-                    <a href="#" class="btn btn-outline-success"> اطلب الآن </a>
-                </div>
-                <!-- country -->
-                <div class="country" data-aos="fade-down">
-                    <div class="flag">
-                        <img src="{{asset('frontend')}}/img/countries/2.webp" alt="">
-                    </div>
-                    <h4> كينيا </h4>
-                    <p>مدة الاستقدام في خلال 60 يوم اي مبالغ مالية عن طريق مساند</p>
-                    <a href="#" class="btn btn-outline-success"> اطلب الآن </a>
-                </div>
-                <!-- country -->
-                <div class="country" data-aos="fade-down">
-                    <div class="flag">
-                        <img src="{{asset('frontend')}}/img/countries/3.webp" alt="">
-                    </div>
-                    <h4> بنجلادش </h4>
-                    <p>مدة الاستقدام في خلال 60 يوم اي مبالغ مالية عن طريق مساند</p>
-                    <a href="#" class="btn btn-outline-success"> اطلب الآن </a>
-                </div>
-                <!-- country -->
-                <div class="country" data-aos="fade-down">
-                    <div class="flag">
-                        <img src="{{asset('frontend')}}/img/countries/4.webp" alt="">
-                    </div>
-                    <h4> الفلبين </h4>
-                    <p>مدة الاستقدام في خلال 60 يوم اي مبالغ مالية عن طريق مساند</p>
-                    <a href="#" class="btn btn-outline-success"> اطلب الآن </a>
-                </div>
-                <!-- country -->
-                <div class="country" data-aos="fade-down">
-                    <div class="flag">
-                        <img src="{{asset('frontend')}}/img/countries/5.webp" alt="">
-                    </div>
-                    <h4> الهند </h4>
-                    <p>مدة الاستقدام في خلال 60 يوم اي مبالغ مالية عن طريق مساند</p>
-                    <a href="#" class="btn btn-outline-success"> اطلب الآن </a>
-                </div>
-                <!-- country -->
-                <div class="country" data-aos="fade-down">
-                    <div class="flag">
-                        <img src="{{asset('frontend')}}/img/countries/6.webp" alt="">
-                    </div>
-                    <h4> موريتانيا </h4>
-                    <p>مدة الاستقدام في خلال 60 يوم اي مبالغ مالية عن طريق مساند</p>
-                    <a href="#" class="btn btn-outline-success"> اطلب الآن </a>
-                </div>
-                <!-- country -->
-                <div class="country" data-aos="fade-down">
-                    <div class="flag">
-                        <img src="{{asset('frontend')}}/img/countries/7.webp" alt="">
-                    </div>
-                    <h4> جيبوتي </h4>
-                    <p>مدة الاستقدام في خلال 60 يوم اي مبالغ مالية عن طريق مساند</p>
-                    <a href="#" class="btn btn-outline-success"> اطلب الآن </a>
-                </div>
 
-            </div>
+                    <h4>{{ $country->title }}</h4>
+                    <h5>{{ $country->price }} ريال</h5>
+                    <p>{{ $country->description }}</p>
+                    <a href="{{ route('all-workers', $country->id) }}">
+                        اطلب الآن
+                        <i class="fa fa-arrow-left ms-2"></i>
+                    </a>
+                </div>
+            @endforeach
         </div>
-    </section>
+    </div>
+</section>
 @endif

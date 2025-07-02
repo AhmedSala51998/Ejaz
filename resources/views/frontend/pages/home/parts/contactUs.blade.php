@@ -1,79 +1,247 @@
-<section class="contactForm" id="contactUs">
-    <div class="container">
-        <div class="row align-items-center">
-            <!-- data -->
-            <div class="col-sm-6 col-md-5 p-2">
-                <div class="contactInfo">
-                    <!-- Section Title -->
-                    <h2 class="sideTitle"> {{__('frontend.contactUs')}} </h2>
-                    <!-- info -->
-                    <div class="info" data-aos="fade-up">
-                        <i class="fa-solid fa-location-dot me-3"></i>
-                        <div class="data">
-                            <h6> {{__('frontend.ourLocation')}} </h6>
-                            <p> {{$settings->address1??"السعودية - الرياض - شارع الوحدة"}} </p>
-                        </div>
-                    </div>
-                    <!-- info -->
-                    <div class="info" data-aos="fade-up">
-                        <i class="fa-solid fa-mailbox me-3"></i>
-                        <div class="data">
-                            <h6> {{__('frontend.Email')}} </h6>
-                            <p> {{$settings->email1??"mail@mail.com"}} </p>
-                        </div>
-                    </div>
-                    <!-- info -->
-                    <div class="info" data-aos="fade-up">
-                        <i class="fa-solid fa-headset me-3"></i>
-                        <div class="data">
-                            <h6> {{__('frontend.PhoneNumbers')}} </h6>
-                            <p> {{$settings->whatsappNumber??"+996 0123456789"}} </p>
-                            <p> {{$settings->callNumber??"+996 0123456789"}} </p>
-                            <p> {{$settings->phone1??"+996 0123456789"}} </p>
-                            <p> {{$settings->phone2??"+996 0123456789"}} </p>
-                            <p> {{$settings->phone3??"+996 0123456789"}} </p>
-                            <p> {{$settings->phone4??"+996 0123456789"}} </p>
+<style>
+    #contactUs {
+        background: linear-gradient(to bottom right, #fffdf9, #fff2e6);
+        padding: 80px 0;
+        font-family: 'Tajawal', sans-serif;
+    }
 
+    .contact-container {
+        background: #fff;
+        border-radius: 28px;
+        padding: 60px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.06);
+    }
+
+    .contact-title {
+        font-size: 2.8rem;
+        font-weight: 900;
+        text-align: center;
+        margin-bottom: 10px;
+        color: #1f1f1f;
+    }
+
+    .contact-sub {
+        text-align: center;
+        font-size: 1.1rem;
+        color: #777;
+        margin-bottom: 40px;
+    }
+
+    .contact-form .form-control {
+        border-radius: 16px;
+        border: 1px solid #ddd;
+        padding: 16px 20px;
+        margin-bottom: 20px;
+        font-size: 1rem;
+        background-color: #fcfcfc;
+        transition: 0.3s ease;
+    }
+
+    .contact-form .form-control:focus {
+        border-color: #f28500;
+        box-shadow: 0 0 0 3px rgba(242, 133, 0, 0.15);
+    }
+
+    .form-icon {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #f28500;
+        font-size: 1.1rem;
+    }
+
+    .form-group {
+        position: relative;
+    }
+
+    .send-btn {
+        background: linear-gradient(to right, #f28500, #f4a832);
+        color: white;
+        padding: 14px 36px;
+        border-radius: 50px;
+        font-weight: bold;
+        font-size: 1.1rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        border: none;
+        transition: 0.3s;
+        box-shadow: 0 8px 20px rgba(242,133,0,0.2);
+    }
+
+    .send-btn:hover {
+        background: #e27a00;
+        box-shadow: 0 8px 30px rgba(226,122,0,0.4);
+    }
+
+    .contact-info-block {
+        background: #fffaf5;
+        border-radius: 24px;
+        padding: 30px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.04);
+    }
+
+    .info-item {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 30px;
+        transition: 0.3s;
+    }
+
+    .info-item:hover {
+        transform: translateY(-4px);
+    }
+
+    .info-icon {
+        width: 58px;
+        height: 58px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #f28500, #ffb84d);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        flex-shrink: 0;
+        box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        transition: 0.3s;
+    }
+
+    .info-item:hover .info-icon {
+        transform: scale(1.1);
+    }
+
+    .info-text h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #222;
+        font-size: 1.05rem;
+        margin-bottom: 5px;
+    }
+
+    .info-text p {
+        margin: 0;
+        color: #555;
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    .form-control.is-invalid {
+        border-color: #e74c3c;
+        box-shadow: 0 0 0 4px rgba(231, 76, 60, 0.2);
+    }
+
+    .invalid-feedback {
+        color: #e74c3c;
+        font-size: 0.9rem;
+        margin-top: -10px;
+        margin-bottom: 15px;
+        padding-inline-start: 10px;
+        display: block;
+    }
+</style>
+
+<section id="contactUs">
+    <div class="container">
+        <div class="contact-container">
+            <h2 class="contact-title">تواصل معنا</h2>
+            <p class="contact-sub">يسعدنا تواصلك معنا من خلال البيانات التالية أو النموذج</p>
+            <div class="row mt-5">
+                <!-- بيانات التواصل -->
+                <div class="col-md-5">
+                    <div class="contact-info-block">
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div class="info-text">
+                                <h6>موقعنا</h6>
+                                <p>4198 علي بن أبي طالب، السميـري، 8130، ينبع 46424</p>
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <div class="info-text">
+                                <h6>البريد الإلكتروني</h6>
+                                <p>info@ejazrecruitment.sa</p>
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <div class="info-text">
+                                <h6>أرقام الجوال</h6>
+                                <p>
+                                    590722225<br>
+                                    920020708<br>
+                                    0500322225<br>
+                                    0580168402<br>
+                                    0580000693<br>
+                                    0536981668
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- form -->
-            <div class="col-sm-6 col-md-7 p-2">
-                <form  id="Form" class="row needs-validation " action="{{route('front.contact_us_action')}}" method="post" novalidate data-aos="fade-up">
-                   @csrf
-                    <div class="circleBlur"></div>
-                    <div class="circleBlur2"></div>
-                    <div class="col-md-12 p-2">
-                        <label class="form-label"> <i class="fas fa-user me-2"></i> {{__('frontend.FullName')}}*  </label>
-                        <input data-validation="required" id="contact_name" name="name" type="text" class="form-control">
 
-                    </div>
-                    <div class="col-md-6 p-2">
-                        <label class="form-label"><i class="fas fa-phone-alt me-2"></i>  {{__('frontend.Phone Number')}} *</label>
-                        <input onkeypress="return isNumber(event)" data-validation="required" name="phone" type="text" class="form-control">
-                    </div>
-                    <div class="col-md-6 p-2">
-                        <label class="form-label"> <i class="fa-solid fa-comment-lines me-2"></i> {{__('frontend.Subject')}}
-                        </label>
-                        <input type="text" data-validation="required" name="subject"  class="form-control">
-                    </div>
-                    <div class="col-md-12 p-2">
-                        <label class="form-label"> <i class="fas fa-feather-alt me-2"></i>  {{__('frontend.Your Message')}}* </label>
-                        <textarea class="form-control" rows="5" data-validation="required" name="message"></textarea>
-                    </div>
-                    <div class="col-md-12 text-center pt-2">
-                        <button type="submit" class="animatedLink">
-                            {{__('frontend.Send Message')}}
-                            <i class="fa-regular fa-left-long ms-2"><span></span></i>
-                        </button>
-                    </div>
-                </form>
-            </div>
-            <!-- map -->
-            <div class="col-md-12 p-2 pt-4">
-                <iframe class="googleMap wow fadeInUp " src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14568.708601963628!2d38.0609721!3d24.0952649!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15b9072220f00e2f%3A0xc45245d46a507938!2z2LTYsdmD2Kkg2KfZitis2KfYsiDZhNmE2KfYs9iq2YLYr9in2YU!5e0!3m2!1sen!2ssa!4v1711472449580!5m2!1sen!2ssa" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <!-- نموذج التواصل -->
+                <div class="col-md-7">
+                    <form action="{{route('front.contact_us_action')}}" method="post" class="contact-form" novalidate>
+                        @csrf
+                        <div class="form-group">
+                            <i class="fa-solid fa-user form-icon"></i>
+                            <input type="text" name="name" class="form-control ps-5" placeholder="الاسم كامل" required>
+                            <div class="invalid-feedback">الرجاء إدخال الاسم الكامل</div>
+                        </div>
+                        <div class="form-group">
+                            <i class="fa-solid fa-phone form-icon"></i>
+                            <input type="text" name="phone" class="form-control ps-5" placeholder="رقم الجوال" required onkeypress="return isNumber(event)">
+                            <div class="invalid-feedback">الرجاء إدخال رقم الجوال</div>
+                        </div>
+                        <div class="form-group">
+                            <i class="fa-solid fa-message form-icon"></i>
+                            <input type="text" name="subject" class="form-control ps-5" placeholder="الموضوع" required>
+                            <div class="invalid-feedback">يرجى كتابة الموضوع</div>
+                        </div>
+                        <div class="form-group">
+                            <i class="fa-solid fa-feather form-icon"></i>
+                            <textarea name="message" class="form-control ps-5" rows="5" placeholder="رسالتك" required></textarea>
+                            <div class="invalid-feedback">لا تترك الرسالة فارغة</div>
+                        </div>
+                        <div class="text-end">
+                            <button type="submit" class="send-btn">
+                                <i class="fa-solid fa-paper-plane"></i> إرسال
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 </section>
+
+<script>
+    // Validation style toggle
+    document.querySelector('.contact-form').addEventListener('submit', function (e) {
+        const inputs = this.querySelectorAll('input, textarea');
+        let valid = true;
+
+        inputs.forEach(input => {
+            if (!input.checkValidity()) {
+                input.classList.add('is-invalid');
+                valid = false;
+            } else {
+                input.classList.remove('is-invalid');
+            }
+        });
+
+        if (!valid) e.preventDefault();
+    });
+</script>

@@ -5,8 +5,580 @@
 @endsection
 
 @section('styles')
-    <style>
-    </style>
+<style>
+    body {
+        background-color: #fffefc;
+        font-family: 'Tajawal', sans-serif;
+        line-height: 1.7;
+        color: #333;
+    }
+
+    .banner {
+        background: linear-gradient(135deg, #f4a835, #fff1db);
+        padding: 60px 20px;
+        text-align: center;
+        border-radius: 0 0 50px 50px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+        color: #333;
+    }
+
+    .banner::before {
+        content: '';
+        position: absolute;
+        top: -100px;
+        left: -100px;
+        width: 300px;
+        height: 300px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        z-index: 0;
+    }
+
+    .banner h1 {
+        font-size: 3rem;
+        font-weight: bold;
+        position: relative;
+        z-index: 1;
+    }
+
+    .banner ul {
+        list-style: none;
+        padding: 0;
+        margin-top: 15px;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .banner ul li a {
+        color: #333;
+        font-weight: 600;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+    .banner ul li a.active,
+    .banner ul li a:hover {
+        color: #fff;
+        background: #f4a835;
+        padding: 6px 14px;
+        border-radius: 12px;
+    }
+
+    .mapEarth,
+    .contactForm {
+        padding: 60px 0;
+        background: linear-gradient(135deg, #fff9f0, #fffdfc);
+    }
+
+    .title span {
+        font-size: 24px;
+        font-weight: 700;
+        color: #f4a835;
+        display: inline-block;
+    }
+
+    .companyInfo ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .companyInfo li {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 20px;
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(244, 168, 53, 0.8); /* هذا هو اللون البرتقالي المستخدم عندك */
+        padding: 20px;
+        border-radius: 15px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .companyInfo li span {
+        border: 1px solid rgba(244, 168, 53, 0.8) !important;
+        width: 42px;
+        height:40px
+    }
+
+    .companyInfo li i {
+        font-size: 24px;
+        color: #f4a835;
+        margin-right: 15px;
+        margin-left: 13px;
+    }
+
+    .contactForm form {
+        background: rgba(255, 255, 255, 0.7);
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
+        backdrop-filter: blur(8px);
+    }
+
+    .contactForm input,
+    .contactForm textarea {
+        border-radius: 12px;
+        border: 1px solid #ddd;
+        padding: 10px 15px;
+        font-size: 15px;
+    }
+
+    .googleMap iframe {
+        width: 100%;
+        min-height: 400px;
+        border-radius: 20px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    /*.references {
+        background-color: #f9f3ea;
+        padding: 40px 0;
+    }
+
+    .referenceLogo {
+        background: #fff;
+        border-radius: 20px;
+        padding: 20px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+        text-align: center;
+        transition: 0.3s ease;
+    }
+
+    .referenceLogo img {
+        max-height: 60px;
+        filter: grayscale(1);
+        transition: 0.3s;
+    }
+
+    .referenceLogo:hover img {
+        filter: grayscale(0);
+        transform: scale(1.05);
+    }*/
+
+    .earth {
+        width: 100%;
+        height: 400px;
+        background: radial-gradient(circle at center, #e0e0e0, #ccc);
+        border-radius: 50%;
+        box-shadow: inset 0 0 20px rgba(0,0,0,0.1), 0 0 25px rgba(244,168,53,0.2);
+        position: relative;
+        animation: rotateGlobe 25s linear infinite;
+    }
+
+    @keyframes rotateGlobe {
+        from { transform: rotateY(0); }
+        to { transform: rotateY(360deg); }
+    }
+    .custom-contact-form {
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 20px;
+        padding: 40px 30px;
+        backdrop-filter: blur(12px);
+        box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+        border: 1px solid rgba(255,255,255,0.25);
+    }
+
+    .custom-contact-form .form-group {
+        position: relative;
+        margin-bottom: 30px;
+    }
+
+    .custom-contact-form input,
+    .custom-contact-form textarea {
+        width: 100%;
+        border: none;
+        border-bottom: 2px solid #ccc;
+        background: transparent;
+        padding: 10px 10px 10px 0;
+        font-size: 16px;
+        color: #333;
+        transition: all 0.3s ease;
+        border-radius: 0;
+    }
+
+    .custom-contact-form input:focus,
+    .custom-contact-form textarea:focus {
+        border-color: #f4a835;
+        outline: none;
+    }
+
+    .custom-contact-form label {
+        position: absolute;
+        top: 10px;
+        right: 0;
+        font-size: 15px;
+        color: #888;
+        pointer-events: none;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .custom-contact-form input:focus + label,
+    .custom-contact-form input:not(:placeholder-shown) + label,
+    .custom-contact-form textarea:focus + label,
+    .custom-contact-form textarea:not(:placeholder-shown) + label {
+        top: -18px;
+        font-size: 13px;
+        color: #f4a835;
+    }
+
+    .custom-contact-form input::placeholder,
+    .custom-contact-form textarea::placeholder {
+        color: transparent;
+    }
+
+    .submit-button {
+        background: #f4a835;
+        color: #fff;
+        border: none;
+        padding: 12px 35px;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: 0.3s ease;
+    }
+
+    .submit-button:hover {
+        background-color: #da8e18;
+        transform: scale(1.05);
+    }
+    /* رسائل الخطأ */
+    .error-message {
+        color: red;
+        font-size: 13px;
+        margin-top: 5px;
+        display: block;
+    }
+
+    .d-none {
+        display: none !important;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .custom-contact-form {
+            padding: 25px 20px;
+        }
+
+        .submit-button {
+            width: 100%;
+        }
+    }
+    /* حركات عند الظهور */
+    @keyframes fadeSlideIn {
+        0% {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .form-group {
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeSlideIn 0.8s ease forwards;
+    }
+
+    .form-group:nth-child(1) { animation-delay: 0.1s; }
+    .form-group:nth-child(2) { animation-delay: 0.2s; }
+    .form-group:nth-child(3) { animation-delay: 0.3s; }
+    .form-group:nth-child(4) { animation-delay: 0.4s; }
+
+    .submit-button {
+        animation: fadeSlideIn 1s ease forwards;
+        animation-delay: 0.6s;
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    @keyframes fadeSlideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    }
+
+    .form-group {
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeSlideIn 0.8s ease forwards;
+        position: relative;
+        margin-bottom: 25px;
+    }
+
+    /* تسلسل التأخير */
+    .form-group:nth-child(1) { animation-delay: 0.1s; }
+    .form-group:nth-child(2) { animation-delay: 0.2s; }
+    .form-group:nth-child(3) { animation-delay: 0.3s; }
+    .form-group:nth-child(4) { animation-delay: 0.4s; }
+
+    .submit-button {
+        animation: fadeSlideIn 1s ease forwards;
+        animation-delay: 0.6s;
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    /* تركيز الحقول */
+    .custom-contact-form input:focus,
+    .custom-contact-form textarea:focus {
+        border-color: #f4a835;
+        box-shadow: 0 0 12px rgba(244, 168, 53, 0.3);
+        background-color: #fffefc;
+        outline: none;
+    }
+
+    /* تحسين شكل الحقول */
+    .custom-contact-form input,
+    .custom-contact-form textarea {
+        width: 100%;
+        background: #fff;
+        border-radius: 14px;
+        border: 1px solid #ccc;
+        padding: 12px 18px;
+        transition: 0.3s ease;
+        font-size: 15px;
+    }
+
+    /* تحسين التسمية (label) */
+    .custom-contact-form label {
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 6px;
+        display: inline-block;
+    }
+
+    .custom-contact-form label i {
+        color: #f4a835;
+        margin-left: 5px;
+        margin-right:5px
+    }
+
+    /* الزر */
+    .submit-button {
+        background: #f4a835;
+        color: #fff;
+        padding: 12px 40px;
+        font-size: 16px;
+        font-weight: 600;
+        border: none;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+    }
+
+    .submit-button:hover {
+        background: #d89215;
+        transform: scale(1.05);
+    }
+
+    .submit-button i {
+        margin-right: 6px;
+        transition: transform 0.3s ease;
+    }
+
+    .submit-button:hover i {
+        transform: translateX(-4px);
+    }
+    .error-message {
+        color: #d92d20;
+        font-size: 14px;
+        margin-top: 4px;
+        display: block;
+    }
+
+    .is-invalid {
+        border-color: #d92d20 !important;
+        box-shadow: 0 0 6px rgba(217, 45, 32, 0.2);
+    }
+
+    /* ✅ شكل الكرة */
+    .earth {
+        width: 100%;
+        height: 400px;
+        background: radial-gradient(circle at 40% 40%, #ffffff, #f2f2f2);
+        border-radius: 50%;
+        box-shadow: inset 0 0 40px rgba(0,0,0,0.08), 0 0 30px rgba(244, 168, 53, 0.2);
+        position: relative;
+        animation: rotateGlobe 35s linear infinite;
+        transition: all 0.3s ease-in-out;
+    }
+
+    /* ✅ دوران الكرة */
+    @keyframes rotateGlobe {
+        0% { transform: rotateY(0deg); }
+        100% { transform: rotateY(360deg); }
+    }
+
+    /* ✅ خلفية خلف الكرة */
+    .worldMap {
+        position: relative;
+        z-index: 1;
+        background: radial-gradient(circle at center, rgba(255, 242, 210, 0.2), transparent);
+        border-radius: 50%;
+        padding: 30px;
+    }
+
+    /* ✅ تحريك النقاط */
+    #orbic_dots use {
+        animation: moveDot 4s ease-in-out infinite;
+    }
+    @keyframes moveDot {
+        0% { transform: translateY(0px); opacity: 0.4; }
+        50% { transform: translateY(-6px); opacity: 1; }
+        100% { transform: translateY(0px); opacity: 0.4; }
+    }
+
+    /* ✅ صور المستخدمين */
+    #orbic_users image {
+        transition: 0.3s ease-in-out;
+    }
+    #orbic_users image:hover {
+        transform: scale(1.08);
+        filter: drop-shadow(0 0 10px #f4a835);
+    }
+
+    .user-bubble {
+            position: absolute;
+            background: #fff;
+            color: #333;
+            font-size: 14px;
+            padding: 8px 14px;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            white-space: nowrap;
+            animation: fadeInBubble 0.6s ease forwards;
+            opacity: 0;
+            z-index: 2;
+            transform: translateY(-10px);
+        }
+
+        @keyframes fadeInBubble {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        #orbic_users image {
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+        }
+
+        #orbic_users image:hover {
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 10px #f4a835);
+        }
+
+        .user-bubble {
+        position: absolute;
+        background: #fff;
+        color: #333;
+        font-size: 14px;
+        padding: 10px 16px;
+        border-radius: 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        white-space: nowrap;
+        animation: fadeInBubble 0.6s ease forwards;
+        opacity: 0;
+        transform: translateY(10px);
+        z-index: 10;
+    }
+
+    /* ✅ السهم (Tail) */
+    .user-bubble::after {
+        content: "";
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-width: 8px 8px 0 8px;
+        border-style: solid;
+        border-color: #fff transparent transparent transparent;
+    }
+
+    /* ✅ أنيميشن الرسالة */
+    @keyframes fadeInBubble {
+        0% { opacity: 0; transform: translateY(20px) scale(0.95); }
+        100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* ✅ تأثير عند تمرير الماوس */
+    #orbic_users image:hover {
+        transform: scale(1.1);
+        filter: drop-shadow(0 0 12px #f4a835);
+        transition: all 0.3s ease-in-out;
+    }
+
+    /* ✅ تحسين شكل فقاعات الرسائل */
+    .user-bubble {
+        position: absolute;
+        background: #fff;
+        color: #333;
+        font-size: 14px;
+        padding: 10px 16px;
+        border-radius: 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        white-space: nowrap;
+        animation: fadeInBubble 0.6s ease forwards;
+        opacity: 0;
+        transform: translateY(10px);
+        z-index: 10;
+        pointer-events: none;
+        transition: all 0.3s ease;
+    }
+
+    .user-bubble::after {
+        content: "";
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-width: 8px 8px 0 8px;
+        border-style: solid;
+        border-color: #fff transparent transparent transparent;
+    }
+
+    @keyframes fadeInBubble {
+        0% { opacity: 0; transform: translateY(20px) scale(0.95); }
+        100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .user-bubble {
+    position: absolute;
+    background-color: #fff;
+    color: #333;
+    padding: 10px 16px;
+    border-radius: 25px;
+    font-size: 14px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 100;
+    display: none; /* البداية مخفية */
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.6s ease;
+    }
+
+    .user-bubble.show {
+    display: block;
+    opacity: 1;
+    transform: scale(1);
+    }
+
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 @endsection
 
 
@@ -30,6 +602,27 @@
                 <div class="row align-items-center">
                     <div class="col-lg-6">
                         <div class="worldMap">
+                            <audio id="bubbleSound" preload="auto">
+                                <source src="{{ asset('frontend/sounds/pop.mp3') }}" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                            <div class="bubble-container">
+                                <!-- فوق user1 (يسار فوق - بدلة زرقا) -->
+                                <div class="user-bubble" style="top: 31.5%; left: -2%;">مرحباً 👋 بك</div>
+
+                                <!-- فوق user2 (وسط - بنية/وردي) -->
+                                <div class="user-bubble" style="top: 23.5%; left: 34.5%;">تواصل معنا الآن</div>
+
+                                <!-- فوق user3 (يمين فوق - شعر برتقالي) -->
+                                <div class="user-bubble" style="top: 14.8%; left: 65.8%;">استفسر الآن</div>
+
+                                <!-- فوق user4 (يمين تحت - شعر أسود) -->
+                                <div class="user-bubble" style="top: 45.2%; left: 64.3%;">خدمتك شرف لنا</div>
+
+                                <!-- فوق user5 (يسار تحت - أخضر) -->
+                                <div class="user-bubble" style="top: 55.5%; left: 15.5%;">أهلاً وسهلاً</div>
+                            </div>
+
                             <div class="earth"></div>
                             <div class="orbic">
                                 <svg viewBox="0 0 500 500" width="0" height="0">
@@ -118,35 +711,41 @@
                             <h2> تواصل معنا </h2>
                             <p> اطلب عاملتك الان وسيقوم فريق خدمة العملاء لدينا بالتواصل معك بأسرع وقت ... </p>
                         </div>
-                        <form  id="Form" class="row needs-validation " action="{{route('front.contact_us_action')}}" method="post" novalidate data-aos="fade-up">
-                            @csrf
-                            <div class="circleBlur"></div>
-                            <div class="circleBlur2"></div>
-                            <div class="col-md-12 p-2">
-                                <label class="form-label"> <i class="fas fa-user me-2"></i> {{__('frontend.FullName')}}*  </label>
-                                <input data-validation="required" id="contact_name" name="name" type="text" class="form-control">
+                            <form id="Form" class="custom-contact-form" action="{{route('front.contact_us_action')}}" method="post" novalidate>
+                                @csrf
 
-                            </div>
-                            <div class="col-md-6 p-2">
-                                <label class="form-label"><i class="fas fa-phone-alt me-2"></i>  {{__('frontend.Phone Number')}} *</label>
-                                <input onkeypress="return isNumber(event)" data-validation="required" name="phone" type="text" class="form-control">
-                            </div>
-                            <div class="col-md-6 p-2">
-                                <label class="form-label"> <i class="fa-solid fa-comment-lines me-2"></i> {{__('frontend.Subject')}}
-                                </label>
-                                <input type="text" data-validation="required" name="subject"  class="form-control">
-                            </div>
-                            <div class="col-md-12 p-2">
-                                <label class="form-label"> <i class="fas fa-feather-alt me-2"></i>  {{__('frontend.Your Message')}}* </label>
-                                <textarea class="form-control" rows="5" data-validation="required" name="message"></textarea>
-                            </div>
-                            <div class="col-md-12 text-center pt-2">
-                                <button type="submit" class="animatedLink">
-                                    {{__('frontend.Send Message')}}
-                                    <i class="fa-regular fa-left-long ms-2"><span></span></i>
-                                </button>
-                            </div>
-                        </form>
+                                <div class="form-group">
+                                    <input type="text" name="name" required placeholder=" ">
+                                    <label><i class="fas fa-user"></i> الاسم كامل *</label>
+                                    <small class="error-message"></small>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="text" name="phone" required onkeypress="return isNumber(event)" placeholder=" ">
+                                    <label><i class="fas fa-phone-alt"></i> رقم الجوال *</label>
+                                    <small class="error-message"></small>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="text" name="subject" placeholder=" ">
+                                    <label><i class="fas fa-comment-dots"></i> الموضوع</label>
+                                    <small class="error-message"></small>
+                                </div>
+
+                                <div class="form-group">
+                                    <textarea name="message" rows="4" required placeholder=" "></textarea>
+                                    <label><i class="fas fa-feather-alt"></i> رسالتك *</label>
+                                    <small class="error-message"></small>
+                                </div>
+
+                                <div class="text-center pt-3">
+                                    <button type="submit" class="submit-button" id="submit_button">
+                                        <i class="fas fa-paper-plane ms-2"></i> إرسال
+                                    </button>
+                                </div>
+                            </form>
+
+
                     </div>
                     <div class="col-md-6 p-2 " data-aos=" fade-up">
                         </iframe class="googleMap wow fadeInUp ">
@@ -192,64 +791,109 @@
     </content>
 @endsection
 @section('js')
-    <script>
+<script>
+    document.getElementById("Form").addEventListener("submit", function (e) {
+        e.preventDefault();
+        let valid = true;
 
-        $(document).on('submit', 'form#Form', function (e) {
-            e.preventDefault();
-            var myForm = $("#Form")[0]
-            var formData = new FormData(myForm)
-            var url = $('#Form').attr('action');
+        const inputs = this.querySelectorAll("input[required], textarea[required]");
+        inputs.forEach(input => {
+            const errorMsg = input.nextElementSibling;
+            const value = input.value.trim();
+
+            if (value === "") {
+                errorMsg.textContent = "هذا الحقل مطلوب";
+                input.classList.add("is-invalid");
+                valid = false;
+            } else {
+                errorMsg.textContent = "";
+                input.classList.remove("is-invalid");
+            }
+
+            // ✅ رقم جوال سعودي فقط
+            if (input.name === "phone" && value !== "" && !/^(00966|966|\+966|0)?5\d{8}$/.test(value)) {
+                errorMsg.textContent = "يرجى إدخال رقم جوال سعودي صحيح يبدأ بـ 05 ويتكون من 10 أرقام";
+                input.classList.add("is-invalid");
+                valid = false;
+            }
+        });
+
+        if (valid) {
+            var myForm = this;
+            var formData = new FormData(myForm);
+            var url = myForm.getAttribute('action');
+
             $.ajax({
                 url: url,
                 type: 'POST',
                 data: formData,
                 beforeSend: function () {
-                    $('#submit_button').attr('disabled', true)
-                    $('#submit_button').html(`<i class='fa fa-spinner fa-spin '></i>`)
+                    $('#submit_button').attr('disabled', true);
+                    $('#submit_button').html(`<i class='fa fa-spinner fa-spin '></i>`);
                 },
                 complete: function () {
-
+                    // يمكنك إضافة أكشن بعد الإرسال لو أردت
                 },
                 success: function (data) {
-                    // var name = `${$("#contact_name").val()}`;
                     cuteAlert({
                         title: "{{__('frontend.Message Successfully Sent')}}",
                         message: `{{__('frontend.Thanks ,We will contact you as soon as possible.')}}`,
-                        type: "success", // or 'info', 'error', 'warning'
+                        type: "success",
                         buttonText: "{{__('frontend.confirm')}}"
                     });
-                    $('#submit_button').attr('disabled', false)
-                    $('#submit_button').html(`{{__('frontend.Send Message')}} <i class="fas fa-paper-plane ms-2"></i>
-                                <span></span>`)
 
-                    $('#Form')[0].reset();
+                    $('#submit_button').attr('disabled', false);
+                    $('#submit_button').html(`{{__('frontend.Send Message')}} <i class="fas fa-paper-plane ms-2"></i> <span></span>`);
+                    myForm.reset();
                 },
                 error: function (data) {
                     if (data.status === 500) {
-
+                        // خطأ داخلي في السيرفر
                     }
                     if (data.status === 422) {
-
+                        // خطأ تحقق من البيانات
                     }
-                },//end error method
-
+                },
                 cache: false,
                 contentType: false,
                 processData: false
             });
-        });
-
-
-        function isNumber(evt) {
-            evt = (evt) ? evt : window.event;
-            var charCode = (evt.which) ? evt.which : evt.keyCode;
-            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-
-                return false;
-            }
-
-            return true;
         }
-    </script>
+    });
+
+    // 🔢 منع إدخال غير الأرقام في الحقول الرقمية
+    function isNumber(evt) {
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+        return true;
+    }
+</script>
+<script>
+window.addEventListener('DOMContentLoaded', () => {
+    const sound = document.getElementById('bubbleSound');
+    const bubbles = document.querySelectorAll('.user-bubble');
+
+    // لازم يكون في تفاعل عشان يشتغل الصوت على معظم المتصفحات
+    document.body.addEventListener('click', () => {
+        sound.play().catch(() => {});
+        sound.pause(); // نوقفه فورًا عشان الإذن يتفتح
+    }, { once: true });
+
+    bubbles.forEach((bubble, i) => {
+        setTimeout(() => {
+            bubble.classList.add('show');
+
+            const clonedSound = sound.cloneNode();
+            clonedSound.play().catch(err => {
+                console.warn("Sound play error:", err);
+            });
+
+        }, i * 600);
+    });
+});
+</script>
 
 @endsection

@@ -1,73 +1,116 @@
+<style>
+    :root {
+        --orange-main: #D89835;
+        --gray-dark: #5F5F5F;
+        --text-main: #212121;
+    }
 
-<!-- *** services *** -->
-@if (count($ourServices)>0)
-    <section class="popular_service" id="popular_service">
-        <div class="SectionTitle ">
-            <h1 class="title" data-aos="fade-up"> خدمات الاستقدام </h1>
-            <h6 class="hint" data-aos="fade-up"> تعرف علي الخدمات التي نقدمها للمجتمع ... </h6>
-        </div>
+    .service-card {
+        border: 1px solid #eee;
+        transition: all 0.3s ease;
+        position: relative;
+    }
 
-        {{--    <h2>أبرز خدماتنا</h2>--}}
-        <div class="container">
-            <div class="row">
-                @foreach($ourServices as $service)
-                <div class="col-lg-3 col-md-4 col-6 p-2" >
-                    <a href="{{route('all-workers')}}">
-                    <div class="service">
-                        <img src="{{get_file($service->image)}}" alt="">
-                        <h6> {{$service->title}}</h6>
-                        <p> {{$service->desc}} </p>
-                    </div>
-                    </a>
-                </div>
-                @endforeach
+    .service-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background-color: var(--orange-main);
+        border-top-left-radius: 0.5rem;
+        border-top-right-radius: 0.5rem;
+    }
 
-            </div>
-        </div>
-    </section>
-@else
-<section class="popular_service">
-    <div class="SectionTitle ">
-                            <h2 class="title" data-aos="fade-up"> خدمات الاستقدام </h2>
-                            <h6 class="hint" data-aos="fade-up"> تعرف علي الخدمات التي نقدمها للمجتمع ... </h6>
-    </div>
+    .service-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 25px rgba(0, 0, 0, 0.07);
+        border-color: var(--orange-main);
+    }
 
-{{--    <h2>أبرز خدماتنا</h2>--}}
+    .section-title {
+        font-size: 2.2rem;
+        font-weight: bold;
+        color: var(--text-main);
+    }
+
+    .section-subtitle {
+        font-size: 1rem;
+        color: var(--gray-dark);
+    }
+
+    .service-card h6 {
+        color: var(--orange-main);
+    }
+
+    .service-card p {
+        color: var(--gray-dark);
+    }
+</style>
+
+@if (count($ourServices)<0)
+<section class="recruitment-services py-5" id="popular_service" style="background-color: #FAFAFA;">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-3 col-md-4 col-6 p-2">
-                <div class="service">
-                    <img src="{{asset('frontend')}}/img/icons/icon1.svg" alt="">
-                    <h6> طلب استقدام </h6>
-                    <p> دفع رسوم الاستقدام عبر التعاقد في برنامج مساند </p>
+
+        <!-- العنوان -->
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h1 class="section-title">خدمات الاستقدام</h1>
+            <p class="section-subtitle">تعرف على الخدمات التي نقدمها للمجتمع</p>
+        </div>
+
+        <!-- بطاقات الخدمات -->
+        <div class="row gy-4">
+            @foreach($ourServices as $service)
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <a href="{{ route('all-workers') }}" class="text-decoration-none">
+                    <div class="service-card h-100 text-center p-4 rounded-4 bg-white shadow-sm">
+                        <div class="mb-3">
+                            <img src="{{ get_file($service->image) }}" alt="{{ $service->title }}" class="img-fluid" style="height: 60px;">
+                        </div>
+                        <h6 class="fw-bold mb-2">{{ $service->title }}</h6>
+                        <p class="text-muted">{{ $service->desc }}</p>
+                    </div>
+                </a>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+@else
+<section class="recruitment-services py-5" id="popular_service" style="background-color: #FAFAFA;">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h1 class="section-title">خدمات الاستقدام</h1>
+            <p class="section-subtitle">تعرف على الخدمات التي نقدمها للمجتمع</p>
+        </div>
+        <div class="row gy-4">
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="service-card h-100 text-center p-4 rounded-4 bg-white shadow-sm">
+                    <img src="{{asset('frontend/img/icons/icon1.svg')}}" style="height: 60px;" alt="">
+                    <h6 class="fw-bold mt-3">طلب استقدام</h6>
+                    <p class="text-muted">دفع رسوم الاستقدام عبر التعاقد في برنامج مساند</p>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-4 col-6 p-2">
-                <div class="service">
-                    <img src="{{asset('frontend')}}/img/icons/icon2.svg" alt="">
-                    <h6> اختيار العمالة</h6>
-                    <p>ت اختيار السيره الذاتيه للعماله المنزليه عبر البحث في برنامج مساند ومن خلال الموقع الالكتروني</p>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="service-card h-100 text-center p-4 rounded-4 bg-white shadow-sm">
+                    <img src="{{asset('frontend/img/icons/icon2.svg')}}" style="height: 60px;" alt="">
+                    <h6 class="fw-bold mt-3">اختيار العمالة</h6>
+                    <p class="text-muted">اختيار السيرة الذاتية للعمالة المنزلية عبر مساند</p>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-4 col-6 p-2">
-                <div class="service">
-                    <img src="{{asset('frontend')}}/img/icons/icon3.svg" alt="">
-                    <h6>رعاية الأطفال والمسنين</h6>
-                    <p>توفير جليسات الأطفال ورعاية وكبار السن.</p>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="service-card h-100 text-center p-4 rounded-4 bg-white shadow-sm">
+                    <img src="{{asset('frontend/img/icons/icon3.svg')}}" style="height: 60px;" alt="">
+                    <h6 class="fw-bold mt-3">رعاية الأطفال والمسنين</h6>
+                    <p class="text-muted">توفير جليسات الأطفال ورعاية كبار السن</p>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-4 col-6 p-2">
-                <div class="service">
-                    <img src="{{asset('frontend')}}/img/icons/icon4.svg" alt="">
-                    <h6>خدمات الضيافة والخدم</h6>
-                    <p>توفير موظفين لخدمة الضيوف في المناسبات والفعاليات.</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-6 p-2">
-                <div class="service">
-                    <img src="{{asset('frontend')}}/img/icons/icon4.svg" alt="">
-                    <h6>خدمات الضيافة والخدم</h6>
-                    <p>توفير موظفين لخدمة الضيوف في المناسبات والفعاليات.</p>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="service-card h-100 text-center p-4 rounded-4 bg-white shadow-sm">
+                    <img src="{{asset('frontend/img/icons/icon4.svg')}}" style="height: 60px;" alt="">
+                    <h6 class="fw-bold mt-3">خدمات الضيافة</h6>
+                    <p class="text-muted">توفير موظفين لخدمة الضيوف في المناسبات</p>
                 </div>
             </div>
         </div>

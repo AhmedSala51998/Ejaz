@@ -1,160 +1,172 @@
+<style>
+    footer {
+        background: #F8F8F8;
+        color: #333;
+        font-family: 'Tajawal', sans-serif;
+        padding: 60px 0 20px;
+        position: relative;
+        overflow: hidden;
+    }
 
-<footer>
+    footer .footer-logo img {
+        max-width: 160px;
+        margin-bottom: 20px;
+    }
+
+    footer h3 {
+        font-size: 20px;
+        margin-bottom: 15px;
+        color: #D9801F;
+    }
+
+    footer ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    footer ul li {
+        margin-bottom: 10px;
+    }
+
+    footer ul li a {
+        text-decoration: none;
+        color: #555;
+        transition: all 0.3s ease;
+    }
+
+    footer ul li a:hover {
+        color: #D9801F;
+    }
+
+    footer .connect i {
+        margin-left: 10px;
+        color: #D9801F;
+        min-width: 20px;
+        display: inline-block;
+    }
+
+    footer .social {
+        display: flex;
+        gap: 12px;
+        margin-top: 20px;
+    }
+
+    footer .social a {
+        background: #D9801F;
+        color: white;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: 0.3s;
+    }
+
+    footer .social a:hover {
+        background: #F1B165;
+    }
+
+    footer .copy {
+        text-align: center;
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid #ddd;
+        font-size: 14px;
+        color: #888;
+    }
+
+    footer .copy img {
+        margin-top: 10px;
+        max-width: 120px;
+    }
+
+    @media (max-width: 767px) {
+        footer {
+            text-align: center;
+        }
+
+        footer .social {
+            justify-content: center;
+        }
+    }
+</style>
+
+<footer dir="rtl">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-4 col-12">
-                <div class="img">
+        <div class="row gy-4">
+            <div class="col-lg-4">
+                <div class="footer-logo">
                     <a href="{{route('home')}}">
-                        <img src="{{$settings->footer_logo?get_file($settings->footer_logo):asset('frontend/img/logo.svg')}}" alt="logo">
+                        <img src="{{asset('frontend/img/logo.png')}}" alt="logo">
+                        <!--<img src="{{$settings->footer_logo?get_file($settings->footer_logo):asset('frontend/img/logo.svg')}}" alt="logo">-->
                     </a>
                 </div>
-                <div class="about2">
-                    <p>
-                        {{$settings->footer_desc}}
-                    </p>
-                </div>
+                <p>{{$settings->footer_desc}}</p>
             </div>
-            <div class="col-lg-2 col-md-6 col-12">
+
+            <div class="col-lg-2 col-6">
                 <h3>روابط سريعة</h3>
                 <ul>
-                    <li>
-
-                    <li>
-                        <a href="{{route('all-workers')}}"><span></span> طلب استقدام</a>
-                    </li>
-                    <li>
-                        <a href="{{trans('transferService')}}"><span></span> طلب نقل خدمات</a>
-                    </li>
-                    <li><a  href="{{route('track_order_view')}}"><span></span> تتبع طلبك</a></li>
-
-                @auth
-                        <li>
-                            <a href="{{route('auth.profile')}}"> <span></span> {{__('frontend.profile')}} </a>
-                        </li>
-                        <li><a  href="{{route('auth.profile')}}"><span></span> طلبات
-                                الاستقدام </a></li>
+                    <li><a href="{{route('all-workers')}}">طلب استقدام</a></li>
+                    <li><a href="{{trans('transferService')}}">طلب نقل خدمات</a></li>
+                    <li><a href="{{route('track_order_view')}}">تتبع طلبك</a></li>
+                    @auth
+                        <li><a href="{{route('auth.profile')}}">{{__('frontend.profile')}}</a></li>
+                        <li><a href="{{route('auth.profile')}}">طلبات الاستقدام</a></li>
                     @endauth
                     @guest
-                        <li>
-                            <a  href="{{route('auth.login')}}"><span></span> {{__('frontend.Login')}} </a>
-                        </li>
+                        <li><a href="{{route('auth.login')}}">{{__('frontend.Login')}}</a></li>
                     @endguest
                 </ul>
             </div>
-            <div class="col-lg-2 col-md-6 col-12">
+
+            <div class="col-lg-2 col-6">
                 <h3>روابط تهمك</h3>
                 <ul>
-                    <li>
-                    <a href="{{checkRouteIsHome('#popular_service')}}"><span></span> {{__('frontend.OurServices')}} </a>
-                    </li>
-                    <li>
-                        <a  href="{{route('frontend.show.countries')}}"> <span></span>دول الاستقدام </a>
-                    </li>
-                    <li>
-                        <a  href="{{route('frontend.show.ourStaff')}}"> <span></span>خدمة العملاء </a>
-                    </li>
-                    <li>
-                        <a  href="{{route('frontend.supports')}}"> <span></span>{{__('frontend.faq')}} </a>
-                    </li>
-                    <li>
-                        <a href="{{route('frontend.supports.contactUs')}}"><span></span> {{__('frontend.contactUs')}} </a>
-                    </li>
+                    <li><a href="{{checkRouteIsHome('#popular_service')}}">{{__('frontend.OurServices')}}</a></li>
+                    <li><a href="{{route('frontend.show.countries')}}">دول الاستقدام</a></li>
+                    <li><a href="{{route('frontend.show.ourStaff')}}">خدمة العملاء</a></li>
+                    <li><a href="{{route('frontend.supports')}}">{{__('frontend.faq')}}</a></li>
+                    <li><a href="{{route('frontend.supports.contactUs')}}">{{__('frontend.contactUs')}}</a></li>
                 </ul>
             </div>
-            <div class="col-lg-4 col-12">
+
+            <div class="col-lg-4">
                 <h3>مزيد من الدعم</h3>
                 <ul class="connect">
-                    <li>
-                        <i class="fa-sharp fa-light fa-location-dot"></i>
-                        <p> {{$settings->address1??"السعودية - الرياض - شارع الوحدة"}} </p>
-
-                    </li>
-                    @if($settings->callNumber != null )
-
-                        <li>
-                            <i class="fa-light fa-phone"></i> <a href="tel: {{$settings->callNumber??"0531221212"}}">
-                                {{$settings->callNumber??"0531221212"}}
-                            </a>
-                        </li>
+                    <li><i class="fa-light fa-location-dot"></i> {{$settings->address1??"السعودية - الرياض - شارع الوحدة"}}</li>
+                    @if($settings->callNumber)
+                        <li><i class="fa-light fa-phone"></i> <a href="tel:{{$settings->callNumber}}">{{$settings->callNumber}}</a></li>
                     @endif
-
-                    <li>
-                        <i class="fa-brands fa-whatsapp"></i>
-                        <a href="https://api.whatsapp.com/send?phone={{$settings->whatsappNumber}}">
-                            {{$settings->whatsappNumber}}
-                        </a>
-                    </li>
-                    <li>
-                        <i class="fa-light fa-phone-office"></i>
-                        <a href="https://api.whatsapp.com/send?phone={{$settings->phone1}}">
-                            {{$settings->phone1}}
-                        </a> - <a href="https://api.whatsapp.com/send?phone={{$settings->phone2}}">
-                            {{$settings->phone2}}
-                        </a>
-                    </li>
-                    <li>
-                        <i class="fa-light fa-phone-plus"></i>
-                        <a href="https://api.whatsapp.com/send?phone={{$settings->phone3}}">
-                            {{$settings->phone3}}
-                        </a> - <a href="https://api.whatsapp.com/send?phone={{$settings->phone4}}">
-                            {{$settings->phone4}}
-                        </a>
-                    </li>
-                    <li>
-                        <i class="fa-light fa-envelope"></i> <a href="mailto:{{$settings->email1}}">{{$settings->email1}}</a>
-                    </li>
+                    <li><i class="fa-brands fa-whatsapp"></i> <a href="https://api.whatsapp.com/send?phone={{$settings->whatsappNumber}}">{{$settings->whatsappNumber}}</a></li>
+                    <li><i class="fa-light fa-phone-office"></i> <a href="https://api.whatsapp.com/send?phone={{$settings->phone1}}">{{$settings->phone1}}</a> - <a href="https://api.whatsapp.com/send?phone={{$settings->phone2}}">{{$settings->phone2}}</a></li>
+                    <li><i class="fa-light fa-phone-plus"></i> <a href="https://api.whatsapp.com/send?phone={{$settings->phone3}}">{{$settings->phone3}}</a> - <a href="https://api.whatsapp.com/send?phone={{$settings->phone4}}">{{$settings->phone4}}</a></li>
+                    <li><i class="fa-light fa-envelope"></i> <a href="mailto:{{$settings->email1}}">{{$settings->email1}}</a></li>
                 </ul>
                 <ul class="social">
-
-
-                    @if ($settings->facebook !=  null )
-                        <li>
-                        <a target="_blank" href="{{$settings->facebook}}"><i class="fab fa-facebook"></i></a>
-                        </li>
+                    @if($settings->facebook)
+                        <li><a href="{{$settings->facebook}}" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
                     @endif
-                    @if($settings->whatsapp != null)
-                            <li>
-                        <a target="_blank" href="{{$settings->whatsapp}}"><i class="fab fa-whatsapp"></i></a>
-                            </li>
+                    @if($settings->whatsapp)
+                        <li><a href="{{$settings->whatsapp}}" target="_blank"><i class="fab fa-whatsapp"></i></a></li>
                     @endif
-                    @if ($settings->twitter !=  null )
-                            <li>
-                        <a href="{{$settings->twitter}}">
-                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                 width="18" height="18" x="0" y="0" viewBox="0 0 1226.37 1226.37"
-                                 style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
-                  <g>
-                      <path
-                          d="M727.348 519.284 1174.075 0h-105.86L680.322 450.887 370.513 0H13.185l468.492 681.821L13.185 1226.37h105.866l409.625-476.152 327.181 476.152h357.328L727.322 519.284zM582.35 687.828l-47.468-67.894-377.686-540.24H319.8l304.797 435.991 47.468 67.894 396.2 566.721H905.661L582.35 687.854z"
-                          fill="#FFFFFF" opacity="1" data-original="#000000">
-                      </path>
-                  </g>
-                </svg>
-                        </a>
-                            </li>
+                    @if($settings->twitter)
+                        <li><a href="{{$settings->twitter}}" target="_blank"><i class="fab fa-twitter"></i></a></li>
                     @endif
-                    @if ($settings->snapchat_ghost !=  null )
-                            <li>
-                        <a target="_blank" href="{{$settings->snapchat_ghost}}"><i class="fab fa-snapchat"></i></a>
-                            </li>
+                    @if($settings->snapchat_ghost)
+                        <li><a href="{{$settings->snapchat_ghost}}" target="_blank"><i class="fab fa-snapchat"></i></a></li>
                     @endif
-                    @if ($settings->instagram !=  null )
-                            <li>
-                        <a target="_blank" href="{{$settings->instagram}}"><i class="fab fa-instagram"></i></a>
-                            </li>
+                    @if($settings->instagram)
+                        <li><a href="{{$settings->instagram}}" target="_blank"><i class="fab fa-instagram"></i></a></li>
                     @endif
-
-
                 </ul>
             </div>
+
             <div class="col-12">
                 <div class="copy">
-                    <p>   كل الحقوق محفوظة لشركة ايجاز للاستقدام ©
-                        <script>
-                            document.write(new Date().getFullYear())
-                        </script>
-                    </p>
-                    <img src="{{asset('frontend/img/musand.svg')}}" alt="">
+                    <p>كل الحقوق محفوظة لشركة إيجاز للاستقدام © <script>document.write(new Date().getFullYear())</script></p>
+                    <img src="{{asset('frontend/img/musand.svg')}}" alt="musaned">
                 </div>
             </div>
         </div>

@@ -67,7 +67,7 @@ class WorkerFrontController extends Controller
         return view("frontend.pages.profile.parts.order_detailes", compact('order', 'admin'));
 
     }
-    public function showAllWorkers(Request $request,$id=null)
+    /*public function showAllWorkers(Request $request,$id=null)
     {
 
         $country=Nationalitie::find($id);
@@ -131,7 +131,81 @@ class WorkerFrontController extends Controller
 //            'last_page' => $last_page,
             'country_id'=>$countr_id,
         ]);
-    }//end fun
+    }*///end fun
+
+
+    public function showAllWorkers(Request $request, $id = null)
+    {
+        $query = Biography::where('status', 'new')
+            ->where('order_type', 'normal')
+            ->where('type', 'admission')
+            ->where('is_cv_out', 0)
+            ->with('recruitment_office', 'nationalitie', 'language_title',
+                'religion', 'job', 'social_type', 'admin', 'images', 'skills');
+
+        $religions = Religion::all();
+        $social_types = SocialType::all();        
+
+        // فلترة حسب الدولة إن وجدت
+        if ($id) {
+            $country = Nationalitie::find($id);
+            if ($country) {
+                $query->where('nationalitie_id', $country->id);
+            }
+        } else {
+            if ($request->nationality) {
+                $query->where('nationalitie_id', $request->nationality);
+            }
+        }
+
+        // باقي الفلاتر
+        if ($request->age) {
+            $query->FilterByAge($request->age);
+        }
+
+        if ($request->job) {
+            $query->FilterByJob($request->job);
+        }
+
+        if ($request->religion) {
+            $query->where('religion_id', $request->religion);
+        }
+
+        if ($request->social) {
+            $query->where('social_type_id', $request->social);
+        }
+
+        // فلتر الخبرة العملية فقط في حالة الاستقدام
+        if (!request()->routeIs('transferService') && !request()->routeIs('rental')) {
+            if ($request->type_of_experience !== null) {
+                $query->where('type_of_experience', $request->type_of_experience);
+            }
+        }
+
+        // ✅ الباجينيشن هنا
+        $cvs = $query->latest()->paginate(9);
+
+        // لو الطلب Ajax
+        if ($request->ajax()) {
+            $returnHTML = view('frontend.pages.all-workers.worker.workers_page', compact('cvs'))->render();
+
+            return response()->json([
+                'success' => true,
+                'html' => $returnHTML,
+                'current_page' => $cvs->currentPage(),
+                'last_page' => $cvs->lastPage(),
+            ]);
+        }
+
+        // البيانات المطلوبة
+        $ages = AgeRange::all();
+        $jobs = Job::all();
+        $nationalities = Nationalitie::all();
+
+        return view('frontend.pages.all-workers.all-workers', compact(
+            'ages', 'jobs', 'nationalities', 'cvs' , 'religions', 'social_types'
+        ));
+    }
 
 
 

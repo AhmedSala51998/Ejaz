@@ -1,74 +1,81 @@
+
 <content id="register-hide">
     <!-- ================ banner ================= -->
     <div class="banner">
-        <h1>  {{__('frontend.create account')}} </h1>
+        <h1>{{ __('frontend.create account') }}</h1>
         <ul>
-            <li><a href="{{route('home')}}">{{__('frontend.Home')}} </a></li>
-            <li><a href="#!" class="active"> {{__('frontend.create account')}} </a></li>
+            <li><a href="{{ route('home') }}">{{ __('frontend.Home') }}</a></li>
+            <li><a href="#!" class="active">{{ __('frontend.create account') }}</a></li>
         </ul>
     </div>
     <!-- ================  / banner ================= -->
 
-
-    <!-- register form -->
-    <section class="account" id="">
+    <!-- Register Form -->
+    <section class="auth-section py-5">
         <div class="container">
-            <div class="row">
-                <div class="col-md-8 col-lg-6 m-auto p-2">
-                    <div class="card">
-                        <img class="loginImg" src="{{asset('frontend')}}/img/register.svg" alt="">
+            <div class="row justify-content-center" style="margin-top: -85px;">
+                <div class="col-md-6 col-lg-5">
+                    <div class="auth-card">
+                        <img src="{{ asset('frontend') }}/img/register.svg" alt="Register" class="auth-img">
 
-                        <form method="post" action="{{route('checkPhoneToSendOtp')}}" class="row" id="Form">
-                            <div class="col-12 p-2">
-                                <label for="name" class="form-label"> <i
-                                        class="fas fa-user me-2"></i> {{__('frontend.FullName')}}* </label>
-                                <input data-validation="required,length" data-validation-length="min2" type="text"
-                                       class="form-control" name="name" id="name"
-                                       placeholder="{{__('frontend.enter FullName')}}">
+                        <form method="POST" action="{{ route('checkPhoneToSendOtp') }}" id="Form" class="mt-4">
+                            @csrf
+                            <div class="mb-3">
+                                <label class="form-label"><i class="fas fa-user me-2"></i>{{ __('frontend.FullName') }}</label>
+                                <input type="text" name="name" class="form-control" placeholder="{{ __('frontend.enter FullName') }}"
+                                       data-validation="required,length" data-validation-length="min2">
                             </div>
-                            <div class="col-12 p-2">
-                                <label for="Phone" class="form-label"> <i
-                                        class="fas fa-phone-alt me-2"></i> {{__('frontend.phone')}}* </label>
 
+                            <div class="mb-3">
+                                <label class="form-label"><i class="fas fa-phone-alt me-2"></i>{{ __('frontend.phone') }}</label>
                                 <div class="input-group">
-                                    <input onkeypress="return isNumber(event)"
-                                           data-validation="required,validatePhoneNumberOfSAR" type="number"
-                                           class="form-control" id="Phone" name="phone" placeholder="5********">
-                                    <span class="input-group-text" style="direction: ltr;"> +996 </span>
+                                    <input type="text" name="phone" id="Phone" class="form-control"
+                                           placeholder="5********" data-validation="required,validatePhoneNumberOfSAR"
+                                           onkeypress="return isNumber(event)">
+                                    <span class="input-group-text">+966</span>
                                 </div>
-
+                                <span class="form-error" id="phone-error"></span>
                             </div>
 
-                            <div class="col-md-6 p-2">
-                                <label for="password" class="form-label"> <i
-                                        class="fas fa-key me-2"></i> {{__('frontend.Password')}}* </label>
-                                <input data-validation="required,length" data-validation-length="min6" type="password"
-                                       class="form-control passwordInput" id="password" name="password"
-                                       placeholder="*****">
+                            <div class="mb-3 position-relative">
+                                <label class="form-label"><i class="fas fa-lock me-2"></i>{{ __('frontend.Password') }}</label>
+                                <div class="password-wrapper">
+                                    <input type="password" name="password" id="password" class="form-control"
+                                           placeholder="*****" data-validation="required,length" data-validation-length="min6">
+                                    <span class="toggle-password" id="togglePassword" onclick="togglePassword('password', 'eyeIcon1')">
+                                        <i class="fa-solid fa-eye" id="eyeIcon1"></i>
+                                    </span>
+                                </div>
                             </div>
-                            <div class="col-md-6 p-2">
-                                <label for="repetPassword" class="form-label"> <i
-                                        class="fas fa-key me-2"></i>{{__('frontend.confirmPassword')}} *
-                                </label>
-                                <input data-validation="required,repeatPassword" type="password"
-                                       class="form-control passwordInput" id="repetPassword" name="repeatPassword"
-                                       placeholder="*****">
-                            </div>
-                            <div class="col-12 pt-4 p-2 text-center">
 
-                                <button type="submit" class="animatedLink">
-                                    {{__('frontend.RegisterPage')}}
-                                    <i class="fa-regular fa-left-long ms-2"><span></span></i>
+                            <div class="mb-3 position-relative">
+                                <label class="form-label"><i class="fas fa-lock me-2"></i>{{ __('frontend.confirmPassword') }}</label>
+                                <div class="password-wrapper">
+                                    <input type="password" name="repeatPassword" id="repeatPassword" class="form-control"
+                                           placeholder="*****" data-validation="required,repeatPassword">
+                                    <span class="toggle-password" id="toggleRepeatPassword" onclick="togglePassword('repeatPassword', 'eyeIcon2')">
+                                        <i class="fa-solid fa-eye" id="eyeIcon2"></i>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="d-grid pt-4">
+                                <button type="submit" class="btn-submit">
+                                    {{ __('frontend.RegisterPage') }}
+                                    <i class="fa-solid fa-arrow-left ms-2"></i>
                                 </button>
                             </div>
                         </form>
-                        <p class="text-center pt-4 pb-2"> {{__('frontend.you already have account ?')}} <a
-                                href="{{route('auth.login')}}"> {{__('frontend.Login')}} </a></p>
+
+                        <p class="text-center mt-4">
+                            {{ __('frontend.you already have account ?') }}
+                            <a href="{{ route('auth.login') }}">{{ __('frontend.Login') }}</a>
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-
 </content>
+
+

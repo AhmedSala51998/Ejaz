@@ -1,233 +1,280 @@
-<!-- cv -->
-<style>
-     .workerwarn {
-     width: 100%;
-     height: 60px;
+<!-- Fancybox CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" />
 
-     -o-object-fit: contain;
-     object-fit: contain;
-     padding: 10px;
-    background-color: rgba(196, 131, 46, 0.1254901961);
-    border-radius: 16px;
-    text-align: center;
-    margin-bottom: 20px;
-     margin-top: 20px;
+<style>
+.cv-card {
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+    transition: all 0.3s ease;
 }
-.workerwarn h6 {
-    color: #ea1111;
+
+.cv-slider {
+    width: 100%;
+    background: linear-gradient(135deg, #fff, #fdf7f1);
+    padding: 0;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+/* برواز الصورة */
+.cv-image-wrapper {
+    width: 100%;
+    height: 420px;
+    background: #fff;
+    border: 2px solid rgba(245, 166, 35, 0.35);
+    border-radius: 20px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: block;
+}
+
+.cv-image-wrapper img {
+    /*width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;*/
+
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    aspect-ratio: 3 / 4;
+    border-radius: 20px;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.cv-image-wrapper img:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+    color: #f5a623 !important;
+}
+
+.swiper-slide {
+    /*display: flex;
+    justify-content: center;*/
+
+    width: 100% !important;
+    flex-shrink: 0;
+}
+
+.cv-warning {
+    background-color: #fdf3ec;
+    border-radius: 14px;
+    padding: 12px 18px;
+    margin: 15px 10px;
+    text-align: center;
+}
+
+.cv-warning p {
+    color: #e60000;
     font-weight: bold;
-    margin-bottom: 5px;
-    margin-top: 10px;
+    font-size: 15px;
+    margin: 0;
+    line-height: 1.7;
+}
+
+.cv-info {
+    padding: 20px;
+}
+
+.cv-info ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.cv-info li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    border-bottom: 1px dashed #eee;
+    padding-bottom: 8px;
+}
+
+.cv-info h6 {
+    font-weight: bold;
+    color: #6d6e71;
+    margin: 0;
+    font-size: 15px;
+}
+
+.cv-info p {
+    margin: 0;
+    color: #444;
+    font-size: 15px;
+    text-align: left;
+}
+
+.cv-action {
+    text-align: center;
+    padding: 15px 20px;
+    background: #f5f5f5;
+    border-top: 1px solid #eee;
+}
+
+.cv-action a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #f5a623;
+    color: white;
+    padding: 10px 22px;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 15px;
+    transition: background 0.3s ease;
+    text-decoration: none;
+}
+
+.cv-action a:hover {
+    background: #d48b1c;
+}
+
+.cv-action a i {
+    font-size: 16px;
+}
+
+@media (max-width: 768px) {
+    .cv-image-wrapper {
+        height: 320px;
+    }
 }
 </style>
-<div class="workerCv" data-aos="fade-up">
-    <div class="swiper workerCvSlider ">
-        <div class="swiper-wrapper">
-            <div class="swiper-slide ">
 
-                <a data-fancybox="users{{$cv->id}}-CV" href="{{get_file($cv->cv_file)}}">
-                    <img src="{{get_file($cv->cv_file)}}" alt="">
-                </a>
-            </div>
+<!-- Fancybox CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" />
 
+<style>
+/* ... نفس CSS المُرسل سابقًا ... */
+</style>
 
-            @foreach($cv->images as $image)
-
-                <div class="swiper-slide ">
-                    <a data-fancybox="users{{$cv->id}}-CV" href="{{get_file($image->image)}}">
-                        <img src="{{get_file($image->image)}}">
+<div class="cv-card">
+    <!-- سلايدر الصور -->
+    <div class="cv-slider">
+        <div class="swiper workerCvSlider">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <a data-fancybox="users{{$cv->id}}" href="{{asset('frontend/img/cv1.webp')}}">
+                        <div class="cv-image-wrapper">
+                            <img src="{{asset('frontend/img/cv1.webp')}}" alt="CV Image">
+                        </div>
                     </a>
                 </div>
-            @endforeach
-
+                @foreach($cv->images as $image)
+                <div class="swiper-slide">
+                    <a data-fancybox="users{{$cv->id}}" href="{{asset('frontend/img/cv1.webp')}}">
+                        <div class="cv-image-wrapper">
+                            <img src="{{asset('frontend/img/cv1.webp')}}" alt="CV Image">
+                        </div>
+                    </a>
+                </div>
+                @endforeach
+            </div>
+            <div class="swiper-button-next workerCvSliderNext"></div>
+            <div class="swiper-button-prev workerCvSliderPrev"></div>
         </div>
-        <div class="swiper-button-next workerCvSliderNext"></div>
-        <div class="swiper-button-prev workerCvSliderPrev"></div>
     </div>
 
+    <!-- التحذير -->
+    <div class="cv-warning">
+        <p>لضمان حقك، لايتم سداد الرسوم بعد الحجز الا عن طريق منصة مساند</p>
+    </div>
 
-    @if(isset($transfer))
+    <!-- بيانات العامل -->
+    <div class="cv-info">
+        <ul>
+            <li><h6>الاسم:</h6><p>{{$cv->cv_name}}</p></li>
+            <li><h6>الجنسية:</h6><p>{{$cv->nationalitie->title ?? '-'}}</p></li>
+            <li><h6>المهنة:</h6><p>{{$cv->job->title ?? '-'}}</p></li>
+            <li><h6>الديانة:</h6><p>{{$cv->religion->title ?? '-'}}</p></li>
+            <li><h6>رقم الجواز:</h6><p>{{$cv->passport_number ?? '-'}}</p></li>
+            <li><h6>العمر:</h6><p>{{$cv->age ?? '-'}}</p></li>
+            <li><h6>الحالة الاجتماعية:</h6><p>{{$cv->social_type->title ?? '-'}}</p></li>
 
-        <ul class="info">
-            <li>
-                <h6> الجنسية : </h6>
-                <p>{{$cv->nationalitie->title??''}} </p>
-            </li>
-            <li>
-                <h6> المهنة : </h6>
-                <p> {{$cv->job->title??''}}</p>
-            </li>
-            <li>
-                <h6> الديانة : </h6>
-                <p> {{$cv->religion->title??''}} </p>
-            </li>
-            <li>
-                <h6> سبب النقل : </h6>
-                <p> {{$cv->reasonService??''}} </p>
-            </li>
-            <li>
-                <h6>مدة العمل عند الكفيل السابق : </h6>
-                <p> {{$cv->periodService??''}} </p>
-            </li>
-            <li>
-                <h6> الراتب : </h6>
-                <p> {{$cv->salary??''}} </p>
-            </li>
-            <li>
-                <h6> سعر نقل الخدمات : </h6>
-                <p> {{$cv->transferprice??''}} ريال </p>
-            </li>
+             @if(!isset($rental))
+                <li><h6>الراتب:</h6><p>{{$cv->salary ?? '-'}} ريال</p></li>
+            @endif
+
+            @if(isset($rental))
+                <li><h6>تكلفة الإيجار:</h6><p>{{$cv->rentalprice ?? '-'}} ريال</p></li>
+            @elseif(isset($transfer))
+                <li><h6>سبب النقل:</h6><p>{{$cv->reasonService ?? '-'}}</p></li>
+                <li><h6>مدة العمل عند الكفيل السابق:</h6><p>{{$cv->periodService ?? '-'}}</p></li>
+                <li><h6>سعر نقل الخدمات:</h6><p>{{$cv->transferprice ?? '-'}} ريال</p></li>
+            @else
+                <li><h6>تكلفة الاستقدام:</h6><p>{{$cv->nationalitie->price ?? '-'}} ريال</p></li>
+                <li><h6>الخبرة العملية:</h6>
+                    <p>
+                        @if($cv->type_of_experience=='new')
+                            قادم جديد
+                        @elseif($cv->type_of_experience=='with_experience')
+                            لديه خبرة سابقة
+                        @else
+                            -
+                        @endif
+                    </p>
+                </li>
+            @endif
         </ul>
-        <div class="text-center pt-auto pb-3">
-            <!--<a href="https://wa.me/+966{{$settings->whatsapp}}?text={{get_file($cv->cv_file)}}" class="animatedLink">-->
-                            <a href="https://api.whatsapp.com/send?phone={{$settings->whatsappNumber}}" class="animatedLink">
+    </div>
 
+    <!-- زر الحجز -->
+    <div class="cv-action">
+        @php
+            $type = $cv->type;
+        @endphp
+
+        @if($type == 'transport')
+            <a href="https://api.whatsapp.com/send?phone={{ $settings->whatsappNumber }}">
+                <i class="fa-brands fa-whatsapp"></i>
                 ارسال طلب نقل
-                <i class="fa-regular fa-left-long ms-2"><span></span></i>
             </a>
-        </div>
-    @elseif(isset($rental))
-
-        <ul class="info">
-            @if($cv->cv_name != NULL)
-                <li>
-                    <h6> الاسم : </h6>
-                    <p> {{$cv->cv_name??''}} </p>
-                </li>
-            @endif
-            <li>
-                <h6> الجنسية : </h6>
-                <p>{{$cv->nationalitie->title??''}} </p>
-            </li>
-            <li>
-                <h6> المهنة : </h6>
-                <p> {{$cv->job->title??''}}</p>
-            </li>
-            <li>
-                <h6> الديانة : </h6>
-                <p> {{$cv->religion->title??''}} </p>
-            </li>
-            <li>
-                <h6> رقم الجواز : </h6>
-                <p> {{$cv->passport_number??''}} </p>
-            </li>
-            <li>
-                <h6> العمر : </h6>
-                <p> {{$cv->age??''}} </p>
-            </li>
-                <li>
-                    <h6> الحالة الاجتماعية : </h6>
-                    <p> {{$cv->social_type->title??''}} </p>
-                </li>
-
-            <li>
-                <h6> تكلفة الايجار : </h6>
-                <p> {{$cv->rentalprice??''}} ريال </p>
-            </li>
-        </ul>
-        <div class="text-center pt-auto pb-3">
-            <!--<a href="https://wa.me/+966{{$settings->whatsapp}}?text={{get_file($cv->cv_file)}}" class="animatedLink">-->
-            <a href="https://api.whatsapp.com/send?phone={{$settings->whatsappNumber}}" class="animatedLink">
-
-                ارسال طلب تاجير
-                <i class="fa-regular fa-left-long ms-2"><span></span></i>
+        @elseif($type == 'rental')
+            <a href="https://api.whatsapp.com/send?phone={{ $settings->whatsappNumber }}">
+                <i class="fa-brands fa-whatsapp"></i>
+                ارسال طلب تأجير
             </a>
-        </div>
-    @else
-     <div class="workerwarn">
-          <h6>لضمان حقك ,لايتم سداد الرسوم بعد الحجز الا عن طريق منصة مساند
-          </h6>
-
-     </div>
-        <ul class="info">
-            @if($cv->cv_name != NULL)
-            <li>
-                <h6> الاسم : </h6>
-                <p> {{$cv->cv_name??''}} </p>
-            </li>
-            @endif
-            <li>
-                <h6> الجنسية : </h6>
-                <p>{{$cv->nationalitie->title??''}} </p>
-            </li>
-             <li>
-                <h6> الراتب : </h6>
-                <p> {{$cv->salary??''}} </p>
-            </li>
-
-
-              <li>
-                <h6> رقم الجواز : </h6>
-                <p> {{$cv->passport_number??''}} </p>
-           </li>
-             <li>
-                <h6> الديانة : </h6>
-                <p> {{$cv->religion->title??''}} </p>
-            </li>
-
-            <li>
-                <h6> المهنة : </h6>
-                <p> {{$cv->job->title??''}}</p>
-            </li>
-
-
-           <li>
-                <h6> تكلفة الاستقدام : </h6>
-                <p> {{$cv->nationalitie->price??''}} ريال </p>
-            </li>
-
-             <li>
-                <h6> الحالة الاجتماعية : </h6>
-                <p> {{$cv->social_type->title??''}} </p>
-            </li>
-            <li>
-                <h6> العمر : </h6>
-                <p> {{$cv->age??''}} </p>
-            </li>
-
-              <li>
-                <h6> الخبرة العملية : </h6>
-
-                  @if($cv->type_of_experience=='new')
-                      <p>قادم جديد </p>
-                  @elseif($cv->type_of_experience=='with_experience')
-                      <p>لديه خبره سابقة</p>
-                  @endif
-
-            </li>
-
-
-        </ul>
-        <div class="text-center pt-4 pb-3">
+        @else
             @auth
-            <a href="{{route('frontend.show.worker',$cv->id)}}" class="animatedLink">
-                حجز السيرة الذاتية
-                <i class="fa-regular fa-left-long ms-2"><span></span></i>
-            </a>
-                @else
-                <a href="{{route('register',$cv->id)}}" class="animatedLink">
+                <a href="{{ route('frontend.show.worker', $cv->id) }}">
+                    <i class="fa-solid fa-file-circle-check"></i>
                     حجز السيرة الذاتية
-                    <i class="fa-regular fa-left-long ms-2"><span></span></i>
+                </a>
+            @else
+                <a href="{{ route('register', $cv->id) }}">
+                    <i class="fa-solid fa-file-circle-check"></i>
+                    حجز السيرة الذاتية
                 </a>
             @endauth
-        </div>
+        @endif
+    </div>
 
-    @endif
 </div>
+
+<!-- Swiper JS + Fancybox JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
+
 <script>
-    // workerCvSlider
     var workerCvSlider = new Swiper(".workerCvSlider", {
         spaceBetween: 0,
         centeredSlides: true,
-        // loop: true,
         speed: 1000,
-        pagination: {
-            el: ".workerCvSliderpagination",
-            clickable: true,
-        },
-        keyboard: {
-            enabled: true,
-        },
         navigation: {
             nextEl: ".workerCvSliderNext",
             prevEl: ".workerCvSliderPrev",

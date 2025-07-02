@@ -109,6 +109,60 @@
             border-radius: 16px;
         }
 
+        /* Loader */
+        .loader-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: #fffefc;
+            z-index: 9999;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            gap: 10px;
+        }
+
+        /* مربعات اللوجو */
+        .square {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #f4a835, #e67e22);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(244, 168, 53, 0.7);
+            animation: pulseMove 2.4s ease-in-out infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: 900;
+            font-size: 48px;
+            user-select: none;
+            cursor: default;
+        }
+
+        /* تأخيرات متتابعة لكل مربع */
+        .square:nth-child(1) { animation-delay: 0s; }
+        .square:nth-child(2) { animation-delay: 0.3s; }
+        .square:nth-child(3) { animation-delay: 0.6s; }
+        .square:nth-child(4) { animation-delay: 0.9s; }
+        .square:nth-child(5) { animation-delay: 1.2s; }
+
+        /* حركة النبض والتباعد */
+        @keyframes pulseMove {
+            0%, 100% {
+            transform: translateY(0) scale(1);
+            box-shadow: 0 4px 12px rgba(244, 168, 53, 0.7);
+            opacity: 1;
+            }
+            50% {
+            transform: translateY(-15px) scale(1.15);
+            box-shadow: 0 8px 25px rgba(244, 168, 53, 1);
+            opacity: 0.85;
+            }
+        }
+
     </style>
 </head>
 
@@ -119,9 +173,16 @@
 <div class="customCursorInner"></div>
 <!-- end custom cursor  -->
 <!-- loader -->
-<div class="loader">
+<!--<div class="loader">
     <img src="{{asset('frontend/img/fav.svg')}}"  alt="">
     <div class="spinner"></div>
+</div>-->
+<div class="loader-wrapper" aria-label="لودر لوجو إيجاز">
+  <div class="square">ز</div>
+  <div class="square">ا</div>
+  <div class="square">ج</div>
+  <div class="square">ي</div>
+  <div class="square">إ</div>
 </div>
 <!-- ================ Header ================= -->
 @include('frontend.layouts.inc._header')
@@ -320,6 +381,19 @@
     });
 
 </script>
+<script>
+  window.addEventListener('load', () => {
+    const loader = document.querySelector('.loader-wrapper');
+    if(loader){
+        loader.style.transition = 'opacity 0.3s ease';
+        loader.style.opacity = '0';
+        setTimeout(() => {
+        loader.style.display = 'none';
+        }, 300);
+    }
+  });
+</script>
+
 <script>
     $(document).on('click', '.ignoreHref', function (e) {
         e.preventDefault();
