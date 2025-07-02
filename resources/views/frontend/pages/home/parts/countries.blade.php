@@ -165,7 +165,7 @@
                 <div class="country" data-aos="zoom-in">
                     <!-- شعار الدولة -->
                     <div class="flag-wrapper">
-                        <img src="{{ asset('frontend/img/countries/1.png') }}" alt="{{ $country->title }}">
+                        <img src="{{get_file($country->image)}}" alt="{{ $country->title }}">
                     </div>
 
                     <h4>{{ $country->title }}</h4>
