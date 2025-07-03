@@ -140,6 +140,29 @@
 .country a:hover {
     background: var(--orange-dark);
 }
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@600;700&display=swap');
+
+.country h4,
+.country h5 {
+    font-family: 'Cairo', sans-serif;
+}
+
+/* العنوان */
+.country h4 {
+    font-size: 1.6rem !important;  /* أكبر */
+    margin-top: 60px !important;  /* ينزل تحت عن الصورة */
+    margin-bottom: 10px;
+    color: var(--orange);
+    font-weight: 700;
+}
+
+/* السعر */
+.country h5 {
+    font-size: 1.2rem !important;  /* أكبر */
+    margin-bottom: 5px;
+    color: var(--text-main);
+    font-weight: 600;
+}
 </style>
 
 <script>

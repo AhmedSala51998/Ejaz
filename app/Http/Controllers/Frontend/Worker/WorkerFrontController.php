@@ -140,6 +140,8 @@ class WorkerFrontController extends Controller
             ->where('order_type', 'normal')
             ->where('type', 'admission')
             ->where('is_cv_out', 0)
+            ->where('is_blocked', 0)
+            ->where('is_hide', 0)
             ->with('recruitment_office', 'nationalitie', 'language_title',
                 'religion', 'job', 'social_type', 'admin', 'images', 'skills');
 

@@ -3,7 +3,7 @@
 
 <style>
 .cv-card {
-    background: #fff;
+    background: linear-gradient(135deg, rgba(244, 168, 53, 0.1), rgba(255, 241, 219, 0.05));
     border-radius: 20px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);
     overflow: hidden;
@@ -72,7 +72,7 @@
 }
 
 .cv-warning {
-    background-color: #fdf3ec;
+    background-color: #f4a835;
     border-radius: 14px;
     padding: 12px 18px;
     margin: 15px 10px;
@@ -80,7 +80,7 @@
 }
 
 .cv-warning p {
-    color: #e60000;
+    color: #FFF;
     font-weight: bold;
     font-size: 15px;
     margin: 0;

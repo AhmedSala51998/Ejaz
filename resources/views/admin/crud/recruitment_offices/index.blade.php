@@ -497,7 +497,75 @@
             $('.delete-all').prop('checked', check);
         });
 
+        /* الكود الحالي ممتاز، لكن المشكلة أن الزر لا يرسل الطلب إلى السيرفر */
+
+        // 👇 سبب المشكلة الأغلب: أن الزر نفسه غير مفعل عليه event delegation بشكل صحيح
+        // في حال كنت تستخدم DataTables يجب استخدام event delegation كما يلي:
+
+        $(document).on('click', '.toggle-hide-btn', function (e) {
+            e.preventDefault();
+
+            var button = $(this);
+            var id = button.data('id');
+            var currentStatus = button.data('status'); // 1 = visible, 0 = hidden
+
+            var confirmTitle = currentStatus === 1 ? "هل أنت متأكد من إخفاء السير الذاتية؟" : "هل أنت متأكد من إظهار السير الذاتية؟";
+            var successMessage = currentStatus === 1 ? "تم الإخفاء بنجاح" : "تم الإظهار بنجاح";
+
+            Swal.fire({
+                title: confirmTitle,
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: '#28a745',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'نعم، تأكيد',
+                cancelButtonText: 'إلغاء'
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        url: '{{ route("recruitment-offices.toggleHide") }}',
+                        type: 'POST',
+                        data: {
+                            id: id,
+                            status: currentStatus,
+                            _token: $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function (res) {
+                            if (res.success) {
+                                toastr.success(res.message);
+
+                                var newStatus = res.new_status;
+                                var newText = newStatus === 0 ? 'إخفاء السير الذاتية' : 'إظهار السير الذاتية';
+                                var newClass = newStatus === 0 ? 'btn-warning' : 'btn-success';
+                                var newIcon = newStatus === 0 ? 'fa-eye-slash' : 'fa-eye';
+
+                                button
+                                    .data('status', newStatus === 0 ? 1 : 0)
+                                    .removeClass('btn-success btn-warning')
+                                    .addClass(newClass)
+                                    .html(`<i class="fa ${newIcon}"></i> ${newText}`);
+                            } else {
+                                toastr.error("حدث خطأ أثناء تنفيذ العملية");
+                            }
+                        },
+                        error: function () {
+                            toastr.error("لم يتم الاتصال بالسيرفر");
+                        }
+                    });
+                }
+            });
+        });
+
+
 
     </script>
+   <!-- ✅ Toastr CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<!-- ✅ Toastr JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+<!-- ✅ SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
 @endsection

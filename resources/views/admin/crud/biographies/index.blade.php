@@ -91,7 +91,31 @@
 
                             </select>
                         </div>
-                        <div class="col-md-2 ">
+                        <div class="col-md-2">
+                            <div class="input-group mb-3">
+                                <select class="form-control" name="religion_id" id="religion_id">
+                                    <option value="" selected>الديانة</option>
+                                    @foreach($religions as $religion)
+                                        <option value="{{ $religion->id }}" @if($religion_id == $religion->id) selected @endif>
+                                            {{ $religion->title }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2 ml-auto">
+                            <div class="input-group mb-3">
+                                <select class="form-control" name="social_status_id" id="social_status_id">
+                                    <option value="" selected>الحالة الاجتماعية</option>
+                                    @foreach($social_statuses as $socialStatus)
+                                        <option value="{{ $socialStatus->id }}" @if($social_status_id == $socialStatus->id) selected @endif>
+                                            {{ $socialStatus->title }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
                             <div class='input-group mb-3'>
                                 <select class="form-control " name="social_type" id="social_type">
                                     <option value="" selected>الخبرة</option>
@@ -201,6 +225,8 @@
                             <th>الجنسية</th>
                             <th>رقم جواز السفر</th>
                             <th>النوع</th>
+                            <th>الديانة</th>
+                            <!--<th>الحالة الاجتماعية</th>-->
                             <th>التاريخ</th>
                             <th>التحكم</th>
                         </tr>
@@ -267,7 +293,9 @@
                         d.nationality_id = $('#nationality_id').val(),
                         d.recruitment_office_id = $('#recruitment_office_id').val(),
                         d.type = $('#type').val(),
-                        d.date = $('#reportrange').val()
+                        d.date = $('#reportrange').val(),
+                        d.religion_id = $('#religion_id').val(),
+                        d.social_status_id = $('#social_status_id').val()
                 }
             },
             "columns": [
@@ -280,6 +308,8 @@
                 {"data": "nationalitie_id", orderable: false, searchable: true},
                 {"data": "passport_number", orderable: false, searchable: true},
                 {"data": "type", orderable: false, searchable: true},
+                {"data": "religion", orderable: false, searchable: true},        // ✅ جديد
+                
                 {"data": "created_at", searchable: false},
                 {"data": "actions", orderable: false, searchable: false}
             ],
@@ -470,5 +500,51 @@
 
 
         });
+
     </script>
+
+    <script>
+    $(document).on('click', '.toggle-block', function(e) {
+        e.preventDefault();
+
+        let id = $(this).data('id');
+        let status = $(this).data('status');
+        let actionText = (status === 1) ? "تأكيد حظر هذا العنصر؟" : "تأكيد إلغاء الحظر؟";
+
+        Swal.fire({
+            title: 'هل أنت متأكد؟',
+            text: actionText,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'نعم، تأكيد',
+            cancelButtonText: 'إلغاء'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "{{ route('biographies.toggleBlock') }}",
+                    type: 'POST',
+                    data: {
+                        id: id,
+                        status: status,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        toastr.success(response.message);
+                        $('#Datatable').DataTable().ajax.reload();
+                    },
+                    error: function(xhr) {
+                        toastr.error("حدث خطأ ما أثناء تنفيذ العملية");
+                    }
+                });
+            }
+        });
+    });
+    </script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
 @endsection

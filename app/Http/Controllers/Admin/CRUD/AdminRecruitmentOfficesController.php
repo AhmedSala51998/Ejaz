@@ -6,6 +6,7 @@ use App\Http\Traits\Upload_Files;
 use App\Http\Controllers\Controller;
 use App\Models\Language;
 use App\Models\RecruitmentOffice;
+use App\Models\Biography;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -26,7 +27,7 @@ class AdminRecruitmentOfficesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    /*public function index(Request $request)
     {
 if (!checkPermission(14))
     return view('admin.permission');
@@ -34,9 +35,7 @@ if (!checkPermission(14))
             $dataTables = RecruitmentOffice::query()->latest();
 
             return DataTables::of($dataTables)
-               /* ->editColumn('desc', function ($row) {
-                    return $row->desc;
-                })*/
+              
                 ->editColumn('created_at', function ($row) {
                     return date('Y/m/d',strtotime($row->created_at));
                 })
@@ -52,17 +51,104 @@ if (!checkPermission(14))
                 ->addColumn('actions', function ($row) {
                     $edit = '';
                     $delete = '';
-                    if (!checkPermission(16))
-                        $edit = 'hidden';
-                    if (!checkPermission(17))
-                        $delete = 'hidden';
-                    return "<button " .$edit. "   class='btn btn-info editButton' id='" . $row->id . "'> <i class='fa fa-edit'></i></button>
-                   <button " .$delete." class='btn btn-danger  delete' id='" . $row->id . "'><i class='fa fa-trash'></i> </button>";
-                })
-                ->rawColumns(['actions',/* 'desc',*/ 'delete_all','title'])->make(true);
+                    if (!checkPermission(16)) $edit = 'hidden';
+                    if (!checkPermission(17)) $delete = 'hidden';
+
+                    $toggleText = \App\Models\Biography::where('recruitment_office_id', $row->id)->where('is_hide', 0)->exists() ? 'إخفاء السير الذاتية' : 'إظهار السير الذاتية';
+                    $toggleClass = $toggleText === 'إخفاء السير الذاتية' ? 'btn-warning' : 'btn-success';
+
+                    return "
+                        <button " .$edit. " class='btn btn-info editButton' id='" . $row->id . "'><i class='fa fa-edit'></i></button>
+                        <button " .$delete. " class='btn btn-danger delete' id='" . $row->id . "'><i class='fa fa-trash'></i></button>
+                        <button class='btn {$toggleClass} toggle-hide-btn' data-id='{$row->id}'>
+                            <i class='fa fa-eye-slash'></i> {$toggleText}
+                        </button>
+                    ";
+                })->rawColumns(['actions', 'delete_all','title'])->make(true);
         }
         return view('admin.crud.recruitment_offices.index');
+    }*/
+
+    public function index(Request $request)
+    {
+        if (!checkPermission(14))
+            return view('admin.permission');
+
+        if ($request->ajax()) {
+            $dataTables = RecruitmentOffice::query()->latest();
+
+            return DataTables::of($dataTables)
+                ->editColumn('created_at', function ($row) {
+                    return date('Y/m/d', strtotime($row->created_at));
+                })
+                ->editColumn('title', function ($row) {
+                    return $row->title;
+                })
+                ->editColumn('country_id', function ($row) {
+                    return $row->country->country_name ?? '';
+                })
+                ->addColumn('delete_all', function ($row) {
+                    return "<input type='checkbox' class='delete-all form-check-input' data-tablesaw-checkall name='delete_all' id='" . $row->id . "'>";
+                })
+                ->addColumn('actions', function ($row) {
+                    $edit = '';
+                    $delete = '';
+                    if (!checkPermission(16)) $edit = 'hidden';
+                    if (!checkPermission(17)) $delete = 'hidden';
+
+                    // فحص ما إذا كانت السير الذاتية مفعّلة أو مخفية لهذا المكتب
+                    $hasVisibleCVs = \App\Models\Biography::where('recruitment_office_id', $row->id)
+                        ->where('is_hide', 0)
+                        ->exists();
+
+                    $toggleText = $hasVisibleCVs ? 'إخفاء السير الذاتية' : 'إظهار السير الذاتية';
+                    $toggleClass = $hasVisibleCVs ? 'btn-warning' : 'btn-success';
+                    $toggleIcon = $hasVisibleCVs ? 'fa-eye-slash' : 'fa-eye';
+                    $toggleStatus = $hasVisibleCVs ? 1 : 0;
+
+                    return "
+                        <button " . $edit . " class='btn btn-info editButton' id='" . $row->id . "'>
+                            <i class='fa fa-edit'></i>
+                        </button>
+                        <button " . $delete . " class='btn btn-danger delete' id='" . $row->id . "'>
+                            <i class='fa fa-trash'></i>
+                        </button>
+                        <button class='btn {$toggleClass} toggle-hide-btn' 
+                                data-id='{$row->id}' 
+                                data-status='{$toggleStatus}'>
+                            <i class='fa {$toggleIcon}'></i> {$toggleText}
+                        </button>
+                    ";
+                })
+                ->rawColumns(['actions', 'delete_all', 'title'])
+                ->make(true);
+        }
+
+        return view('admin.crud.recruitment_offices.index');
     }
+
+
+    public function toggleHide(Request $request)
+    {
+        $officeId = $request->id;
+        $status = $request->status;
+
+        // عكس القيمة: لو 1 (يعني هنخفي) => نخلي is_hide = 1
+        // لو 0 (يعني هنظهر) => is_hide = 0
+        $newStatus = $status == 1 ? 1 : 0;
+
+        Biography::where('recruitment_office_id', $officeId)->update(['is_hide' => $newStatus]);
+
+        return response()->json([
+            'success' => true,
+            'new_status' => $newStatus,
+            'message' => $newStatus ? 'تم إخفاء السير الذاتية بنجاح' : 'تم إظهار السير الذاتية بنجاح'
+        ]);
+        
+    }
+
+
+
 
     /**
      * Show the form for creating a new resource.

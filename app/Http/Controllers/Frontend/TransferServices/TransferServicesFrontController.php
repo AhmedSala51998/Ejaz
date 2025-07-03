@@ -62,6 +62,8 @@ class TransferServicesFrontController extends Controller
         $query = Biography::where('status', 'new')
             ->where('order_type', 'normal')
             ->where('type', 'transport')
+            ->where('is_blocked', 0)
+            ->where('is_hide', 0)
             ->with('recruitment_office', 'nationalitie', 'language_title',
                 'religion', 'job', 'social_type', 'admin', 'images', 'skills');
 

@@ -139,6 +139,7 @@ Route::group(['prefix' => 'admin'], function () {
 
             // مكاتب الاستقدام
             Route::resource('recruitment-offices', 'AdminRecruitmentOfficesController');
+            Route::post('recruitment-offices/toggle-hide', 'AdminRecruitmentOfficesController@toggleHide')->name('recruitment-offices.toggleHide');
             Route::delete('recruitment-offices/delete/bulk', 'AdminRecruitmentOfficesController@delete_all')
                 ->name('recruitment-offices.delete.bulk');
 
@@ -184,7 +185,7 @@ Route::group(['prefix' => 'admin'], function () {
             Route::get('/biographies/download/booking/{id}', 'AdminBiographiesController@cvsDownload')->name('biographies_download.view');
             Route::get('biographies/ban/{id}', 'AdminBiographiesController@ban_biographies')->name('biographies.ban');
             Route::get('biographies/unban/{id}', 'AdminBiographiesController@unban_biographies')->name('biographies.unban');
-
+            Route::post('biographies/block-toggle', 'AdminBiographiesController@toggleBlock')->name('biographies.toggleBlock');
             Route::delete('biographies/delete/bulk', 'AdminBiographiesController@delete_all')
                 ->name('biographies.delete.bulk');
 

@@ -39,6 +39,7 @@ class AdminBiographiesController extends Controller
      */
     public function index(Request $request)
     {
+
         if(!checkPermission(18))
             return view('admin.permission');
 
@@ -55,6 +56,13 @@ class AdminBiographiesController extends Controller
         $social_type = SocialType::get();
         $type = $request->type;
         $date = $request->date;
+
+        $religion_id = $request->religion_id;
+        $religions = Religion::all();
+
+        $social_status_id = $request->social_status_id;
+
+        $social_statuses = SocialType::all();
 
         if ($request->ajax()) {
             $biographies= Biography::query()->where("order_type","normal")->orderBy("id","DESC");
@@ -96,6 +104,14 @@ class AdminBiographiesController extends Controller
                 $biographies = $biographies->whereDate('created_at', '>=', date('Y-m-d', strtotime(explode(" - ", $date)[0])))->whereDate('created_at', '<=', date('Y-m-d', strtotime(explode(" - ", $date)[1])));
             }
 
+            if ($request->religion_id != null) {
+                $biographies = $biographies->where('religion_id', $religion_id);
+            }
+
+            if ($request->social_status_id != null) {
+                $biographies = $biographies->where('social_type_id', $social_status_id);
+            }
+
             return DataTables::of($biographies)
                 ->editColumn('image', function ($row) {
                     return ' <img src="'.get_file($row->cv_file).'" class="rounded" style="height:60px;width:60px;object-fit: contain;"
@@ -124,6 +140,9 @@ class AdminBiographiesController extends Controller
                         return 'تاجير ';
                     else
                         return 'نقل خدمات  ';
+                })
+                ->addColumn('religion', function ($row) {
+                    return optional($row->religion)->title;
                 })
                 ->addColumn('delete_all', function ($row) {
                     return "<input type='checkbox' class=' delete-all form-check-input' data-tablesaw-checkall name='delete_all' id='" . $row->id . "'>";
@@ -175,21 +194,52 @@ class AdminBiographiesController extends Controller
                         $delete = 'hidden';
                     $actions = '';
 
-                    if($row->status=="pending"){
-                        return $actions."<a " .$edit. "  href='" . route('biographies.edit',$row->id) . "'  class='btn btn-info editButton' id='" . $row->id . "'> <i class='fa fa-edit'></i></a> <a  href='" . route('biographies.unban',$row->id) . "' class='btn btn-success benButton' ><i class='fa fa-unlock'></i></a>
-                   <a " .$delete. " style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
-                    }elseif($row->status=="new"){
-                        return $actions."<a " .$edit. "  href='" . route('biographies.edit',$row->id) . "'  class='btn btn-info editButton' id='" . $row->id . "'> <i class='fa fa-edit'></i></a> <a  href='" . route('biographies.ban',$row->id) . "' class='btn btn-warning benButton' ><i class='fa fa-unlock-alt'></i></a>
-                   <a " .$delete. " style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
-
-                    }else{
-                        return $actions."<a " .$edit. "  href='" . route('biographies.edit',$row->id) . "'  class='btn btn-info editButton' id='" . $row->id . "'> <i class='fa fa-edit'></i></a>
-                   <a " .$delete. " style='margin-right: 10px;' href='#' class='btn btn-danger  delete mr-2' id='" . $row->id . "'><i class='fa fa-trash'></i> </a>";
+                    // زر الحظر / إلغاء الحظر
+                    $blockButton = '';
+                    if ($row->is_blocked) {
+                        $blockButton = '<a href="#" data-id="'.$row->id.'" class="btn btn-success toggle-block" data-status="0"><i class="fa fa-unlock"></i> إلغاء الحظر</a>';
+                    } else {
+                        $blockButton = '<a href="#" data-id="'.$row->id.'" class="btn btn-danger toggle-block" data-status="1"><i class="fa fa-ban"></i> حظر</a>';
                     }
 
-                })->rawColumns(['actions','image','delete_all','nationalitie_id','status','smart_image'])->make(true);
+                    if($row->status=="pending"){
+                        return $actions."
+                            <a " .$edit. " href='" . route('biographies.edit',$row->id) . "' class='btn btn-info editButton' id='" . $row->id . "'>
+                                <i class='fa fa-edit'></i>
+                            </a>
+                            <a href='" . route('biographies.unban',$row->id) . "' class='btn btn-success benButton'>
+                                <i class='fa fa-unlock'></i>
+                            </a>
+                            $blockButton
+                            <a " .$delete. " style='margin-right: 10px;' href='#' class='btn btn-danger delete mr-2' id='" . $row->id . "'>
+                                <i class='fa fa-trash'></i>
+                            </a>";
+                    } elseif($row->status=="new") {
+                        return $actions."
+                            <a " .$edit. " href='" . route('biographies.edit',$row->id) . "' class='btn btn-info editButton' id='" . $row->id . "'>
+                                <i class='fa fa-edit'></i>
+                            </a>
+                            <a href='" . route('biographies.ban',$row->id) . "' class='btn btn-warning benButton'>
+                                <i class='fa fa-unlock-alt'></i>
+                            </a>
+                            $blockButton
+                            <a " .$delete. " style='margin-right: 10px;' href='#' class='btn btn-danger delete mr-2' id='" . $row->id . "'>
+                                <i class='fa fa-trash'></i>
+                            </a>";
+                    } else {
+                        return $actions."
+                            <a " .$edit. " href='" . route('biographies.edit',$row->id) . "' class='btn btn-info editButton' id='" . $row->id . "'>
+                                <i class='fa fa-edit'></i>
+                            </a>
+                            $blockButton
+                            <a " .$delete. " style='margin-right: 10px;' href='#' class='btn btn-danger delete mr-2' id='" . $row->id . "'>
+                                <i class='fa fa-trash'></i>
+                            </a>";
+                    }
+                })
+                ->rawColumns(['actions','image','delete_all','nationalitie_id','status','smart_image'])->make(true);
         }
-        return view('admin.crud.biographies.index', compact('natinalities', 'nationality_id', 'social_type', 'social_type_id', 'booking_status', 'recruitment_office', 'recruitment_office_id', 'type','date'));
+        return view('admin.crud.biographies.index', compact('natinalities', 'nationality_id', 'social_type', 'social_type_id', 'booking_status', 'recruitment_office', 'recruitment_office_id', 'type','date' , 'religions', 'religion_id' , 'social_statuses', 'social_status_id'));
     }
     public function cvsDownload($id)
     {
@@ -229,6 +279,16 @@ class AdminBiographiesController extends Controller
 
     }
 
+    public function toggleBlock(Request $request)
+    {
+        $biography = Biography::findOrFail($request->id);
+        $biography->is_blocked = $request->status;
+        $biography->save();
+
+        $message = $request->status == 1 ? 'تم حظر العنصر بنجاح' : 'تم إلغاء الحظر بنجاح';
+
+        return response()->json(['message' => $message], 200);
+    }
 
     /**
      * Show the form for creating a new resource.

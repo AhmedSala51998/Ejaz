@@ -391,6 +391,108 @@
             background-color: #e49b20;
         }*/
 
+                /* ✅ فلتر متحرك للموبايل */
+        .mobile-filter-sidebar {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 85%;
+            max-width: 320px;
+            height: 100vh;
+            background: #fff;
+            z-index: 9999;
+            padding: 20px;
+            box-shadow: -4px 0 20px rgba(0,0,0,0.15);
+            transition: right 0.4s ease;
+            overflow-y: auto;
+            border-radius: 12px 0 0 12px;
+        }
+        .mobile-filter-sidebar.active {
+            right: 0;
+        }
+        .mobile-filter-overlay {
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.4);
+            z-index: 9998;
+            display: none;
+        }
+        .mobile-filter-overlay.active {
+            display: block;
+        }
+
+        .accordionButton {
+            background-color: #f4a835 !important;
+            color: #fff;
+            border: none;
+            padding: 12px 15px;
+            font-weight: bold;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            width: 100%;
+            text-align: right;
+            transition: 0.3s ease;
+            box-shadow: 0 6px 12px rgba(244, 168, 53, 0.2);
+        }
+        .accordionButton:hover {
+            background-color: #e49b20 !important;
+        }
+
+        /* ✅ ستايل الفلتر الجانبي على الموبايل */
+        .mobile-filter-sidebar {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 85%;
+            max-width: 360px;
+            height: 100%;
+            background: #fff;
+            z-index: 9999;
+            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+            border-radius: 16px 0 0 16px;
+            transition: right 0.4s ease-in-out;
+            overflow-y: auto;
+        }
+        .mobile-filter-sidebar.active {
+            right: 0;
+        }
+        .mobile-filter-header {
+            border-bottom: 1px solid #eee;
+        }
+
+        .close-filter-btn {
+            width: 36px;
+            height: 36px;
+            background-color: #f4a835;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .close-filter-btn i {
+            font-size: 18px;
+            color: #fff;
+            transition: 0.2s ease;
+        }
+        .close-filter-btn:hover {
+            background-color: #e49b20;
+            transform: rotate(90deg);
+        }
+
+        .mobile-filter-header h5 {
+            font-size: 20px;
+            color: #333;
+            font-weight: bold;
+            margin: 0;
+        }
+
+
 
     </style>
 
@@ -410,13 +512,151 @@
     </ul>
 </div>
 
+ <div id="mobileFilterSidebar" class="mobile-filter-sidebar d-lg-none">
+    <div class="mobile-filter-header d-flex justify-content-between align-items-center mb-3 px-3 pt-3">
+        <h5 class="fw-bold">فلترة متقدمة</h5>
+        <button class="close-filter-btn" id="closeFilterBtn">
+            <i class="fa fa-times"></i>
+        </button>
+    </div>
+    <div class="side-bar px-3 pb-4">
+        
+        <form id="filterForm" action="{{ request()->routeIs('transferService') ? route('transferService') : (request()->routeIs('rental') ? route('rental') : route('all-workers')) }}" method="get">
+            @csrf
+
+            <!-- فلاتر الدولة -->
+            @if(count($nationalities) > 0)
+                <div class="mb-4">
+                    <button class="accordionButton" type="button" data-bs-toggle="collapse" data-bs-target="#nationalityFilter">
+                        {{__('frontend.Nationality')}}
+                    </button>
+                    <div id="nationalityFilter" class="collapse show">
+                        @foreach($nationalities as $key=> $nationalitie)
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="nationality" id="nationality{{$key+1}}" value="{{$nationalitie->id}}">
+                                <label class="form-check-label" for="nationality{{$key+1}}">{{trans($nationalitie->title)}}</label>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
+
+            <!-- فلاتر الوظائف -->
+            @if(count($jobs) > 0)
+                <div class="mb-4">
+                    <button class="accordionButton" type="button" data-bs-toggle="collapse" data-bs-target="#jobFilter">
+                        {{__('frontend.Job')}}
+                    </button>
+                    <div id="jobFilter" class="collapse show">
+                        @foreach($jobs as $key=> $job)
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="job" id="job{{$key+1}}" value="{{$job->id}}">
+                                <label class="form-check-label" for="job{{$key+1}}">{{trans($job->title)}}</label>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
+
+            <!-- فلاتر العمر -->
+            @if(count($ages) > 0)
+                <div class="mb-4">
+                    <button class="accordionButton" type="button" data-bs-toggle="collapse" data-bs-target="#ageFilter">
+                        العمر
+                    </button>
+                    <div id="ageFilter" class="collapse show">
+                        @foreach($ages as $key=>$age)
+                            <div class="form-check">
+                                <input class="form-check-input" value="{{$age->id}}" type="radio" name="age" id="age{{$key+1}}">
+                                <label class="form-check-label" for="age{{$key+1}}"> من {{$age->from}} إلى {{$age->to}}</label>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
+
+            <!-- فلاتر الديانة -->
+            @if(count($religions) > 0)
+                <div class="mb-4">
+                    <button class="accordionButton" type="button" data-bs-toggle="collapse" data-bs-target="#religionFilter">
+                        الديانة
+                    </button>
+                    <div id="religionFilter" class="collapse show">
+                        @foreach($religions as $key => $religion)
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="religion" id="religion{{$key+1}}" value="{{ $religion->id }}">
+                                <label class="form-check-label" for="religion{{$key+1}}">{{ trans($religion->title) }}</label>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
+
+            <!-- فلاتر الحالة الاجتماعية -->
+            @if(count($social_types) > 0)
+                <div class="mb-4">
+                    <button class="accordionButton" type="button" data-bs-toggle="collapse" data-bs-target="#socialFilter">
+                        الحالة الاجتماعية
+                    </button>
+                    <div id="socialFilter" class="collapse show">
+                        @foreach($social_types as $key => $social)
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="social" id="social{{$key+1}}" value="{{ $social->id }}">
+                                <label class="form-check-label" for="social{{$key+1}}">{{ trans($social->title) }}</label>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
+
+            <!-- فلتر الخبرة العملية (يظهر فقط في حالة الاستقدام) -->
+            @if(!isset($transfer) && !isset($rental))
+            <div class="mb-4">
+                <button class="accordionButton" type="button" data-bs-toggle="collapse" data-bs-target="#experienceFilter">
+                    الخبرة العملية
+                </button>
+                <div id="experienceFilter" class="collapse show">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="type_of_experience" id="exp1" value="new">
+                        <label class="form-check-label" for="exp1">قادم جديد</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="type_of_experience" id="exp2" value="with_experience">
+                        <label class="form-check-label" for="exp2">لديه خبرة سابقة</label>
+                    </div>
+                </div>
+            </div>
+            @endif
+
+            <!-- أزرار -->
+            <div class="d-flex justify-content-between">
+                <button class="btn clear" type="button" id="SearchResetButton" style="display:none;">
+                    مسح
+                </button>
+                <button class="btn confirm" id="SearchWorkerButton" type="submit">
+                    تأكيد
+                </button>
+            </div>
+        </form>
+
+    </div>
+</div>
+
 <section class="workers-section">
     <div class="container-fluid">
+        <!-- زر فتح الفلتر على الموبايل -->
+       <!-- ✅ زر فتح الفلتر على الموبايل - كامل العرض وخلفية برتقالية -->
+        <div class="d-block d-lg-none px-3 mb-3">
+            <button class="btn w-100 text-white fw-bold py-3" id="openFilterBtn"
+                style="border-radius: 20px; background-color: #f4a835; font-size: 16px; box-shadow: 0 8px 18px rgba(244, 168, 53, 0.4);">
+                <i class="fa fa-sliders-h me-2"></i> فلترة النتائج
+            </button>
+        </div>
         <div class="row">
             <!-- Sidebar Filters -->
-            <div class="col-lg-3 col-md-12">
+            <div class="col-lg-3 d-none d-lg-block">
                 <div class="side-bar">
-                    <h4>{{__('frontend.advanced search')}}</h4>
+                    <h4 style="margin-bottom:10px;border-bottom:1px solid #f4a835">{{__('frontend.advanced search')}}</h4>
                     <form id="filterForm" action="{{ request()->routeIs('transferService') ? route('transferService') : (request()->routeIs('rental') ? route('rental') : route('all-workers')) }}" method="get">
                         @csrf
 
@@ -704,6 +944,36 @@
                 $('#SearchResetButton').hide();
             }
         }
+    });
+
+
+    // ✅ فتح/غلق فلتر الجوال
+    $(document).ready(function () {
+        // تحريك السايد بار
+        $('#openFilterBtn').click(function () {
+            $('.mobile-filter-sidebar').addClass('active');
+            $('.mobile-filter-overlay').addClass('active');
+        });
+
+        // إغلاق الفلتر عند الضغط على الخلفية
+        $(document).on('click', '.mobile-filter-overlay', function () {
+            $('.mobile-filter-sidebar').removeClass('active');
+            $(this).removeClass('active');
+        });
+    });
+    
+
+</script>
+
+<script>
+    $(document).on('click', '#openFilterBtn', function () {
+        $('#mobileFilterSidebar').addClass('active');
+        $('body').css('overflow', 'hidden'); // قفل السكول
+    });
+
+    $(document).on('click', '#closeFilterBtn', function () {
+        $('#mobileFilterSidebar').removeClass('active');
+        $('body').css('overflow', 'auto'); // فتح السكول
     });
 </script>
 
