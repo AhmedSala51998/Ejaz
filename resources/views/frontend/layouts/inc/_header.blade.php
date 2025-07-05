@@ -201,7 +201,15 @@
         transform: scale(1) translateY(0);
     }
     }
+    header .navbar {
+        background: rgba(244, 168, 53, 0.20) !important;
+        border:1px solid rgba(244, 168, 53, 0.20) !important
+    }
 
+    #mobileSidebar .sidebar-nav a.active {
+        background-color: #f4a835;
+        color: white;
+    }
 
 </style>
 <header>
@@ -362,3 +370,60 @@
         });
     });
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const currentUrl = window.location.href.split(/[?#]/)[0];
+
+    const desktopLinks = document.querySelectorAll(".navbar-nav .navLink");
+    const mobileLinks  = document.querySelectorAll("#mobileSidebar .sidebar-nav a");
+
+    [...desktopLinks, ...mobileLinks].forEach(link => {
+        const linkPath = new URL(link.href).pathname;
+        const currentPath = new URL(currentUrl).pathname;
+
+        if (linkPath === currentPath) {
+            link.classList.add("active");
+        } else {
+            link.classList.remove("active");
+        }
+    });
+
+    // دعم "خدماتنا" (ديسكتوب)
+    const dropdownWrapper = document.querySelector(".dropdownWrapper");
+    const dropdownToggle = dropdownWrapper.querySelector(".dropdownToggle");
+    const dropdownMenu = dropdownWrapper.querySelector(".categoriesList");
+    const dropdownLinks = dropdownWrapper.querySelectorAll(".categoriesList a");
+
+    dropdownLinks.forEach(link => {
+        const linkPath = new URL(link.href).pathname;
+        const currentPath = new URL(currentUrl).pathname;
+
+        if (linkPath === currentPath) {
+            dropdownToggle.classList.add("active");
+            dropdownMenu.classList.add("force-show");
+        }
+    });
+
+    // دعم "خدماتنا" (موبايل)
+    const mobileDropdownToggle = document.querySelector("#mobileSidebar .navLink#toggleCategories");
+    const mobileDropdownMenu = document.querySelector("#mobileSidebar .categoriesList");
+    const mobileDropdownLinks = mobileDropdownMenu ? mobileDropdownMenu.querySelectorAll("a") : [];
+
+    mobileDropdownLinks.forEach(link => {
+        const linkPath = new URL(link.href).pathname;
+        const currentPath = new URL(currentUrl).pathname;
+
+        if (linkPath === currentPath) {
+            if (mobileDropdownToggle) {
+                mobileDropdownToggle.classList.add("active");
+            }
+            if (mobileDropdownMenu) {
+                mobileDropdownMenu.classList.add("force-show");
+            }
+        }
+    });
+});
+
+</script>
+
+

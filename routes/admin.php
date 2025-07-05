@@ -180,6 +180,7 @@ Route::group(['prefix' => 'admin'], function () {
 
             // -------------------------------------
             Route::resource('biographies', 'AdminBiographiesController');
+            Route::get('/biographies-block', 'AdminBiographiesController@biographiesBlock')->name('biographies.blocked');
 
 
             Route::get('/biographies/download/booking/{id}', 'AdminBiographiesController@cvsDownload')->name('biographies_download.view');

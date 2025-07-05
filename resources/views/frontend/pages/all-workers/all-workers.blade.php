@@ -492,7 +492,66 @@
             margin: 0;
         }
 
+        /* تصميم احترافي للراديو بوتنز */
+        .form-check-input[type="radio"] {
+            appearance: none;
+            -webkit-appearance: none;
+            background-color: #fff;
+            margin-top: 0.3em;
+            font: inherit;
+            color: #f4a835;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #f4a835;
+            border-radius: 50%;
+            display: grid;
+            place-content: center;
+            transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            position: relative;
+            cursor: pointer;
+        }
 
+        .form-check-input[type="radio"]::before {
+            content: "";
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            transform: scale(0);
+            transition: transform 0.2s ease-in-out;
+            background-color: #f4a835;
+        }
+
+        .form-check-input[type="radio"]:checked::before {
+            transform: scale(1);
+        }
+
+        .form-check-input[type="radio"]:hover {
+            box-shadow: 0 0 0 4px rgba(244, 168, 53, 0.15);
+        }
+
+        /* تحسين النص بجوار الراديو */
+        .form-check-label {
+            margin-right: 8px;
+            font-weight: 500;
+            color: #333;
+            cursor: pointer;
+        }
+
+        /* دعم للموبايل (بدون تغيير هيكل) */
+        @media (max-width: 767.98px) {
+            .form-check {
+                display: flex;
+                align-items: center;
+                margin-bottom: 10px;
+            }
+            .form-check-input[type="radio"] {
+                width: 18px;
+                height: 18px;
+            }
+            .form-check-label {
+                font-size: 15px;
+            }
+        }
 
     </style>
 
@@ -533,8 +592,8 @@
                     <div id="nationalityFilter" class="collapse show">
                         @foreach($nationalities as $key=> $nationalitie)
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="nationality" id="nationality{{$key+1}}" value="{{$nationalitie->id}}">
-                                <label class="form-check-label" for="nationality{{$key+1}}">{{trans($nationalitie->title)}}</label>
+                                <input class="form-check-input" type="radio" name="nationality" id="nationality1{{$key+1}}" value="{{$nationalitie->id}}">
+                                <label class="form-check-label" for="nationality1{{$key+1}}">{{trans($nationalitie->title)}}</label>
                             </div>
                         @endforeach
                     </div>
@@ -550,8 +609,8 @@
                     <div id="jobFilter" class="collapse show">
                         @foreach($jobs as $key=> $job)
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="job" id="job{{$key+1}}" value="{{$job->id}}">
-                                <label class="form-check-label" for="job{{$key+1}}">{{trans($job->title)}}</label>
+                                <input class="form-check-input" type="radio" name="job" id="job1{{$key+1}}" value="{{$job->id}}">
+                                <label class="form-check-label" for="job1{{$key+1}}">{{trans($job->title)}}</label>
                             </div>
                         @endforeach
                     </div>
@@ -567,8 +626,8 @@
                     <div id="ageFilter" class="collapse show">
                         @foreach($ages as $key=>$age)
                             <div class="form-check">
-                                <input class="form-check-input" value="{{$age->id}}" type="radio" name="age" id="age{{$key+1}}">
-                                <label class="form-check-label" for="age{{$key+1}}"> من {{$age->from}} إلى {{$age->to}}</label>
+                                <input class="form-check-input" value="{{$age->id}}" type="radio" name="age" id="age1{{$key+1}}">
+                                <label class="form-check-label" for="age1{{$key+1}}"> من {{$age->from}} إلى {{$age->to}}</label>
                             </div>
                         @endforeach
                     </div>
@@ -584,8 +643,8 @@
                     <div id="religionFilter" class="collapse show">
                         @foreach($religions as $key => $religion)
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="religion" id="religion{{$key+1}}" value="{{ $religion->id }}">
-                                <label class="form-check-label" for="religion{{$key+1}}">{{ trans($religion->title) }}</label>
+                                <input class="form-check-input" type="radio" name="religion" id="religion1{{$key+1}}" value="{{ $religion->id }}">
+                                <label class="form-check-label" for="religion1{{$key+1}}">{{ trans($religion->title) }}</label>
                             </div>
                         @endforeach
                     </div>
@@ -601,8 +660,8 @@
                     <div id="socialFilter" class="collapse show">
                         @foreach($social_types as $key => $social)
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="social" id="social{{$key+1}}" value="{{ $social->id }}">
-                                <label class="form-check-label" for="social{{$key+1}}">{{ trans($social->title) }}</label>
+                                <input class="form-check-input" type="radio" name="social" id="social1{{$key+1}}" value="{{ $social->id }}">
+                                <label class="form-check-label" for="social1{{$key+1}}">{{ trans($social->title) }}</label>
                             </div>
                         @endforeach
                     </div>
@@ -617,12 +676,12 @@
                 </button>
                 <div id="experienceFilter" class="collapse show">
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="type_of_experience" id="exp1" value="new">
-                        <label class="form-check-label" for="exp1">قادم جديد</label>
+                        <input class="form-check-input" type="radio" name="type_of_experience" id="exp11" value="new">
+                        <label class="form-check-label" for="exp11">قادم جديد</label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="type_of_experience" id="exp2" value="with_experience">
-                        <label class="form-check-label" for="exp2">لديه خبرة سابقة</label>
+                        <input class="form-check-input" type="radio" name="type_of_experience" id="exp21" value="with_experience">
+                        <label class="form-check-label" for="exp21">لديه خبرة سابقة</label>
                     </div>
                 </div>
             </div>
@@ -630,10 +689,10 @@
 
             <!-- أزرار -->
             <div class="d-flex justify-content-between">
-                <button class="btn clear" type="button" id="SearchResetButton" style="display:none;">
+                <button class="btn clear resetFilterBtn" type="button" style="display:none;">
                     مسح
                 </button>
-                <button class="btn confirm" id="SearchWorkerButton" type="submit">
+                <button class="btn confirm searchWorkerBtn" type="submit">
                     تأكيد
                 </button>
             </div>
@@ -766,10 +825,10 @@
 
                         <!-- أزرار -->
                         <div class="d-flex justify-content-between">
-                            <button class="btn clear" type="button" id="SearchResetButton" style="display:none;">
+                            <button class="btn clear resetFilterBtn" type="button" style="display:none;">
                                 مسح
                             </button>
-                            <button class="btn confirm" id="SearchWorkerButton" type="submit">
+                            <button class="btn confirm searchWorkerBtn" type="submit">
                                 تأكيد
                             </button>
                         </div>
@@ -850,12 +909,12 @@
             type: 'GET',
             beforeSend: function () {
                 $("#hereWillDisplayAllWorker").html(loader_html);
-                $('#SearchWorkerButton').attr('disabled', true).html(`<i class='fa fa-spinner fa-spin'></i>`);
+                $('.searchWorkerBtn').attr('disabled', true).html(`<i class='fa fa-spinner fa-spin'></i>`);
             },
             success: function (data) {
                 setTimeout(() => {
                     $("#hereWillDisplayAllWorker").html(data.html);
-                    $('#SearchWorkerButton').attr('disabled', false).html(`تأكيد`);
+                    $('.searchWorkerBtn').attr('disabled', false).html(`تأكيد`);
                     if (data.last_page == data.current_page) {
                         $("#load_more_button").remove();
                     } else {
@@ -868,7 +927,7 @@
                 }, 500);
             },
             error: function () {
-                $('#SearchWorkerButton').attr('disabled', false).html(`تأكيد`);
+                $('.searchWorkerBtn').attr('disabled', false).html(`تأكيد`);
             }
         });
     }
@@ -876,13 +935,13 @@
     $(document).ready(function () {
         checkResetButtonVisibility();
 
-        // عند اختيار أي فلتر
+        // عند تغيير أي فلتر
         $(document).on('change', 'input[name="age"], input[name="job"], input[name="nationality"], input[name="religion"], input[name="social"], input[name="type_of_experience"]', function () {
             checkResetButtonVisibility();
         });
 
-        // زر التأكيد
-        $(document).on('click', '#SearchWorkerButton', function (e) {
+        // زر التأكيد (للجميع: موبايل + ديسكتوب)
+        $(document).on('click', '.searchWorkerBtn', function (e) {
             e.preventDefault();
             new_page = 1;
             loadWorkers(new_page);
@@ -908,7 +967,6 @@
                         $(".loader_html").remove();
                         $('#hereWillDisplayAllWorker').append(data.html);
                         $('#load_more_button').html("{{ __('frontend.load more') }}");
-
                         if (data.last_page == data.current_page) {
                             $("#load_more_button").remove();
                         }
@@ -920,8 +978,8 @@
             });
         }
 
-        // زر المسح
-        $(document).on('click', '#SearchResetButton', function (e) {
+        // زر المسح (مسح الفلاتر وإعادة تحميل النتائج)
+        $(document).on('click', '.resetFilterBtn', function (e) {
             e.preventDefault();
             const btn = $(this);
             btn.html(`<i class='fa fa-spinner fa-spin'></i>`);
@@ -931,7 +989,7 @@
             setTimeout(() => {
                 btn.html(`مسح`);
                 checkResetButtonVisibility();
-                $('#SearchWorkerButton').trigger('click');
+                $('.searchWorkerBtn').trigger('click');
             }, 300);
         });
 
@@ -939,30 +997,56 @@
             const filters = getFilters();
             const hasAnyFilter = Object.values(filters).some(value => value !== '');
             if (hasAnyFilter) {
-                $('#SearchResetButton').show();
+                $('.resetFilterBtn').show();
             } else {
-                $('#SearchResetButton').hide();
+                $('.resetFilterBtn').hide();
+            }
+        }
+
+        // فتح و غلق فلتر الموبايل
+        $('#openFilterBtn').click(function () {
+            $('#mobileFilterSidebar').addClass('active');
+            $('body').css('overflow', 'hidden');
+        });
+
+        $('#closeFilterBtn').click(function () {
+            $('#mobileFilterSidebar').removeClass('active');
+            $('body').css('overflow', 'auto');
+        });
+
+        $(document).on('click', '.mobile-filter-overlay', function () {
+            $('#mobileFilterSidebar').removeClass('active');
+            $(this).removeClass('active');
+        });
+
+        // ---------
+        // حل مشكلة عدم اختيار الـ radio عند الضغط على النص في الديسكتوب:
+        // هذه المشكلة غالباً بسبب نقص أو خطأ في ارتباط الـ label بالـ input.
+        // تأكد أن كل label يحتوي على الخاصية `for` التي تطابق الـ id الخاص بالـ input.
+        // مثال:
+        // <input type="radio" id="job1" name="job" value="1">
+        // <label for="job1">اسم الوظيفة</label>
+        //
+        // إذا كانت موجودة وصحيحة، حاول تفعيل هذا الكود لإجبار اختيار الـ radio عند الضغط على النص:
+        $('label').click(function() {
+            var forAttr = $(this).attr('for');
+            if (forAttr) {
+                $('#' + forAttr).prop('checked', true).trigger('change');
+            }
+        });
+
+    });
+
+    $('label').on('click', function(e) {
+        var forId = $(this).attr('for');
+        if (forId) {
+            e.preventDefault(); // منع السلوك الافتراضي للـ label
+            var radioInput = $('#' + forId);
+            if (radioInput.length) {
+                radioInput.prop('checked', true).trigger('change');
             }
         }
     });
-
-
-    // ✅ فتح/غلق فلتر الجوال
-    $(document).ready(function () {
-        // تحريك السايد بار
-        $('#openFilterBtn').click(function () {
-            $('.mobile-filter-sidebar').addClass('active');
-            $('.mobile-filter-overlay').addClass('active');
-        });
-
-        // إغلاق الفلتر عند الضغط على الخلفية
-        $(document).on('click', '.mobile-filter-overlay', function () {
-            $('.mobile-filter-sidebar').removeClass('active');
-            $(this).removeClass('active');
-        });
-    });
-    
-
 </script>
 
 <script>

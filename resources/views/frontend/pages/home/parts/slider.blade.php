@@ -302,7 +302,13 @@
       .globeImageUrl(null)
       .backgroundColor('white')
       .showAtmosphere(false)
-      .globeMaterial(new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 1 }))
+      .globeMaterial(
+        new THREE.MeshBasicMaterial({
+          color: 0xf4a835,           // برتقالي
+          transparent: true,
+          opacity: 0.08              // شفافية أخف = أنعم
+        })
+      )
       .pointAltitude(0.005)
       .pointRadius(0.08)
       .pointColor(() => '#3A60A5')

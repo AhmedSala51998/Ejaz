@@ -65,7 +65,7 @@ class AdminBiographiesController extends Controller
         $social_statuses = SocialType::all();
 
         if ($request->ajax()) {
-            $biographies= Biography::query()->where("order_type","normal")->orderBy("id","DESC");
+            $biographies= Biography::query()->where("order_type","normal")->where("is_blocked", 0)->orderBy("id","DESC");
 
 
             if ($request->passport_key != null) {
@@ -241,6 +241,210 @@ class AdminBiographiesController extends Controller
         }
         return view('admin.crud.biographies.index', compact('natinalities', 'nationality_id', 'social_type', 'social_type_id', 'booking_status', 'recruitment_office', 'recruitment_office_id', 'type','date' , 'religions', 'religion_id' , 'social_statuses', 'social_status_id'));
     }
+    public function biographiesBlock(Request $request)
+    {
+
+        if(!checkPermission(18))
+            return view('admin.permission');
+
+        $admin=  \App\Models\Admin::find(admin()->id());
+        $roles= $admin->roles;
+        $count=0;
+        $passport_key=$request->passport_key;
+        $nationality_id=$request->nationality_id ;
+        $social_type_id=$request->social_type ;
+        $booking_status = $request->booking_status?$request->booking_status:'';
+        $recruitment_office_id = $request->recruitment_office_id;
+        $natinalities=Nationalitie::get();
+        $recruitment_office = RecruitmentOffice::get();
+        $social_type = SocialType::get();
+        $type = $request->type;
+        $date = $request->date;
+
+        $religion_id = $request->religion_id;
+        $religions = Religion::all();
+
+        $social_status_id = $request->social_status_id;
+
+        $social_statuses = SocialType::all();
+
+        if ($request->ajax()) {
+            $biographies= Biography::query()->where("order_type","normal")->where("is_blocked", 1)->orderBy("id","DESC");
+
+
+            if ($request->passport_key != null) {
+                $biographies = $biographies->  where('passport_number', $passport_key);
+//
+            }
+
+            if ($request->social_type != null) {
+
+                if ($social_type_id == 1) {
+                    $biographies = $biographies->  where('type_of_experience', 'new');
+
+                } else if ($social_type_id == 2) {
+                    $biographies = $biographies->  where('type_of_experience','with_experience');
+
+
+                }
+            }
+
+            if ($request->nationality_id != null) {
+                $biographies = $biographies->  where('nationalitie_id', $nationality_id);
+
+            }
+
+            if ($request->recruitment_office_id != null) {
+                $biographies = $biographies->where('recruitment_office_id', $recruitment_office_id);
+
+            }
+            if ($request->booking_status != null) {
+                $biographies = $biographies->where('status', $booking_status);
+            }
+            if ($request->type != null) {
+                $biographies = $biographies->where('type', $type);
+            }
+            if ($date != null) {
+                $biographies = $biographies->whereDate('created_at', '>=', date('Y-m-d', strtotime(explode(" - ", $date)[0])))->whereDate('created_at', '<=', date('Y-m-d', strtotime(explode(" - ", $date)[1])));
+            }
+
+            if ($request->religion_id != null) {
+                $biographies = $biographies->where('religion_id', $religion_id);
+            }
+
+            if ($request->social_status_id != null) {
+                $biographies = $biographies->where('social_type_id', $social_status_id);
+            }
+
+            return DataTables::of($biographies)
+                ->editColumn('image', function ($row) {
+                    return ' <img src="'.get_file($row->cv_file).'" class="rounded" style="height:60px;width:60px;object-fit: contain;"
+                             onclick="window.open(this.src)">';
+                })
+                ->editColumn('smart_image', function ($row) {
+                    $imgs='
+                  <div class="moreImgs">';
+
+                    foreach($row->images as $image) {
+                        $imgs .= '<a data-fancybox="users' . $row->id . '-CV" href="' . get_file($image->image) . '" target="_blank">
+                            <img src="' . get_file($image->image) . '" class="rounded" style="height:60px;width:60px;">
+                        </a>';
+                    }
+                    $imgs .= ' </div>';
+
+                    return $imgs ;
+                })
+                ->editColumn('created_at', function ($row) {
+                    return date('Y/m/d',strtotime($row->created_at));
+                })
+                ->editColumn('type', function ($row) {
+                    if ($row->type == 'admission')
+                        return 'استقدام ';
+                    else if ($row->type == 'rental')
+                        return 'تاجير ';
+                    else
+                        return 'نقل خدمات  ';
+                })
+                ->addColumn('religion', function ($row) {
+                    return optional($row->religion)->title;
+                })
+                ->addColumn('delete_all', function ($row) {
+                    return "<input type='checkbox' class=' delete-all form-check-input' data-tablesaw-checkall name='delete_all' id='" . $row->id . "'>";
+                })
+                ->editColumn('status', function ($row) {
+
+
+
+
+                    if ($row->status == "new") {
+                        return "غير محجوز";
+                    } elseif ($row->status == "under_work") {
+                        return "حجز السيرة الذاتيه";
+                    }
+                    elseif ($row->status == "contract") {
+                        return "تم التعاقد";
+                    } elseif ($row->status == "musaned") {
+                        return "تم الربط في مساند ";
+                    }
+                    elseif ($row->status == "traning") {
+                        return "تحت الاجراء و التدريب";
+                    }
+                    elseif ($row->status == "tfeez") {
+                        return " التفييز ";
+                    }
+                    elseif ($row->status == "finished") {
+                        return "وصول العمالة";
+                    }
+                    elseif ($row->status == "canceled") {
+                        return "ملغية";
+                    }
+                    elseif ($row->status == "pending") {
+                        return "معلق";
+                    }
+                    else {
+                        return "لاتوجد حالة بعد";
+                    }
+
+                })
+                ->editColumn('nationalitie_id', function ($row) {
+                    return $row->nationalitie->title;
+                })
+                ->addColumn('actions', function ($row) {
+                    $edit = '';
+                    $delete = '';
+                    if (!checkPermission(20))
+                        $edit = 'hidden';
+                    if (!checkPermission(21))
+                        $delete = 'hidden';
+                    $actions = '';
+
+                    // زر الحظر / إلغاء الحظر
+                    $blockButton = '';
+                    if ($row->is_blocked) {
+                        $blockButton = '<a href="#" data-id="'.$row->id.'" class="btn btn-success toggle-block" data-status="0"><i class="fa fa-unlock"></i> إلغاء الحظر</a>';
+                    } else {
+                        $blockButton = '<a href="#" data-id="'.$row->id.'" class="btn btn-danger toggle-block" data-status="1"><i class="fa fa-ban"></i> حظر</a>';
+                    }
+
+                    if($row->status=="pending"){
+                        return $actions."
+                            <a " .$edit. " href='" . route('biographies.edit',$row->id) . "' class='btn btn-info editButton' id='" . $row->id . "'>
+                                <i class='fa fa-edit'></i>
+                            </a>
+                            <a href='" . route('biographies.unban',$row->id) . "' class='btn btn-success benButton'>
+                                <i class='fa fa-unlock'></i>
+                            </a>
+                            $blockButton
+                            <a " .$delete. " style='margin-right: 10px;' href='#' class='btn btn-danger delete mr-2' id='" . $row->id . "'>
+                                <i class='fa fa-trash'></i>
+                            </a>";
+                    } elseif($row->status=="new") {
+                        return $actions."
+                            <a " .$edit. " href='" . route('biographies.edit',$row->id) . "' class='btn btn-info editButton' id='" . $row->id . "'>
+                                <i class='fa fa-edit'></i>
+                            </a>
+                            <a href='" . route('biographies.ban',$row->id) . "' class='btn btn-warning benButton'>
+                                <i class='fa fa-unlock-alt'></i>
+                            </a>
+                            $blockButton
+                            <a " .$delete. " style='margin-right: 10px;' href='#' class='btn btn-danger delete mr-2' id='" . $row->id . "'>
+                                <i class='fa fa-trash'></i>
+                            </a>";
+                    } else {
+                        return $actions."
+                            <a " .$edit. " href='" . route('biographies.edit',$row->id) . "' class='btn btn-info editButton' id='" . $row->id . "'>
+                                <i class='fa fa-edit'></i>
+                            </a>
+                            $blockButton
+                            <a " .$delete. " style='margin-right: 10px;' href='#' class='btn btn-danger delete mr-2' id='" . $row->id . "'>
+                                <i class='fa fa-trash'></i>
+                            </a>";
+                    }
+                })
+                ->rawColumns(['actions','image','delete_all','nationalitie_id','status','smart_image'])->make(true);
+        }
+        return view('admin.crud.biographies.biographiesBlock', compact('natinalities', 'nationality_id', 'social_type', 'social_type_id', 'booking_status', 'recruitment_office', 'recruitment_office_id', 'type','date' , 'religions', 'religion_id' , 'social_statuses', 'social_status_id'));
+    }
     public function cvsDownload($id)
     {
         $cv=Biography::find($id);
@@ -281,14 +485,17 @@ class AdminBiographiesController extends Controller
 
     public function toggleBlock(Request $request)
     {
-        $biography = Biography::findOrFail($request->id);
-        $biography->is_blocked = $request->status;
-        $biography->save();
+        $ids = is_array($request->id) ? $request->id : [$request->id];
 
-        $message = $request->status == 1 ? 'تم حظر العنصر بنجاح' : 'تم إلغاء الحظر بنجاح';
+        Biography::whereIn('id', $ids)->update([
+            'is_blocked' => $request->status
+        ]);
+
+        $message = $request->status == 1 ? 'تم حظر العناصر المحددة بنجاح' : 'تم إلغاء الحظر بنجاح';
 
         return response()->json(['message' => $message], 200);
     }
+
 
     /**
      * Show the form for creating a new resource.

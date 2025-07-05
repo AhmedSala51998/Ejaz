@@ -54,7 +54,7 @@
 @endsection
 
 @section('page-title')
-    السير الذاتية
+    السير الذاتية المحظورة
 @endsection
 
 
@@ -200,13 +200,13 @@
 
                         </div>
                         @if(checkPermission(19))
-                            <div class="col-sm-4">
+                            <!--<div class="col-sm-4">
                                 <div class="text-sm-start">
                                     <a href="{{route('biographies.create')}}" id="addButton" type="button"
                                        class="btn btn-success  waves-effect waves-light mb-2 me-2">
                                         <i class="mdi mdi-plus me-1"></i> أضف جديد </a>
                                 </div>
-                            </div>
+                            </div>-->
                         @endif
                     </div>
                 </div>
@@ -230,25 +230,25 @@
                     {{---------------------------------}}
 
                     <div class="mb-3 d-flex justify-content-start">
-                        <div id="bulk_actions_wrapper" style="display:none;">
+                        <div id="bulk_actions_wrapper" style="display: none;">
                             <div class="dropdown">
                                 <button class="btn btn-orange-glass dropdown-toggle"
                                         type="button"
                                         id="bulkActionsBtn"
                                         data-bs-toggle="dropdown"
                                         aria-expanded="false">
-                                    <i class="fas fa-cogs"></i> تنفيذ على المحدد
+                                    <i class="fas fa-tools"></i> تنفيذ على المحدد
                                 </button>
 
                                 <ul class="dropdown-menu shadow-sm border-0" aria-labelledby="bulkActionsBtn">
                                     <li>
-                                        <a class="dropdown-item text-warning d-flex align-items-center gap-2" href="#" id="bulk_block">
-                                            <i class="fas fa-ban"></i> حظر
+                                        <a class="dropdown-item text-success d-flex align-items-center gap-2" href="#" id="bulk_unblock">
+                                            <i class="fas fa-unlock-alt"></i> إلغاء الحظر
                                         </a>
                                     </li>
                                     <li>
                                         <a class="dropdown-item text-danger d-flex align-items-center gap-2" href="#" id="bulk_delete">
-                                            <i class="fas fa-trash-alt"></i> مسح
+                                            <i class="fas fa-trash-alt"></i> حذف نهائي
                                         </a>
                                     </li>
                                 </ul>
@@ -268,9 +268,7 @@
                                     <i class="mdi mdi-trash-can-outline me-1  "
                                        style=" width: 50% !important;height: 50% !important;"></i>
                                 </a>-->
-                                <!-- زر الإجراءات الجماعية -->
-                               
-
+                          
 
                             </th>
 
@@ -337,7 +335,7 @@
             "searching": false,
             'iDisplayLength': 20,
             "ajax":  {
-                url: "{{route('biographies.index')}}",
+                url: "{{route('biographies.blocked')}}",
                 data: function (d) {
                         d.passport_key = $('#passport_key').val(),
                         d.social_type = $('#social_type').val(),
@@ -533,12 +531,13 @@
             $('.delete-all').prop('checked', check);
         });*/
 
+        // عند تحديد الكل
         $(document).on('click', '#checkAll', function () {
-            const check = this.checked;
-            $('.delete-all').prop('checked', check);
+            $('.delete-all').prop('checked', this.checked);
             toggleBulkActions();
         });
 
+        // عند تحديد أو إلغاء أي عنصر
         $(document).on('change', '.delete-all', function () {
             toggleBulkActions();
         });
@@ -579,7 +578,7 @@
     </script>
 
     <script>
-        $(document).on('click', '#bulk_block', function (e) {
+        $(document).on('click', '#bulk_unblock', function (e) {
             e.preventDefault();
 
             var ids = [];
@@ -593,14 +592,14 @@
             }
 
             Swal.fire({
-                title: 'تأكيد الحظر؟',
-                text: "سيتم حظر العناصر المحددة",
+                title: 'تأكيد إلغاء الحظر؟',
+                text: "سيتم إلغاء الحظر عن العناصر المحددة",
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonText: 'نعم، حظر',
+                confirmButtonText: 'نعم، إلغاء الحظر',
                 cancelButtonText: 'إلغاء',
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
+                confirmButtonColor: '#28a745',
+                cancelButtonColor: '#6c757d',
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
@@ -608,7 +607,7 @@
                         type: "POST",
                         data: {
                             id: ids, // array of ids
-                            status: 1, // للحظر
+                            status: 0, // إلغاء الحظر
                             _token: '{{ csrf_token() }}'
                         },
                         success: function(response) {
