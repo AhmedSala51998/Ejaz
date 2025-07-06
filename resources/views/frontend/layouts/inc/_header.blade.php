@@ -203,13 +203,26 @@
     }
     header .navbar {
         background: rgba(244, 168, 53, 0.20) !important;
-        border:1px solid rgba(244, 168, 53, 0.20) !important
+        border:1px solid rgba(244, 168, 53, 0.20) !important;
+        background: linear-gradient(135deg, #f4a835, #fff1db) !important;
     }
 
     #mobileSidebar .sidebar-nav a.active {
         background-color: #f4a835;
         color: white;
     }
+
+    .navbar a.active,
+    .navbar a:hover {
+        background-color: #f4a835 !important;
+        color: white !important;
+        border-radius: 999px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15), 0 0 0 3px rgba(244, 168, 53, 0.5);
+        position: relative;
+        z-index: 10;
+        transition: all 0.3s ease-in-out;
+    }
+
 
 </style>
 <header>

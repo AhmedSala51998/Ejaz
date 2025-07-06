@@ -1,4 +1,12 @@
 <style>
+  :root {
+    --orange: #D89835;
+    --orange-dark: #c8812a;
+    --gray-dark: #5F5F5F;
+    --text-main: #212121;
+    --card-bg: rgba(255, 255, 255, 0.2);
+    --border-color: rgba(255, 255, 255, 0.2);
+}
     * {
        box-shadow: none !important;
     }
@@ -101,6 +109,22 @@
       }
     }
 
+  .animatedLinkk {
+      display: inline-block;
+      background: var(--orange);
+      color: white;
+      font-weight: 600;
+      padding: 10px 22px;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: background 0.3s ease;
+  }
+
+  .animatedLinkk:hover {
+      background: var(--orange);
+  }
+
 </style>
 @if (count($sliders)>0)
 <section class="mainSection">
@@ -130,12 +154,12 @@
 
                             <div class="swiper-slide mainSlideItem">
                                 <div class="info">
-                                    <h1 class="sliderTitle"> {{$slider->title}} </h1>
-                                    <p class="hint">
+                                    <h1 class="sliderTitle" style="color:#D89835"> {{$slider->title}} </h1>
+                                    <p class="hint" style="color:#D89835">
                                         {{$slider->desc}}
                                     </p>
 
-                                    <a href="{{route('all-workers')}}" class="animatedLink">
+                                    <a href="{{route('all-workers')}}" class="animatedLinkk">
                                         طلب استقدام
 
                                         <i class="fa-regular fa-arrow-up-left ms-2"><span></span></i>
@@ -198,11 +222,11 @@
                                 <!-- swiper-slide -->
                                 <div class="swiper-slide mainSlideItem">
                                     <div class="info">
-                                        <h1 class="sliderTitle"> شركة ايجاز للاستقدام  </h1>
-                                        <p class="hint">
+                                        <h1 class="sliderTitle" style="color:#D89835"> شركة ايجاز للاستقدام  </h1>
+                                        <p class="hint" style="color:#D89835">
                                             اكبر شركة للاستقدام في المملكة العربية السعودية
                                         </p>
-                                        <a href="{{route('all-workers')}}" class="animatedLink">
+                                        <a href="{{route('all-workers')}}" class="animatedLinkk">
                                             طلب استقدام
                                             <i class="fa-regular fa-left-long ms-2"><span></span></i>
                                         </a>
@@ -211,9 +235,9 @@
                                 <!-- swiper-slide -->
                                 <div class="swiper-slide mainSlideItem">
                                     <div class="info">
-                                        <h1 class="sliderTitle">خدمات متميزة</h1>
-                                        <p class="hint">تعرف علي خدمتنا التي نقدمها لك</p>
-                                        <a href="{{route('all-workers')}}" class="animatedLink">
+                                        <h1 class="sliderTitle" style="color:#D89835">خدمات متميزة</h1>
+                                        <p class="hint" style="color:#D89835">تعرف علي خدمتنا التي نقدمها لك</p>
+                                        <a href="{{route('all-workers')}}" class="animatedLinkk">
                                             طلب استقدام
                                             <i class="fa-regular fa-left-long ms-2"><span></span></i>
                                         </a>
@@ -222,12 +246,12 @@
                                 <!-- swiper-slide -->
                                 <div class="swiper-slide mainSlideItem">
                                     <div class="info">
-                                        <h1 class="sliderTitle">سهولة الاستخدام</h1>
-                                        <p class="hint">
+                                        <h1 class="sliderTitle" style="color:#D89835">سهولة الاستخدام</h1>
+                                        <p class="hint" style="color:#D89835">
                                             ابدأ حجزك واتمم دفعك من خلال الموقع الالكتروني او التواصل معنا
                                             بوقت وجيز وبخطوات مختصرة
                                         </p>
-                                        <a href="{{route('all-workers')}}" class="animatedLink">
+                                        <a href="{{route('all-workers')}}" class="animatedLinkk">
                                             طلب استقدام
                                             <i class="fa-regular fa-left-long ms-2"><span></span></i>
                                         </a>
