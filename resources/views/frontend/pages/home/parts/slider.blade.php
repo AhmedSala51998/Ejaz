@@ -55,59 +55,141 @@
         z-index: 9999;
     }
 
-    #chat-message {
-        position: absolute;
-        display: none;
-        background: #f1f4f9;
-        color: #1a1a1a;
-        padding: 12px 16px;
-        border-radius: 12px;
-        font-family: 'Segoe UI', sans-serif;
-        font-size: 14px;
-        max-width: 300px;
-        z-index: 9999;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        animation: fadeSlideIn 0.7s ease-out forwards;
+    /* فقاعة شفافة دائرية فوق السعودية */
+    #saudi-bubble {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      background: rgba(244, 168, 53, 0.25);
+      border-radius: 50%;
+      backdrop-filter: blur(8px);
+      box-shadow:
+        0 0 15px rgba(244, 168, 53, 0.6),
+        inset 0 0 30px rgba(244, 168, 53, 0.3);
+      pointer-events: none;
+      z-index: 10000;
+      overflow: visible; /* لازم عشان يظهر الموجات */
+    }
+
+    /* الحلقات الدائرية (الموجات) */
+    .ripple-ring {
+      position: absolute;
+      border: 2px solid rgba(244, 168, 53, 0.6);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      top: 0;
+      left: 0;
+      animation: rippleExpand 2s ease-out forwards;
+      pointer-events: none;
+      opacity: 0.8;
+    }
+
+    @keyframes rippleExpand {
+      0% {
+        transform: scale(1);
+        opacity: 0.8;
+      }
+      100% {
+        transform: scale(2.5);
         opacity: 0;
+      }
     }
 
-    #chat-message::after {
-        content: '';
-        position: absolute;
-        bottom: -10px;
-        left: 30px;
-        width: 0;
-        height: 0;
-        border-left: 10px solid transparent;
-        border-right: 10px solid transparent;
-        border-top: 10px solid #f1f4f9;
+    /* سهم ذيل الفقاعة متجه لأسفل */
+    #saudi-bubble::after {
+      content: '';
+      position: absolute;
+      top: -18px; /* تحت الفقاعة */
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 15px solid transparent;
+      border-right: 15px solid transparent;
+      border-top: 18px solid rgba(244, 168, 53, 0.25);
+      filter: drop-shadow(0 0 5px rgba(244, 168, 53, 0.4));
     }
 
+    /* حركة نبض الفقاعة */
+    @keyframes bubbleScalePulse {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow:
+          0 0 15px rgba(244, 168, 53, 0.6),
+          inset 0 0 30px rgba(244, 168, 53, 0.3);
+      }
+      50% {
+        transform: scale(1.1);
+        box-shadow:
+          0 0 25px rgba(244, 168, 53, 0.9),
+          inset 0 0 45px rgba(244, 168, 53, 0.5);
+      }
+    }
+
+    /* ستايل رسالة الـ chat (خلفية برتقالية + ظل) */
+    #chat-message {
+      position: absolute;
+      display: none;
+      background: linear-gradient(135deg, #f4a835 0%, #e07b00 100%);
+      color: white;
+      padding: 14px 22px;
+      border-radius: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 14px;
+      max-width: 280px;
+      box-shadow: 0 6px 18px rgba(244, 168, 53, 0.6);
+      z-index: 11000;
+      line-height: 1.4;
+      user-select: none;
+      cursor: default;
+      animation: fadeSlideIn 0.5s ease-out forwards;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* سهم الرسالة (الذي يشير للفقاعة) */
+    /*#chat-message::after {
+      content: '';
+      position: absolute;
+      bottom: -14px;
+      left: 40px;
+      width: 0;
+      height: 0;
+      border-left: 14px solid transparent;
+      border-right: 14px solid transparent;
+      border-top: 14px solid #e07b00;
+      filter: drop-shadow(0 3px 3px rgba(224, 123, 0, 0.3));
+    }*/
+
+    /* أنيميشن الدخول والخروج للرسالة */
     @keyframes fadeSlideIn {
-        from { opacity: 0; transform: translateY(20px) scale(0.95); }
-        to { opacity: 1; transform: translateY(0) scale(1); }
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     @keyframes fadeSlideOut {
-        from { opacity: 1; transform: translateY(0) scale(1); }
-        to { opacity: 0; transform: translateY(10px) scale(0.95); }
+      from {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      to {
+        opacity: 0;
+        transform: translateY(20px);
+      }
     }
+
+
     html, body {
         overflow-x: hidden !important;
     }
 
-    @media (max-width: 768px) {
-      #globe-container {
-        margin-top: -60px;
-        transform: scale(0.75); /* لو عايز تصغير كمان */
-        transform-origin: center;
-      }
-
-      #chat-message {
-        font-size: 12px;
-        max-width: 260px;
-      }
-    }
 
   .animatedLinkk {
       display: inline-block;
@@ -125,6 +207,37 @@
       background: var(--orange);
   }
 
+@media (max-width: 768px) {
+  #globe-container {
+    width: calc(100vw - 30px);
+    max-width: 460px;
+    aspect-ratio: 1 / 1;
+    height: auto;
+    position: relative;
+    left: calc(50% + 7px);      /* زودنا 10px يمين عشان نزيحها من ناحية الشمال */
+    transform: translateX(-50%);
+    margin-top: -5px;             /* رفع الكرة شوي */
+    margin-bottom: 10px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  #globe-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto;
+    position: relative;
+    left: 0 !important;
+    transform: none !important;
+  }
+
+}
+
 </style>
 @if (count($sliders)>0)
 <section class="mainSection">
@@ -140,6 +253,7 @@
                     <canvas></canvas>
                 </div>-->
                 <div id="globe-container"></div>
+                <div id="saudi-bubble"></div>
                 <div id="tooltip"></div>
                 <div id="chat-message">مرحباً بكم في المملكة العربية السعودية - شركة إيجاز للاستقدام ترحب بعودتكم من جديد</div>
                 <audio id="chat-sound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_b91f44f395.mp3" preload="auto"></audio>
@@ -210,6 +324,7 @@
                         <canvas></canvas>
                     </div>-->
                     <div id="globe-container"></div>
+                    <div id="saudi-bubble"></div>
                     <div id="tooltip"></div>
                     <div id="chat-message">مرحباً بكم في المملكة العربية السعودية - شركة إيجاز للاستقدام ترحب بعودتكم من جديد</div>
                     <audio id="chat-sound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_b91f44f395.mp3" preload="auto"></audio>
@@ -480,7 +595,7 @@
       };
     }
 
-    function showSaudiMessage() {
+    /*function showSaudiMessage() {
       const coords = globe.getScreenCoords(23.8859, 45.0792);
       if (!coords) return;
 
@@ -499,6 +614,96 @@
           chat.style.display = 'none';
         }, 500);
       }, 3000);
+    }*/
+
+    function showSaudiMessage() {
+      const coords = globe.getScreenCoords(23.8859, 45.0792);
+      if (!coords) return;
+
+      const bubble = document.getElementById('saudi-bubble');
+      const chat = document.getElementById('chat-message');
+      const sound = document.getElementById('chat-sound');
+
+      // تحديد إحداثيات حسب نوع الجهاز
+      let bubbleLeft, bubbleTop, chatLeft, chatTop;
+      console.log('Window width:', window.innerWidth);
+
+      if (window.innerWidth <= 768) {
+
+        console.log('Using mobile coordinates');
+        // موبايل - عدل القيم هنا حسب حاجتك
+        bubbleLeft = coords.x - 35;
+        bubbleTop = coords.y - 150;
+        chatLeft = coords.x - 80;
+        chatTop = coords.y - 250;
+      } else {
+        // ديسكتوب
+        bubbleLeft = coords.x - 350;
+        bubbleTop = coords.y - 30;
+        chatLeft = coords.x - 370;
+        chatTop = coords.y - 130;
+      }
+
+      bubble.style.left = `${bubbleLeft}px`;
+      bubble.style.top = `${bubbleTop}px`;
+      bubble.style.opacity = '1';
+      bubble.style.display = 'block';
+      bubble.style.animation = 'bubbleScalePulse 1.5s ease-in-out infinite';
+
+      chat.style.display = 'none';
+      chat.style.opacity = '0';
+      chat.style.pointerEvents = 'none';
+
+      setTimeout(() => {
+        chat.style.left = `${chatLeft}px`;
+        chat.style.top = `${chatTop}px`;
+        chat.style.display = 'block';
+        chat.style.pointerEvents = 'auto';
+        chat.style.animation = 'fadeSlideIn 0.6s ease-out forwards';
+        chat.style.opacity = '1';
+
+        sound.currentTime = 0;
+        sound.play();
+      }, 700);
+
+      setTimeout(() => {
+        chat.style.animation = 'fadeSlideOut 0.6s ease-in forwards';
+        chat.style.opacity = '0';
+        chat.style.pointerEvents = 'none';
+
+        bubble.style.transition = 'opacity 0.6s ease-in';
+        bubble.style.opacity = '0';
+
+        setTimeout(() => {
+          chat.style.display = 'none';
+          bubble.style.display = 'none';
+          bubble.style.animation = '';
+          bubble.style.opacity = '1';
+        }, 600);
+      }, 3700);
     }
+
+
+    function createRippleEffect() {
+      const bubble = document.getElementById('saudi-bubble');
+      if (!bubble) return;
+
+      const ripple = document.createElement('div');
+      ripple.className = 'ripple-ring';
+      bubble.appendChild(ripple);
+
+      // إزالة الحلقة بعد انتهاء الأنيميشن
+      ripple.addEventListener('animationend', () => {
+        ripple.remove();
+      });
+    }
+
+    // تكرار إنشاء الحلقات كل 600ms
+    const rippleInterval = setInterval(createRippleEffect, 600);
+
+    // لو حبيت توقف التكرار بعد فترة مثلا:
+// setTimeout(() => clearInterval(rippleInterval), 10000);
+
+
 
   </script>

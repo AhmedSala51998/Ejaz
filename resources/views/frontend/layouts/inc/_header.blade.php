@@ -53,7 +53,7 @@
         box-shadow: -3px 0 10px rgba(0, 0, 0, 0.1);
         padding: 20px;
         transition: right 0.3s ease;
-        z-index: 9999;
+        z-index: 1100000;
         overflow-y: auto;
         border-top-left-radius: 20px;
         border-bottom-left-radius: 20px;
@@ -250,6 +250,119 @@
                 position: relative;
                 z-index: 1;
             }
+            
+
+/* زر القائمة (الهامبرجر) */
+#mobileMenuToggle {
+  background: white !important;        /* خلفية بيضاء */
+  padding: 10px 10px;       /* بادينج أكبر حول الأيقونة */
+  border-radius: 8px;       /* حواف دائرية لطيفة */
+  display: inline-flex;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(244, 168, 53, 0.4), 0 2px 6px rgba(244, 168, 53, 0.2);
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+}
+
+#mobileMenuToggle svg path {
+  stroke: #f4a835; /* اللون البرتقالي للخطوط */
+  transition: stroke 0.3s ease;
+}
+
+#mobileMenuToggle:hover {
+  background-color: #fff7e6; /* خلفية فاتحة برتقالي عند hover */
+}
+
+#mobileMenuToggle:hover svg path {
+  stroke: #d17e00; /* ظل أغمق عند hover */
+}
+
+/* القائمة الجانبية */
+.mobile-sidebar {
+  background: #fff; /* خلفية بيضاء */
+  padding: 30px 25px; /* بادينج من كل الجهات */
+  width: 300px; /* حجم أكبر شوي */
+  border-top-left-radius: 24px;
+  border-bottom-left-radius: 24px;
+  box-shadow: 0 0 15px rgba(244, 168, 53, 0.3);
+}
+
+
+/* الروابط في القائمة */
+.mobile-sidebar .sidebar-nav li a {
+  color: #f4a835; /* خط برتقالي */
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 12px 18px;
+  border-radius: 12px;
+  background-color: transparent;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  display: block;
+  box-shadow: inset 0 0 0 0 #f4a835;
+  border: 2px solid transparent;
+          display: block;
+        padding: 10px 15px;
+        border-radius: 10px;
+        background-color: #f7f7f7;
+        color: #333;
+        text-decoration: none;
+        font-weight: 600;
+        transition: background 0.3s ease;
+}
+
+/* تفاعل الروابط */
+.mobile-sidebar .sidebar-nav li a:hover,
+.mobile-sidebar .sidebar-nav li a.active {
+  background-color: #f4a835;
+  color: #fff;
+  box-shadow: 0 0 10px #f4a835;
+  border-color: #f4a835;
+}
+
+/* زر الإغلاق */
+.close-btn {
+  color: #f4a835;
+  font-weight: 900;
+  font-size: 32px;
+  transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+  color: #d17e00;
+  cursor: pointer;
+}
+
+/* ترويسة القائمة */
+.sidebar-header {
+  border-bottom: 2px solid #f4a835;
+  padding-bottom: 20px;
+  margin-bottom: 25px;
+}
+
+/* شعار داخل الترويسة */
+.logo-img {
+  filter: drop-shadow(0 0 6px rgba(244, 168, 53, 0.7));
+  max-height: 70px;
+  transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+.logo-link:hover .logo-img {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 14px rgba(244, 168, 53, 1));
+}
+
+/* السهم داخل dropdown (الخدمات) */
+.arrowIcon {
+  fill: #f4a835 !important;
+  transition: transform 0.3s ease, fill 0.3s ease;
+}
+
+.dropdownToggle.active .arrowIcon {
+  transform: rotate(180deg);
+  fill: #d17e00 !important;
+}
+
 
 </style>
 <header>
@@ -260,7 +373,7 @@
         </a>
         <!-- navbar -->
         <nav class="navbar navbar-expand-lg">
-            <button id="mobileMenuToggle" class="mobile-toggler d-lg-none" style="background: none; border: none;">
+            <button id="mobileMenuToggle" class="mobile-toggler d-lg-none" style="background: FFF !important; border: 1px solid #d17e00;">
                 <svg width="28" height="28" fill="#333" viewBox="0 0 24 24">
                     <path d="M3 6h18M3 12h18M3 18h18" stroke="#333" stroke-width="2" stroke-linecap="round"/>
                 </svg>
