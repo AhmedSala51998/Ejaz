@@ -187,42 +187,69 @@
 
     /* أنيميشن عند الظهور */
     .animate-logo {
-    animation: zoomFade 1s ease forwards;
-    opacity: 0;
+        animation: zoomFade 1s ease forwards;
+        opacity: 0;
     }
 
     @keyframes zoomFade {
-    0% {
-        opacity: 0;
-        transform: scale(0.5) translateY(-20px);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-    }
-    }
-    header .navbar {
-        background: rgba(244, 168, 53, 0.20) !important;
-        border:1px solid rgba(244, 168, 53, 0.20) !important;
-        background: linear-gradient(135deg, #f4a835, #fff1db) !important;
-    }
+        0% {
+            opacity: 0;
+            transform: scale(0.5) translateY(-20px);
+        }
+        100% {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+        }
+        header .navbar {
+            background: rgba(244, 168, 53, 0.20) !important;
+            border:1px solid rgba(244, 168, 53, 0.20) !important;
+            background: linear-gradient(135deg, #f4a835, #fff1db) !important;
+        }
 
-    #mobileSidebar .sidebar-nav a.active {
-        background-color: #f4a835;
-        color: white;
-    }
+        #mobileSidebar .sidebar-nav a.active {
+            background-color: #f4a835;
+            color: white;
+        }
 
-    .navbar a.active,
-    .navbar a:hover {
-        background-color: #f4a835 !important;
-        color: white !important;
-        border-radius: 999px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15), 0 0 0 3px rgba(244, 168, 53, 0.5);
-        position: relative;
-        z-index: 10;
-        transition: all 0.3s ease-in-out;
-    }
+        @keyframes glowPulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow:
+                0 8px 20px rgba(244, 168, 53, 0.3),
+                0 0 0px rgba(244, 168, 53, 0.5),
+                inset 0 0 8px rgba(255, 255, 255, 0.3),
+                inset 0 -2px 6px rgba(0, 0, 0, 0.2);
+                background: linear-gradient(135deg, #f4a835 0%, #f5ba46 100%);
+            }
+            50% {
+                transform: scale(1.045);
+                box-shadow:
+                0 12px 35px rgba(244, 168, 53, 0.55),
+                0 0 15px rgba(244, 168, 53, 0.8),
+                inset 0 2px 10px rgba(255, 255, 255, 0.4),
+                inset 0 -4px 8px rgba(0, 0, 0, 0.3);
+                background: linear-gradient(135deg, #f5ba46 0%, #f4a835 100%);
+            }
+            }
 
+            .navbar a.active{
+                background: linear-gradient(135deg, #f4a835, #f5ba46);
+                color: #fff !important;
+                border-radius: 50px;
+                padding: 12px 30px;
+                font-weight: 700;
+                text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+                animation: glowPulse 3.5s infinite ease-in-out;
+                box-shadow:
+                    0 8px 20px rgba(244, 168, 53, 0.3),
+                    inset 0 0 5px rgba(255, 255, 255, 0.2),
+                    inset 0 -2px 4px rgba(0, 0, 0, 0.2);
+                transition: all 0.3s ease-in-out;
+                display: inline-block;
+                position: relative;
+                z-index: 1;
+            }
 
 </style>
 <header>
