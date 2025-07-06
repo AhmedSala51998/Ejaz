@@ -208,7 +208,7 @@
         }
 
         #mobileSidebar .sidebar-nav a.active {
-            background-color: #f4a835;
+            background-color: rgba(244, 168, 53, 0.2);;
             color: white;
         }
 
@@ -216,25 +216,25 @@
             0%, 100% {
                 transform: scale(1);
                 box-shadow:
-                0 8px 20px rgba(244, 168, 53, 0.3),
-                0 0 0px rgba(244, 168, 53, 0.5),
-                inset 0 0 8px rgba(255, 255, 255, 0.3),
-                inset 0 -2px 6px rgba(0, 0, 0, 0.2);
-                background: linear-gradient(135deg, #f4a835 0%, #f5ba46 100%);
+                0 8px 20px rgba(244, 168, 53, 0.2);,
+                0 0 0px rgba(244, 168, 53, 0.2);,
+                inset 0 0 8px rgba(244, 168, 53, 0.2);,
+                inset 0 -2px 6px rgba(244, 168, 53, 0.2);;
+                background: linear-gradient(135deg, rgba(244, 168, 53, 0.2); 0%, rgba(244, 168, 53, 0.2); 100%);
             }
             50% {
                 transform: scale(1.045);
                 box-shadow:
-                0 12px 35px rgba(244, 168, 53, 0.55),
-                0 0 15px rgba(244, 168, 53, 0.8),
-                inset 0 2px 10px rgba(255, 255, 255, 0.4),
+                0 12px 35px rgba(244, 168, 53, 0.2);,
+                0 0 15px rgba(244, 168, 53, 0.2);,
+                inset 0 2px 10px rgba(244, 168, 53, 0.2);,
                 inset 0 -4px 8px rgba(0, 0, 0, 0.3);
-                background: linear-gradient(135deg, #f5ba46 0%, #f4a835 100%);
+                background: linear-gradient(135deg, rgba(244, 168, 53, 0.2); 0%, rgba(244, 168, 53, 0.2); 100%);
             }
             }
 
             .navbar a.active{
-                background: linear-gradient(135deg, #f4a835, #f5ba46);
+                background: linear-gradient(135deg, rgba(244, 168, 53, 0.2);, rgba(244, 168, 53, 0.2););
                 color: #fff !important;
                 border-radius: 50px;
                 padding: 12px 30px;
