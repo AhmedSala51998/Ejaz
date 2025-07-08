@@ -1,8 +1,8 @@
 <section class="references py-6">
   <div class="container">
     <div class="sectionTitle text-center mb-5" data-aos="fade-up">
-      <h2>الجهات المرجعية</h2>
-      <p>نفخر بالتعاون مع أبرز الجهات الحكومية والرسمية</p>
+      <h2 class="section-title">الجهات المرجعية</h2>
+      <p class="section-subtitle">نفخر بالتعاون مع أبرز الجهات الحكومية والرسمية</p>
     </div>
 
     <div class="swiper referencesSlider">
@@ -184,6 +184,32 @@
       font-size: 1.1rem;
     }
   }
+  /* Section Titles - Enhanced */
+.section-title {
+    font-size: 3.2rem; /* Slightly larger */
+    color: #2c3e50; /* Darker, more professional grey */
+    font-weight: 800; /* Bolder */
+    position: relative;
+    padding-bottom: 15px; /* Space for underline effect */
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 80px; /* Short underline */
+    height: 4px; /* Thicker underline */
+    background: linear-gradient(to right, #D89835, #F2B544); /* Gradient underline */
+    border-radius: 2px;
+}
+
+.section-subtitle {
+    color: #7f8c8d; /* Muted grey for subtitle */
+    font-size: 1.2rem; /* Slightly larger */
+    margin-top: 10px;
+}
 </style>
 
 <script>

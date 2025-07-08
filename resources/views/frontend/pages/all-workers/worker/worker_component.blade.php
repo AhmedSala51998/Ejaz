@@ -169,20 +169,29 @@
         <div class="swiper workerCvSlider">
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
-                    <a data-fancybox="users{{$cv->id}}" href="{{get_file($cv->cv_file)}}">
+                    <a data-fancybox="users{{$cv->id}}" href="{{ get_file($cv->cv_file) }}">
                         <div class="cv-image-wrapper">
-                            <img src="{{get_file($cv->cv_file)}}" alt="CV Image">
+                            @if($cv->cv_file && file_exists(public_path('uploads/' . $cv->cv_file)))
+                                <img src="{{ get_file($cv->cv_file) }}" alt="CV Image">
+                            @else
+                                <img src="{{ asset('frontend/img/placeholder.jpg') }}" alt="No Image" class="placeholder-image">
+                            @endif
                         </div>
                     </a>
                 </div>
                 @foreach($cv->images as $image)
                 <div class="swiper-slide">
-                    <a data-fancybox="users{{$cv->id}}" href="{{get_file($image->image)}}">
+                    <a data-fancybox="users{{$cv->id}}" href="{{ get_file($image->image) }}">
                         <div class="cv-image-wrapper">
-                            <img src="{{get_file($image->image)}}" alt="CV Image">
+                            @if($image->image && file_exists(public_path('uploads/' . $image->image)))
+                                <img src="{{ get_file($image->image) }}" alt="CV Image">
+                            @else
+                                <img src="{{ asset('frontend/img/placeholder.jpg') }}" alt="No Image" class="placeholder-image">
+                            @endif
                         </div>
                     </a>
                 </div>
+
                 @endforeach
             </div>
             <div class="swiper-button-next workerCvSliderNext"></div>

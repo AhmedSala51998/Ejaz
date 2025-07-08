@@ -163,6 +163,32 @@
     color: var(--text-main);
     font-weight: 600;
 }
+/* Section Titles - Enhanced */
+.section-title {
+    font-size: 3.2rem; /* Slightly larger */
+    color: #2c3e50; /* Darker, more professional grey */
+    font-weight: 800; /* Bolder */
+    position: relative;
+    padding-bottom: 15px; /* Space for underline effect */
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 80px; /* Short underline */
+    height: 4px; /* Thicker underline */
+    background: linear-gradient(to right, #D89835, #F2B544); /* Gradient underline */
+    border-radius: 2px;
+}
+
+.section-subtitle {
+    color: #7f8c8d; /* Muted grey for subtitle */
+    font-size: 1.2rem; /* Slightly larger */
+    margin-top: 10px;
+}
 </style>
 
 <script>
@@ -179,16 +205,22 @@
 <section class="countries" id="countries">
     <div class="container">
         <div class="sectionTitle" data-aos="fade-up">
-            <h1>دول الاستقدام</h1>
-            <h6>نقوم بالاستقدام من مختلف الدول التي توفر عمالة مهرة ...</h6>
+            <h1 class="section-title">دول الاستقدام</h1>
+            <h6 class="section-subtitle">نقوم بالاستقدام من مختلف الدول التي توفر عمالة مهرة ...</h6>
         </div>
 
         <div class="allCountries">
             @foreach($countries as $country)
                 <div class="country" data-aos="zoom-in">
                     <!-- شعار الدولة -->
+                     
                     <div class="flag-wrapper">
-                        <img src="{{get_file($country->image)}}" alt="{{ $country->title }}">
+                        @if($country->image && file_exists(public_path('uploads/' . $country->image)))
+                             <img src="{{get_file($country->image)}}" alt="{{ $country->title }}">
+                        @else
+                            <img src="{{ asset('frontend/img/placeholder.jpg') }}" alt="No Image" class="placeholder-image">
+                        @endif
+                       
                     </div>
 
                     <h4>{{ $country->title }}</h4>

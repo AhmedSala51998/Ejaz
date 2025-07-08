@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\Frontend\CvDesignController;
+use Illuminate\Support\Facades\DB;
 
 Route::group(
     [
@@ -168,6 +169,18 @@ Route::group(
     ### pdf
 
     Route::get('/invoice-download',[\App\Http\Controllers\InvoiceController::class, 'downloadZip'])->name('frontend.invoice-download');
+
+    Route::get('/get-nationality-id', function (Illuminate\Http\Request $request) {
+        $name = $request->query('name');
+        
+        // ابحث في قاعدة البيانات مباشرة داخل عمود name->ar
+        $record = DB::table('nationalities')
+                    ->where('country_name', $name)
+                    ->select('id')
+                    ->first();
+
+        return $record ? response()->json(['id' => $record->id]) : response()->json(['id' => null], 404);
+    });
 
 
     #musaned

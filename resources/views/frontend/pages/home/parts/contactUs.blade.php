@@ -141,6 +141,32 @@
         padding-inline-start: 10px;
         display: block;
     }
+    /* Section Titles - Enhanced */
+.contact-title {
+    font-size: 3.2rem; /* Slightly larger */
+    color: #2c3e50; /* Darker, more professional grey */
+    font-weight: 800; /* Bolder */
+    position: relative;
+    padding-bottom: 15px; /* Space for underline effect */
+}
+
+.contact-title::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 80px; /* Short underline */
+    height: 4px; /* Thicker underline */
+    background: linear-gradient(to right, #D89835, #F2B544); /* Gradient underline */
+    border-radius: 2px;
+}
+
+.contact-sub {
+    color: #7f8c8d; /* Muted grey for subtitle */
+    font-size: 1.2rem; /* Slightly larger */
+    margin-top: 10px;
+}
 </style>
 
 <section id="contactUs">
