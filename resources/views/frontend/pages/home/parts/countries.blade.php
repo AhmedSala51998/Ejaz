@@ -215,11 +215,9 @@
                     <!-- شعار الدولة -->
                      
                     <div class="flag-wrapper">
-                        @if($country->image && file_exists(public_path('uploads/' . $country->image)))
+                       
                              <img src="{{get_file($country->image)}}" alt="{{ $country->title }}">
-                        @else
-                            <img src="{{ asset('frontend/img/placeholder.jpg') }}" alt="No Image" class="placeholder-image">
-                        @endif
+                      
                        
                     </div>
 
