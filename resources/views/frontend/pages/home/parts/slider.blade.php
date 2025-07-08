@@ -761,23 +761,43 @@ function createCountryLabel(text, lat, lng) {
 function showSaudiMessage() {
   const coords = globe.getScreenCoords(23.8859, 45.0792);
   if (!coords) return;
+
   const bubble = document.getElementById('saudi-bubble');
   const chat = document.getElementById('chat-message');
   const sound = document.getElementById('chat-sound');
 
-  bubble.style.left = `${coords.x - 350}px`;
-  bubble.style.top = `${coords.y - 30}px`;
+  const isMobile = window.innerWidth <= 768;
+
+  if (isMobile) {
+    // موضع الفقاعة في الموبايل
+    bubble.style.left = `${coords.x - 40}px`;
+    bubble.style.top = `${coords.y - 145}px`;
+
+    // موضع الرسالة في الموبايل
+    chat.style.left = `${coords.x - 80}px`;
+    chat.style.top = `${coords.y - 250}px`;
+  } else {
+    // موضع الفقاعة في الديسكتوب
+    bubble.style.left = `${coords.x - 350}px`;
+    bubble.style.top = `${coords.y - 30}px`;
+
+    // موضع الرسالة في الديسكتوب
+    chat.style.left = `${coords.x - 370}px`;
+    chat.style.top = `${coords.y - 130}px`;
+  }
+
+  // إظهار الفقاعة والرسالة
   bubble.style.display = 'block';
   bubble.style.animation = 'bubbleScalePulse 1.5s ease-in-out infinite';
 
-  chat.style.left = `${coords.x - 370}px`;
-  chat.style.top = `${coords.y - 130}px`;
   chat.style.display = 'block';
   chat.style.animation = 'fadeSlideIn 0.6s ease-out forwards';
 
+  // تشغيل الصوت
   sound.currentTime = 0;
   sound.play();
 
+  // إخفاء بعد 3.7 ثانية
   setTimeout(() => {
     chat.style.animation = 'fadeSlideOut 0.6s ease-in forwards';
     bubble.style.opacity = '0';
@@ -787,4 +807,5 @@ function showSaudiMessage() {
     }, 600);
   }, 3700);
 }
+
 </script>
