@@ -500,6 +500,7 @@ const globe = Globe()(document.getElementById('globe-container'))
 
 globe.controls().autoRotate = false;
 globe.controls().autoRotateSpeed = 0.1;
+globe.controls().enableZoom = false;
 
 
 
@@ -740,7 +741,7 @@ function createCountryLabel(text, lat, lng) {
 
   // التحويل الصحيح للنظام الكروي حسب globe.gl
   const phi = (90 - lat) * Math.PI / 180;
-  const theta = (lng) * Math.PI / 180;
+  const theta = (lng+180) * Math.PI / 180;
 
   let x = radius * Math.sin(phi) * Math.cos(theta);
   let y = radius * Math.cos(phi);
