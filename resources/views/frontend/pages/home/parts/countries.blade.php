@@ -61,9 +61,9 @@
     top: 0;
     right: 20px;
     transform: translateY(-50%);
-    width: 90px;
-    height: 90px;
-    border-radius: 16px;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
     border: 3px solid var(--orange);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
     z-index: 5;

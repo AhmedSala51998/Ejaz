@@ -553,6 +553,22 @@
             }
         }
 
+        .accordionButton .toggle-icon {
+            font-weight: bold;
+            font-size: 20px;
+            transition: transform 0.3s ease;
+        }
+        .accordionButton {
+            background-color: #f4a835;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 10px;
+            border: none;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+        }
+
     </style>
 
 @endsection
@@ -586,8 +602,10 @@
             <!-- فلاتر الدولة -->
             @if(count($nationalities) > 0)
                 <div class="mb-4">
-                    <button class="accordionButton" type="button" data-bs-toggle="collapse" data-bs-target="#nationalityFilter">
-                        {{__('frontend.Nationality')}}
+                    <button class="accordionButton d-flex justify-content-between align-items-center w-100" type="button" data-bs-toggle="collapse" data-bs-target="#nationalityFilter">
+                        
+                        <span>{{__('frontend.Nationality')}}</span>
+                        <span class="toggle-icon ms-auto">−</span>
                     </button>
                     <div id="nationalityFilter" class="collapse show">
                         @foreach($nationalities as $key=> $nationalitie)
@@ -603,8 +621,9 @@
             <!-- فلاتر الوظائف -->
             @if(count($jobs) > 0)
                 <div class="mb-4">
-                    <button class="accordionButton" type="button" data-bs-toggle="collapse" data-bs-target="#jobFilter">
-                        {{__('frontend.Job')}}
+                    <button class="accordionButton d-flex justify-content-between align-items-center w-100" type="button" data-bs-toggle="collapse" data-bs-target="#jobFilter">
+                        <span>{{__('frontend.Job')}}</span>
+                        <span class="toggle-icon ms-auto">−</span>
                     </button>
                     <div id="jobFilter" class="collapse show">
                         @foreach($jobs as $key=> $job)
@@ -620,8 +639,9 @@
             <!-- فلاتر العمر -->
             @if(count($ages) > 0)
                 <div class="mb-4">
-                    <button class="accordionButton" type="button" data-bs-toggle="collapse" data-bs-target="#ageFilter">
-                        العمر
+                    <button class="accordionButton d-flex justify-content-between align-items-center w-100" type="button" data-bs-toggle="collapse" data-bs-target="#ageFilter">
+                         <span>العمر</span>
+                        <span class="toggle-icon ms-auto">−</span>
                     </button>
                     <div id="ageFilter" class="collapse show">
                         @foreach($ages as $key=>$age)
@@ -637,8 +657,9 @@
             <!-- فلاتر الديانة -->
             @if(count($religions) > 0)
                 <div class="mb-4">
-                    <button class="accordionButton" type="button" data-bs-toggle="collapse" data-bs-target="#religionFilter">
-                        الديانة
+                    <button class="accordionButton d-flex justify-content-between align-items-center w-100" type="button" data-bs-toggle="collapse" data-bs-target="#religionFilter">
+                         <span>الديانة</span>
+                        <span class="toggle-icon ms-auto">−</span>
                     </button>
                     <div id="religionFilter" class="collapse show">
                         @foreach($religions as $key => $religion)
@@ -654,8 +675,9 @@
             <!-- فلاتر الحالة الاجتماعية -->
             @if(count($social_types) > 0)
                 <div class="mb-4">
-                    <button class="accordionButton" type="button" data-bs-toggle="collapse" data-bs-target="#socialFilter">
-                        الحالة الاجتماعية
+                    <button class="accordionButton d-flex justify-content-between align-items-center w-100" type="button" data-bs-toggle="collapse" data-bs-target="#socialFilter">
+                         <span>الحالة الاجتماعية</span>
+                        <span class="toggle-icon ms-auto">−</span>
                     </button>
                     <div id="socialFilter" class="collapse show">
                         @foreach($social_types as $key => $social)
@@ -671,8 +693,9 @@
             <!-- فلتر الخبرة العملية (يظهر فقط في حالة الاستقدام) -->
             @if(!isset($transfer) && !isset($rental))
             <div class="mb-4">
-                <button class="accordionButton" type="button" data-bs-toggle="collapse" data-bs-target="#experienceFilter">
-                    الخبرة العملية
+                <button class="accordionButton d-flex justify-content-between align-items-center w-100" type="button" data-bs-toggle="collapse" data-bs-target="#experienceFilter">
+                     <span>الخبرة العملية</span>
+                        <span class="toggle-icon ms-auto">−</span>
                 </button>
                 <div id="experienceFilter" class="collapse show">
                     <div class="form-check">
@@ -722,8 +745,10 @@
                         <!-- فلاتر الدولة -->
                         @if(count($nationalities) > 0)
                             <div class="mb-4">
-                                <button class="accordionButton" type="button" data-bs-toggle="collapse" data-bs-target="#nationalityFilter">
-                                    {{__('frontend.Nationality')}}
+                                <button class="accordionButton d-flex justify-content-between align-items-center w-100" type="button" data-bs-toggle="collapse" data-bs-target="#nationalityFilter">
+                                    
+                                     <span>{{__('frontend.Nationality')}}</span>
+                                     <span class="toggle-icon ms-auto">−</span>
                                 </button>
                                 <div id="nationalityFilter" class="collapse show">
                                     @foreach($nationalities as $key=> $nationalitie)
@@ -739,8 +764,10 @@
                         <!-- فلاتر الوظائف -->
                         @if(count($jobs) > 0)
                             <div class="mb-4">
-                                <button class="accordionButton" type="button" data-bs-toggle="collapse" data-bs-target="#jobFilter">
-                                    {{__('frontend.Job')}}
+                                <button class="accordionButton d-flex justify-content-between align-items-center w-100" type="button" data-bs-toggle="collapse" data-bs-target="#jobFilter">
+                                    
+                                <span>{{__('frontend.Job')}}</span>
+                                <span class="toggle-icon ms-auto">−</span>
                                 </button>
                                 <div id="jobFilter" class="collapse show">
                                     @foreach($jobs as $key=> $job)
@@ -756,8 +783,9 @@
                         <!-- فلاتر العمر -->
                         @if(count($ages) > 0)
                             <div class="mb-4">
-                                <button class="accordionButton" type="button" data-bs-toggle="collapse" data-bs-target="#ageFilter">
-                                    العمر
+                                <button class="accordionButton d-flex justify-content-between align-items-center w-100" type="button" data-bs-toggle="collapse" data-bs-target="#ageFilter">
+                                     <span>العمر</span>
+                        <span class="toggle-icon ms-auto">−</span>
                                 </button>
                                 <div id="ageFilter" class="collapse show">
                                     @foreach($ages as $key=>$age)
@@ -773,8 +801,9 @@
                         <!-- فلاتر الديانة -->
                         @if(count($religions) > 0)
                             <div class="mb-4">
-                                <button class="accordionButton" type="button" data-bs-toggle="collapse" data-bs-target="#religionFilter">
-                                    الديانة
+                                <button class="accordionButton d-flex justify-content-between align-items-center w-100" type="button" data-bs-toggle="collapse" data-bs-target="#religionFilter">
+                                     <span>الديانة</span>
+                        <span class="toggle-icon ms-auto">−</span>
                                 </button>
                                 <div id="religionFilter" class="collapse show">
                                     @foreach($religions as $key => $religion)
@@ -790,8 +819,9 @@
                         <!-- فلاتر الحالة الاجتماعية -->
                         @if(count($social_types) > 0)
                             <div class="mb-4">
-                                <button class="accordionButton" type="button" data-bs-toggle="collapse" data-bs-target="#socialFilter">
-                                    الحالة الاجتماعية
+                                <button class="accordionButton d-flex justify-content-between align-items-center w-100" type="button" data-bs-toggle="collapse" data-bs-target="#socialFilter">
+                                     <span>الحالة الاجتماعية</span>
+                        <span class="toggle-icon ms-auto">−</span>
                                 </button>
                                 <div id="socialFilter" class="collapse show">
                                     @foreach($social_types as $key => $social)
@@ -807,8 +837,9 @@
                         <!-- فلتر الخبرة العملية (يظهر فقط في حالة الاستقدام) -->
                         @if(!isset($transfer) && !isset($rental))
                         <div class="mb-4">
-                            <button class="accordionButton" type="button" data-bs-toggle="collapse" data-bs-target="#experienceFilter">
-                                الخبرة العملية
+                            <button class="accordionButton d-flex justify-content-between align-items-center w-100" type="button" data-bs-toggle="collapse" data-bs-target="#experienceFilter">
+                                 <span>الخبرة العملية</span>
+                        <span class="toggle-icon ms-auto">−</span>
                             </button>
                             <div id="experienceFilter" class="collapse show">
                                 <div class="form-check">
@@ -1050,16 +1081,34 @@
 </script>
 
 <script>
-    $(document).on('click', '#openFilterBtn', function () {
-        $('#mobileFilterSidebar').addClass('active');
-        $('body').css('overflow', 'hidden'); // قفل السكول
-    });
+document.addEventListener('DOMContentLoaded', function () {
+    const updateIcons = () => {
+        document.querySelectorAll('.accordionButton').forEach(button => {
+            const targetId = button.getAttribute('data-bs-target');
+            const collapseEl = document.querySelector(targetId);
+            const icon = button.querySelector('.toggle-icon');
 
-    $(document).on('click', '#closeFilterBtn', function () {
-        $('#mobileFilterSidebar').removeClass('active');
-        $('body').css('overflow', 'auto'); // فتح السكول
+            if (collapseEl && icon) {
+                if (collapseEl.classList.contains('show')) {
+                    icon.textContent = '−';
+                } else {
+                    icon.textContent = '+';
+                }
+            }
+        });
+    };
+
+    // تحديث عند تحميل الصفحة
+    updateIcons();
+
+    // حدث عند الفتح
+    document.querySelectorAll('.collapse').forEach(collapse => {
+        collapse.addEventListener('shown.bs.collapse', updateIcons);
+        collapse.addEventListener('hidden.bs.collapse', updateIcons);
     });
+});
 </script>
+
 
 
 @endsection

@@ -503,7 +503,6 @@ globe.controls().autoRotateSpeed = 0.1;
 globe.controls().enableZoom = false;
 
 
-
 document.addEventListener('mousemove', e => {
   tooltip.style.left = `${e.pageX + 10}px`;
   tooltip.style.top = `${e.pageY + 10}px`;
@@ -608,12 +607,10 @@ fetch('https://unpkg.com/world-atlas/countries-110m.json')
           if (geo && info) {
             let lat, lng;
             try {
-              // ✅ استخدم مركز الشكل الحقيقي للدولة
               const [lng_, lat_] = d3.geoCentroid(geo);
               lng = lng_;
               lat = lat_;
             } catch (e) {
-              // fallback (احتياطي لو فشل geoCentroid)
               if (geo.bbox) {
                 lat = (geo.bbox[1] + geo.bbox[3]) / 2;
                 lng = (geo.bbox[0] + geo.bbox[2]) / 2;
@@ -628,19 +625,31 @@ fetch('https://unpkg.com/world-atlas/countries-110m.json')
 
             const labelText = info.price ? `${info.name} - ${info.price} ريال` : info.name;
 
-            if (!countryLabels[cid]) {
-              const label = createCountryLabel(labelText, lat, lng);
-              globe.scene().add(label);
-              countryLabels[cid] = label;
-            } else {
-              globe.scene().add(countryLabels[cid]);
-            }
-          }
+            // تدوير الكرة أولاً إلى موقع الدولة
+            globe.pointOfView({ lat, lng, altitude: 1.7 }, 1600);
 
-          countryDisplayIndex++;
-          setTimeout(revealNextCountry, displayDelay);
+            // بعد التوجيه، أضف اللافتة
+            setTimeout(() => {
+              if (!countryLabels[cid]) {
+                const label = createCountryLabel(labelText, lat, lng);
+                globe.scene().add(label);
+                countryLabels[cid] = label;
+              } else {
+                globe.scene().add(countryLabels[cid]);
+              }
+
+              countryDisplayIndex++;
+              setTimeout(revealNextCountry, displayDelay); // عرض الدولة التالية بعد قليل
+            }, 1700); // بعد انتهاء دوران الكرة
+
+          } else {
+            // في حال لم نجد معلومات الدولة
+            countryDisplayIndex++;
+            setTimeout(revealNextCountry, displayDelay);
+          }
         }
       }
+
 
 
     if (saudiInfo && !firstLoadDone) {
@@ -807,5 +816,6 @@ function showSaudiMessage() {
     }, 600);
   }, 3700);
 }
+
 
 </script>
