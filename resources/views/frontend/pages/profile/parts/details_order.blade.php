@@ -3,184 +3,1408 @@
     {{__('frontend.profile')}}
 @endsection
 @section('styles')
-    <style>
+<style>
+/* ----- عام ----- */
+body, html {
+  background: #f8f9fa; /* Lighter, modern background */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  scroll-behavior: smooth;
+  line-height: 1.6; /* Improved readability */
+}
 
-    </style>
+/* User Header Styling */
+.userHeader {
+  background: linear-gradient(135deg, #ff8c00, #ffc870); /* Vibrant orange gradient */
+  border-radius: 15px !important; /* More pronounced rounded corners */
+  padding: 35px 50px; /* Increased padding */
+  color: #fff !important; /* White text for better contrast */
+  box-shadow: 0 15px 40px rgba(255,140,0,0.25); /* Deeper, more noticeable shadow */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight:bold !important;
+  margin-bottom: 50px; /* More space below header */
+  flex-wrap: wrap;
+  position: relative;
+  overflow: hidden;
+  animation: slideInDown 0.8s ease-out forwards; /* Initial animation */
+}
+
+.userHeader::before { /* More refined background pattern */
+  content: '';
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 120px;
+  height: 120px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  filter: blur(15px);
+  pointer-events: none;
+  animation: float 6s ease-in-out infinite alternate;
+}
+.userHeader::after { /* Another subtle background pattern */
+  content: '';
+  position: absolute;
+  bottom: -30px;
+  left: -30px;
+  width: 100px;
+  height: 100px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  filter: blur(10px);
+  pointer-events: none;
+  animation: float 7s ease-in-out infinite alternate-reverse;
+}
+
+.userInfo {
+  z-index: 1; /* Ensure text is above pseudo-elements */
+  display: flex; /* Flexbox for user info to align name and phone */
+  flex-direction: column;
+  order: 1; /* Default order for user info (right side in LTR) */
+  margin-left: auto;
+}
+.userInfo h3 {
+  font-size: 36px; /* Even larger font size for name */
+  font-weight: 900; /* Ultra bold */
+  margin-bottom: 8px; /* Reduced margin for tighter look */
+  letter-spacing: 0.8px;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+}
+.userInfo p {
+  margin: 0;
+  font-size: 19px;
+  opacity: 0.95;
+  font-weight: 500;
+  text-shadow: 0.5px 0.5px 2px rgba(0,0,0,0.05);
+}
+.userHeader .control {
+  order: 2; /* Logout icon on the left */
+  /* Pushes the logout icon to the left */
+}
+.userHeader .control a {
+  color: #fff;
+  font-size: 28px; /* Larger, more prominent icon */
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* Smoother animation */
+  background-color: rgba(255, 255, 255, 0.2); /* Lighter, more subtle background */
+  border-radius: 50%;
+  width: 55px; /* Larger click area */
+  height: 55px; /* Larger click area */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.userHeader .control a:hover {
+  transform: scale(1.18) rotate(8deg); /* More dynamic hover */
+  background-color: rgba(255, 255, 255, 0.35); /* More opaque on hover */
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
+/* --- routeNav --- */
+.routeNav {
+  margin: 35px 0 30px 0;
+  background: #fff; /* White background for a cleaner look */
+  border-radius: 35px; /* More rounded */
+  padding: 15px 30px; /* Increased padding */
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08); /* Softer, broader shadow */
+  display: flex;
+  align-items: center;
+  gap: 25px; /* Increased gap */
+  animation: fadeIn 1s ease forwards;
+}
+
+.routeNav .Back {
+  background: #ff8c00; /* Consistent primary color */
+  border: none;
+  padding: 10px 18px; /* Larger button */
+  border-radius: 50%;
+  color: white;
+  font-size: 24px; /* Larger icon */
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(255,140,0,0.4);
+  transition: all 0.3s ease-in-out;
+}
+.routeNav .Back:hover {
+  background: #e67e00; /* Darker orange on hover */
+  transform: translateY(-2px); /* Slight lift */
+  box-shadow: 0 8px 20px rgba(255,140,0,0.6);
+}
+
+.routeNav .Back i{
+ font-size:20px
+}
+
+.routeNav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 30px; /* Increased gap for menu items */
+  font-weight: 600;
+  font-size: 19px; /* Slightly larger font */
+}
+
+.routeNav ul li a {
+  color: #ff8c00;
+  text-decoration: none;
+  padding: 8px 18px; /* Larger clickable area */
+  border-radius: 35px;
+  transition: all 0.3s ease;
+}
+
+.routeNav ul li a.active,
+.routeNav ul li a:hover {
+  background: #ff8c00;
+  color: white;
+  box-shadow: 0 6px 18px rgba(255,140,0,0.6);
+  transform: translateY(-2px);
+}
+
+/* --- status (Tracking Timeline) --- */
+.status {
+  margin-bottom: 40px;
+  padding: 25px 20px; /* More padding */
+  background: #fff; /* White background for the card */
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08); /* Softer shadow */
+  position: relative;
+  overflow: hidden; /* To contain pseudo-elements if any */
+}
+
+.status ol {
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  font-weight: 600;
+  font-size: 15px; /* Slightly larger font */
+  color: #aaa; /* Softer gray for inactive steps */
+  user-select: none;
+  position: relative;
+  z-index: 1; /* Ensure steps are above the line */
+}
+
+.status ol::before { /* Progress line */
+  content: '';
+  position: absolute;
+  top: 35px; /* Adjust based on li::before position */
+  left: 10%; /* Start after the first circle */
+  right: 10%; /* End before the last circle */
+  height: 4px;
+  background: #eee; /* Light gray for incomplete line */
+  z-index: 0;
+  border-radius: 2px;
+}
+
+.status ol li {
+  position: relative;
+  width: calc(100% / 7); /* Distribute evenly */
+  text-align: center;
+  padding-top: 40px; /* Space for the circle above */
+  padding-bottom: 10px; /* Space for text below */
+  transition: color 0.4s ease;
+  flex-shrink: 0; /* Prevent shrinking on smaller screens */
+}
+
+.status ol li.completed {
+  color: #ff8c00; /* Vibrant orange for completed steps */
+  font-weight: 700;
+}
+
+.status ol li::before { /* Step circle */
+  content: ""; /* Default empty content */
+  position: absolute;
+  top: 0; /* Position at the top of the padding-top */
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ddd; /* Light gray for incomplete circles */
+  color: white;
+  width: 30px; /* Larger circle */
+  height: 30px; /* Larger circle */
+  font-size: 18px; /* Larger tick */
+  border-radius: 50%;
+  line-height: 30px; /* Vertically center tick */
+  display: flex; /* For centering the checkmark */
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  transition: all 0.4s ease;
+  border: 2px solid #ddd; /* Border for circles */
+}
+
+.status ol li.completed::before {
+  content: "✓"; /* Checkmark for completed */
+  background: #ff8c00; /* Orange for completed circles */
+  border-color: #ff8c00;
+  box-shadow: 0 4px 12px rgba(255,140,0,0.5);
+}
+
+.status ol li.active-step::before { /* Current active step - if you want to highlight it */
+    background: #ffa500; /* A slightly different shade of orange */
+    border-color: #ffa500;
+    box-shadow: 0 5px 15px rgba(255,165,0,0.6);
+    animation: pulseActive 1.5s infinite alternate;
+}
+
+/* Connect the lines */
+.status ol li:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 15px; /* Aligns with the center of the circle */
+  left: 50%;
+  width: calc(100% - 30px); /* Adjust width to connect circles accurately */
+  height: 4px;
+  background: #eee;
+  z-index: -1;
+  transform: translateX(-50%);
+  border-radius: 2px;
+  transition: background 0.4s ease;
+}
+
+.status ol li.completed:not(:last-child)::after {
+  background: linear-gradient(to right, #ff8c00, #ffc870); /* Gradient for completed line segments */
+}
+
+
+/* --- order (Card Style) --- */
+.order {
+  background: white;
+  padding: 30px 35px; /* More padding */
+  border-radius: 20px; /* Consistent rounded corners */
+  box-shadow: 0 15px 40px rgba(0,0,0,0.08); /* Deeper, softer shadow */
+  animation: fadeInUp 1s ease forwards;
+  margin-bottom: 40px; /* Space below the order card */
+}
+
+.order .swiper {
+  border-radius: 18px; /* Slightly more rounded */
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15); /* Softer shadow for slider */
+}
+
+.order .swiper-slide img {
+  width: 100%;
+  height: 250px; /* Fixed height for consistency */
+  object-fit: cover;
+  border-radius: 15px; /* Rounded corners for images */
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  cursor: pointer;
+}
+
+.order .swiper-slide img:hover {
+  transform: scale(1.08); /* More noticeable zoom */
+}
+
+/* --- info list --- */
+.info {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.info li {
+  margin-bottom: 22px; /* Increased margin for better spacing */
+  display: flex; /* Align items */
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.info h6 {
+  font-weight: 700;
+  font-size: 17px; /* Slightly larger */
+  color: #ff8c00; /* Consistent primary color */
+  margin-bottom: 0; /* Remove default margin */
+  flex-shrink: 0; /* Prevent shrinking */
+  width: 120px; /* Fixed width for labels */
+}
+
+.info p {
+  font-size: 16px; /* Slightly larger */
+  color: #555;
+  margin: 0;
+  flex-grow: 1; /* Allow text to take remaining space */
+}
+
+/* --- selectedCustomerInfo (Card Style) --- */
+.selectedCustomerInfo {
+  margin-top: 30px;
+  padding: 25px 30px; /* More padding */
+  background: #fff; /* White background for the card */
+  border-radius: 20px;
+  box-shadow: 0 12px 35px rgba(0,0,0,0.1); /* Softer, broader shadow */
+}
+
+.selectedCustomerInfo .info {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Increased gap */
+  margin-bottom: 25px; /* More space below contact person info */
+}
+
+.selectedCustomerInfo .info img {
+  width: 70px; /* Larger avatar */
+  border-radius: 15px; /* Consistent rounded corners */
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+  transition: transform 0.3s ease;
+}
+
+.selectedCustomerInfo .info img:hover {
+  transform: scale(1.15) rotate(-3deg); /* More dynamic hover */
+}
+
+.selectedCustomerInfo .text h5 {
+  font-weight: 800; /* Bolder name */
+  font-size: 22px; /* Larger name */
+  color: #ff8c00; /* Consistent primary color */
+  margin: 0;
+}
+
+.selectedCustomerInfo .text p {
+  font-size: 15px;
+  color: #777;
+  margin: 0;
+}
+
+/* --- contact links --- */
+.contact {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px; /* Slightly larger gap */
+  font-weight: 600;
+  color: #ff8c00; /* Consistent primary color */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  padding: 10px 0; /* Add some padding for click area */
+}
+
+.contact i {
+  font-size: 24px; /* Larger icons */
+  min-width: 24px; /* Ensure icon doesn't shrink */
+}
+
+.contact p {
+  margin: 0;
+  font-size: 16px; /* Slightly larger text */
+}
+
+.contact:hover {
+  color: #e67e00; /* Darker orange on hover */
+  transform: translateX(5px); /* Slight movement on hover */
+}
+
+/* --- selectedCustomer (Delivery Time) --- */
+.selectedCustomer {
+  margin-top: 35px; /* More space above */
+  font-weight: 700;
+  font-size: 18px; /* Larger font */
+  color: #333; /* Darker text for importance */
+  text-align: center;
+  background: #fffbe6; /* Light yellow/orange background for highlight */
+  padding: 15px 20px;
+  border-radius: 15px;
+  border: 1px solid #ffe0b3; /* Subtle border */
+  animation: pulse 2.5s infinite;
+}
+.selectedCustomer h6 span {
+    color: #ff8c00; /* Highlight the number of days */
+    font-weight: 900;
+    font-size: 20px;
+    display: inline-block;
+    margin: 0 5px;
+}
+
+
+/* --- أنيميشنات --- */
+@keyframes slideInDown {
+  0% {opacity: 0; transform: translateY(-50px);}
+  100% {opacity: 1; transform: translateY(0);}
+}
+
+@keyframes fadeIn {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+@keyframes fadeInUp {
+  0% {opacity: 0; transform: translateY(30px);}
+  100% {opacity: 1; transform: translateY(0);}
+}
+
+@keyframes pulse {
+  0%, 100% {transform: scale(1); opacity: 1;}
+  50% {transform: scale(1.02); opacity: 0.9;}
+}
+@keyframes pulseActive { /* Specific pulse for active status */
+  0%, 100% {box-shadow: 0 5px 15px rgba(255,165,0,0.6);}
+  50% {box-shadow: 0 8px 25px rgba(255,165,0,0.8);}
+}
+@keyframes float {
+  0% { transform: translateY(0px) rotate(0deg); }
+  100% { transform: translateY(-10px) rotate(5deg); }
+}
+
+
+/****************** */
+/* --- status (Tracking Timeline) --- */
+.status {
+    margin-bottom: 40px;
+    padding: 25px 20px; /* More padding */
+    background: #fff; /* White background for the card */
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08); /* Softer shadow */
+    position: relative;
+    overflow: hidden; /* To contain pseudo-elements if any */
+}
+
+.status ol {
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    font-weight: 600;
+    font-size: 15px; /* Slightly larger font */
+    color: #aaa; /* Softer gray for inactive steps */
+    user-select: none;
+    position: relative;
+    z-index: 1; /* Ensure steps are above the line */
+}
+
+.status ol::before { /* Progress line */
+    content: '';
+    position: absolute;
+    top: 35px; /* Adjust based on li::before position */
+    left: 10%; /* Start after the first circle */
+    right: 10%; /* End before the last circle */
+    height: 4px;
+    background: #eee; /* Light gray for incomplete line */
+    z-index: 0;
+    border-radius: 2px;
+}
+
+.status ol li {
+    position: relative;
+    width: calc(100% / 7); /* Distribute evenly */
+    text-align: center;
+    padding-top: 40px; /* Space for the circle above */
+    padding-bottom: 10px; /* Space for text below */
+    transition: color 0.4s ease, transform 0.3s ease-out, box-shadow 0.3s ease-out; /* Added transform and box-shadow */
+    flex-shrink: 0; /* Prevent shrinking on smaller screens */
+    cursor: pointer; /* Indicate interactivity */
+}
+
+.status ol li:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+    color: #ff8c00; /* Highlight text on hover */
+    /* box-shadow: 0 8px 20px rgba(255,140,0,0.2); Remove this, as the circle will have its own shadow */
+}
+
+.status ol li.completed {
+    color: #ff8c00; /* Vibrant orange for completed steps */
+    font-weight: 700;
+}
+
+.status ol li::before { /* Step circle */
+    content: ""; /* Default empty content */
+    position: absolute;
+    top: 0; /* Position at the top of the padding-top */
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ddd; /* Light gray for incomplete circles */
+    color: white;
+    width: 30px; /* Larger circle */
+    height: 30px; /* Larger circle */
+    font-size: 18px; /* Larger tick */
+    border-radius: 50%;
+    line-height: 30px; /* Vertically center tick */
+    display: flex; /* For centering the checkmark */
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    transition: all 0.4s ease;
+    border: 2px solid #ddd; /* Border for circles */
+}
+
+.status ol li.completed::before {
+    content: "✓"; /* Checkmark for completed */
+    background: #ff8c00; /* Orange for completed circles */
+    border-color: #ff8c00;
+    box-shadow: 0 4px 12px rgba(255,140,0,0.5);
+    animation: fadeInScale 0.5s ease forwards; /* Animation for completion */
+}
+
+.status ol li.active-step::before { /* Current active step - if you want to highlight it */
+    background: #ffa500; /* A slightly different shade of orange */
+    border-color: #ffa500;
+    box-shadow: 0 5px 15px rgba(255,165,0,0.6);
+    animation: pulseActive 1.5s infinite alternate, bounceIn 0.6s ease-out forwards; /* Combined animations */
+}
+
+/* Connect the lines */
+.status ol li:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 15px; /* Aligns with the center of the circle */
+    left: 50%;
+    width: calc(100% - 30px); /* Adjust width to connect circles accurately */
+    height: 4px;
+    background: #eee;
+    z-index: -1;
+    transform: translateX(-50%);
+    border-radius: 2px;
+    transition: background 0.4s ease;
+}
+
+.status ol li.completed:not(:last-child)::after {
+    background: linear-gradient(to right, #ff8c00, #ffc870); /* Gradient for completed line segments */
+}
+
+/* New Animations */
+@keyframes fadeInScale {
+    0% { opacity: 0; transform: translateX(-50%) scale(0.5); }
+    100% { opacity: 1; transform: translateX(-50%) scale(1); }
+}
+
+@keyframes bounceIn {
+    0% { transform: translateX(-50%) scale(0.1); opacity: 0; }
+    60% { transform: translateX(-50%) scale(1.1); opacity: 1; }
+    80% { transform: translateX(-50%) scale(0.9); }
+    100% { transform: translateX(-50%) scale(1); }
+}
+
+/* Update pulseActive to be less aggressive or combine with another */
+@keyframes pulseActive { /* Specific pulse for active status */
+    0%, 100% {box-shadow: 0 5px 15px rgba(255,165,0,0.6), 0 0 0 0 rgba(255,165,0,0.3);}
+    50% {box-shadow: 0 8px 25px rgba(255,165,0,0.8), 0 0 0 10px rgba(255,165,0,0);}
+}
+
+/* --- تجاوب --- */
+@media (max-width: 991px) { /* Adjust breakpoint for larger tablets */
+    .userHeader {
+        flex-direction: column;
+        align-items: flex-start; /* Align items to the start */
+        padding: 30px;
+    }
+    .userHeader .control {
+        margin-left: auto; /* Push logout icon to right for better flow in column */
+        margin-right: 0;
+        margin-bottom: 15px; /* Add space below logout icon */
+    }
+    .userInfo {
+        order: 1; /* Place user info first */
+        margin-bottom: 15px; /* Space between user info and logout icon */
+    }
+    .userInfo h3 {
+        font-size: 28px;
+    }
+    .userInfo p {
+        font-size: 16px;
+    }
+
+    .routeNav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+        padding: 15px 20px;
+    }
+    .routeNav ul {
+        flex-wrap: wrap;
+        gap: 12px;
+        font-size: 16px;
+    }
+    .routeNav ul li a {
+        padding: 6px 12px;
+    }
+    .routeNav .Back {
+        font-size: 20px;
+        width: 45px;
+        height: 45px;
+    }
+
+    .status ol {
+        flex-wrap: wrap;
+        justify-content: center; /* Center the circles */
+        font-size: 13px;
+        padding-bottom: 0; /* Adjust padding */
+    }
+    .status ol::before { /* Hide line on small screens as it breaks layout */
+        display: none;
+    }
+    .status ol li {
+        width: 33%; /* 3 items per row */
+        margin-bottom: 30px; /* Space between rows */
+        padding-top: 30px;
+    }
+    .status ol li::before {
+        top: 0; /* Adjust position for wrapped layout */
+        width: 25px;
+        height: 25px;
+        font-size: 14px;
+    }
+     .status ol li:not(:last-child)::after {
+        display: none; /* Hide connecting lines */
+    }
+
+    .order {
+        padding: 20px;
+    }
+    .order .swiper-slide img {
+        height: 200px;
+    }
+    .info li {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+        margin-bottom: 15px;
+    }
+    .info h6 {
+        width: auto; /* Remove fixed width */
+        margin-bottom: 5px;
+        font-size: 15px;
+    }
+    .info p {
+        font-size: 14px;
+    }
+
+    .selectedCustomerInfo {
+        padding: 20px;
+    }
+    .selectedCustomerInfo .info img {
+        width: 55px;
+    }
+    .selectedCustomerInfo .text h5 {
+        font-size: 18px;
+    }
+    .selectedCustomerInfo .text p {
+        font-size: 13px;
+    }
+    .contact i {
+        font-size: 20px;
+    }
+    .contact p {
+        font-size: 14px;
+    }
+    .selectedCustomer {
+        font-size: 16px;
+        padding: 12px 15px;
+    }
+    .selectedCustomer h6 span {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 576px) { /* Further adjustments for small mobiles */
+    .userHeader {
+        padding: 20px;
+    }
+    .userInfo h3 {
+        font-size: 24px;
+    }
+    .userInfo p {
+        font-size: 14px;
+    }
+    .userHeader .control a {
+        width: 45px;
+        height: 45px;
+        font-size: 22px;
+    }
+
+    .routeNav {
+        padding: 10px 15px;
+    }
+    .routeNav ul {
+        gap: 10px;
+        font-size: 15px;
+    }
+    .routeNav ul li a {
+        padding: 5px 10px;
+    }
+
+    .status ol li {
+        width: 50%; /* 2 items per row on very small screens */
+        margin-bottom: 20px;
+    }
+
+    .order {
+        padding: 15px;
+    }
+    .order .swiper-slide img {
+        height: 180px;
+    }
+
+    .selectedCustomerInfo {
+        padding: 15px;
+    }
+    .selectedCustomerInfo .info {
+        gap: 15px;
+    }
+    .selectedCustomerInfo .info img {
+        width: 50px;
+    }
+    .selectedCustomerInfo .text h5 {
+        font-size: 16px;
+    }
+    .contact p {
+        font-size: 13px;
+    }
+    .selectedCustomer {
+        font-size: 14px;
+    }
+    .selectedCustomer h6 span {
+        font-size: 16px;
+    }
+}
+/* --- selectedCustomerInfo (Card Style) --- */
+.selectedCustomerInfo {
+    margin-top: 30px;
+    padding: 25px 30px; /* More padding */
+    background: #fff; /* White background for the card */
+    border-radius: 20px;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.1); /* Softer, broader shadow */
+    /* No changes needed here, as the row inside will handle flex */
+}
+
+/* Ensure the Bootstrap row aligns items to stretch by default */
+.selectedCustomerInfo .row {
+    display: flex; /* Ensure flexbox is active for the row */
+    align-items: stretch; /* This is Bootstrap's default, but good to be explicit */
+}
+
+/* Apply consistent styling to the direct children of the columns
+   that you want to appear as cards. These are the .info and .contact elements. */
+.selectedCustomerInfo .col-md-6 > .info, /* The customer service info block */
+.selectedCustomerInfo .col-md-3 > .contact { /* The contact links */
+    display: flex;
+    flex-direction: column; /* Stack items vertically inside each card/link */
+    align-items: center; /* Center horizontally within each card */
+    justify-content: center; /* Center vertically within each card */
+    height: 100%; /* Make them fill the height of their parent column */
+    background: #fff; /* Give them a background so they appear as distinct cards */
+    border-radius: 15px; /* Add some border-radius for card look */
+    padding: 20px; /* Add padding to the "card" content */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05); /* Lighter shadow for individual cards */
+    text-align: center; /* Center text within these elements */
+    transition: all 0.3s ease; /* Add transition for hover effect */
+}
+
+.selectedCustomerInfo .col-md-6 > .info:hover,
+.selectedCustomerInfo .col-md-3 > .contact:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+    box-shadow: 0 12px 25px rgba(0,0,0,0.1); /* Slightly stronger shadow on hover */
+}
+
+
+/* Adjust specific styles within the customer service info to make it align well */
+.selectedCustomerInfo .info { /* This is for the customer service card */
+    /* Keep its existing flex properties for img and text alignment */
+    align-items: center; /* Align avatar and text vertically */
+    gap: 20px;
+    margin-bottom: 0; /* Remove bottom margin here since the parent .info now has padding */
+    flex-direction: row; /* Keep content in a row (image and text) */
+    justify-content: center; /* Center the image and text horizontally within the card */
+}
+
+/* If you need to make the customer service image and text align at the top, change justify-content: flex-start */
+/* .selectedCustomerInfo .info {
+    justify-content: flex-start;
+} */
+
+
+/* Adjust the .contact styles slightly as they are now children of the new card-like structure */
+.contact {
+    /* Remove redundant display, align-items, justify-content if they conflict with the parent .col-md-3 > .contact styles */
+    /* Re-evaluate these for optimal appearance within the new card structure */
+    /* Example adjustments: */
+    width: 100%; /* Make the contact link fill its parent's width */
+    text-decoration: none; /* Ensure no underline */
+    color: #ff8c00; /* Keep consistent color */
+    /* The padding from the `.col-md-3 > .contact` rule above will provide the clickable area. */
+    /* This rule itself might not need padding: 10px 0; anymore if the parent is providing it. */
+    padding: 0; /* Remove padding here if handled by parent */
+    /* margin: 0; */ /* Ensure no extra margin */
+}
+
+.contact i {
+    font-size: 32px; /* Slightly larger icons for prominence */
+    margin-bottom: 8px; /* Space between icon and text */
+}
+
+.contact p {
+    margin: 0; /* Remove default margin */
+    font-size: 17px; /* Slightly larger text */
+    font-weight: 600;
+}
+
+/* Media query adjustments for the new card structure */
+@media (max-width: 767px) { /* On small screens, stack the contact cards */
+    .selectedCustomerInfo .col-md-6,
+    .selectedCustomerInfo .col-md-3 {
+        width: 100%; /* Make each column full width */
+        flex: none; /* Disable flex growth */
+        max-width: 100%; /* Ensure no max-width constraints */
+        padding: 5px; /* Adjust padding for small screens */
+    }
+    .selectedCustomerInfo .col-md-6 > .info,
+    .selectedCustomerInfo .col-md-3 > .contact {
+        margin-bottom: 15px; /* Add space between stacked cards */
+    }
+    .selectedCustomerInfo .info {
+        flex-direction: column; /* Stack image and text vertically on small screens */
+        justify-content: center;
+    }
+    .selectedCustomerInfo .info img {
+        margin-bottom: 10px; /* Space below image when stacked */
+    }
+}
+
+/* New CSS for the Employee Card structure (conceptual, based on existing styles) */
+.employee-card {
+    background: #ffffff; /* Clean white background */
+    border-radius: 25px; /* More rounded corners for a softer, premium feel */
+    box-shadow: 0 20px 50px rgba(0,0,0,0.1); /* Deeper, more diffused shadow for strong visual presence */
+    padding: 30px; /* Increased padding for more breathing room */
+    margin-bottom: 40px; /* More space between cards */
+    display: flex;
+    flex-direction: column; /* Stack image and details vertically */
+    align-items: center; /* Center content horizontally */
+    transition: transform 0.4s ease-out, box-shadow 0.4s ease-out; /* Smoother transitions */
+    overflow: hidden; /* Ensures nothing spills out of rounded corners */
+    position: relative; /* For potential pseudo-elements or subtle patterns */
+}
+
+.employee-card::before { /* Subtle background overlay/pattern */
+    content: '';
+    position: absolute;
+    top: -30px;
+    left: -30px;
+    width: 100px;
+    height: 100px;
+    background: rgba(255, 140, 0, 0.05); /* Light orange tint */
+    border-radius: 50%;
+    filter: blur(20px);
+    pointer-events: none;
+    z-index: 0;
+    animation: float 8s ease-in-out infinite alternate;
+}
+
+.employee-card::after { /* Another subtle background pattern */
+    content: '';
+    position: absolute;
+    bottom: -40px;
+    right: -40px;
+    width: 120px;
+    height: 120px;
+    background: rgba(255, 140, 0, 0.03); /* Even lighter orange tint */
+    border-radius: 50%;
+    filter: blur(25px);
+    pointer-events: none;
+    z-index: 0;
+    animation: float 9s ease-in-out infinite alternate-reverse;
+}
+
+.employee-card:hover {
+    transform: translateY(-12px); /* More pronounced lift effect */
+    box-shadow: 0 35px 70px rgba(0,0,0,0.2); /* Stronger shadow on hover */
+}
+
+.employee-image-wrapper {
+    width: 90%; /* Occupy most of the card width */
+    max-width: 350px; /* Max width for consistency */
+    margin-bottom: 30px; /* Increased space between image and details */
+    position: relative;
+    z-index: 1; /* Ensure image is above pseudo-elements */
+}
+
+.employee-image-wrapper img {
+    width: 100%;
+    height: 350px; /* Adjusted height for a more prominent image */
+    object-fit: cover; /* **Changed to 'cover' for a filled look, adjust if you prefer 'contain'** */
+    border-radius: 20px; /* Consistent with card, slightly less than outer card */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1); /* Subtle shadow for the image itself */
+    padding: 0; /* Remove internal padding if object-fit: cover is used */
+    background-color: #f8f9fa; /* Light background behind image */
+    border: 3px solid #ff8c00; /* Thin, elegant border matching accent color */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.employee-image-wrapper img:hover {
+    transform: scale(1.05); /* Subtle zoom on image hover */
+    box-shadow: 0 15px 45px rgba(0,0,0,0.2); /* Stronger shadow on image hover */
+}
+
+.employee-details {
+    width: 100%;
+    z-index: 1; /* Ensure details are above pseudo-elements */
+}
+
+.employee-details .info {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    text-align: right; /* Adjust for RTL */
+}
+
+.employee-details .info li {
+    margin-bottom: 20px; /* Increased spacing between info items */
+    display: flex; /* Use flexbox for key-value alignment */
+    align-items: center; /* Vertically align items */
+    justify-content: flex-end; /* Align content to the right for RTL */
+    gap: 15px; /* Space between key and value */
+    padding-bottom: 10px; /* Space before the border */
+    border-bottom: 1px dashed #eee; /* Light, dashed separator for clean look */
+}
+
+.employee-details .info li:last-child {
+    margin-bottom: 0;
+    border-bottom: none; /* No border for the last item */
+}
+
+.employee-details .info h6 {
+    font-size: 20px; /* Larger font size for labels */
+    font-weight: 700;
+    color: #ff8c00; /* Prominent accent color */
+    margin: 0; /* Remove default margin */
+    flex-shrink: 0; /* Prevent label from shrinking */
+    min-width: 150px; /* Ensure labels have enough space */
+    text-align: right; /* Ensure labels are right-aligned */
+}
+
+.employee-details .info p {
+    font-size: 18px; /* Larger font size for values */
+    color: #444; /* Slightly darker text for better readability */
+    margin: 0; /* Remove default margin */
+    flex-grow: 1; /* Allow value to take remaining space */
+    text-align: right; /* Ensure values are right-aligned */
+    font-weight: 500;
+}
+
+/* Responsive adjustments for the new card structure */
+@media (max-width: 767px) {
+    .employee-card {
+        padding: 20px;
+        border-radius: 20px;
+    }
+    .employee-card::before,
+    .employee-card::after {
+        display: none; /* Hide complex patterns on smaller screens */
+    }
+    .employee-image-wrapper {
+        width: 100%;
+        max-width: 300px;
+        margin-bottom: 25px;
+    }
+    .employee-image-wrapper img {
+        height: 280px;
+        border-radius: 15px;
+        border-width: 2px; /* Slightly thinner border */
+    }
+    .employee-details .info li {
+        flex-direction: column; /* Stack key-value pairs vertically on small screens */
+        align-items: flex-end; /* Align to the right */
+        gap: 5px;
+        margin-bottom: 15px;
+        padding-bottom: 8px;
+    }
+    .employee-details .info h6 {
+        font-size: 17px;
+        min-width: auto; /* Remove min-width when stacked */
+    }
+    .employee-details .info p {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 576px) {
+    .employee-card {
+        padding: 15px;
+    }
+    .employee-image-wrapper img {
+        height: 220px;
+    }
+    .employee-details .info h6 {
+        font-size: 16px;
+    }
+    .employee-details .info p {
+        font-size: 15px;
+    }
+}
+
+/* General Styling for the Order Details Card */
+.order-details-card {
+    background-color: #ffffff;
+    border-radius: 12px; /* Soft rounded corners */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); /* Subtle shadow for depth */
+    overflow: hidden; /* Ensures rounded corners are applied correctly */
+    margin-bottom: 30px;
+    border: 1px solid #e0e0e0; /* Light border */
+}
+
+/* Image Section Styling */
+.order-image-section {
+    padding: 20px; /* Adjust padding as needed */
+    background-color: #f8f9fa; /* Light background for image section */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.workerCvSlider {
+    width: 100%; /* Ensure slider takes full width */
+    max-width: 450px; /* Optional: Limit max width of slider */
+}
+
+.workerCvSlider .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 250px; /* Adjust height as needed */
+}
+
+.workerCvSlider img {
+    width: 100%;
+    height: auto;
+    object-fit: contain; /* Ensures the entire image is visible without cropping */
+    max-height: 400px; /* Max height for images */
+    transition: transform 0.3s ease-in-out;
+}
+
+.workerCvSlider img:hover {
+    transform: scale(1.02); /* Slight zoom on hover */
+}
+
+/* Swiper Navigation and Pagination */
+.swiper-button-next,
+.swiper-button-prev {
+    color: #FF8C00; /* Primary orange color for navigation arrows */
+    font-size: 24px;
+}
+
+.swiper-pagination-bullet {
+    background: #cccccc;
+    opacity: 0.7;
+}
+
+.swiper-pagination-bullet-active {
+    background: #FF8C00; /* Active bullet color (orange) */
+    opacity: 1;
+}
+
+
+/* Information Section Styling */
+.order-info-section {
+    padding: 25px 35px; /* More generous padding for text */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertically center content */
+}
+
+.order-title {
+    font-family: 'Arial', sans-serif; /* A clear, professional font */
+    font-weight: 700;
+    color: #333333;
+    font-size: 1.8rem;
+    border-bottom: 2px solid #FF8C00; /* Underline effect for title (orange) */
+    padding-bottom: 10px;
+    margin-bottom: 25px !important;
+    display: inline-block; /* To make the border-bottom only as wide as the text */
+}
+
+.info-list {
+    margin-top: 20px;
+}
+
+.info-list li {
+    display: flex; /* Use flexbox for label and value alignment */
+    align-items: baseline; /* Align text baselines */
+    margin-bottom: 15px; /* Spacing between list items */
+    font-size: 1.1rem;
+}
+
+.info-label {
+    font-weight: 600; /* Bolder for labels */
+    color: #555555;
+    flex-shrink: 0; /* Prevent label from shrinking */
+    min-width: 150px; /* Ensure labels have consistent width for alignment */
+    text-align: start; /* Align labels to start */
+    margin-inline-end: 10px; /* Space between label and value */
+}
+
+.info-value {
+    color: #333333;
+    font-weight: 400;
+    flex-grow: 1; /* Allow value to take up remaining space */
+}
+
+.info-status .badge {
+    padding: 8px 12px;
+    border-radius: 20px; /* More rounded badges */
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-transform: capitalize; /* Capitalize the first letter of the status */
+}
+
+/* Specific badge colors (can be customized based on your design system) */
+.info-status .badge.bg-danger { background-color: #dc3545 !important; color: #fff !important; } /* Red for canceled */
+.info-status .badge.bg-warning { background-color: #ffc107 !important; color: #212529 !important; } /* Yellow for under_work */
+.info-status .badge.bg-info { background-color: #0dcaf0 !important; color: #212529 !important; } /* Light blue for visa (can be changed to a different orange shade if desired, but info often works well) */
+.info-status .badge.bg-primary { background-color: #FF8C00 !important; color: #fff !important; } /* Orange for musaned (primary changed to orange) */
+.info-status .badge.bg-secondary { background-color: #6c757d !important; color: #fff !important; } /* Grey for traning */
+.info-status .badge.bg-success { background-color: #28a745 !important; color: #fff !important; } /* Green for contract/finished */
+.info-status .badge.bg-light { background-color: #f8f9fa !important; color: #212529 !important; border: 1px solid #e9ecef;}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .order-details-card .row {
+        flex-direction: column; /* Stack columns vertically on small screens */
+    }
+
+    .order-image-section,
+    .order-info-section {
+        padding: 20px;
+    }
+
+    .info-list li {
+        flex-direction: column; /* Stack label and value vertically on small screens */
+        align-items: flex-start;
+        margin-bottom: 10px;
+    }
+
+    .info-label {
+        min-width: auto;
+        margin-inline-end: 0;
+        margin-bottom: 5px; /* Space below label when stacked */
+    }
+
+    .order-title {
+        font-size: 1.5rem;
+    }
+}
+
+/* RTL Specific Adjustments (if your entire site is RTL, Bootstrap handles much of this, but for specific tweaks) */
+body[dir="rtl"] .info-label {
+    text-align: end; /* Align labels to end in RTL */
+    margin-inline-start: 10px; /* Adjust margin for RTL */
+    margin-inline-end: 0;
+}
+@media (max-width: 991px) { /* Adjust breakpoint for larger tablets */
+    .userHeader {
+        flex-direction: column; /* اجعل العناصر تتكدس عمودياً */
+        /* align-items: flex-start;  ألغي هذا، نريد التوسيط */
+        padding: 30px;
+        justify-content: center; /* للتأكد من توسيط المحتوى بالكامل في المنتصف */
+        align-items: center; /* للتأكد من توسيط المحتوى بالكامل في المنتصف */
+    }
+    .userHeader .control {
+        /* بما أنه position: absolute; هنا يمكنك تحديد مكانه بالضبط للموبايل */
+        /* إذا كنت تريدها تبقى في اليسار (من منظور LTR) أو اليمين (من منظور RTL) */
+        position: absolute; /* احتفظ بها absolute */
+        left: 20px; /* على بعد 20 بكسل من اليسار (للتصميم RTL سيكون على اليمين) */
+        right: unset; /* تأكد من عدم وجود right */
+        top: 20px; /* على بعد 20 بكسل من الأعلى */
+        transform: none; /* ألغي أي تحويلات سابقة للتوسيط العمودي */
+        margin: 0; /* أزل الهوامش */
+    }
+
+    .userInfo {
+        order: unset; /* قم بإلغاء الترتيب */
+        margin-bottom: 0; /* أزل المسافة السفلية إذا لم تعد هناك حاجة لها */
+        margin-left: 0; /* تأكد من إزالة أي هوامش تلقائية */
+        align-items: center; /* لمركزة النص داخل userInfo */
+        text-align: center; /* لضمان تمركز النص */
+    }
+    .userInfo h3 {
+        font-size: 28px;
+    }
+    .userInfo p {
+        font-size: 16px;
+    }
+
+    /* ... (بقية الميديا كويري تبقى كما هي) ... */
+}
+
+@media (max-width: 576px) { /* Further adjustments for small mobiles */
+    .userHeader {
+        padding: 20px;
+    }
+    .userInfo h3 {
+        font-size: 24px;
+    }
+    .userInfo p {
+        font-size: 14px;
+    }
+    .userHeader .control {
+        left: 15px; /* ضبط المسافة من اليسار على الشاشات الأصغر */
+        top: 15px; /* ضبط المسافة من الأعلى على الشاشات الأصغر */
+        width: 40px; /* تصغير حجم الزر قليلاً */
+        height: 40px;
+        font-size: 20px; /* تصغير حجم الأيقونة */
+    }
+    .userHeader .control a {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+
+    /* ... (بقية الميديا كويري تبقى كما هي) ... */
+}
+</style>
 @endsection
 @section('content')
     <content>
-        <!-- ================ profile ================= -->
-        <section class="profile">
-            <div class="container ">
-                <!-- /user Header  -->
-                <div class="row justify-content-center">
-                    <!-- links -->
-                    <div class=" col-lg-9 p-2">
-                        <!-- user Header  -->
-                        <div class=" userHeader">
-                            <div class="userInfo">
-                                <div class="d-flex flex-wrap align-items-center">
-                                    <div class="userName">
-                                        <h3>{{$user->name}}</h3>
-                                        <p> {{$user->phone}} </p>
+    <section class="profile" style="margin-top:20px">
+        <div class="container ">
+            <div class="row justify-content-center">
+                <div class="col-lg-9 p-2">
+                    <div class="userHeader">
+                        <div class="control">
+                            <a href="{{route('auth.logout')}}" data-bs-toggle="tooltip" title=" {{__('frontend.Logout')}} ">
+                                <i class="fas fa-power-off"></i>
+                            </a>
+                        </div>
+                        <div class="userInfo">
+                            <div class="userName">
+                                <h3>{{$user->name}}</h3>
+                                <p> {{$user->phone}} </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class=" col-lg-12 p-2 profileContent"> <div class="routeNav">
+                            <a href="{{route('auth.profile')}}" class="Back">
+                                <i class="fas fa-angle-right"></i>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href="{{route('auth.profile')}}"> طلبات الاستقدام </a>
+                                </li>
+                                <li>
+                                    <a href="#!" class="active"> تفاصيل الطلب </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="status">
+                            <ol>
+                                <li @if(in_array($order->status,['new','under_work','contract','musaned','traning','tfeez','finished'])) class="completed @if($order->status == 'new') active-step @endif" @endif >
+                                    <p>اختيار العمالة </p>
+                                </li>
+                                <li @if(in_array($order->status,['under_work','contract','musaned','traning','visa','finished'])) class="completed @if($order->status == 'under_work') active-step @endif" @endif>
+                                    <p>حجز السيره الذاتية </p>
+                                </li>
+                                <li @if(in_array($order->status,['contract','musaned','traning','visa','finished'])) class="completed @if($order->status == 'contract') active-step @endif" @endif>
+                                    <p>ابرام التعاقد </p>
+                                </li>
+                                <li @if(in_array($order->status,['musaned','traning','visa','finished'])) class="completed @if($order->status == 'musaned') active-step @endif" @endif>
+                                    <p> مساند </p>
+                                </li>
+                                <li @if(in_array($order->status,['traning','visa','finished'])) class="completed @if($order->status == 'traning') active-step @endif" @endif>
+                                    <p> تحت الاجراءات </p>
+                                </li>
+                                <li @if(in_array($order->status,['visa','finished'])) class="completed @if($order->status == 'visa') active-step @endif" @endif>
+                                    <p> تفييز العمالة </p>
+                                </li>
+                                <li @if(in_array($order->status,['finished'])) class="completed @if($order->status == 'finished') active-step @endif" @endif>
+                                    <p>وصول العمالة </p>
+                                </li>
+                            </ol>
+                        </div>
+
+                        <div class="order-details-card">
+                            <div class="row g-0"> <div class="col-md-6 order-image-section p-3">
+                                    <div class="swiper workerCvSlider">
+                                        <div class="swiper-wrapper">
+                                            @foreach($order->biography->images as $image)
+                                                <div class="swiper-slide">
+                                                    <a data-fancybox="user{{$image->id}}-CV-{{$image->id}}" href="{{get_file($image->image)}}">
+                                                        {{-- يفضل استخدام صورة السيرة الذاتية الفعلية بدلاً من صورة ثابتة للعرض --}}
+                                                        <img src="{{ get_file($image->image) }}" alt="السيرة الذاتية" class="img-fluid rounded shadow-sm">
+                                                    </a>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                        <div class="swiper-button-next"></div>
+                                        <div class="swiper-button-prev"></div>
+                                        <div class="swiper-pagination"></div>
                                     </div>
                                 </div>
-                                <div class="control">
-                                    <a href="{{route('auth.logout')}}" data-bs-toggle="tooltip" title=" {{__('frontend.Logout')}} "><i
-                                            class="fas fa-power-off"></i></a>
+                                <div class="col-md-6 order-info-section p-4">
+                                    <h4 style="font-family:cairo" class="order-title mb-4">تفاصيل الطلب</h4> {{-- يمكن إضافة عنوان عام للقسم --}}
+                                    <ul class="info-list list-unstyled">
+                                        <li>
+                                            <span class="info-label">{{__('frontend.Nationality')}} : </span>
+                                            <span class="info-value">{{$order->biography->nationalitie?$order->biography->nationalitie->title:__('frontend.Not Available')}}</span>
+                                        </li>
+                                        <li>
+                                            <span class="info-label">{{__('frontend.Occupation')}} : </span>
+                                            <span class="info-value">{{$order->biography->job?$order->biography->job->title:__('frontend.Not Available')}}</span>
+                                        </li>
+                                        <li>
+                                            <span class="info-label"> حالة الاستقدام : </span>
+                                            <span class="info-status">
+                                                @if ($order->status == "canceled")
+                                                    <span class="badge bg-danger">{{__('frontend.orderCanceled')}}</span>
+                                                @elseif ($order->status == "under_work")
+                                                    <span class="badge bg-warning text-dark">تم حجز السيرة الذاتية</span>
+                                                @elseif ($order->status == "visa")
+                                                    <span class="badge bg-info text-dark">أصبح التعاقد الخاص بكم في مرحلة التفييز بنجاح</span>
+                                                @elseif ($order->status == "musaned")
+                                                    <span class="badge bg-primary">تم ربط العقد الخاص بكم في مساند بنجاح</span>
+                                                @elseif ($order->status == "traning")
+                                                    <span class="badge bg-secondary">أصبح التعاقد الخاص بكم في مرحلة الإجراءات بنجاح</span>
+                                                @elseif ($order->status == "contract")
+                                                    <span class="badge bg-success">تم قبول التعاقد الخاص بكم</span>
+                                                @elseif($order->status == "finished")
+                                                    <span class="badge bg-success">{{__('frontend.orderDone')}}</span>
+                                                @else
+                                                    <span class="badge bg-light text-dark">{{__('frontend.Unknown Status')}}</span>
+                                                @endif
+                                            </span>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
-{{--                        <div class="profileNavCol row flex-wrap mb-2">--}}
-{{--                            <a href="{{route('profile.CurrentOrders')}}" id="activeButton" class="  change_part_of_profile col loadTimer" > <i class="fa-solid fa-user-hair-mullet me-2 "></i> طلبات الاستقدام</a>--}}
-{{--                            <a href="{{route('profile.OrdersHistory')}}" class="change_part_of_profile col"> <i class="fa-solid fa-user-headset me-2 "></i> سجل الطلبات </a>--}}
-{{--                            <a href="{{route('profile.Notifications')}}" class="change_part_of_profile col"> <i class="fas fa-bell me-2 "></i> الاشعارات </a>--}}
-{{--                            <a href="{{route('profile.editProfile')}}" class="change_part_of_profile col"><i class="fas fa-cog me-2 "></i> اعدادات الحساب </a>--}}
-{{--                            <a href="{{route('auth.logout')}}" class="col"><i class="fas fa-power-off me-2 "></i> {{__('frontend.Logout')}}   </a>--}}
-{{--                        </div>--}}
 
-                    </div>
-                    <div class=" col-lg-9 p-2 profileContent">
-
-                            <!-- ================ routeNav ================= -->
-                            <div class="routeNav">
-                                <button onclick="history.back()" class="Back">
-                                    <i class="fas fa-angle-right"></i>
-                                </button>
-                                <ul>
-                                    <li>
-                                        <a href="{{route('auth.profile')}}"> طلبات الاستقدام </a>
-                                    </li>
-                                    <li>
-                                        <a href="#!" class="active"> تفاصيل الطلب </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <!-- ================ /routeNav ================= -->
-                            <!-- status -->
-                            <div class="status">
-                                <ol>
-                                    <li @if(in_array($order->status,['new','under_work','contract','musaned','traning','tfeez','finished'])) class="completed" @endif >
-                                        <p>اختيار العمالة </p>
-                                    </li>
-                                    <li @if(in_array($order->status,['under_work','contract','musaned','traning','visa','finished'])) class="completed" @endif>
-                                        <p>حجز السيره الذاتية </p>
-                                    </li>
-                                    <li @if(in_array($order->status,['contract','musaned','traning','visa','finished'])) class="completed" @endif>
-                                        <p>ابرام التعاقد </p>
-                                    </li>
-                                    <li @if(in_array($order->status,['musaned','traning','visa','finished'])) class="completed" @endif>
-                                        <p> مساند </p>
-                                    </li>
-                                    <li @if(in_array($order->status,['traning','visa','finished'])) class="completed" @endif>
-                                        <p> تحت الاجراءات </p>
-                                    </li>
-                                    <li @if(in_array($order->status,['visa','finished'])) class="completed" @endif>
-                                        <p> تفييز العمالة </p>
-                                    </li>
-                                    <li @if(in_array($order->status,['finished'])) class="completed" @endif>
-                                        <p>وصول العمالة </p>
-                                    </li>
-                                </ol>
-                            </div>
-                            <!-- order -->
-                            <div class="order">
-                                <div class="row">
-                                    <div class="col-sm-6 p-2">
-                                        <div class="swiper workerCvSlider ">
-                                            <div class="swiper-wrapper">
-                                                @foreach($order->biography->images as $image)
-                                                    <!-- cv image -->
-                                                    <div class="swiper-slide ">
-                                                        <a data-fancybox="user{{$image->id}}-CV-{{$image->id}}" href="{{get_file($image->image)}}">
-                                                            <img src="{{get_file($image->image)}}" alt="">
-                                                        </a>
-                                                    </div>
-                                                @endforeach
-
-                                            </div>
+                        <div class="selectedCustomerInfo">
+                            <div class="row">
+                                <div class="col-md-6 p-1">
+                                    <div class="info">
+                                        <img src="{{asset('frontend')}}/img/customer-service.png" alt="Customer Service Avatar">
+                                        <div class="text">
+                                            <h5> {{$order->admin->name}}  </h5>
+                                            <p>خدمة العملاء</p>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6 p-2">
-                                        <ul class="info">
-
-                                            <li>
-                                                <h6> {{__('frontend.Nationality')}} : </h6>
-                                                <p>{{$order->biography->nationalitie?$order->biography->nationalitie->title:""}} </p>
-                                            </li>
-                                            <li>
-                                                <h6> {{__('frontend.Occupation')}} : </h6>
-                                                <p> {{$order->biography->job?$order->biography->job->title:""}} </p>
-                                            </li>
-                                            <li>
-                                                <h6> حالة الاستقدام : </h6>
-                                                @if ($order->status == "canceled")
-                                                    <p> {{__('frontend.orderCanceled')}} </p>
-                                                @elseif ($order->status == "under_work")
-                                                    <p>تم حجز السيرة الذاتيه </p>
-                                                @elseif ($order->status == "visa")
-                                                    <p>اصبح التعاقد الخاص بكم  فى مرحلة التفييز بنجاح </p>
-                                                @elseif ($order->status == "musaned")
-                                                    <p>تم ربط العقد الخاص بكم في مساند بنجاح  </p>
-
-                                                @elseif ($order->status == "traning")
-                                                    <p>اصبح التعاقد الخاص بكم فى مرحلة الاجراءات بنجاح </p>
-
-                                                @elseif ($order->status == "contract")
-                                                    <p> تم قبول التعاقد الخاص بكم </p>
-
-                                                @elseif($order->status == "finished")
-                                                    <p> {{__('frontend.orderDone')}} </p>
-                                                @endif
-                                            </li>
-                                        </ul>
-                                    </div>
+                                </div>
+                                <div class="col-6 col-md-3 p-1">
+                                    <a class="contact" href="https://api.whatsapp.com/send?phone={{$order->admin->whats_up_number}}" target="_blank">
+                                        <i class="me-2 fa-brands fa-whatsapp-square"></i>
+                                        <p>تواصل عبر الواتس اب</p>
+                                    </a>
+                                </div>
+                                <div class="col-6 col-md-3 p-1">
+                                    <a class="contact" href="tel:{{$order->admin->phone}}" target="_blank">
+                                        <i class="me-2 fa-solid fa-square-phone"></i>
+                                        <p>تواصل عبر الهاتف </p>
+                                    </a>
                                 </div>
                             </div>
-                            <!-- customerInfo -->
-                            <div class="selectedCustomerInfo">
-                                <div class="row">
-                                    <div class="col-md-6 p-1">
-                                        <div class="info">
-                                            <img src="{{asset('frontend')}}/img/customer-service.png" alt="">
-                                            <div class="text">
-                                                <h5> {{$order->admin->name}}  </h5>
-                                                <p>خدمة العملاء</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-6 col-md-3 p-1">
-                                        <a class="contact" href="https://api.whatsapp.com/send?phone={{$order->admin->whats_up_number}}" target="_blank">
-                                            <i class="me-2 fa-brands fa-whatsapp-square"></i>
-                                            <p>تواصل عبر الواتس اب</p>
-                                        </a>
-                                    </div>
-                                    <div class="col-6 col-md-3 p-1">
-                                        <a class="contact" href="tel:{{$order->admin->phone}}" target="_blank">
-                                            <i class="me-2 fa-solid fa-square-phone"></i>
-                                            <p>تواصل عبر الهاتف </p>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="selectedCustomer">
-                                <h6>سوف توصل العمالة فى خلال <span> 90 </span> يوم كحد اقصى </h6>
+                        </div>
 
-
-                            </div>
+                        <div class="selectedCustomer">
+                            <h6>سوف توصل العمالة فى خلال <span> 90 </span> يوم كحد اقصى </h6>
                         </div>
                     </div>
                 </div>
-
-        </section>
-    </content>
-<content>
-    <!-- ================ profile ================= -->
-
-
-
-
-
+            </div>
+        </div>
+    </section>
 </content>
 @endsection
 @section('js')
@@ -782,3 +2006,14 @@
     {{--        }, 1000);--}}
     {{--    </script>--}}
 @endsection
+
+
+
+
+
+
+
+
+
+
+

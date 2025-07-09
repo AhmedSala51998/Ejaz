@@ -169,7 +169,7 @@
         <div class="swiper workerCvSlider">
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
-                    <a data-fancybox="users{{$cv->id}}" href="{{ get_file($cv->cv_file) }}">
+                    <a data-fancybox="users{{$cv->id}}-CV" href="{{ get_file($cv->cv_file) }}">
                         <div class="cv-image-wrapper">
                            
                                 <img src="{{ get_file($cv->cv_file) }}" alt="CV Image">
@@ -179,7 +179,7 @@
                 </div>
                 @foreach($cv->images as $image)
                 <div class="swiper-slide">
-                    <a data-fancybox="users{{$cv->id}}" href="{{ get_file($image->image) }}">
+                    <a data-fancybox="users{{$cv->id}}-CV" href="{{ get_file($image->image) }}">
                         <div class="cv-image-wrapper">
                            
                                 <img src="{{ get_file($image->image) }}" alt="CV Image">

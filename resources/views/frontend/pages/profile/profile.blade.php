@@ -3,62 +3,385 @@
     {{__('frontend.profile')}}
 @endsection
 @section('styles')
-    <style>
+<style>
+    /* General Profile Section Styling */
+    .profile {
+        background-color: #fff; /* A softer, modern light grey background */
+        padding: 60px 0;
+        min-height: 100vh; /* Ensure it takes at least the full viewport height */
+        display: flex;
+        align-items: flex-start; /* Align content to the top */
+        margin-top:-30px
+    }
 
-    </style>
+
+    /* User Header Styling */
+    .userHeader {
+        background: linear-gradient(135deg, #f4a835, #fff1db); /* Orange gradient */
+        border-radius: 10px !important;
+        padding: 30px 40px;
+        color: #000 !important;
+        box-shadow: 0 12px 30px rgba(255,140,0,0.15); /* Deeper, softer shadow with orange tint */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight:bold !important;
+        margin-bottom: 40px; /* More space below header */
+        flex-wrap: wrap;
+        position: relative; /* For potential absolute positioning of elements */
+        overflow: hidden; /* Ensure content stays within rounded corners */
+    }
+
+    .userHeader::before { /* Subtle background pattern */
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="%23ffffff" opacity="0.1"/></svg>');
+        background-size: 50px;
+        opacity: 0.1;
+        pointer-events: none;
+    }
+
+    .userInfo {
+        z-index: 1; /* Ensure text is above pseudo-element */
+    }
+    .userInfo h3 {
+        font-size: 32px; /* Even larger font size for name */
+        font-weight: 800; /* Extra bold */
+        margin-bottom: 10px;
+        letter-spacing: 0.5px; /* Slightly more spaced letters */
+    }
+    .userInfo p {
+        margin: 0;
+        font-size: 18px;
+        opacity: 0.9; /* Slightly less opaque for better contrast on gradient */
+        font-weight: 400;
+    }
+    .userHeader .control a {
+        color: white;
+        font-size: 26px; /* Larger icon */
+        transition: transform 0.3s ease-in-out, opacity 0.3s ease; /* Smooth hover effect */
+        background-color: rgba(255, 165, 0, 0.5); /* Semi-transparent orange background for button */
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+    }
+    .userHeader .control a:hover {
+        transform: scale(1.15) rotate(5deg); /* More dynamic hover */
+        opacity: 0.9;
+        background-color: rgba(255, 165, 0, 0.7); /* More opaque orange on hover */
+    }
+
+    .userHeader .control a {
+        color: #fff;
+        font-size: 28px; /* Larger, more prominent icon */
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* Smoother animation */
+        background-color: rgba(255, 255, 255, 0.2); /* Lighter, more subtle background */
+        border-radius: 50%;
+        width: 55px; /* Larger click area */
+        height: 55px; /* Larger click area */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .userHeader .control a:hover {
+        transform: scale(1.18) rotate(8deg); /* More dynamic hover */
+        background-color: rgba(255, 255, 255, 0.35); /* More opaque on hover */
+        box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+
+    /* Profile Navigation Styling */
+    .profileNavCol {
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(255,140,0,0.1); /* Consistent, refined shadow with orange tint */
+        overflow: hidden;
+        margin-top: 0;
+        padding: 15px 0; /* Internal padding for the whole nav block */
+        height: fit-content; /* Adjust height based on content */
+    }
+    .profileNavCol a {
+        padding: 18px 25px;
+        text-align: right;
+        text-decoration: none;
+        color: #4a4a4a; /* Darker grey for better contrast */
+        border-bottom: 1px solid #e0e0e0; /* Lighter, subtle border */
+        transition: background 0.3s ease, color 0.3s ease, padding-right 0.3s ease;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end; /* Align content to the right for RTL */
+        font-size: 17px;
+        background-color: rgba(244, 168, 53, 0.1) !important;
+        
+    }
+    .profileNavCol a i {
+        margin-left: 12px; /* Space between icon and text for RTL */
+        font-size: 20px; /* Larger icons */
+        color: #888; /* Slightly darker grey icon color */
+        transition: color 0.3s ease;
+    }
+    .profileNavCol a:last-child {
+        border-bottom: none;
+    }
+    .profileNavCol a.active, .profileNavCol a:hover {
+        background: #fff0cc; /* Light orange background for active/hover */
+        color: #ff8c00; /* Orange text color */
+        padding-right: 35px; /* More pronounced indent on hover/active */
+        border: 1px solid #ff8c00;
+    }
+    .profileNavCol a.active i, .profileNavCol a:hover i {
+        color: #ff8c00; /* Orange icon on active/hover */
+    }
+    .profileNavCol a.active {
+        position: relative;
+    }
+    .profileNavCol a.active::before { /* Active indicator bar */
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 5px;
+        background-color: #ff8c00; /* Orange bar */
+        border-radius: 0 5px 5px 0;
+    }
+
+
+    /* Profile Content Styling */
+    .profileContent {
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(255,140,0,0.1); /* Consistent shadow with nav, orange tint */
+        padding: 40px;
+        min-height: 500px; /* Increased min-height for more substantial content area */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column; /* Allow content to stack */
+        text-align: center;
+    }
+    .image_for_profile {
+        max-width: 70%; /* Smaller image for better balance */
+        height: auto;
+        border-radius: 20px; /* More rounded corners */
+        box-shadow: 0 10px 25px rgba(255,140,0,0.1); /* Orange tinted shadow */
+        margin-bottom: 30px; /* Space below image */
+    }
+
+    /* Loader Styling (if used) */
+    .linear-background3 {
+        background: linear-gradient(to right, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%);
+        width: 100%;
+        height: 100%; /* Take full height of parent */
+        animation: loading 1.5s infinite linear;
+        border-radius: 10px;
+    }
+    @keyframes loading {
+        0% { transform: translate(-100%, 0); }
+        100% { transform: translate(100%, 0); }
+    }
+
+
+    /* Responsive Adjustments */
+    @media (max-width: 991.98px) { /* Tablet and smaller */
+        .profile {
+            padding: 40px 0;
+            margin-top:-10px
+        }
+        .userHeader {
+            flex-direction: column;
+            text-align: center;
+            padding: 25px 30px;
+            margin-bottom: 30px;
+        }
+        .userHeader .userInfo {
+            margin-bottom: 25px; /* More space between info and control */
+        }
+        .userInfo h3 {
+            font-size: 26px;
+        }
+        .userInfo p {
+            font-size: 17px;
+        }
+        .userHeader .control a {
+            width: 45px;
+            height: 45px;
+            font-size: 22px;
+        }
+
+        .profileNavCol {
+            flex-direction: row; /* Display nav links horizontally */
+            flex-wrap: wrap; /* Allow wrapping */
+            justify-content: center; /* Center horizontally */
+            margin-bottom: 30px; /* Space below nav on smaller screens */
+            padding: 10px; /* Smaller internal padding */
+            box-shadow: 0 8px 20px rgba(255,140,0,0.08); /* Slightly lighter shadow with orange tint */
+        }
+        .profileNavCol a {
+            flex: 1 1 auto; /* Allow links to grow and shrink */
+            padding: 15px 10px;
+            font-size: 15px;
+            border-bottom: none; /* Remove bottom border for horizontal layout */
+            border-left: 1px solid #f0f0f0; /* Add left border for separation */
+            text-align: center;
+            justify-content: center; /* Center icon and text */
+        }
+        .profileNavCol a:first-child {
+            border-left: none; /* No left border for the first item */
+        }
+        .profileNavCol a i {
+            margin: 0 5px; /* Adjust margin for horizontal layout */
+        }
+        .profileNavCol a.active, .profileNavCol a:hover {
+            padding-right: 15px; /* Reset padding for horizontal layout */
+            padding-left: 15px;
+            background: #fff0cc; /* Keep light orange */
+            color: #ff8c00; /* Keep orange text */
+        }
+        .profileNavCol a.active::before { /* Adjust active indicator for horizontal */
+            width: 100%;
+            height: 5px;
+            top: auto;
+            bottom: 0;
+            left: 0;
+            border-radius: 0 0 5px 5px;
+        }
+
+        .profileContent {
+            padding: 30px;
+            min-height: 350px;
+        }
+        .image_for_profile {
+            max-width: 80%;
+        }
+    }
+
+    @media (max-width: 767.98px) { /* Mobile */
+        .profile {
+            padding: 25px 0;
+        }
+        .userHeader {
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+        }
+        .userInfo h3 {
+            font-size: 22px;
+        }
+        .userInfo p {
+            font-size: 15px;
+        }
+        .userHeader .control a {
+            font-size: 20px;
+            width: 40px;
+            height: 40px;
+        }
+        .profileNavCol {
+            padding: 5px;
+        }
+        .profileNavCol a {
+            font-size: 14px;
+            padding: 12px 8px;
+            flex-basis: 50%; /* Two items per row on very small screens */
+            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+            border: 1px solid #f0f0f0; /* Add border for clear separation */
+            margin: 2px 0; /* Small margin between items */
+        }
+        .profileNavCol a:first-child,
+        .profileNavCol a:nth-child(2) { /* Adjust borders for first two items */
+            border-left: 1px solid #f0f0f0;
+        }
+        .profileNavCol a.active::before { /* For mobile, active indicator can be top or bottom */
+            height: 3px;
+            width: 80%;
+            left: 10%;
+            top: 0;
+            bottom: auto;
+            border-radius: 0 0 3px 3px;
+        }
+        .profileContent {
+            padding: 20px;
+            min-height: 280px;
+        }
+        .image_for_profile {
+            max-width: 90%;
+            margin-bottom: 20px;
+        }
+    }
+</style>
 @endsection
 @section('content')
-    <content>
-        <!-- ================ profile ================= -->
-        <section class="profile">
-            <div class="container ">
-                <!-- /user Header  -->
-                <div class="row justify-content-center">
-                    <!-- links -->
-                    <div class=" col-lg-9 p-2">
-                        <!-- user Header  -->
-                        <div class=" userHeader">
-                            <div class="userInfo">
-                                <div class="d-flex flex-wrap align-items-center">
-                                    <div class="userName">
-                                        <h3>{{$user->name}}</h3>
-                                        <p> {{$user->phone}} </p>
-                                    </div>
-                                </div>
-                                <div class="control">
-                                    <a href="{{route('auth.logout')}}" data-bs-toggle="tooltip" title=" {{__('frontend.Logout')}} "><i
-                                            class="fas fa-power-off"></i></a>
+<content>
+    <section class="profile">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 p-2"> {{-- Increased column width for better header display --}}
+                    <div class="userHeader">
+                        <div class="userInfo">
+                            <div class="d-flex flex-wrap align-items-center">
+                                <div class="userName">
+                                    <h3>{{$user->name}}</h3>
+                                    <p>{{$user->phone}}</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="profileNavCol row flex-wrap mb-2">
-                            <a href="{{route('profile.CurrentOrders')}}" id="activeButton" class="  change_part_of_profile col loadTimer" > <i class="fa-solid fa-user-hair-mullet me-2 "></i> طلبات الاستقدام</a>
-                            <a href="{{route('profile.OrdersHistory')}}" class="change_part_of_profile col"> <i class="fa-solid fa-user-headset me-2 "></i> سجل الطلبات </a>
-                            <a href="{{route('profile.Notifications')}}" class="change_part_of_profile col"> <i class="fas fa-bell me-2 "></i> الاشعارات </a>
-                            <a href="{{route('profile.editProfile')}}" class="change_part_of_profile col"><i class="fas fa-cog me-2 "></i> اعدادات الحساب </a>
-                            <a href="{{route('auth.logout')}}" class="col"><i class="fas fa-power-off me-2 "></i> {{__('frontend.Logout')}}   </a>
+                        <div class="control">
+                            <a href="{{route('auth.logout')}}" data-bs-toggle="tooltip" title="{{__('frontend.Logout')}}">
+                                <i class="fas fa-power-off"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-10 p-2"> {{-- Wrapped navigation and content in a single row for better alignment --}}
+                    <div class="row">
+                        <div class="col-lg-3"> {{-- Dedicated column for navigation --}}
+                            <div class="profileNavCol">
+                                <a href="{{route('profile.CurrentOrders')}}" id="activeButton" class="change_part_of_profile">
+                                    <i class="fa-solid fa-user-hair-mullet"></i> طلبات الاستقدام
+                                </a>
+                                <a href="{{route('profile.OrdersHistory')}}" class="change_part_of_profile">
+                                    <i class="fa-solid fa-user-headset"></i> سجل الطلبات
+                                </a>
+                                <a href="{{route('profile.Notifications')}}" class="change_part_of_profile">
+                                    <i class="fas fa-bell"></i> الاشعارات
+                                </a>
+                                <a href="{{route('profile.editProfile')}}" class="change_part_of_profile">
+                                    <i class="fas fa-cog"></i> اعدادات الحساب
+                                </a>
+                                <a href="{{route('auth.logout')}}">
+                                    <i class="fas fa-power-off"></i> {{__('frontend.Logout')}}
+                                </a>
+                            </div>
                         </div>
 
-                    </div>
-                    <!-- content -->
-                    <div class=" col-lg-9 p-2 ">
-                        <div class="profileContent" id="display_profile_part">
-                            <div>
-                                <div  class="d-flex justify-content-center align-content-center">
-                                    <img style="width: 500px;height: 500px ; object-fit: contain;" class="image_for_profile" src="{{asset('frontend/img/register.svg')}}">
+                        <div class="col-lg-9 mt-4 mt-lg-0"> {{-- Column for content, with top margin for mobile --}}
+                            <div class="profileContent" id="display_profile_part">
+                                <div class="d-flex justify-content-center align-items-center w-100 h-100"> {{-- Ensure content is centered --}}
+                                    <img class="image_for_profile" src="{{asset('frontend/img/register.svg')}}" alt="Profile Placeholder Image">
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                </div>
             </div>
-        </section>
-    </content>
+        </div>
+    </section>
+</content>
 @endsection
 @section('js')
     <script>
-        var  ProfileLoader = `<div class="linear-background3"></div>`;
+        var ProfileLoader = `<div class="linear-background3"></div>`;
         $(document).on('click',".change_part_of_profile",function (e) {
             e.preventDefault()
             //add
@@ -73,7 +396,7 @@
                     $('#display_profile_part').append(data['html']);
                     loadTimer()
                     $('.select2').select2();
-                     $('.dropify').dropify();
+                    $('.dropify').dropify();
                     $.validate({
                         ignore: 'input[type=hidden]',
                         modules : 'date, security',
@@ -97,7 +420,7 @@
                 url:url,
                 type: 'GET',
                 beforeSend: function(){
-                 //   $(".spinner").show()
+                   //   $(".spinner").show()
                     //$('#cases_section_to_append').append(loader_html);
                     $('#load_more_current_orders_button').html(`<div class="spinner-border mt-1 mb-2" role="status"> </div>`);
                 },
@@ -108,19 +431,19 @@
                         document.getElementById("load_more_current_orders_button").remove();
                     }
                     else {
-                        document.getElementById("current_page_orders").value =  data.current_page;
+                        document.getElementById("current_page_orders").value =  data.current_page;
                     }
                     setTimeout(function (){
                         // var elements = document.getElementsByClassName("loader_html");
                         // while (elements.length > 0) elements[0].remove();
                         $('#current_orders_section_to_append').append(data.html);
                         loadTimer()
-                        //   $(".spinner").hide()
+                        //   $(".spinner").hide()
                         $('#load_more_current_orders_button').html(
-                          `
+                             `
                             {{__('frontend.load more')}}
                             <i class="fa-regular fa-left-long ms-2"><span></span></i>
-                         `
+                           `
                         )
                     }, 20);
                 },
@@ -147,7 +470,7 @@
                 url:url,
                 type: 'GET',
                 beforeSend: function(){
-                  //  $(".spinner").show()
+                   //  $(".spinner").show()
                     //$('#cases_section_to_append').append(loader_html);
                     $('#load_more_notifications_button').html(`<div class="spinner-border mt-1 mb-2" role="status"> </div>`);
                 },
@@ -158,7 +481,7 @@
                         document.getElementById("load_more_notifications_button").remove();
                     }
                     else {
-                        document.getElementById("current_page_notifications").value =  data.current_page;
+                        document.getElementById("current_page_notifications").value =  data.current_page;
                     }
                     setTimeout(function (){
                         // var elements = document.getElementsByClassName("loader_html");
@@ -166,7 +489,7 @@
                         $('#notifications_section_to_append').append(data.html);
                        // $(".spinner").hide()
                           $('#load_more_notifications_button').html(
-                            `
+                             `
                             {{__('frontend.load more')}}
                             <i class="fa-regular fa-left-long ms-2"><span></span></i>
                            `
@@ -174,7 +497,7 @@
                     }, 20);
                 },
                 error: function (data) {
-                   // $(".spinner").hide()
+                   //$(".spinner").hide()
                     alert('Something went wrong.');
                 },//end error method
                 cache: false,
@@ -196,7 +519,7 @@
                 url:url,
                 type: 'GET',
                 beforeSend: function(){
-                    //   $(".spinner").show()
+                    //   $(".spinner").show()
                     //$('#cases_section_to_append').append(loader_html);
                     $('#load_more_history_orders_button').html(`<div class="spinner-border mt-1 mb-2" role="status"> </div>`);
                 },
@@ -207,18 +530,18 @@
                         document.getElementById("load_more_history_orders_button").remove();
                     }
                     else {
-                        document.getElementById("history_page_orders").value =  data.current_page;
+                        document.getElementById("history_page_orders").value =  data.current_page;
                     }
                     setTimeout(function (){
                         // var elements = document.getElementsByClassName("loader_html");
                         // while (elements.length > 0) elements[0].remove();
                         $('#history_orders_section_to_append').append(data.html);
-                        //   $(".spinner").hide()
+                        //   $(".spinner").hide()
                         $('#load_more_history_orders_button').html(
-                            `
+                             `
                             {{__('frontend.load more')}}
                             <i class="fa-regular fa-left-long ms-2"><span></span></i>
-                         `
+                           `
                         )
                     }, 20);
                 },
@@ -287,7 +610,7 @@
                 success: function (data) {
                     //$('#submit-button').prop('disabled', true);
                     window.setTimeout(function() {
-                       //  $("#user_info_in_header").attr("src",data.user.logo_link);
+                       //  $("#user_info_in_header").attr("src",data.user.logo_link);
                         $("#user_logo_in_profile").attr("src",data.user.logo_link);
                         $("#user_name_in_profile").html(data.user.name);
                         cuteToast({
@@ -613,45 +936,27 @@
 
         function loadTimer()
         {
-                $(document).find('.timer').each(function (index){
-                    var date = $(this).data('date')
-                    var id = $(this).data('id')
-                    var countDownDate = new Date(date).getTime();
-                   setInterval(function () {
-                        var now = new Date().getTime();
-                        var timeLeft = countDownDate - now;
-                        var days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-                        var hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                        var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-                        var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-                        // Result is output to the specific element
-                        document.getElementById("days"+id).innerHTML = days + "<span> يوم </span>";
-                        document.getElementById("hours"+id).innerHTML = hours + "<span> ساعة </span> "
-                        document.getElementById("minutes"+id).innerHTML = minutes + " <span> دقيقة </span> "
-                        document.getElementById("seconds"+id).innerHTML = seconds + "<span> ثانية </span> "
-                    }, 1000);
+            $(document).find('.timer').each(function (index){
+                var date = $(this).data('date')
+                var id = $(this).data('id')
+                var countDownDate = new Date(date).getTime();
+                setInterval(function () {
+                    var now = new Date().getTime();
+                    var timeLeft = countDownDate - now;
+                    var days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                    var hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                    var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                    // Result is output to the specific element
+                    document.getElementById("days"+id).innerHTML = days + "<span> يوم </span>";
+                    document.getElementById("hours"+id).innerHTML = hours + "<span> ساعة </span> "
+                    document.getElementById("minutes"+id).innerHTML = minutes + " <span> دقيقة </span> "
+                    document.getElementById("seconds"+id).innerHTML = seconds + "<span> ثانية </span> "
+                }, 1000);
             })
         }
     </script>
 <script>
     $('#activeButton').click();
-
 </script>
-
-    {{--<script>--}}
-{{--        var countDownDate = new Date("oct 25, 2022 16:00:00").getTime();--}}
-{{--        var myFunc = setInterval(function () {--}}
-{{--        var now = new Date().getTime();--}}
-{{--        var timeLeft = countDownDate - now;--}}
-{{--        var days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));--}}
-{{--        var hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));--}}
-{{--        var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));--}}
-{{--        var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);--}}
-{{--        // Result is output to the specific element--}}
-{{--        document.getElementById("days").innerHTML = days + "<span> يوم </span>";--}}
-{{--        document.getElementById("hours").innerHTML = hours + "<span> ساعة </span> "--}}
-{{--        document.getElementById("minutes").innerHTML = minutes + " <span> دقيقة </span> "--}}
-{{--        document.getElementById("seconds").innerHTML = seconds + "<span> ثانية </span> "--}}
-{{--        }, 1000);--}}
-{{--    </script>--}}
 @endsection

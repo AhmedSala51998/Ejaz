@@ -486,7 +486,12 @@ body.sticky-header-active {
 
                     @auth()
                         <li class="dropdownWrapper d-none d-lg-block">
-                            <a class="navLink dropdownToggle {{ Request::routeIs(['auth.profile', 'auth.notifications', 'auth.settings']) ? 'active' : '' }}" href="javascript:void(0);"> حسابي </a>
+                            <a class="navLink dropdownToggle {{ Request::routeIs(['auth.profile', 'auth.notifications', 'auth.settings']) ? 'active' : '' }}" href="javascript:void(0);">
+                                حسابي
+                                <svg class="arrowIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M7 10l5 5 5-5z"/>
+                                </svg>
+                            </a>
                             <div class="dropdownMenu categoriesList">
                                 <ul>
                                     <li><a href="{{route('auth.profile')}}"> طلبات الاستقدام </a></li>
@@ -495,6 +500,7 @@ body.sticky-header-active {
                                 </ul>
                             </div>
                         </li>
+
                     @endauth
                     @guest
                         <li class="d-none d-lg-block"><a class="navLink {{ Request::routeIs('auth.login') ? 'active' : '' }}" href="{{route('auth.login')}}">تسجيل الدخول</a></li>
@@ -534,7 +540,12 @@ body.sticky-header-active {
         <li><a class="{{ Request::routeIs('frontend.supports.contactUs') ? 'active' : '' }}" href="{{route('frontend.supports.contactUs')}}">تواصل معنا</a></li>
         @auth()
             <li class="dropdownWrapper d-block d-lg-none">
-                <a class="navLink dropdownToggle {{ Request::routeIs(['auth.profile', 'auth.notifications', 'auth.settings']) ? 'active' : '' }}" href="javascript:void(0);"> حسابي </a>
+                <a class="navLink dropdownToggle {{ Request::routeIs(['auth.profile', 'auth.notifications', 'auth.settings']) ? 'active' : '' }}" href="javascript:void(0);">
+                    حسابي
+                    <svg class="arrowIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M7 10l5 5 5-5z"/>
+                    </svg>
+                </a>
                 <div class="dropdownMenu categoriesList">
                     <ul>
                         <li><a href="{{route('auth.profile')}}"> طلبات الاستقدام </a></li>
@@ -543,6 +554,7 @@ body.sticky-header-active {
                     </ul>
                 </div>
             </li>
+
         @endauth
         @guest
             <li class="d-block d-lg-none"><a class="navLink {{ Request::routeIs('auth.login') ? 'active' : '' }}" href="{{route('auth.login')}}">تسجيل الدخول</a></li>
@@ -577,6 +589,8 @@ body.sticky-header-active {
                 }
             });
         }
+
+        
     });
 
     document.addEventListener("DOMContentLoaded", function () {
@@ -701,5 +715,41 @@ body.sticky-header-active {
                 }
             });
         }
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // اختار كل أزرار حسابي فقط (حسب الكلاس الموجود في الكود الحالي)
+        const accountDropdowns = document.querySelectorAll('.dropdownWrapper .dropdownToggle');
+
+        accountDropdowns.forEach(toggle => {
+            const parent = toggle.closest('.dropdownWrapper');
+            const dropdownMenu = parent.querySelector('.dropdownMenu');
+
+            // تحكّم فقط إذا كان النص هو "حسابي"
+            if (toggle.textContent.trim().includes("حسابي")) {
+                toggle.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    const isOpen = dropdownMenu.classList.contains('force-show');
+
+                    if (isOpen) {
+                        dropdownMenu.classList.remove('force-show');
+                        toggle.classList.remove('active');
+                    } else {
+                        dropdownMenu.classList.add('force-show');
+                        toggle.classList.add('active');
+                    }
+                });
+
+                // إغلاق عند الضغط خارج "حسابي"
+                document.addEventListener('click', function (event) {
+                    if (!parent.contains(event.target)) {
+                        dropdownMenu.classList.remove('force-show');
+                        toggle.classList.remove('active');
+                    }
+                });
+            }
+        });
     });
 </script>

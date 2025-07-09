@@ -333,5 +333,5 @@
 @endsection
 
 @section('js')
-
+<!-- JavaScript للتفاعل في المستقبل -->
 @endsection
