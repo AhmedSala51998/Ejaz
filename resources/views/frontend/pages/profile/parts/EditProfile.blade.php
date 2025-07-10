@@ -538,7 +538,7 @@
 .initials-text {
     z-index: 1;
     transition: 0.3s;
-    padding-top:5px
+    padding-top:11px
 }
 
 .camera-icon {
@@ -584,7 +584,7 @@
 .initials-text {
     font-size: 38px;
     font-weight: bold;
-    color: #000; /* ✅ لون أسود */
+    color: #CCC; /* ✅ لون أسود */
     z-index: 2;
     pointer-events: none;
 }
@@ -635,10 +635,12 @@
                     ? mb_substr($nameParts[1], 0, 1, 'UTF-8')
                     : '';
 
-                $initials = mb_strtoupper($firstInitial . $secondInitial, 'UTF-8');
+                $initials = mb_strtoupper($firstInitial, 'UTF-8');
+                if ($secondInitial !== '') {
+                    $initials .= ' ' . mb_strtoupper($secondInitial, 'UTF-8');
+                }
             }
         @endphp
-
 
             <div class="profilePic text-center">
                 @if($isDefaultImage)

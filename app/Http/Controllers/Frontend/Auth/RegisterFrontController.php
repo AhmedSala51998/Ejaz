@@ -28,9 +28,9 @@ class RegisterFrontController extends Controller
     public function check_phone_to_send_otp(RegisterRequest $request)
     {
 
-        // if ($this->check_if_phone_exist_or_not() == "phone_exists") {
-        //     return response()->json([],403);
-        // }
+         if ($this->check_if_phone_exist_or_not() == "phone_exists") {
+          return response()->json([],403);
+         }
 
         $code = $this->sendOTP($request->phone);
         return response()->json($code,200);
@@ -53,7 +53,8 @@ class RegisterFrontController extends Controller
         //     return response()->json([],403);
         // }
         $data = $request->validated();
-        $data['logo'] = $this->upload_image_or_make_new_image($request->logo , substr($request->name, 0, 2) );
+        //$data['logo'] = $this->upload_image_or_make_new_image($request->logo , substr($request->name, 0, 2) );
+        $data['logo'] = NULL;
         $data['phone_activation_code'] = $request->code;
         $data['activated_at'] = now();
         $number=$data['phone'];

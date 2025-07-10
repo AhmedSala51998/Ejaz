@@ -431,6 +431,60 @@
 .vCode-input:not(:placeholder-shown) {
   color: #f4a835;
 }
+#vCode {
+  display: flex;
+  flex-direction: row;
+  direction: ltr;
+  gap: 12px;
+  justify-content: center;
+}
+.vCode-input {
+  width: 60px;
+  height: 60px;
+  text-align: center;
+  font-size: 2.5rem;
+  direction: ltr;
+}
+
+.vCode {
+  display: flex !important;
+  justify-content: center !important;
+  gap: 16px !important;
+  margin-top: 1rem !important;
+}
+.vCode-input {
+  width: 60px;
+  height: 60px;
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  border: 2px solid #f4a835; /* لون برتقالي */
+  border-radius: 12px;
+  background: #fffefc;
+  box-shadow: 0 4px 8px rgba(244, 168, 53, 0.25);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  -moz-appearance: textfield; /* إزالة السهم في الفايرفوكس */
+}
+
+.vCode-input::-webkit-outer-spin-button,
+.vCode-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.vCode-input:focus {
+  border-color: #d88f1e;
+  box-shadow: 0 0 8px 3px rgba(216, 143, 30, 0.6);
+  outline: none;
+  background: #fff9e6;
+  color: #d88f1e;
+  caret-color: #d88f1e;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 8px 3px rgba(244, 168, 53, 0.8);
+  font-weight: 800;
+  letter-spacing: 4px;
+}
+
 
 
 </style>
@@ -448,7 +502,7 @@
     <!-- login form -->
     <section class="auth-section py-5">
         <div class="container">
-            <div class="row justify-content-center" style="margin-top:-185px">
+            <div class="row justify-content-center" style="margin-top:-80px !important">
                 <div class="col-md-7 col-lg-6">
                     <div class="auth-card position-relative p-4 p-md-5">
 
@@ -463,18 +517,123 @@
 
                             <div class="col-12 text-center">
                                 <label class="form-label fw-bold fs-5"> {{__('frontend.PleaseEnterTheSentCode')}} <span class="text-muted"> 5XXXXXXXX </span> </label>
-                                <div class="d-flex justify-content-center mt-3 gap-2" id="vCode">
-                                    <input type="text" id="vCodeIdFirst" maxlength="1" class="form-control text-center fs-4 rounded vCode-input" style="width: 60px; height: 60px;" onkeypress="return isNumber(event)">
-                                    <input type="text" maxlength="1" class="form-control text-center fs-4 rounded vCode-input" style="width: 60px; height: 60px;" onkeypress="return isNumber(event)">
-                                    <input type="text" maxlength="1" class="form-control text-center fs-4 rounded vCode-input" style="width: 60px; height: 60px;" onkeypress="return isNumber(event)">
-                                    <input type="text" maxlength="1" class="form-control text-center fs-4 rounded vCode-input" style="width: 60px; height: 60px;" onkeypress="return isNumber(event)">
-                                </div>
+                                <div class="vCode d-flex justify-content-center mt-3 gap-3" id="vCode">
+                                    <input
+                                        id="vCodeIdFirst"
+                                        onkeypress="isNumber(event)"
+                                        type="tel"
+                                        inputmode="numeric"
+                                        maxlength="1"
+                                        class="form-control text-center fs-4 rounded vCode-input"
+                                        placeholder=""
+                                        style="
+                                        width: 70px;
+                                        height: 70px;
+                                        font-size: 2.8rem;
+                                        font-weight: 700;
+                                        text-align: center;
+                                        padding: 0;
+                                        border: 2px solid #f4a835;
+                                        border-radius: 14px;
+                                        background: #fffefc;
+                                        box-shadow: 0 4px 8px rgba(244, 168, 53, 0.25);
+                                        transition: 0.3s ease;
+                                        appearance: textfield;
+                                        -webkit-appearance: none;
+                                        -moz-appearance: textfield;
+                                        "
+                                    />
+
+                                    <input
+                                        onkeypress="isNumber(event)"
+                                        type="tel"
+                                        inputmode="numeric"
+                                        maxlength="1"
+                                        class="form-control text-center fs-4 rounded vCode-input"
+                                        placeholder=""
+                                        style="
+                                        width: 70px;
+                                        height: 70px;
+                                        font-size: 2.8rem;
+                                        font-weight: 700;
+                                        text-align: center;
+                                        padding: 0;
+                                        border: 2px solid #f4a835;
+                                        border-radius: 14px;
+                                        background: #fffefc;
+                                        box-shadow: 0 4px 8px rgba(244, 168, 53, 0.25);
+                                        transition: 0.3s ease;
+                                        appearance: textfield;
+                                        -webkit-appearance: none;
+                                        -moz-appearance: textfield;
+                                        "
+                                    />
+
+                                    <input
+                                        onkeypress="isNumber(event)"
+                                        type="tel"
+                                        inputmode="numeric"
+                                        maxlength="1"
+                                        class="form-control text-center fs-4 rounded vCode-input"
+                                        placeholder=""
+                                        style="
+                                        width: 70px;
+                                        height: 70px;
+                                        font-size: 2.8rem;
+                                        font-weight: 700;
+                                        text-align: center;
+                                        padding: 0;
+                                        border: 2px solid #f4a835;
+                                        border-radius: 14px;
+                                        background: #fffefc;
+                                        box-shadow: 0 4px 8px rgba(244, 168, 53, 0.25);
+                                        transition: 0.3s ease;
+                                        appearance: textfield;
+                                        -webkit-appearance: none;
+                                        -moz-appearance: textfield;
+                                        "
+                                    />
+
+                                    <input
+                                        onkeypress="isNumber(event)"
+                                        type="tel"
+                                        inputmode="numeric"
+                                        maxlength="1"
+                                        class="form-control text-center fs-4 rounded vCode-input"
+                                        placeholder=""
+                                        style="
+                                        width: 70px;
+                                        height: 70px;
+                                        font-size: 2.8rem;
+                                        font-weight: 700;
+                                        text-align: center;
+                                        padding: 0;
+                                        border: 2px solid #f4a835;
+                                        border-radius: 14px;
+                                        background: #fffefc;
+                                        box-shadow: 0 4px 8px rgba(244, 168, 53, 0.25);
+                                        transition: 0.3s ease;
+                                        appearance: textfield;
+                                        -webkit-appearance: none;
+                                        -moz-appearance: textfield;
+                                        "
+                                    />
+                                    </div>
+
+
+
                             </div>
 
                             <div class="col-12 text-center pt-4">
-                                <button type="submit" class="btn w-100 py-3" style="background-color: #f4a835; color: white; font-weight: 600; border-radius: 50px; transition: 0.3s;">
-                                    {{__('frontend.confirm')}}
-                                    <i class="fa fa-arrow-left ms-2"></i>
+                               <button type="submit" class="btn w-100 py-3 position-relative overflow-hidden text-center" id="verifyBtn"
+                                    style="background-color: #f4a835; color: white; font-weight: 600; border-radius: 50px; transition: 0.3s;">
+                                    <span class="verify-text">{{ __('frontend.confirm') }}</span>
+                                    <i class="fa fa-arrow-left ms-2" id="verifyArrow"></i>
+
+                                    <!-- Loader -->
+                                    <span class="dot-loader d-none" id="dotLoaderVerify">
+                                        <span></span><span></span><span></span><span></span>
+                                    </span>
                                 </button>
                             </div>
                         </form>
@@ -488,28 +647,3 @@
         </div>
     </section>
 </content>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const inputs = document.querySelectorAll('.vCode-input');
-
-  inputs.forEach((input, index) => {
-    input.addEventListener('input', () => {
-      if (input.value.length === input.maxLength) {
-        // إذا مش آخر صندوق
-        if (index < inputs.length - 1) {
-          inputs[index + 1].focus();
-        }
-      }
-    });
-
-    input.addEventListener('keydown', (e) => {
-      if (e.key === 'Backspace' && input.value.length === 0) {
-        // عند الضغط على backspace والخلية فارغة ارجع للصندوق السابق
-        if (index > 0) {
-          inputs[index - 1].focus();
-        }
-      }
-    });
-  });
-});
-</script>

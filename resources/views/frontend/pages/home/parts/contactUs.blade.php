@@ -219,7 +219,7 @@
 
                 <!-- نموذج التواصل -->
                 <div class="col-md-7">
-                    <form action="{{route('front.contact_us_action')}}" method="post" class="contact-form" novalidate>
+                    <form action="{{route('front.contact_us_action')}}" method="post" id="Form" class="needs-validation contact-form" novalidate>
                         @csrf
                         <div class="form-group">
                             <i class="fa-solid fa-user form-icon"></i>
@@ -228,7 +228,7 @@
                         </div>
                         <div class="form-group">
                             <i class="fa-solid fa-phone form-icon"></i>
-                            <input type="text" name="phone" class="form-control ps-5" placeholder="رقم الجوال" required onkeypress="return isNumber(event)">
+                            <input type="text" id="phoneInput" name="phone" class="form-control ps-5" placeholder="رقم الجوال" required onkeypress="return isNumber(event)">
                             <div class="invalid-feedback">الرجاء إدخال رقم الجوال</div>
                         </div>
                         <div class="form-group">

@@ -733,7 +733,7 @@
                             <h2> تواصل معنا </h2>
                             <p> اطلب عاملتك الان وسيقوم فريق خدمة العملاء لدينا بالتواصل معك بأسرع وقت ... </p>
                         </div>
-                        <form id="Form" class="custom-contact-form" action="{{route('front.contact_us_action')}}" method="post" novalidate>
+                        <form id="Form" class="needs-validation custom-contact-form" action="{{route('front.contact_us_action')}}" method="post" novalidate>
                             @csrf
 
                             <div class="form-group">
@@ -817,138 +817,97 @@
 @endsection
 @section('js')
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const form = document.getElementById("Form");
-        const submitButton = document.getElementById("submit_button");
-        const phoneInput = document.getElementById("phoneInput");
-        const bubbleSound = document.getElementById('bubbleSound');
-        const userImages = document.querySelectorAll('#orbic_users image');
-        const userBubbles = document.querySelectorAll('.user-bubble');
+    $(document).on('submit', 'form#Form', function (e) {
+        e.preventDefault();
 
-        // Function to play sound and show bubble
-        function showBubble(index) {
-            userBubbles.forEach((bubble, i) => {
-                if (i === index) {
-                    bubble.classList.add('show');
-                    if (bubbleSound) {
-                        bubbleSound.currentTime = 0; // Rewind to start
-                        bubbleSound.play().catch(e => console.log("Audio play prevented:", e));
-                    }
-                } else {
-                    bubble.classList.remove('show');
-                }
-            });
-        }
+        let myForm = $("#Form")[0];
+        let formData = new FormData(myForm);
+        let url = $(this).attr('action');
+        let submitBtn = $('#submit_button');
 
-        // Hide bubbles initially and setup mouseover/mouseout
-        userBubbles.forEach(bubble => bubble.classList.remove('show')); // Ensure hidden on load
+        // Reset errors
+        $(myForm).find('.is-invalid').removeClass('is-invalid');
+        $(myForm).find('.invalid-feedback').text('');
 
-        userImages.forEach((image, index) => {
-            image.addEventListener('mouseover', () => showBubble(index));
-            image.addEventListener('mouseout', () => {
-                userBubbles[index].classList.remove('show');
-            });
-        });
+           const phoneInput = $('#phoneInput');
+            const phoneValue = phoneInput.val().trim();
+            const phoneRegex = /^(00966|966|\+966)?5[0-9]{8}$/;
 
-        form.addEventListener("submit", function (e) {
-            e.preventDefault();
-            let valid = true;
-
-            const requiredInputs = this.querySelectorAll("input[required], textarea[required]");
-            requiredInputs.forEach(input => {
-                const errorMsg = input.nextElementSibling;
-                const value = input.value.trim();
-
-                if (value === "") {
-                    errorMsg.textContent = "هذا الحقل مطلوب";
-                    input.classList.add("is-invalid");
-                    valid = false;
-                } else {
-                    errorMsg.textContent = "";
-                    input.classList.remove("is-invalid");
-                }
-            });
-
-            // Saudi phone number validation
-            const phoneValue = phoneInput.value.trim();
-            const phoneErrorMsg = phoneInput.nextElementSibling;
-            // Updated regex for Saudi numbers starting with 05 or +9665 or 9665
-            if (phoneValue !== "" && !/^(00966|966|\+966|0)?5[0-9]{8}$/.test(phoneValue)) {
-                phoneErrorMsg.textContent = "يرجى إدخال رقم جوال سعودي صحيح (يبدأ بـ 05 أو 9665 أو +9665) ويتكون من 10 أرقام";
-                phoneInput.classList.add("is-invalid");
-                valid = false;
-            } else if (phoneValue !== "") {
-                phoneErrorMsg.textContent = "";
-                phoneInput.classList.remove("is-invalid");
+            if (!phoneRegex.test(phoneValue)) {
+                phoneInput.addClass('is-invalid');
+                phoneInput.next('.error-message').text("يرجى إدخال رقم جوال سعودي صحيح يبدأ بـ 5 بدون صفر");
+                return; // إيقاف الإرسال
+            } else {
+                phoneInput.removeClass('is-invalid');
+                phoneInput.next('.invalid-feedback').text('');
             }
 
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            cache: false,
 
-            if (valid) {
-                var myForm = this;
-                var formData = new FormData(myForm);
-                var url = myForm.getAttribute('action');
+            beforeSend: function () {
+                submitBtn.attr('disabled', true);
+                submitBtn.html(`<i class='fa fa-spinner fa-spin'></i> جاري الإرسال...`);
+            },
 
-                $.ajax({
-                    url: url,
-                    type: 'POST',
-                    data: formData,
-                    processData: false, // Important for FormData
-                    contentType: false, // Important for FormData
-                    beforeSend: function () {
-                        submitButton.setAttribute('disabled', true);
-                        submitButton.innerHTML = `<i class='fa fa-spinner fa-spin '></i> إرسال...`;
-                    },
-                    success: function (response) {
-                        if (response.success) {
-                            alert(response.message); // Or use a more sophisticated notification system
-                            myForm.reset(); // Clear form on success
-                            // Clear validation messages and classes
-                            requiredInputs.forEach(input => {
-                                input.nextElementSibling.textContent = "";
-                                input.classList.remove("is-invalid");
-                            });
-                        } else {
-                            // Handle validation errors from the server (if any)
-                            if (response.errors) {
-                                for (const field in response.errors) {
-                                    const input = myForm.querySelector(`[name="${field}"]`);
-                                    if (input) {
-                                        input.classList.add('is-invalid');
-                                        input.nextElementSibling.textContent = response.errors[field][0];
-                                    }
-                                }
-                            }
-                            alert(response.message || 'حدث خطأ ما!');
-                        }
-                    },
-                    error: function (xhr) {
-                        // Handle server errors (e.g., 500 internal server error)
-                        let errorMessage = 'حدث خطأ أثناء إرسال البيانات. يرجى المحاولة مرة أخرى.';
-                        if (xhr.responseJSON && xhr.responseJSON.message) {
-                            errorMessage = xhr.responseJSON.message;
-                        }
-                        alert(errorMessage);
-                        console.error('AJAX error:', xhr);
-                    },
-                    complete: function () {
-                        submitButton.removeAttribute('disabled');
-                        submitButton.innerHTML = `<i class="fas fa-paper-plane ms-2"></i> إرسال`;
-                    }
+            success: function (response) {
+                cuteAlert({
+                    title: "{{__('frontend.Message Successfully Sent')}}",
+                    message: "{{__('frontend.Thanks ,We will contact you as soon as possible.')}}",
+                    type: "success",
+                    buttonText: "{{__('frontend.confirm')}}"
                 });
+
+                $('#Form')[0].reset();
+            },
+
+            error: function (xhr) {
+                if (xhr.status === 422 && xhr.responseJSON?.errors) {
+                    const errors = xhr.responseJSON.errors;
+
+                    for (const field in errors) {
+                        const input = $(`[name="${field}"]`);
+                        input.addClass('is-invalid');
+                        input.next('.invalid-feedback').text(errors[field][0]);
+                    }
+
+                    cuteAlert({
+                        title: "خطأ في البيانات",
+                        message: "يرجى تصحيح الحقول المطلوبة.",
+                        type: "error",
+                        buttonText: "حسناً"
+                    });
+                } else {
+                    cuteAlert({
+                        title: "خطأ",
+                        message: "حدث خطأ غير متوقع، حاول مرة أخرى لاحقاً.",
+                        type: "error",
+                        buttonText: "حسناً"
+                    });
+                    console.error("خطأ:", xhr.responseText);
+                }
+            },
+
+            complete: function () {
+                submitBtn.removeAttr('disabled');
+                submitBtn.html(`{{__('frontend.Send Message')}} <i class="fas fa-paper-plane ms-2"></i>`);
             }
         });
-
-        // Function to allow only numbers in phone input
-        window.isNumber = function(evt) {
-            evt = (evt) ? evt : window.event;
-            var charCode = (evt.which) ? evt.which : evt.keyCode;
-            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-                return false;
-            }
-            return true;
-        };
     });
+
+    // أرقام فقط لحقل الهاتف
+    function isNumber(evt) {
+        evt = (evt) ? evt : window.event;
+        const charCode = (evt.which) ? evt.which : evt.keyCode;
+        return !(charCode > 31 && (charCode < 48 || charCode > 57));
+    }
 </script>
+
 
 <script>
   

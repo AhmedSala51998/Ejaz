@@ -1,3 +1,4 @@
+
 @extends('frontend.layouts.layout')
 
 @section('title')
@@ -401,6 +402,47 @@
     margin-top: 4px;
 }
 
+    .dot-loader {
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 20px;
+    width: 60px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.dot-loader span {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin: 0 3px;
+    background-color: #fff;
+    border-radius: 50%;
+    animation: dotFlashing 1s infinite ease-in-out both;
+}
+
+.dot-loader span:nth-child(1) {
+    animation-delay: 0s;
+}
+.dot-loader span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+.dot-loader span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+.dot-loader span:nth-child(4) {
+    animation-delay: 0.6s;
+}
+
+@keyframes dotFlashing {
+    0% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.3; transform: scale(0.6); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
 </style>
 @endsection
 
@@ -461,84 +503,91 @@
 
         var codeSentToMobile
         $(document).on('submit','form#Form',function(e) {
-            e.preventDefault();
+    e.preventDefault();
 
-            $("#nameInCode").val($("#name").val())
-            $("#passwordInCode").val($("#password").val())
-            $("#phoneInCode").val($("#Phone").val())
+    $("#nameInCode").val($("#name").val())
+    $("#passwordInCode").val($("#password").val())
+    $("#phoneInCode").val($("#Phone").val())
 
-            var myForm = $("#Form")[0]
-            var formData = new FormData(myForm)
-            var url = $('#Form').attr('action');
-            $.ajax({
-                url:url,
-                type: 'POST',
-                data: formData,
-                beforeSend: function(){
-                    $('#submit_button').attr('disabled',true)
-                    $('#submit_button').html(`<i class='fa fa-spinner fa-spin '></i>`)
-                },
-                complete: function(){
+    var myForm = $("#Form")[0]
+    var formData = new FormData(myForm)
+    var url = $('#Form').attr('action');
 
-                },
-                success: function (data) {
+    $.ajax({
+        url: url,
+        type: 'POST',
+        data: formData,
+        beforeSend: function() {
+            $('#submitBtn').attr('disabled', true);
+            $('.btn-text').hide();
+            $('#arrowIcon').hide();
+            $('#dotLoader').removeClass('d-none');
+        },
+        success: function (data) {
+            window.setTimeout(function () {
+                cuteToast({
+                    type: "success",
+                    message: "{{__('frontend.Code Is Sent to Your phone')}}",
+                    timer: 3000
+                });
 
-                    window.setTimeout(function() {
-                        cuteToast({
-                            type: "success", // or 'info', 'error', 'warning'
-                            message: "{{__('frontend.Code Is Sent to Your phone')}}",
-                            timer: 3000
-                        })
-                        $('#submit_button').attr('disabled',false)
-                        $('#submit_button').html(`<p class="px-5">{{__('frontend.RegisterPage')}}</p> <span></span>`)
-                        codeSentToMobile = data
-                        $("#registerForm").hide()
-                        $('#hide-code').show();
-                        $('#register-hide').hide();
+                // إعادة الزر لحالته الطبيعية
+                $('#submitBtn').attr('disabled', false);
+                $('.btn-text').show();
+                $('#arrowIcon').show();
+                $('#dotLoader').addClass('d-none');
 
-                        $("#CodeForm").show()
-                        document.getElementById("vCodeIdFirst").focus();
-                        timeOfSendingCode++
-                    }, 2000);
+                // إظهار شاشة الكود
+                codeSentToMobile = data;
+                $("#registerForm").hide();
+                $('#hide-code').show();
+                $('#register-hide').hide();
+                $("#CodeForm").show();
+                document.getElementById("vCodeIdFirst").focus();
+                timeOfSendingCode++;
+            }, 2000);
+        },
+        error: function (data) {
+            // إعادة الزر لحالته الطبيعية
+            $('#submitBtn').attr('disabled', false);
+            $('.btn-text').show();
+            $('#arrowIcon').show();
+            $('#dotLoader').addClass('d-none');
 
-                    // submit();
+            if (data.status === 422) {
+                if (data.responseJSON?.errors?.phone) {
+                    cuteToast({
+                        type: "error",
+                        message: data.responseJSON.errors.phone[0],
+                        timer: 3000
+                    });
+                } else {
+                    cuteToast({
+                        type: "error",
+                        message: "{{__('frontend.please , fill all input with correct data')}}",
+                        timer: 3000
+                    });
+                }
+            } else if (data.status === 403 || data.status === 500) {
+                cuteToast({
+                    type: "error",
+                    message: "{{__('frontend.the phone is already exists')}}",
+                    timer: 3000
+                });
+            } else {
+                cuteToast({
+                    type: "error",
+                    message: "{{__('frontend.something went wrong')}}",
+                    timer: 3000
+                });
+            }
+        },
+        cache: false,
+        contentType: false,
+        processData: false
+    });
+});
 
-                },
-                error: function (data) {
-                    $('#submit_button').attr('disabled',false)
-                    $('#submit_button').html(`<p class="px-5">{{__('frontend.RegisterPage')}}</p> <span></span>`)
-
-                    if (data.status === 403) {
-                        cuteToast({
-                            type: "error", // or 'info', 'error', 'warning'
-                            message: "{{__('frontend.the phone is already exists')}}",
-                            timer: 3000
-                        })
-                    }
-
-
-                    if (data.status === 500) {
-                        cuteToast({
-                            type: "error", // or 'info', 'error', 'warning'
-                            message: "{{__('frontend.the phone is already exists')}}",
-                            timer: 3000
-                        })
-                    }
-                    if (data.status === 422) {
-                        cuteToast({
-                            type: "error", // or 'info', 'error', 'warning'
-                            message: "{{__('frontend.please , fill all input with correct data')}}",
-                            timer: 3000
-                        })
-                    }//end if
-
-                },//end error method
-
-                cache: false,
-                contentType: false,
-                processData: false
-            });//end ajax
-        });//end submit
 
     </script>
     <script>
@@ -572,102 +621,95 @@
         })();
 
 
-        $(document).on('submit','form#CompleteRegister',function(e) {
-            e.preventDefault();
-            const codeHere = [];
-            var inputs = $(".vCode-input");
-            for(var i = 0; i < inputs.length; i++){
-                if ($(inputs[i]).val() == '' || $(inputs[i]).val() == null){
-                    cuteToast({
-                        type: "error", // or 'info', 'error', 'warning'
-                        message: "{{__('frontend.please , fill all input with correct code')}}",
-                        timer: 3000
-                    })
-                    return 0
-                }else{
-                    codeHere.push($(inputs[i]).val());
-                }
+       $(document).on('submit', 'form#CompleteRegister', function (e) {
+    e.preventDefault();
 
-            }
-            if (codeSentToMobile != codeHere.join('')){
+    const codeHere = [];
+    var inputs = $(".vCode-input");
+    for (var i = 0; i < inputs.length; i++) {
+        if ($(inputs[i]).val() == '' || $(inputs[i]).val() == null) {
+            cuteToast({
+                type: "error",
+                message: "{{__('frontend.please , fill all input with correct code')}}",
+                timer: 3000
+            });
+            return 0;
+        } else {
+            codeHere.push($(inputs[i]).val());
+        }
+    }
+
+    if (codeSentToMobile != codeHere.join('')) {
+        cuteToast({
+            type: "error",
+            message: "{{__('frontend.this code is wrong')}}",
+            timer: 3000
+        });
+        return 0;
+    }
+
+    $("#codeInCode").val(codeSentToMobile);
+    var myForm = $("#CompleteRegister")[0];
+    var formData = new FormData(myForm);
+    var url = $('#CompleteRegister').attr('action');
+
+    $.ajax({
+        url: url,
+        type: 'POST',
+        data: formData,
+        beforeSend: function () {
+            $('#verifyBtn').attr('disabled', true);
+            $('.verify-text').hide();
+            $('#verifyArrow').hide();
+            $('#dotLoaderVerify').removeClass('d-none');
+        },
+        success: function (data) {
+            window.setTimeout(function () {
                 cuteToast({
-                    type: "error", // or 'info', 'error', 'warning'
-                    message: "{{__('frontend.this code is wrong')}}",
+                    type: "success",
+                    message: "{{__('frontend.good operation')}}",
                     timer: 3000
-                })
-                return 0;
+                });
+                $('#verifyBtn').attr('disabled', false);
+                $('.verify-text').show();
+                $('#verifyArrow').show();
+                $('#dotLoaderVerify').addClass('d-none');
+                location.href = "{{ route('auth.profile') }}";
+            }, 2000);
+        },
+        error: function (data) {
+            $('#verifyBtn').attr('disabled', false);
+            $('.verify-text').show();
+            $('#verifyArrow').show();
+            $('#dotLoaderVerify').addClass('d-none');
+
+            if (data.status === 403 || data.status === 500) {
+                cuteToast({
+                    type: "error",
+                    message: "{{__('frontend.the phone is already exists')}}",
+                    timer: 3000
+                });
             }
 
-            $("#codeInCode").val(codeSentToMobile)
-            var myForm = $("#CompleteRegister")[0]
-            var formData = new FormData(myForm)
-            var url = $('#CompleteRegister').attr('action');
-            $.ajax({
-                url:url,
-                type: 'POST',
-                data: formData,
-                beforeSend: function(){
-                    $('#CompleteRegisterButton').attr('disabled',true)
-                    $('#CompleteRegisterButton').html(`<i class='fa fa-spinner fa-spin '></i>`)
-                },
-                complete: function(){
+            if (data.status === 415) {
+                var url = "{{ route('frontend.show.worker', $id) }}";
+                location.replace(url);
+            }
 
-                },
-                success: function (data) {
+            if (data.status === 422) {
+                cuteToast({
+                    type: "error",
+                    message: "{{__('frontend.please , fill all input with correct data')}}",
+                    timer: 3000
+                });
+            }
+        },
+        cache: false,
+        contentType: false,
+        processData: false
+    });
+});
 
-                    window.setTimeout(function() {
-                        cuteToast({
-                            type: "success", // or 'info', 'error', 'warning'
-                            message: "{{__('frontend.good operation')}}",
-                            timer: 3000
-                        })
-                        $('#CompleteRegisterButton').attr('disabled',false)
-                        $('#CompleteRegisterButton').html(`<p class="px-5">{{__('frontend.confirm')}}</p> <span></span>`)
-                        location.href = "{{route('auth.profile')}}"
-                    }, 2000);
-
-                },
-                error: function (data) {
-                    $('#CompleteRegisterButton').attr('disabled',false)
-                    $('#CompleteRegisterButton').html(`<p class="px-5">{{__('frontend.confirm')}}</p> <span></span>`)
-
-                    if (data.status === 403) {
-                        cuteToast({
-                            type: "error", // or 'info', 'error', 'warning'
-                            message: "{{__('frontend.the phone is already exists')}}",
-                            timer: 3000
-                        })
-                    }
-
-
-                    if (data.status === 500) {
-                        cuteToast({
-                            type: "error", // or 'info', 'error', 'warning'
-                            message: "{{__('frontend.the phone is already exists')}}",
-                            timer: 3000
-                        })
-                    }
-                    if (data.status === 415) {
-
-
-                        var url="{{route('frontend.show.worker',$id)}}";
-                        location.replace(url);
-                    }
-                    if (data.status === 422) {
-                        cuteToast({
-                            type: "error", // or 'info', 'error', 'warning'
-                            message: "{{__('frontend.please , fill all input with correct data')}}",
-                            timer: 3000
-                        })
-                    }//end if
-
-                },//end error method
-
-                cache: false,
-                contentType: false,
-                processData: false
-            });//end ajax
-        });//end submit
 
 
 
@@ -805,6 +847,54 @@
         var charCode = (evt.which) ? evt.which : evt.keyCode;
         return !(charCode > 31 && (charCode < 48 || charCode > 57));
     }
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('Form');
+        const submitBtn = document.getElementById('submitBtn');
+        const dotLoader = document.getElementById('dotLoader');
+        const btnText = submitBtn.querySelector('.btn-text');
+        const arrowIcon = document.getElementById('arrowIcon');
+
+        form.addEventListener('submit', function () {
+            // تعطيل الزر وتشغيل اللودر
+            submitBtn.disabled = true;
+            btnText.style.display = 'none';
+            arrowIcon.style.display = 'none';
+            dotLoader.classList.remove('d-none');
+        });
+    });
+</script>
+
+<script>
+    document.querySelectorAll('#vCode input').forEach((input, index, inputs) => {
+  input.addEventListener('input', (e) => {
+    const value = e.target.value;
+
+    // فقط رقم أو حرف واحد مقبول (حذف أي أكثر)
+    e.target.value = value.replace(/[^0-9]/g, '').slice(0, 1);
+
+    if (e.target.value && index < inputs.length - 1) {
+      // لو فيه قيمة وانت مش في اخر input، انتقل للتالي
+      inputs[index + 1].focus();
+    }
+  });
+
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Backspace' && !e.target.value && index > 0) {
+      // لو ضغط backspace وحقل فاضي، ارجع للخلف
+      inputs[index - 1].focus();
+    }
+  });
+});
+
+// ركز المؤشر على اول input عند تحميل الصفحة
+window.addEventListener('DOMContentLoaded', () => {
+  const firstInput = document.querySelector('#vCode input');
+  if (firstInput) firstInput.focus();
+});
+
 </script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.79/jquery.form-validator.min.js"></script>

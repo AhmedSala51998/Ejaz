@@ -104,7 +104,7 @@
                         </li>
                         <li>
                             <i class="fa-solid fa-circle-check"></i>
-                            مرخصين من وزارة الموارد البشريه ومتواجدون في منصة مساند
+                            مرخصين من وزارة الموارد البشرية ومتواجدون في منصة مساند
                         </li>
                         <li>
                             <i class="fa-solid fa-circle-check"></i>
@@ -124,7 +124,7 @@
             </div>
             <div class="col-lg-6 col-12 position-relative">
                 <div class="img">
-                    <img src="{{asset('frontend/img/about2.png')}}" alt="">
+                    <img src="{{asset('frontend/img/about3.jpg')}}" alt="">
                     <div class="bun">
                         <h6>
                             يمكنك الأن استقدام عمالتك لفترات محدودة ماذا تنتظر!؟

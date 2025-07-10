@@ -1,4 +1,3 @@
-
 <content id="register-hide">
     <!-- ================ banner ================= -->
     <div class="banner">
@@ -22,7 +21,7 @@
                             @csrf
                             <div class="mb-3">
                                 <label class="form-label"><i class="fas fa-user me-2"></i>{{ __('frontend.FullName') }}</label>
-                                <input type="text" name="name" class="form-control" placeholder="{{ __('frontend.enter FullName') }}"
+                                <input type="text" name="name" id="name" class="form-control" placeholder="{{ __('frontend.enter FullName') }}"
                                        data-validation="required,length" data-validation-length="min2">
                             </div>
 
@@ -60,9 +59,14 @@
                             </div>
 
                             <div class="d-grid pt-4">
-                                <button type="submit" class="btn-submit">
-                                    {{ __('frontend.RegisterPage') }}
-                                    <i class="fa-solid fa-arrow-left ms-2"></i>
+                                <button type="submit" class="btn-submit position-relative overflow-hidden text-center" id="submitBtn">
+                                    <span class="btn-text">{{ __('frontend.RegisterPage') }}</span>
+                                    <i class="fa-solid fa-arrow-left ms-2" id="arrowIcon"></i>
+
+                                    <!-- Loader -->
+                                    <span class="dot-loader d-none" id="dotLoader">
+                                        <span></span><span></span><span></span><span></span>
+                                    </span>
                                 </button>
                             </div>
                         </form>
@@ -77,5 +81,6 @@
         </div>
     </section>
 </content>
+
 
 

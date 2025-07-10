@@ -4,8 +4,13 @@
     backdrop-filter: blur(10px);
     border: 1px solid rgba(0,0,0,0.05);
     transition: 0.3s ease;
+    width:750px
 
 }
+@media (max-width: 991px) { /* Adjust breakpoint for larger tablets */
+    .card-custom  {
+     width:400px
+}}
 .card-custom:hover {
     transform: scale(1.01);
     box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
