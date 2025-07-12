@@ -160,7 +160,7 @@
                             <input id="track" type="text" name="code" class="form-control form-control-lg rounded-pill" placeholder="ادخل هنا" required>
                         </div>
                         <div class="d-grid">
-                            <button class="btn btn-warning btn-lg rounded-pill" id="CompleteRegister" type="submit">تحقق</button>
+                            <button class="btn btn-warning btn-lg rounded-pill" id="CompleteRegisterr" type="submit">تحقق</button>
                         </div>
                     </form>
                 </div>
@@ -195,13 +195,14 @@ $(document).on('submit','form#CompleteRegister',function(e) {
         type: 'POST',
         data: formData,
         beforeSend: function(){
-            $('#CompleteRegister')
+            $('#CompleteRegisterr')
                 .addClass('loading-btn')
                 .attr('disabled', true)
                 .html('<span class="spinner-border-dotted"></span>');
         },
-        complete: function(){
-            $('#CompleteRegister')
+        complete: function() {
+            // استهدف الزر فقط، وليس الفورم
+            $('#CompleteRegisterr')
                 .removeClass('loading-btn')
                 .attr('disabled', false)
                 .html('تحقق');
