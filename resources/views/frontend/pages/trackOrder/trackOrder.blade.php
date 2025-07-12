@@ -89,6 +89,40 @@
             }
         }
 
+/* شكل اللودر الدائري */
+.spinner-border-dotted {
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 3px dotted #fff;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 0.8s linear infinite;
+    display: inline-block;
+}
+
+/* أنيميشن الدوران */
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* الزر أثناء التحميل */
+.loading-btn {
+    width: 3rem !important;
+    height: 3rem !important;
+    padding: 0 !important;
+    border-radius: 50% !important;
+    background-color: #f4a835 !important;
+    color: transparent !important;
+    position: relative;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
     </style>
 @endsection
 
@@ -148,60 +182,54 @@
 @endsection
 
 @section('js')
-    <script>
+<script>
 $(document).on('submit','form#CompleteRegister',function(e) {
-e.preventDefault();
-// const codeHere = [];
+    e.preventDefault();
 
-var myForm = $("#CompleteRegister")[0]
-var formData = new FormData(myForm)
-var url = $('#CompleteRegister').attr('action');
-$.ajax({
-url:url,
-type: 'POST',
-data: formData,
-beforeSend: function(){
+    var myForm = $("#CompleteRegister")[0]
+    var formData = new FormData(myForm)
+    var url = $('#CompleteRegister').attr('action');
 
-},
-complete: function(){
-
-},
-success: function (data) {
-
-window.setTimeout(function() {
-cuteToast({
-type: "success", // or 'info', 'error', 'warning'
-message: "{{__('frontend.good operation')}}",
-timer: 3000
-})
-location.href = "/order_details/"+data.order_code
-}, 2000);
-
-},
-error: function (data) {
-
-if (data.status === 500) {
-cuteToast({
-type: "error", // or 'info', 'error', 'warning'
-message: "يجب تسجيل الدخول لاستخدام هذة الخدمة",
-timer: 3000
-})
-}
-    if (data.status === 403) {
-        cuteToast({
-            type: "error", // or 'info', 'error', 'warning'
-            message: "ﻻ يمكنك تتبع هذا الطلب",
-            timer: 3000
-        })
-    }
-
-
-},//end error method
-
-cache: false,
-contentType: false,
-processData: false
-});//end ajax
-});//end submit
-    </script>
+    $.ajax({
+        url: url,
+        type: 'POST',
+        data: formData,
+        beforeSend: function(){
+            $('#CompleteRegister')
+                .addClass('loading-btn')
+                .attr('disabled', true)
+                .html('<span class="spinner-border-dotted"></span>');
+        },
+        complete: function(){
+            $('#CompleteRegister')
+                .removeClass('loading-btn')
+                .attr('disabled', false)
+                .html('تحقق');
+        },
+        success: function (data) {
+            setTimeout(function() {
+                cuteToast({
+                    type: "success",
+                    message: "{{__('frontend.good operation')}}",
+                    timer: 3000
+                });
+                location.href = "/order_details/" + data.order_code
+            }, 2000);
+        },
+        error: function (data) {
+            
+            if (data.status === 500) {
+                cuteToast({ type: "error", message: "يجب تسجيل الدخول لاستخدام هذة الخدمة", timer: 3000 });
+            }
+            if (data.status === 403) {
+                cuteToast({ type: "error", message: "ﻻ يمكنك تتبع هذا الطلب", timer: 3000 });
+            }
+        },
+        cache: false,
+        contentType: false,
+        processData: false
+    });
+});
+</script>
 @endsection
+

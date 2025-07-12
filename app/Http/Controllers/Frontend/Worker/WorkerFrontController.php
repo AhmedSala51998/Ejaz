@@ -34,13 +34,16 @@ class WorkerFrontController extends Controller
     {
 
         if (auth()->check()) {
+            
             $order = Order::where('order_code', $request->code)->where('user_id', auth()->user()->id)->first();
+            
             if (!empty($order)) {
                 $admin = Admin::find($order->admin_id);
                 if ($request->ajax()) {
                     return response()->json(['order_code' => $order->id], 200);
                 }
-                return view("frontend.pages.profile.parts.order_detailes", compact('order', 'admin'));
+                
+                return view("frontend.pages.profile.parts.details_order", compact('order', 'admin'));
             } else {
                 return response()->json([], 403);
 
@@ -48,6 +51,7 @@ class WorkerFrontController extends Controller
 //                return back();
             }
         } else {
+           
             return response()->json([], 500);
 
 //            toastr()->error('يجب تسجيل الدخول لاستخدام هذة الخدمة', 'حدث خطأ ما');
@@ -57,14 +61,43 @@ class WorkerFrontController extends Controller
 
     }
 
-    public function order_details($id)
+    public function order_details($code)
     {
 
-
-        $order = Order::find($id);
+        /*$order = Order::find($id);
         $admin = Admin::find($order->admin_id);
 
-        return view("frontend.pages.profile.parts.order_detailes", compact('order', 'admin'));
+        return view("frontend.pages.profile.parts.details_order", compact('order', 'admin'));*/
+
+        if (auth()->check()) {
+             
+            $order = Order::where('id', $code)->where('user_id', auth()->user()->id)->first();
+            
+            if (!empty($order)) {
+                
+                $admin = Admin::find($order->admin_id);
+                $user = auth()->user();
+                
+                /*if ($request->ajax()) {
+                   
+                    return response()->json(['order_code' => $order->id], 200);
+                }*/
+                 
+                return view("frontend.pages.profile.parts.details_order", compact('order', 'admin' , 'user'));
+            } else {
+                return response()->json([], 403);
+
+//                toastr()->error('ﻻ يمكنك تتبع هذا الطلب', 'حدث خطأ ما');
+//                return back();
+            }
+        } else {
+           
+            return response()->json([], 500);
+
+//            toastr()->error('يجب تسجيل الدخول لاستخدام هذة الخدمة', 'حدث خطأ ما');
+//            return back();
+        }
+
 
     }
     /*public function showAllWorkers(Request $request,$id=null)

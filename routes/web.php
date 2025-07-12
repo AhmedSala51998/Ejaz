@@ -62,6 +62,7 @@ Route::group(
 
     Route::get('track-order',[\App\Http\Controllers\Frontend\Worker\WorkerFrontController::class,'track_order_view'])->name('track_order_view');
     Route::post('post-track-order',[\App\Http\Controllers\Frontend\Worker\WorkerFrontController::class,'track_order'])->name('track_order');
+    Route::get('order_details/{id}',[\App\Http\Controllers\Frontend\Worker\WorkerFrontController::class,'order_details'])->name('order_details');
 
 
     Route::get('countries',[\App\Http\Controllers\Frontend\CountriesController::class,'index'])->name('frontend.show.countries');
