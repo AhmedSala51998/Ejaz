@@ -221,7 +221,6 @@
 <!-- Fancybox CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" />
 
-<div class="">
 <div class="cv-card">
 
     <!-- سلايدر الصور -->
@@ -327,7 +326,7 @@
         </div>
     </div>
 
-</div></div>
+</div>
 
 <!-- Swiper JS + Fancybox JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
