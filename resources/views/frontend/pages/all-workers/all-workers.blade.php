@@ -870,7 +870,7 @@
 
             <!-- قائمة العمالة -->
             <div class="col-lg-9 col-md-12">
-                <div class="row workers-list" id="hereWillDisplayAllWorker">
+                <div class="workers-list" id="hereWillDisplayAllWorker">
                     @include('frontend.pages.all-workers.worker.workers_page', ['cvs' => $cvs])
                 </div>
             </div>

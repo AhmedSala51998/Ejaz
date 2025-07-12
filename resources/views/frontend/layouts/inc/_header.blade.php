@@ -12,7 +12,7 @@ body {
 
 /* Header Styling - Base styles */
 .main-header {
-    padding: 15px 0; /* Reduced padding for a shorter header - KEEPING THIS AS IS */
+    padding: 0 0; /* Reduced padding for a shorter header - KEEPING THIS AS IS */
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Subtle shadow for default header */
     position: relative; /* Default position for sticky transition */
     z-index: 1000;
@@ -42,7 +42,7 @@ body {
     width: 100%;
     /* Background determined by homepage-header or default-header */
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* More prominent shadow when sticky */
-    padding: 10px 0; /* Further reduced padding when sticky */
+    padding: 5px 0; /* Further reduced padding when sticky */
 }
 /* Specific sticky shadow for homepage if it should be distinct */
 .main-header.homepage-header.sticky-header {

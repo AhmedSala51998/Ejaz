@@ -25,7 +25,7 @@
 /* برواز الصورة */
 .cv-image-wrapper {
     width: 100%;
-    height: 420px;
+    height: 620px;
     background: #fff;
     border: 2px solid rgba(245, 166, 35, 0.35);
     border-radius: 20px;
@@ -71,20 +71,21 @@
     flex-shrink: 0;
 }
 
-.cv-warning {
+.cv-info .cv-warning {
     background-color: #f4a835;
     border-radius: 14px;
     padding: 12px 18px;
     margin: 15px 10px;
-    text-align: center;
+    text-align: center !important;
 }
 
 .cv-warning p {
-    color: #FFF;
+    color: #FFF !important;
     font-weight: bold;
     font-size: 15px;
     margin: 0;
     line-height: 1.7;
+    text-align:center
 }
 
 .cv-info {
@@ -117,12 +118,12 @@
     color: #444;
     font-size: 15px;
     text-align: left;
+    font-weight:bold
 }
 
 .cv-action {
     text-align: center;
     padding: 15px 20px;
-    background: #f5f5f5;
     border-top: 1px solid #eee;
 }
 
@@ -154,16 +155,75 @@
         height: 320px;
     }
 }
+
+.cv-card {
+    flex-direction: row; /* بدل column */
+    align-items: stretch;
+    gap: 20px;
+    width: 1050px
+}
+
+.cv-slider {
+    width: 45%;
+    margin-bottom: 0;
+}
+
+.cv-info {
+    width: 55%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.cv-warning {
+    margin: 0 0 15px 0;
+}
+
+.cv-action {
+    text-align: right;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-top: none;
+    margin-top: auto;
+}
+
+@media (max-width: 768px) {
+
+    .cv-slider, .cv-info {
+        width: 100%;
+    }
+
+    .cv-warning {
+        margin: 15px 0;
+    }
+
+    .cv-action {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .cv-card {
+        flex-direction: column;
+        width: 100% !important;
+        margin-left: 0 !important;
+    }
+
+    .cv-slider,
+    .cv-info,
+    .cv-action{
+        width: 100%;
+    }
+
+}
+
 </style>
 
 <!-- Fancybox CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" />
 
-<style>
-/* ... نفس CSS المُرسل سابقًا ... */
-</style>
-
+<div class="">
 <div class="cv-card">
+
     <!-- سلايدر الصور -->
     <div class="cv-slider">
         <div class="swiper workerCvSlider">
@@ -195,13 +255,12 @@
         </div>
     </div>
 
-    <!-- التحذير -->
-    <div class="cv-warning">
-        <p>لضمان حقك، لايتم سداد الرسوم بعد الحجز الا عن طريق منصة مساند</p>
-    </div>
-
     <!-- بيانات العامل -->
     <div class="cv-info">
+        <!-- التحذير -->
+        <div class="cv-warning">
+            <p style="text-align:center !important">لضمان حقك، لايتم سداد الرسوم بعد الحجز الا عن طريق منصة مساند</p>
+        </div>
         <ul>
             <li><h6>الاسم:</h6><p>{{$cv->cv_name}}</p></li>
             <li><h6>الجنسية:</h6><p>{{$cv->nationalitie->title ?? '-'}}</p></li>
@@ -236,40 +295,39 @@
                 </li>
             @endif
         </ul>
-    </div>
+        <!-- زر الحجز -->
+        <div class="cv-action">
+            @php
+                $type = $cv->type;
+            @endphp
 
-    <!-- زر الحجز -->
-    <div class="cv-action">
-        @php
-            $type = $cv->type;
-        @endphp
-
-        @if($type == 'transport')
-            <a href="https://api.whatsapp.com/send?phone={{ $settings->whatsappNumber }}">
-                <i class="fa-brands fa-whatsapp"></i>
-                ارسال طلب نقل
-            </a>
-        @elseif($type == 'rental')
-            <a href="https://api.whatsapp.com/send?phone={{ $settings->whatsappNumber }}">
-                <i class="fa-brands fa-whatsapp"></i>
-                ارسال طلب تأجير
-            </a>
-        @else
-            @auth
-                <a href="{{ route('frontend.show.worker', $cv->id) }}">
-                    <i class="fa-solid fa-file-circle-check"></i>
-                    حجز السيرة الذاتية
+            @if($type == 'transport')
+                <a href="https://api.whatsapp.com/send?phone={{ $settings->whatsappNumber }}">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    ارسال طلب نقل
+                </a>
+            @elseif($type == 'rental')
+                <a href="https://api.whatsapp.com/send?phone={{ $settings->whatsappNumber }}">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    ارسال طلب تأجير
                 </a>
             @else
-                <a href="{{ route('register', $cv->id) }}">
-                    <i class="fa-solid fa-file-circle-check"></i>
-                    حجز السيرة الذاتية
-                </a>
-            @endauth
-        @endif
+                @auth
+                    <a href="{{ route('frontend.show.worker', $cv->id) }}">
+                        <i class="fa-solid fa-file-circle-check"></i>
+                        حجز السيرة الذاتية
+                    </a>
+                @else
+                    <a href="{{ route('register', $cv->id) }}">
+                        <i class="fa-solid fa-file-circle-check"></i>
+                        حجز السيرة الذاتية
+                    </a>
+                @endauth
+            @endif
+        </div>
     </div>
 
-</div>
+</div></div>
 
 <!-- Swiper JS + Fancybox JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
