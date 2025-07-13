@@ -435,7 +435,7 @@
                                 <label for="repetPassword" class="form-label"><i class="fas fa-key me-2"></i>{{__('frontend.ConfirmNewPassword')}}</label>
                                 <div class="password-wrapper">
                                 <input name="confirm_password" data-validation="required,repeatPassword" type="password" class="form-control" id="repetPassword" placeholder="*****">
-                                <span class="toggle-password" onclick="togglePassword()">
+                                <span class="toggle-password" onclick="togglePassword1()">
                                   <i class="fas fa-eye" id="eyeIcon"></i>
                                 </span>
                                </div>
@@ -463,6 +463,20 @@
     });
 
     function togglePassword(inputId) {
+        const input = document.getElementById(inputId);
+        const eyeIcon = input.nextElementSibling.querySelector('i');
+        if (input.type === "password") {
+            input.type = "text";
+            eyeIcon.classList.remove("fa-eye");
+            eyeIcon.classList.add("fa-eye-slash");
+        } else {
+            input.type = "password";
+            eyeIcon.classList.remove("fa-eye-slash");
+            eyeIcon.classList.add("fa-eye");
+        }
+    }
+
+    function togglePassword1(inputId) {
         const input = document.getElementById(inputId);
         const eyeIcon = input.nextElementSibling.querySelector('i');
         if (input.type === "password") {
