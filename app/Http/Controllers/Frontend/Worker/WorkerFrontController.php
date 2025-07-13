@@ -269,7 +269,7 @@ class WorkerFrontController extends Controller
         $order_data['biography_id'] = $cv->id;
         $order_data['order_code'] = "NK" . $cv->id . time();
         Order::create($order_data);
-        return response([], 200);
+        return response(['order_code' => $order_data['order_code']], 200);
     }//end fun
 
 

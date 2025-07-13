@@ -163,7 +163,25 @@
             }
         }
 
+        .cute-alert .alert-container.success {
+            background-color: #f4a835 !important; /* برتقالي */
+            color: #fff !important;
+        }
+
+        .cute-alert .alert-title {
+            color: #fff !important;
+        }
+
+        .cute-alert .alert-button {
+            background-color: #fff !important;
+            color: #f4a835 !important;
+            border-radius: 10px;
+        }
+
+
     </style>
+    <!-- تأكد إنك ضايف مكتبة SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -307,17 +325,32 @@
             },
             success: function (data) {
                 ob.attr('disabled', false)
-                ob.html(`{{__('frontend.Recruitment Request')}}
-                <i class="fa-solid fa-briefcase ms-2"></i>`)
-                cuteAlert({
-                    title: "{{__('frontend.Congratulation')}}",
-                    message: `{{__('frontend.Thanks ,We will contact you as soon as possible.')}}`,
-                    type: "success", // or 'info', 'error', 'warning'
-                    buttonText: "{{__('frontend.ok')}}"
-                }).then((e) => {
-                    location.replace("{{route('auth.profile')}}")
-                })
+                ob.html(`{{__('frontend.Recruitment Request')}} <i class="fa-solid fa-briefcase ms-2"></i>`);
 
+                let orderCode = data.order_code || '';
+
+                Swal.fire({
+                    title: '<span style="color:#f4a835; font-weight:bold;">🎉 {{__('frontend.Congratulation')}}</span>',
+                    html: `
+                        <div style="font-size: 1.1rem; color:#333; margin-bottom: 10px;">
+                            {{__('frontend.Thanks ,We will contact you as soon as possible.')}}
+                        </div>
+                        <div style="background:#fff7e6; border:2px dashed #f4a835; border-radius:10px; padding:10px 15px; margin-top:10px;">
+                            <strong style="font-size: 1.2rem; color:#d48806;">رقم الطلب:</strong>
+                            <span style="font-size: 1.2rem; font-weight:bold; color:#333;">${orderCode}</span>
+                        </div>
+                    `,
+                    icon: 'success',
+                    confirmButtonText: '{{__('frontend.ok')}}',
+                    confirmButtonColor: '#f4a835',
+                    background: '#fffefc',
+                    customClass: {
+                        popup: 'rounded-4 shadow-lg p-3',
+                        confirmButton: 'rounded-pill px-5 py-2'
+                    }
+                }).then(() => {
+                    location.replace("{{route('auth.profile')}}");
+                });
             },
             error: function (data) {
                 ob.html(`{{__('frontend.Recruitment Request')}}
