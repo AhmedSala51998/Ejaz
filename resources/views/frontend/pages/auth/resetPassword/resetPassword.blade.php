@@ -421,7 +421,7 @@
                         <img src="{{asset('frontend')}}/img/Reset.svg" alt="Reset">
                         <form method="post" id="Form" action="{{route('auth.reset_password_action')}}">
                             @csrf
-                            <input type="hidden" name="id" value="">
+                            <input type="hidden" name="id" value="{{$user->id}}">
                             <div class="mb-3 position-relative">
                                 <label for="password" class="form-label"><i class="fas fa-key me-2"></i>{{__('frontend.newPassword')}}</label>
                                 <div class="password-wrapper">

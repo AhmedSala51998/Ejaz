@@ -1,7 +1,7 @@
 <?php return array (
   'api-postman' => 
   array (
-    'base_url' => 'https://update.isteqdamejaz.com',
+    'base_url' => 'https://isteqdamejaz.com',
     'filename' => '{timestamp}_{app}_collection.json',
     'structured' => false,
     'crud_folders' => true,
@@ -48,7 +48,7 @@
     'name' => 'EjazRecruitment',
     'env' => 'local',
     'debug' => false,
-    'url' => 'https://update.isteqdamejaz.com',
+    'url' => 'https://isteqdamejaz.com',
     'asset_url' => NULL,
     'timezone' => 'Asia/Riyadh',
     'locale' => 'ar',
@@ -479,7 +479,7 @@
       array (
         'driver' => 'local',
         'root' => 'C:\\steqdamEjaz\\Ejaz\\storage\\app/public',
-        'url' => 'https://update.isteqdamejaz.com/storage',
+        'url' => 'https://isteqdamejaz.com/storage',
         'visibility' => 'public',
       ),
       's3' => 
@@ -1008,7 +1008,7 @@
       array (
         0 => 
         array (
-          'url' => 'https://update.isteqdamejaz.com/api',
+          'url' => 'https://isteqdamejaz.com/api',
           'description' => 'Default Environment',
         ),
       ),
@@ -1128,7 +1128,7 @@
       2 => '127.0.0.1',
       3 => '127.0.0.1:8000',
       4 => '::1',
-      5 => 'update.isteqdamejaz.com',
+      5 => 'isteqdamejaz.com',
     ),
     'guard' => 
     array (
