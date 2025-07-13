@@ -452,7 +452,7 @@
 
 @section('js')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.79/jquery.form-validator.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $.formUtils.addValidator({
             name: 'validatePhoneNumberOfSAR',
@@ -494,13 +494,32 @@
                 },
                 success: function () {
                     setTimeout(function () {
-                        cuteToast({
-                            type: "success",
-                            message: "{{__('frontend.good operation')}}",
-                            timer: 3000
+                        Swal.fire({
+                            title: '<span style="color:#f4a835; font-weight:bold;">✔ {{__("frontend.good operation")}}</span>',
+                            html: `
+                                <div style="font-size: 1.1rem; color:#333;">
+                                    تم ارسال رابط لرقم جوالك لتغيير كلمة المرور
+                                </div>
+                            `,
+                            icon: 'success',
+                            confirmButtonText: '{{__("frontend.ok")}}',
+                            confirmButtonColor: '#f4a835',
+                            background: '#fffefc',
+                            timer: 3000,
+                            timerProgressBar: true,
+                            customClass: {
+                                popup: 'rounded-4 shadow-lg p-3',
+                                confirmButton: 'rounded-pill px-5 py-2'
+                            },
+                            willClose: () => {
+                                // إعادة توجيه بعد الإغلاق
+                                window.location.href = '{{route('auth.forget-email-sent-successfully')}}';
+                            }
                         });
-                        $('#submit_button').attr('disabled', false).html(`<p>{{__('frontend.Send Reset Password Link')}}</p><span></span>`);
-                        window.location.href = '{{route('auth.forget-email-sent-successfully')}}';
+
+                        $('#submit_button')
+                            .attr('disabled', false)
+                            .html(`<p>{{__('frontend.Send Reset Password Link')}}</p><span></span>`);
                     }, 1000);
                 },
                 error: function (data) {
