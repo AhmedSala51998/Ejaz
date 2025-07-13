@@ -167,6 +167,79 @@
     font-size: 1.2rem; /* Slightly larger */
     margin-top: 10px;
 }
+/* استجابة الموبايل */
+@media (max-width: 768px) {
+    #contactUs {
+        padding: 40px 15px;
+    }
+
+    .contact-container {
+        padding: 30px 20px;
+        box-shadow: 0 15px 30px rgba(0,0,0,0.05);
+    }
+
+    .contact-title {
+        font-size: 2.4rem;
+    }
+
+    .contact-sub {
+        font-size: 1rem;
+        margin-bottom: 30px;
+    }
+
+    .row {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .col-md-5, .col-md-7 {
+        max-width: 100%;
+        flex: 1 1 100%;
+    }
+
+    .contact-info-block {
+        padding: 20px;
+    }
+
+    .info-item {
+        gap: 10px;
+    }
+
+    .info-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 18px;
+    }
+
+    .info-text h6 {
+        font-size: 1rem;
+    }
+
+    .info-text p {
+        font-size: 0.9rem;
+    }
+
+    .contact-form .form-control {
+        font-size: 0.95rem;
+        padding: 14px 16px 14px 40px;
+    }
+
+    .form-icon {
+        font-size: 1rem;
+        left: 12px;
+    }
+
+    .send-btn {
+        width: 100%;
+        justify-content: center;
+        font-size: 1rem;
+        padding: 14px 0;
+        border-radius: 30px;
+        box-shadow: 0 6px 15px rgba(242,133,0,0.15);
+    }
+}
+
 </style>
 
 <section id="contactUs">

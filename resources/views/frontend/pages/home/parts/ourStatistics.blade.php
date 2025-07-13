@@ -84,6 +84,16 @@
     right: -80px;
     filter: blur(100px);
 }
+@media (max-width: 767px) {
+  .statistics .specifications {
+    margin-bottom: 20px;
+  }
+  .statistics .col-6 {
+    max-width: 100%;
+    flex: 0 0 100%;
+  }
+}
+
 </style>
 
 @if (count($statistics) == 4)
@@ -97,7 +107,7 @@
                 <div class="circleBlur"></div>
                 <div class="circleBlur2"></div>
                 @foreach($statistics as $statistic)
-                <div class="col-6 col-md-3 p-2">
+                <div class="col-12 col-md-3 p-2">
                     <div class="specifications wow fadeInUp">
                         <i class="fa-duotone {{$statistic->icon}}"></i>
                         <h1 class="odometer" data-count="{{$statistic->number}}">00</h1>
