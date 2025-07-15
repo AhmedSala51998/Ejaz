@@ -160,7 +160,19 @@
     flex-direction: row; /* بدل column */
     align-items: stretch;
     gap: 20px;
-    width: 1050px
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+
+}
+
+.workers-list > .row,
+.workers-list > [class*="col-"],
+.workers-list > div {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 .cv-slider {
@@ -215,7 +227,148 @@
     }
 
 }
+.cv-card {
+    display: flex;
+    flex-direction: row;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    margin-bottom: 30px;
+    transition: transform 0.3s ease;
+    gap: 20px;
+    padding: 20px;
+}
 
+.cv-card:hover {
+    transform: translateY(-5px);
+}
+
+.cv-slider {
+    width: 40%;
+    border-radius: 18px;
+    overflow: hidden;
+    background: #fff;
+}
+
+.cv-image-wrapper {
+    height: 100%;
+    background: #fff;
+    border-radius: 18px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border: 2px solid #f4a83533;
+}
+
+.cv-image-wrapper img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    aspect-ratio: 3 / 4;
+    border-radius: 12px;
+    transition: 0.3s ease;
+}
+
+.cv-image-wrapper img:hover {
+    transform: scale(1.02);
+}
+
+.cv-info {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.cv-warning {
+    background: #f4a835;
+    color: white;
+    border-radius: 12px;
+    padding: 12px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-align: center;
+    font-size: 15px;
+}
+
+.cv-info ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.cv-info li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px dashed #ddd;
+}
+
+.cv-info h6 {
+    font-size: 15px;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+}
+
+.cv-info p {
+    margin: 0;
+    font-size: 15px;
+    font-weight: bold;
+    color: #666;
+    text-align: left;
+}
+
+.cv-action {
+    text-align: right;
+    margin-top: 20px;
+}
+
+.cv-action a {
+    background: #f4a835;
+    color: white;
+    padding: 10px 22px;
+    font-size: 15px;
+    border-radius: 10px;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.cv-action a:hover {
+    background: #d28a25;
+}
+
+.cv-action i {
+    font-size: 16px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .cv-card {
+        flex-direction: column;
+        padding: 15px;
+    }
+
+    .cv-slider,
+    .cv-info {
+        width: 100%;
+    }
+
+    .cv-action {
+        text-align: center;
+        margin-top: 20px;
+    }
+}
 </style>
 
 <!-- Fancybox CSS -->
