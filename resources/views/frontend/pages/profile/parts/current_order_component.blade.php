@@ -127,7 +127,7 @@
 @foreach($currentOrders as $currentOrder)
     @php
         $createdAt = \Carbon\Carbon::parse($currentOrder->created_at);
-        $expiresAtTimestamp = $createdAt->copy()->addHours(24)->timestamp * 1000;
+        $expiresAtTimestamp = $createdAt->copy()->addHours(48)->timestamp * 1000;
         $orderStatus = $currentOrder->status;
     @endphp
 
@@ -203,13 +203,14 @@
         </div>
     </div>
 @endforeach
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.79/jquery.form-validator.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <audio id="successSound" src="https://assets.mixkit.co/sfx/preview/mixkit-correct-answer-tone-2870.mp3" preload="auto"></audio>
 <script>
 window.onload = function () {
+    console.log('Timer script started');
     try {
         function updateBox(id, value) {
             const el = document.getElementById(id);
