@@ -315,7 +315,7 @@
                             <div class="invalid-feedback">لا تترك الرسالة فارغة</div>
                         </div>
                         <div class="text-end">
-                            <button type="submit" class="send-btn">
+                            <button type="submit" class="send-btn" id="submit_button">
                                 <i class="fa-solid fa-paper-plane"></i> إرسال
                             </button>
                         </div>

@@ -38,91 +38,182 @@
 @endsection
 
 @section('js')
-   <script>
-    $(document).on('submit', 'form#Form', function (e) {
-        e.preventDefault();
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.10.2/lottie.min.js"></script>
+<audio id="successSound" src="https://assets.mixkit.co/sfx/preview/mixkit-correct-answer-tone-2870.mp3" preload="auto"></audio>
+<script>
+$(document).on('submit', 'form#Form', function (e) {
+    e.preventDefault();
 
-        var myForm = $("#Form")[0];
-        var formData = new FormData(myForm);
-        var url = $('#Form').attr('action');
-        var phoneInput = $('#phoneInput'); // تأكد أن الـ input فيه id="phoneInput"
-        var phoneValue = phoneInput.val().trim();
-        var phoneRegex = /^(00966|966|\+966)?5[0-9]{8}$/;
+    let form = $('#Form');
+    let submitBtn = $('#submit_button');
+    let formEl = form[0];
+    let formData = new FormData(formEl);
+    let url = form.attr('action');
+    let phoneInput = $('#phoneInput');
+    let phoneValue = phoneInput.val().trim();
+    let phoneRegex = /^(00966|966|\+966)?5[0-9]{8}$/;
 
-        // حذف الأخطاء السابقة
-        phoneInput.removeClass('is-invalid');
-        phoneInput.next('.invalid-feedback').text('');
+    // إزالة الأخطاء السابقة
+    form.find('input, textarea').removeClass('is-invalid');
+    form.find('.invalid-feedback').text('');
 
-        // ✅ تحقق من رقم الجوال
-        if (!phoneRegex.test(phoneValue)) {
-            phoneInput.addClass('is-invalid');
-            phoneInput.next('.invalid-feedback').text("يرجى إدخال رقم جوال سعودي صحيح يبدأ بـ 5 بدون صفر");
-            return; // إيقاف الإرسال
+    // تحقق من الحقول الفارغة
+    let valid = true;
+    form.find('input[required], textarea[required]').each(function () {
+        if (!$(this).val().trim()) {
+            $(this).addClass('is-invalid');
+            valid = false;
         }
-
-        $.ajax({
-            url: url,
-            type: 'POST',
-            data: formData,
-            beforeSend: function () {
-                $('#submit_button').attr('disabled', true);
-                $('#submit_button').html(`<i class='fa fa-spinner fa-spin '></i>`);
-            },
-            success: function (data) {
-                cuteAlert({
-                    title: "{{__('frontend.Message Successfully Sent')}}",
-                    message: `{{__('frontend.Thanks ,We will contact you as soon as possible.')}}`,
-                    type: "success",
-                    buttonText: "{{__('frontend.confirm')}}"
-                });
-
-                $('#submit_button').attr('disabled', false);
-                $('#submit_button').html(`{{__('frontend.Send Message')}} <i class="fas fa-paper-plane ms-2"></i><span></span>`);
-                $('#Form')[0].reset();
-            },
-            error: function (data) {
-                if (data.status === 500) {
-                    cuteAlert({
-                        title: "خطأ في السيرفر",
-                        message: "حدث خطأ داخلي، حاول لاحقاً.",
-                        type: "error",
-                        buttonText: "موافق"
-                    });
-                }
-
-                if (data.status === 422) {
-                    let errors = data.responseJSON?.errors || {};
-                    for (let field in errors) {
-                        let input = $(`[name="${field}"]`);
-                        input.addClass('is-invalid');
-                        input.next('.invalid-feedback').text(errors[field][0]);
-                    }
-
-                    cuteAlert({
-                        title: "خطأ في البيانات",
-                        message: "يرجى تصحيح الحقول المطلوبة.",
-                        type: "error",
-                        buttonText: "حسناً"
-                    });
-                }
-            },
-            complete: function () {
-                $('#submit_button').removeAttr('disabled');
-                $('#submit_button').html(`{{__('frontend.Send Message')}} <i class="fas fa-paper-plane ms-2"></i><span></span>`);
-            },
-            cache: false,
-            contentType: false,
-            processData: false
-        });
     });
 
-    // منع إدخال غير الأرقام
-    function isNumber(evt) {
-        evt = (evt) ? evt : window.event;
-        var charCode = (evt.which) ? evt.which : evt.keyCode;
-        return !(charCode > 31 && (charCode < 48 || charCode > 57));
-    }
-</script>
+    if (!valid) return;
 
+    // تحقق من رقم الجوال
+    if (!phoneRegex.test(phoneValue)) {
+        phoneInput.addClass('is-invalid');
+        phoneInput.next('.invalid-feedback').text("يرجى إدخال رقم جوال سعودي صحيح يبدأ بـ 5 بدون صفر");
+        return;
+    }
+
+    // وضع اللودر + تعطيل الزر
+    submitBtn.prop('disabled', true);
+    submitBtn.html(`
+        <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+        جاري الإرسال...
+    `);
+
+    $.ajax({
+        url: url,
+        type: 'POST',
+        data: formData,
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        processData: false,
+        contentType: false,
+        cache: false,
+        success: function (data) {
+            // أول ما الرسالة تظهر، نوقف اللودر ونرجع زر الإرسال لوضعه الطبيعي
+            submitBtn.prop('disabled', false);
+            submitBtn.html(`<i class="fa-solid fa-paper-plane me-2"></i> إرسال`);
+
+            // تشغيل صوت النجاح
+            let sound = document.getElementById('successSound');
+            if (sound) sound.play();
+
+            // عرض رسالة نجاح احترافية
+            Swal.fire({
+                title: '🎉 تم الإرسال بنجاح!',
+                html: `
+                    <div style="display: flex; flex-direction: column; align-items: center; gap: 20px; font-family: 'Tajawal', sans-serif; direction: rtl;">
+                        <div id="lottie-success" style="width: 140px; height: 140px;"></div>
+                        <p style="font-size: 18px; color: #2c3e50; font-weight: 600; margin: 0;">
+                            شكرًا لتواصلك معنا! <br> سنقوم بالرد عليك في أقرب وقت ممكن.
+                        </p>
+                        <button id="swal-ok-btn" style="
+                            margin-top: 10px;
+                            background: linear-gradient(135deg, #f4a835, #ffb23c);
+                            border: none;
+                            color: white;
+                            font-size: 16px;
+                            padding: 10px 28px;
+                            border-radius: 25px;
+                            cursor: pointer;
+                            box-shadow: 0 8px 20px rgba(244, 168, 53, 0.35);
+                            transition: all 0.3s ease-in-out;
+                        " onmouseover="this.style.transform='scale(1.05)';" onmouseout="this.style.transform='scale(1)';">
+                            تم ✔️
+                        </button>
+                    </div>
+                `,
+                showConfirmButton: false,
+                didOpen: () => {
+                    lottie.loadAnimation({
+                        container: document.getElementById('lottie-success'),
+                        renderer: 'svg',
+                        loop: false,
+                        autoplay: true,
+                        path: 'https://assets6.lottiefiles.com/packages/lf20_jbrw3hcz.json'
+                    });
+
+                    document.getElementById('swal-ok-btn').addEventListener('click', () => {
+                        Swal.close();
+                        form[0].reset(); // تقدر تمسح الفورم لما تضغط تم
+                    });
+                },
+                backdrop: `
+                    rgba(0,0,0,0.4)
+                    url("https://assets10.lottiefiles.com/temp/lf20_HpFqiS.json")
+                    left top
+                    no-repeat
+                `,
+                background: 'rgba(255, 255, 255, 0.95)',
+                width: 380,
+                padding: '30px 20px',
+                customClass: {
+                    popup: 'ultra-glass-popup'
+                }
+            });
+        },
+        error: function (jqXHR) {
+            // في حالة أخطاء التحقق من السيرفر (422) أو أخطاء أخرى
+            if (jqXHR.status === 422) {
+                let errors = jqXHR.responseJSON?.errors || {};
+                for (let field in errors) {
+                    let input = $(`[name="${field}"]`);
+                    input.addClass('is-invalid');
+                    input.next('.invalid-feedback').text(errors[field][0]);
+                }
+                Swal.fire({
+                    icon: 'error',
+                    title: 'خطأ في البيانات',
+                    text: 'يرجى تصحيح الحقول المطلوبة.',
+                    confirmButtonText: 'حسناً',
+                    customClass: {
+                        popup: 'ultra-glass-popup',
+                        confirmButton: 'ultra-btn'
+                    },
+                    buttonsStyling: false
+                });
+            } else if (jqXHR.status === 500) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'خطأ في السيرفر',
+                    text: 'حدث خطأ داخلي، حاول لاحقاً.',
+                    confirmButtonText: 'موافق',
+                    customClass: {
+                        popup: 'ultra-glass-popup',
+                        confirmButton: 'ultra-btn'
+                    },
+                    buttonsStyling: false
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'حدث خطأ',
+                    text: 'حاول مرة أخرى في وقت لاحق.',
+                    confirmButtonText: 'موافق',
+                    customClass: {
+                        popup: 'ultra-glass-popup',
+                        confirmButton: 'ultra-btn'
+                    },
+                    buttonsStyling: false
+                });
+            }
+            // إعادة تهيئة الزر حتى لو حصل خطأ
+            submitBtn.prop('disabled', false);
+            submitBtn.html(`<i class="fa-solid fa-paper-plane me-2"></i> إرسال`);
+        }
+    });
+});
+
+// منع إدخال غير الأرقام
+function isNumber(evt) {
+    evt = evt || window.event;
+    let charCode = evt.which || evt.keyCode;
+    return !(charCode > 31 && (charCode < 48 || charCode > 57));
+}
+</script>
 
 @endsection

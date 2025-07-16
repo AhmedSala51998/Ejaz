@@ -531,6 +531,53 @@ class AdminOrderController extends Controller
         return response()->json("ok", 200);
     }
 
+    public function autoCancelReservation($id)
+    {
+        $order = Order::where("id", $id)->first();
+
+        // 🔎 تأكد أن الطلب موجود
+        if (!$order) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'لم يتم العثور على الطلب.'
+            ], 404);
+        }
+
+        // ✅ التحقق من حالة الطلب
+        if ($order->status !== 'under_work') {
+            return response()->json([
+                'status' => 'skipped',
+                'message' => 'تم التعاقد مسبقًا أو الحالة لا تسمح بالإلغاء.'
+            ], 200);
+        }
+
+        // ✅ تحديث حالة الطلب إلى ملغي
+        $order->update([
+            "status" => "canceled"
+        ]);
+
+        // ✅ إعادة العاملة للحالة "new"
+        Biography::where("id", $order->biography_id)->update([
+            "status" => "new",
+            "admin_id" => null,
+            "user_id" => null
+        ]);
+
+            // ✅ إرسال رسالة للعميل
+        $clientPhone = $order->user->phone ?? null;
+        $workerName = $order->biography->name ?? 'العاملة';
+
+        if (!empty($clientPhone)) {
+            $msg = "انتهت مهلة الحجز المحددة للسيرة الذاتية: {$workerName}، وتم إلغاء الحجز تلقائيًا.";
+            $this->sendSMS($clientPhone, $msg);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'تم إلغاء الحجز بنجاح وإعادة العاملة للواجهة.'
+        ], 200);
+    }
+
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse

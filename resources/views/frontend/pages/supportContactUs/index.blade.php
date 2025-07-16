@@ -610,6 +610,43 @@
     width: 100%;
     position: absolute;
 }
+.ultra-glass-popup {
+    border-radius: 30px !important;
+    padding: 35px 30px !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15) !important;
+    font-family: 'Tajawal', sans-serif;
+    animation: fadeInUp 0.6s ease;
+}
+
+.ultra-btn {
+    background: linear-gradient(135deg, #f4a835, #ffb23c);
+    color: white;
+    padding: 12px 28px;
+    border-radius: 14px;
+    font-weight: bold;
+    font-size: 16px;
+    box-shadow: 0 8px 18px rgba(244, 168, 53, 0.35);
+    transition: all 0.3s ease-in-out;
+    letter-spacing: 0.3px;
+}
+
+.ultra-btn:hover {
+    background: linear-gradient(135deg, #e5941f, #f4a835);
+    transform: scale(1.06);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 @endsection
@@ -856,11 +893,37 @@
             },
 
             success: function (response) {
-                cuteAlert({
-                    title: "{{__('frontend.Message Successfully Sent')}}",
-                    message: "{{__('frontend.Thanks ,We will contact you as soon as possible.')}}",
-                    type: "success",
-                    buttonText: "{{__('frontend.confirm')}}"
+                // تشغيل الصوت
+                document.getElementById('successSound').play();
+
+                Swal.fire({
+                    title: '🎉 {{ __("frontend.Message Successfully Sent") }}',
+                    html: `
+                        <div style="display:flex;flex-direction:column;align-items:center;gap:20px">
+                            <div id="lottie-success" style="width:140px;height:140px;"></div>
+                            <div style="font-size: 16px; font-weight: 500; color: #333;">
+                                {{ __("frontend.Thanks ,We will contact you as soon as possible.") }}
+                            </div>
+                        </div>
+                    `,
+                    showConfirmButton: true,
+                    confirmButtonText: '{{ __("frontend.confirm") }} 🚀',
+                    customClass: {
+                        popup: 'ultra-glass-popup',
+                        confirmButton: 'ultra-btn'
+                    },
+                    buttonsStyling: false,
+                    timer: 6000,
+                    timerProgressBar: true,
+                    didOpen: () => {
+                        lottie.loadAnimation({
+                            container: document.getElementById('lottie-success'),
+                            renderer: 'svg',
+                            loop: false,
+                            autoplay: true,
+                            path: 'https://assets6.lottiefiles.com/packages/lf20_jbrw3hcz.json' // ✅ Success Lottie
+                        });
+                    }
                 });
 
                 $('#Form')[0].reset();
@@ -907,6 +970,16 @@
         return !(charCode > 31 && (charCode < 48 || charCode > 57));
     }
 </script>
+
+<!-- SweetAlert2 CSS & JS -->
+<!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- Lottie -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.10.2/lottie.min.js"></script>
+
+<!-- صوت نجاح -->
+<audio id="successSound" src="https://assets.mixkit.co/sfx/preview/mixkit-correct-answer-tone-2870.mp3" preload="auto"></audio>
 
 
 <script>

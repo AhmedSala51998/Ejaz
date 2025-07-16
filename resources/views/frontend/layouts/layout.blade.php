@@ -248,7 +248,7 @@
 
 @yield('js')
 
-
+<audio id="successSound" src="https://assets.mixkit.co/sfx/preview/mixkit-correct-answer-tone-2870.mp3" preload="auto"></audio>
 <script>
 
     var cv_loader = ` <div class="linear-background"></div>`;
@@ -328,6 +328,9 @@
                 ob.html(`{{__('frontend.Recruitment Request')}} <i class="fa-solid fa-briefcase ms-2"></i>`);
 
                 let orderCode = data.order_code || '';
+                                // تشغيل صوت النجاح
+                let sound = document.getElementById('successSound');
+                if (sound) sound.play();
 
                 Swal.fire({
                     title: '<span style="color:#f4a835; font-weight:bold;">🎉 {{__('frontend.Congratulation')}}</span>',
