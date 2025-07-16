@@ -1,6 +1,3 @@
-<html>
-<head>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
 <style>
 .card-custom {
     background: rgba(255, 255, 255, 0.95);
@@ -127,9 +124,6 @@
 
 </style>
 
-</head>
-
-<body>
 @foreach($currentOrders as $currentOrder)
     @php
         $createdAt = \Carbon\Carbon::parse($currentOrder->created_at);
@@ -209,31 +203,28 @@
         </div>
     </div>
 @endforeach
-</body>
-@section('js')
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.79/jquery.form-validator.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <audio id="successSound" src="https://assets.mixkit.co/sfx/preview/mixkit-correct-answer-tone-2870.mp3" preload="auto"></audio>
 <script>
-(function () {
-    console.log("✅ بدأ تنفيذ سكربت العداد (timer)");
+window.onload = function () {
+    console.log('Timer script started');
+    try {
+        function updateBox(id, value) {
+            const el = document.getElementById(id);
+            if (el && el.innerText !== value) {
+                el.innerText = value;
+            }
+        }
 
-    function runTimerScript() {
-        console.log("✅ DOM جاهز - البدء في تنفيذ التايمر");
-
-        const timers = document.querySelectorAll('.timer');
-        console.log(`📦 عدد المؤقتات الموجودة: ${timers.length}`);
-
-        timers.forEach(function (timer, index) {
+        document.querySelectorAll('.timer').forEach(function (timer) {
             let endDateStr = timer.dataset.date;
             let orderId = timer.dataset.id;
             let status = timer.dataset.status;
 
-            console.log(`⏲️ Timer #${index} - orderId: ${orderId}, status: ${status}, endDate: ${endDateStr}`);
-
             if (status === 'contract') {
-                console.log(`✅ الطلب #${orderId} في حالة contract - تعيين جميع القيم بـ 00`);
                 timer.querySelectorAll('.time-box').forEach(box => box.innerText = '00');
                 return;
             }
@@ -257,8 +248,6 @@
                     if (hasExpired) return;
                     hasExpired = true;
 
-                    console.log(`❌ انتهى المؤقت للطلب ${orderId} - سيتم الإلغاء`);
-
                     ['days', 'hours', 'minutes', 'seconds'].forEach(unit => {
                         updateBox(unit + orderId, '00');
                     });
@@ -267,13 +256,11 @@
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
                         }
                     })
                     .then(res => res.json())
                     .then(res => {
-                        console.log("📨 رد السيرفر:", res);
-
                         let sound = document.getElementById('successSound');
                         if (sound) sound.play();
 
@@ -303,11 +290,7 @@
                             buttonsStyling: false
                         });
 
-                        const parentCol = timer.closest('.col-12');
-                        if (parentCol) {
-                            parentCol.classList.add('d-none');
-                            console.log(`🧹 إخفاء الطلب #${orderId} من الواجهة`);
-                        }
+                        timer.closest('.col-12')?.classList.add('d-none');
                     });
 
                 } else {
@@ -320,37 +303,12 @@
                     updateBox('hours' + orderId, hours);
                     updateBox('minutes' + orderId, minutes);
                     updateBox('seconds' + orderId, seconds);
-
-                    console.log(`🔁 تحديث العداد #${orderId} - ${days}:${hours}:${minutes}:${seconds}`);
                 }
             }, 1000);
         });
+    } catch (e) {
+        console.error("⛔ فشل في تنفيذ سكربت العداد:", e);
     }
-
-    function updateBox(id, value) {
-        const el = document.getElementById(id);
-        if (el && el.innerText !== value) {
-            el.innerText = value;
-            console.log(`📦 تحديث العنصر #${id} إلى ${value}`);
-        }
-    }
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', runTimerScript);
-    } else {
-        console.log('⚠️ DOM كان جاهز بالفعل، تشغيل مباشر');
-        runTimerScript();
-    }
-
-    console.log("📌 نهاية تنفيذ السكربت الخارجي");
-})();
+};
 </script>
-@endsection
-
-
-</html>
-
-
-
-
 
