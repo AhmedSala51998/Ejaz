@@ -1,6 +1,3 @@
-<html>
-<head>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
 <style>
 .card-custom {
     background: rgba(255, 255, 255, 0.95);
@@ -127,9 +124,6 @@
 
 </style>
 
-</head>
-
-<body>
 @foreach($currentOrders as $currentOrder)
     @php
         $createdAt = \Carbon\Carbon::parse($currentOrder->created_at);
@@ -209,8 +203,6 @@
         </div>
     </div>
 @endforeach
-</body>
-@section('js')
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -345,12 +337,6 @@
     console.log("📌 نهاية تنفيذ السكربت الخارجي");
 })();
 </script>
-@endsection
-
-
-</html>
-
-
 
 
 
