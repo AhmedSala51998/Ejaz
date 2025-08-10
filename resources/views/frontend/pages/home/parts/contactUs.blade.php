@@ -344,12 +344,12 @@
     let valid = true;
 
     inputs.forEach(input => {
-      input.classList.remove('is-invalid');
+      input.classList.remove('invalid-feedback');
     });
 
     inputs.forEach(input => {
       if (!input.checkValidity()) {
-        input.classList.add('is-invalid');
+        input.classList.add('invalid-feedback');
         valid = false;
       }
     });
@@ -360,7 +360,7 @@
     if (phoneVal) {
       const saPhoneReg = /^(05\d{8}|(\+966|966)5\d{8})$/;
       if (!saPhoneReg.test(phoneVal)) {
-        phoneInput.classList.add('is-invalid');
+        phoneInput.classList.add('invalid-feedback');
 
         phoneInput.nextElementSibling.textContent = "يرجى إدخال رقم جوال سعودي صحيح (مثال: 0501234567)";
         valid = false;
