@@ -304,7 +304,7 @@
 
                 <!-- نموذج التواصل -->
                 <div class="col-md-7">
-                    <form action="{{route('front.contact_us_action')}}" method="post" id="Form" class="needs-validation contact-form" novalidate>
+                    <form action="{{route('front.contact_us_action')}}" method="post" id="Form" class="needs-validation contact-form">
                         @csrf
                         <div class="form-group">
                             <i class="fa-solid fa-user form-icon"></i>
