@@ -240,6 +240,18 @@
     }
 }
 
+    .invalid-feedback {
+    display: none;
+    color: #dc3545;
+    font-size: 0.875em;
+    margin-top: 0.25rem;
+    }
+
+    input.is-invalid + .invalid-feedback,
+    textarea.is-invalid + .invalid-feedback {
+    display: block;
+    }
+
 </style>
 
 <section id="contactUs">
@@ -327,20 +339,39 @@
 </section>
 
 <script>
-    // Validation style toggle
-    document.querySelector('.contact-form').addEventListener('submit', function (e) {
-        const inputs = this.querySelectorAll('input, textarea');
-        let valid = true;
+  document.querySelector('.contact-form').addEventListener('submit', function (e) {
+    const inputs = this.querySelectorAll('input, textarea');
+    let valid = true;
 
-        inputs.forEach(input => {
-            if (!input.checkValidity()) {
-                input.classList.add('is-invalid');
-                valid = false;
-            } else {
-                input.classList.remove('is-invalid');
-            }
-        });
-
-        if (!valid) e.preventDefault();
+    inputs.forEach(input => {
+      input.classList.remove('is-invalid');
     });
+
+    inputs.forEach(input => {
+      if (!input.checkValidity()) {
+        input.classList.add('is-invalid');
+        valid = false;
+      }
+    });
+
+    const phoneInput = this.querySelector('#phoneInput');
+    const phoneVal = phoneInput.value.trim();
+
+    if (phoneVal) {
+      const saPhoneReg = /^(05\d{8}|(\+966|966)5\d{8})$/;
+      if (!saPhoneReg.test(phoneVal)) {
+        phoneInput.classList.add('is-invalid');
+
+        phoneInput.nextElementSibling.textContent = "يرجى إدخال رقم جوال سعودي صحيح (مثال: 0501234567)";
+        valid = false;
+      } else {
+
+        phoneInput.nextElementSibling.textContent = "الرجاء إدخال رقم الجوال";
+      }
+    }
+
+    if (!valid) {
+      e.preventDefault();
+    }
+  });
 </script>
