@@ -58,22 +58,32 @@ $(document).on('submit', 'form#Form', function (e) {
     form.find('input, textarea').removeClass('is-invalid');
     form.find('.invalid-feedback').text('');
 
-    // تحقق من الحقول الفارغة
     let valid = true;
+
+    // تحقق من الحقول الفارغة والـ validity باستخدام checkValidity
     form.find('input[required], textarea[required]').each(function () {
-        if (!$(this).val().trim()) {
+        if (!this.checkValidity()) {
             $(this).addClass('is-invalid');
             valid = false;
         }
     });
 
-    if (!valid) return;
-
-    // تحقق من رقم الجوال
-    if (!phoneRegex.test(phoneValue)) {
+    // تحقق خاص لرقم الجوال السعودي
+    if (phoneValue) {
+        if (!phoneRegex.test(phoneValue)) {
+            phoneInput.addClass('is-invalid');
+            phoneInput.next('.invalid-feedback').text("يرجى إدخال رقم جوال سعودي صحيح يبدأ بـ 5 بدون صفر");
+            valid = false;
+        }
+    } else {
+        // إذا الرقم فارغ
         phoneInput.addClass('is-invalid');
-        phoneInput.next('.invalid-feedback').text("يرجى إدخال رقم جوال سعودي صحيح يبدأ بـ 5 بدون صفر");
-        return;
+        phoneInput.next('.invalid-feedback').text("الرجاء إدخال رقم الجوال");
+        valid = false;
+    }
+
+    if (!valid) {
+        return; // لا تكمل الإرسال إذا الفاليديشن فشل
     }
 
     // وضع اللودر + تعطيل الزر
@@ -94,15 +104,12 @@ $(document).on('submit', 'form#Form', function (e) {
         contentType: false,
         cache: false,
         success: function (data) {
-            // أول ما الرسالة تظهر، نوقف اللودر ونرجع زر الإرسال لوضعه الطبيعي
             submitBtn.prop('disabled', false);
             submitBtn.html(`<i class="fa-solid fa-paper-plane me-2"></i> إرسال`);
 
-            // تشغيل صوت النجاح
             let sound = document.getElementById('successSound');
             if (sound) sound.play();
 
-            // عرض رسالة نجاح احترافية
             Swal.fire({
                 title: '🎉 تم الإرسال بنجاح!',
                 html: `
@@ -139,7 +146,7 @@ $(document).on('submit', 'form#Form', function (e) {
 
                     document.getElementById('swal-ok-btn').addEventListener('click', () => {
                         Swal.close();
-                        form[0].reset(); // تقدر تمسح الفورم لما تضغط تم
+                        form[0].reset();
                     });
                 },
                 backdrop: `
@@ -157,7 +164,6 @@ $(document).on('submit', 'form#Form', function (e) {
             });
         },
         error: function (jqXHR) {
-            // في حالة أخطاء التحقق من السيرفر (422) أو أخطاء أخرى
             if (jqXHR.status === 422) {
                 let errors = jqXHR.responseJSON?.errors || {};
                 for (let field in errors) {
@@ -201,12 +207,12 @@ $(document).on('submit', 'form#Form', function (e) {
                     buttonsStyling: false
                 });
             }
-            // إعادة تهيئة الزر حتى لو حصل خطأ
             submitBtn.prop('disabled', false);
             submitBtn.html(`<i class="fa-solid fa-paper-plane me-2"></i> إرسال`);
         }
     });
 });
+
 
 // منع إدخال غير الأرقام
 function isNumber(evt) {
