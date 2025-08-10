@@ -366,7 +366,7 @@
         }
 
         
-        /*.side-bar {
+        .side-bar {
             max-height: 80vh;
             overflow-y: auto;
             scrollbar-width: thin;
@@ -389,7 +389,7 @@
 
         .side-bar::-webkit-scrollbar-thumb:hover {
             background-color: #e49b20;
-        }*/
+        }
 
                 /* ✅ فلتر متحرك للموبايل */
         .mobile-filter-sidebar {

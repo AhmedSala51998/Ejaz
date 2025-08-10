@@ -174,7 +174,7 @@ Route::group(
 
     Route::get('/get-nationality-id', function (Illuminate\Http\Request $request) {
         $name = $request->query('name');
-        
+
         // ابحث في قاعدة البيانات مباشرة داخل عمود name->ar
         $record = DB::table('nationalities')
                     ->where('country_name', $name)

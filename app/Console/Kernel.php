@@ -15,8 +15,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('delete:order');
+        //$schedule->command('delete:order');
+        $schedule->command('cancel:orders')->everyMinute();
     }
+
 
     /**
      * Register the commands for the application.
