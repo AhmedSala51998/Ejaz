@@ -165,7 +165,7 @@ Route::group(
 
     Route::get('transferService',[\App\Http\Controllers\Frontend\TransferServices\TransferServicesFrontController::class,'transferService'])->name('transferService');
 
-    Route::get('rental',[\App\Http\Controllers\Frontend\Rental\RentalController::class,'rental'])->name('rental');
+    Route::get('services-single',[\App\Http\Controllers\Frontend\Rental\RentalController::class,'rental'])->name('services-single');
 
 
     ### pdf
@@ -175,7 +175,6 @@ Route::group(
     Route::get('/get-nationality-id', function (Illuminate\Http\Request $request) {
         $name = $request->query('name');
 
-        // ابحث في قاعدة البيانات مباشرة داخل عمود name->ar
         $record = DB::table('nationalities')
                     ->where('country_name', $name)
                     ->select('id')

@@ -1,4 +1,4 @@
-<!-- Fancybox CSS -->
+
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" />
 
 <style>
@@ -22,7 +22,7 @@
     margin-bottom: 15px;
 }
 
-/* برواز الصورة */
+
 .cv-image-wrapper {
     width: 100%;
     height: 620px;
@@ -38,11 +38,6 @@
 }
 
 .cv-image-wrapper img {
-    /*width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 20px;
-    transition: transform 0.4s ease, box-shadow 0.4s ease;*/
 
     width: 100%;
     height: 100%;
@@ -64,8 +59,7 @@
 }
 
 .swiper-slide {
-    /*display: flex;
-    justify-content: center;*/
+
 
     width: 100% !important;
     flex-shrink: 0;
@@ -157,7 +151,7 @@
 }
 
 .cv-card {
-    flex-direction: row; /* بدل column */
+    flex-direction: row;
     align-items: stretch;
     gap: 20px;
     width: 100% !important;
@@ -352,7 +346,7 @@
     font-size: 16px;
 }
 
-/* Responsive */
+
 @media (max-width: 768px) {
     .cv-card {
         flex-direction: column;
@@ -371,21 +365,21 @@
 }
 </style>
 
-<!-- Fancybox CSS -->
+
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" />
 
 <div class="cv-card">
 
-    <!-- سلايدر الصور -->
+
     <div class="cv-slider">
         <div class="swiper workerCvSlider">
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
                     <a data-fancybox="users{{$cv->id}}-CV" href="{{ get_file($cv->cv_file) }}">
                         <div class="cv-image-wrapper">
-                           
+
                                 <img src="{{ get_file($cv->cv_file) }}" alt="CV Image">
-                           
+
                         </div>
                     </a>
                 </div>
@@ -393,9 +387,9 @@
                 <div class="swiper-slide">
                     <a data-fancybox="users{{$cv->id}}-CV" href="{{ get_file($image->image) }}">
                         <div class="cv-image-wrapper">
-                           
+
                                 <img src="{{ get_file($image->image) }}" alt="CV Image">
-                        
+
                         </div>
                     </a>
                 </div>
@@ -407,9 +401,9 @@
         </div>
     </div>
 
-    <!-- بيانات العامل -->
+
     <div class="cv-info">
-        <!-- التحذير -->
+
         <div class="cv-warning">
             <p style="text-align:center !important">لضمان حقك، لايتم سداد الرسوم بعد الحجز الا عن طريق منصة مساند</p>
         </div>
@@ -447,7 +441,7 @@
                 </li>
             @endif
         </ul>
-        <!-- زر الحجز -->
+
         <div class="cv-action">
             @php
                 $type = $cv->type;
@@ -481,7 +475,7 @@
 
 </div>
 
-<!-- Swiper JS + Fancybox JS -->
+
 <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
 

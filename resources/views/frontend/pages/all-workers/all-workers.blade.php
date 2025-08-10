@@ -6,37 +6,6 @@
 
 @section('styles')
     <style>
-        /*body {
-            background-color: #f9f9f9;
-        }
-
-        .banner {
-            background: linear-gradient(to left, #f4a835, #f9f9f9);
-            padding: 50px 20px;
-            border-radius: 0 0 25px 25px;
-            text-align: center;
-            color: #3d3d3d;
-        }
-
-        .banner h1 {
-            font-size: 2.5rem;
-            font-weight: bold;
-        }
-
-        .banner ul {
-            padding: 0;
-            margin: 10px 0 0;
-            list-style: none;
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .banner ul li a {
-            color: #3d3d3d;
-            font-weight: 500;
-            text-decoration: none;
-        }*/
 
         body {
             background-color: #fff;
@@ -362,10 +331,10 @@
             border: 1px solid #f4a835 !important;
             color: white !important;
             box-shadow: none !important;
-            
+
         }
 
-        
+
         .side-bar {
             max-height: 80vh;
             overflow-y: auto;
@@ -529,7 +498,7 @@
             box-shadow: 0 0 0 4px rgba(244, 168, 53, 0.15);
         }
 
-        /* تحسين النص بجوار الراديو */
+
         .form-check-label {
             margin-right: 8px;
             font-weight: 500;
@@ -537,7 +506,7 @@
             cursor: pointer;
         }
 
-        /* دعم للموبايل (بدون تغيير هيكل) */
+
         @media (max-width: 767.98px) {
             .form-check {
                 display: flex;
@@ -577,13 +546,13 @@
 <div class="banner">
     <h1>
         @if(isset($transfer)) طلب نقل خدمات
-        @elseif(isset($rental)) تأجير
+        @elseif(isset($rental)) خدمات فردية
         @else طلب استقدام
         @endif
     </h1>
     <ul>
         <li><a href="{{route('home')}}">الرئيسية</a></li>
-        <li><a href="#" class="active">@if(isset($transfer)) نقل خدمات @elseif(isset($rental)) تأجير @else استقدام @endif</a></li>
+        <li><a href="#" class="active">@if(isset($transfer)) نقل خدمات @elseif(isset($rental)) خدمات فردية @else استقدام @endif</a></li>
     </ul>
 </div>
 
@@ -595,15 +564,15 @@
         </button>
     </div>
     <div class="side-bar px-3 pb-4">
-        
-        <form id="filterForm" action="{{ request()->routeIs('transferService') ? route('transferService') : (request()->routeIs('rental') ? route('rental') : route('all-workers')) }}" method="get">
+
+        <form id="filterForm" action="{{ request()->routeIs('transferService') ? route('transferService') : (request()->routeIs('services-single') ? route('services-single') : route('all-workers')) }}" method="get">
             @csrf
 
-            <!-- فلاتر الدولة -->
+
             @if(count($nationalities) > 0)
                 <div class="mb-4">
                     <button class="accordionButton d-flex justify-content-between align-items-center w-100" type="button" data-bs-toggle="collapse" data-bs-target="#nationalityFilter">
-                        
+
                         <span>{{__('frontend.Nationality')}}</span>
                         <span class="toggle-icon ms-auto">−</span>
                     </button>
@@ -618,7 +587,7 @@
                 </div>
             @endif
 
-            <!-- فلاتر الوظائف -->
+
             @if(count($jobs) > 0)
                 <div class="mb-4">
                     <button class="accordionButton d-flex justify-content-between align-items-center w-100" type="button" data-bs-toggle="collapse" data-bs-target="#jobFilter">
@@ -636,7 +605,6 @@
                 </div>
             @endif
 
-            <!-- فلاتر العمر -->
             @if(count($ages) > 0)
                 <div class="mb-4">
                     <button class="accordionButton d-flex justify-content-between align-items-center w-100" type="button" data-bs-toggle="collapse" data-bs-target="#ageFilter">
@@ -654,7 +622,7 @@
                 </div>
             @endif
 
-            <!-- فلاتر الديانة -->
+
             @if(count($religions) > 0)
                 <div class="mb-4">
                     <button class="accordionButton d-flex justify-content-between align-items-center w-100" type="button" data-bs-toggle="collapse" data-bs-target="#religionFilter">
@@ -672,7 +640,7 @@
                 </div>
             @endif
 
-            <!-- فلاتر الحالة الاجتماعية -->
+
             @if(count($social_types) > 0)
                 <div class="mb-4">
                     <button class="accordionButton d-flex justify-content-between align-items-center w-100" type="button" data-bs-toggle="collapse" data-bs-target="#socialFilter">
@@ -690,7 +658,7 @@
                 </div>
             @endif
 
-            <!-- فلتر الخبرة العملية (يظهر فقط في حالة الاستقدام) -->
+
             @if(!isset($transfer) && !isset($rental))
             <div class="mb-4">
                 <button class="accordionButton d-flex justify-content-between align-items-center w-100" type="button" data-bs-toggle="collapse" data-bs-target="#experienceFilter">
@@ -710,7 +678,7 @@
             </div>
             @endif
 
-            <!-- أزرار -->
+
             <div class="d-flex justify-content-between">
                 <button class="btn clear resetFilterBtn" type="button" style="display:none;">
                     مسح
@@ -726,8 +694,7 @@
 
 <section class="workers-section">
     <div class="container-fluid">
-        <!-- زر فتح الفلتر على الموبايل -->
-       <!-- ✅ زر فتح الفلتر على الموبايل - كامل العرض وخلفية برتقالية -->
+
         <div class="d-block d-lg-none px-3 mb-3">
             <button class="btn w-100 text-white fw-bold py-3" id="openFilterBtn"
                 style="border-radius: 20px; background-color: #f4a835; font-size: 16px; box-shadow: 0 8px 18px rgba(244, 168, 53, 0.4);">
@@ -735,18 +702,18 @@
             </button>
         </div>
         <div class="row">
-            <!-- Sidebar Filters -->
+
             <div class="col-lg-3 d-none d-lg-block">
                 <div class="side-bar">
                     <h4 style="margin-bottom:10px;border-bottom:1px solid #f4a835">{{__('frontend.advanced search')}}</h4>
-                    <form id="filterForm" action="{{ request()->routeIs('transferService') ? route('transferService') : (request()->routeIs('rental') ? route('rental') : route('all-workers')) }}" method="get">
+                    <form id="filterForm" action="{{ request()->routeIs('transferService') ? route('transferService') : (request()->routeIs('services-single') ? route('services-single') : route('all-workers')) }}" method="get">
                         @csrf
 
-                        <!-- فلاتر الدولة -->
+
                         @if(count($nationalities) > 0)
                             <div class="mb-4">
                                 <button class="accordionButton d-flex justify-content-between align-items-center w-100" type="button" data-bs-toggle="collapse" data-bs-target="#nationalityFilter">
-                                    
+
                                      <span>{{__('frontend.Nationality')}}</span>
                                      <span class="toggle-icon ms-auto">−</span>
                                 </button>
@@ -761,11 +728,11 @@
                             </div>
                         @endif
 
-                        <!-- فلاتر الوظائف -->
+
                         @if(count($jobs) > 0)
                             <div class="mb-4">
                                 <button class="accordionButton d-flex justify-content-between align-items-center w-100" type="button" data-bs-toggle="collapse" data-bs-target="#jobFilter">
-                                    
+
                                 <span>{{__('frontend.Job')}}</span>
                                 <span class="toggle-icon ms-auto">−</span>
                                 </button>
@@ -780,7 +747,7 @@
                             </div>
                         @endif
 
-                        <!-- فلاتر العمر -->
+
                         @if(count($ages) > 0)
                             <div class="mb-4">
                                 <button class="accordionButton d-flex justify-content-between align-items-center w-100" type="button" data-bs-toggle="collapse" data-bs-target="#ageFilter">
@@ -798,7 +765,7 @@
                             </div>
                         @endif
 
-                        <!-- فلاتر الديانة -->
+
                         @if(count($religions) > 0)
                             <div class="mb-4">
                                 <button class="accordionButton d-flex justify-content-between align-items-center w-100" type="button" data-bs-toggle="collapse" data-bs-target="#religionFilter">
@@ -816,7 +783,7 @@
                             </div>
                         @endif
 
-                        <!-- فلاتر الحالة الاجتماعية -->
+
                         @if(count($social_types) > 0)
                             <div class="mb-4">
                                 <button class="accordionButton d-flex justify-content-between align-items-center w-100" type="button" data-bs-toggle="collapse" data-bs-target="#socialFilter">
@@ -834,7 +801,7 @@
                             </div>
                         @endif
 
-                        <!-- فلتر الخبرة العملية (يظهر فقط في حالة الاستقدام) -->
+
                         @if(!isset($transfer) && !isset($rental))
                         <div class="mb-4">
                             <button class="accordionButton d-flex justify-content-between align-items-center w-100" type="button" data-bs-toggle="collapse" data-bs-target="#experienceFilter">
@@ -854,7 +821,7 @@
                         </div>
                         @endif
 
-                        <!-- أزرار -->
+
                         <div class="d-flex justify-content-between">
                             <button class="btn clear resetFilterBtn" type="button" style="display:none;">
                                 مسح
@@ -868,7 +835,7 @@
                 </div>
             </div>
 
-            <!-- قائمة العمالة -->
+
             <div class="col-lg-9 col-md-12">
                 <div class="workers-list" id="hereWillDisplayAllWorker">
                     @include('frontend.pages.all-workers.worker.workers_page', ['cvs' => $cvs])
@@ -905,8 +872,8 @@
         $ajaxUrl = route('all-workers');
         if (request()->routeIs('transferService')) {
             $ajaxUrl = route('transferService');
-        } elseif (request()->routeIs('rental')) {
-            $ajaxUrl = route('rental');
+        } elseif (request()->routeIs('services-single')) {
+            $ajaxUrl = route('services-single');
         }
     @endphp
 
@@ -966,19 +933,19 @@
     $(document).ready(function () {
         checkResetButtonVisibility();
 
-        // عند تغيير أي فلتر
+
         $(document).on('change', 'input[name="age"], input[name="job"], input[name="nationality"], input[name="religion"], input[name="social"], input[name="type_of_experience"]', function () {
             checkResetButtonVisibility();
         });
 
-        // زر التأكيد (للجميع: موبايل + ديسكتوب)
+
         $(document).on('click', '.searchWorkerBtn', function (e) {
             e.preventDefault();
             new_page = 1;
             loadWorkers(new_page);
         });
 
-        // زر التحميل الإضافي
+
         $(document).on('click', '#load_more_button', function (e) {
             e.preventDefault();
             ++new_page;
@@ -1009,7 +976,7 @@
             });
         }
 
-        // زر المسح (مسح الفلاتر وإعادة تحميل النتائج)
+
         $(document).on('click', '.resetFilterBtn', function (e) {
             e.preventDefault();
             const btn = $(this);
@@ -1034,7 +1001,7 @@
             }
         }
 
-        // فتح و غلق فلتر الموبايل
+
         $('#openFilterBtn').click(function () {
             $('#mobileFilterSidebar').addClass('active');
             $('body').css('overflow', 'hidden');
@@ -1050,15 +1017,7 @@
             $(this).removeClass('active');
         });
 
-        // ---------
-        // حل مشكلة عدم اختيار الـ radio عند الضغط على النص في الديسكتوب:
-        // هذه المشكلة غالباً بسبب نقص أو خطأ في ارتباط الـ label بالـ input.
-        // تأكد أن كل label يحتوي على الخاصية `for` التي تطابق الـ id الخاص بالـ input.
-        // مثال:
-        // <input type="radio" id="job1" name="job" value="1">
-        // <label for="job1">اسم الوظيفة</label>
-        //
-        // إذا كانت موجودة وصحيحة، حاول تفعيل هذا الكود لإجبار اختيار الـ radio عند الضغط على النص:
+
         $('label').click(function() {
             var forAttr = $(this).attr('for');
             if (forAttr) {
@@ -1071,7 +1030,7 @@
     $('label').on('click', function(e) {
         var forId = $(this).attr('for');
         if (forId) {
-            e.preventDefault(); // منع السلوك الافتراضي للـ label
+            e.preventDefault();
             var radioInput = $('#' + forId);
             if (radioInput.length) {
                 radioInput.prop('checked', true).trigger('change');
@@ -1098,10 +1057,10 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     };
 
-    // تحديث عند تحميل الصفحة
+
     updateIcons();
 
-    // حدث عند الفتح
+
     document.querySelectorAll('.collapse').forEach(collapse => {
         collapse.addEventListener('shown.bs.collapse', updateIcons);
         collapse.addEventListener('hidden.bs.collapse', updateIcons);

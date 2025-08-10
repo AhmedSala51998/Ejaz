@@ -464,7 +464,7 @@ body.sticky-header-active {
                 <ul class="navbar-nav">
                     <li><a class="navLink {{ Request::routeIs('home') ? 'active' : '' }}" href="{{route('home')}}"> {{__('frontend.Home')}} </a></li>
                     <li class="dropdownWrapper">
-                        <a class="navLink dropdownToggle {{ Request::routeIs(['all-workers', 'transferService', 'rental']) ? 'active' : '' }}" href="javascript:void(0);" id="toggleCategories">
+                        <a class="navLink dropdownToggle {{ Request::routeIs(['all-workers', 'transferService', 'services-single']) ? 'active' : '' }}" href="javascript:void(0);" id="toggleCategories">
                             خدماتنا
                             <svg class="arrowIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M7 10l5 5 5-5z"/>
@@ -474,7 +474,7 @@ body.sticky-header-active {
                             <ul>
                                 <li><a href="{{ route('all-workers') }}">طلب استقدام</a></li>
                                 <li><a href="{{ route('transferService') }}">طلب نقل خدمات</a></li>
-                                <li><a href="{{ route('rental') }}">طلب تأجير</a></li>
+                                <li><a href="{{ route('services-single') }}">خدمات فردية</a></li>
                             </ul>
                         </div>
                     </li>
@@ -532,7 +532,7 @@ body.sticky-header-active {
         <li><a class="{{ Request::routeIs('home') ? 'active' : '' }}" href="{{route('home')}}">الرئيسية</a></li>
         <li><a class="{{ Request::routeIs('all-workers') ? 'active' : '' }}" href="{{ route('all-workers') }}">طلب استقدام</a></li>
         <li><a class="{{ Request::routeIs('transferService') ? 'active' : '' }}" href="{{ route('transferService') }}">طلب نقل خدمات</a></li>
-        <li><a class="{{ Request::routeIs('rental') ? 'active' : '' }}" href="{{ route('rental') }}">طلب تأجير</a></li>
+        <li><a class="{{ Request::routeIs('services-single') ? 'active' : '' }}" href="{{ route('services-single') }}">خدمات فردية</a></li>
         <li><a class="{{ Request::routeIs('frontend.aboutUs') ? 'active' : '' }}" href="{{route('frontend.aboutUs')}}">من نحن</a></li>
         <li><a class="{{ Request::routeIs('frontend.show.countries') ? 'active' : '' }}" href="{{route('frontend.show.countries')}}">دول الاستقدام</a></li>
         <li><a class="{{ Request::routeIs('frontend.show.ourStaff') ? 'active' : '' }}" href="{{route('frontend.show.ourStaff')}}">خدمة العملاء</a></li>
@@ -590,7 +590,7 @@ body.sticky-header-active {
             });
         }
 
-        
+
     });
 
     document.addEventListener("DOMContentLoaded", function () {
