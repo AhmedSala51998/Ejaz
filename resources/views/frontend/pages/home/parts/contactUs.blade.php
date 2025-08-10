@@ -240,7 +240,7 @@
     }
 }
 
-    .invalid-feedback {
+ .invalid-feedback {
     display: none;
     color: #dc3545;
     font-size: 0.875em;
@@ -249,7 +249,7 @@
 
     input.is-invalid + .invalid-feedback,
     textarea.is-invalid + .invalid-feedback {
-    display: block;
+     display: block;
     }
 
 </style>
@@ -344,15 +344,17 @@
     let valid = true;
 
     inputs.forEach(input => {
-      input.classList.remove('invalid-feedback');
+      input.classList.remove('is-invalid');
     });
+
 
     inputs.forEach(input => {
       if (!input.checkValidity()) {
-        input.classList.add('invalid-feedback');
+        input.classList.add('is-invalid');
         valid = false;
       }
     });
+
 
     const phoneInput = this.querySelector('#phoneInput');
     const phoneVal = phoneInput.value.trim();
@@ -360,7 +362,7 @@
     if (phoneVal) {
       const saPhoneReg = /^(05\d{8}|(\+966|966)5\d{8})$/;
       if (!saPhoneReg.test(phoneVal)) {
-        phoneInput.classList.add('invalid-feedback');
+        phoneInput.classList.add('is-invalid');
 
         phoneInput.nextElementSibling.textContent = "يرجى إدخال رقم جوال سعودي صحيح (مثال: 0501234567)";
         valid = false;
@@ -375,3 +377,4 @@
     }
   });
 </script>
+
