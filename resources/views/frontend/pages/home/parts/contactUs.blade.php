@@ -308,22 +308,22 @@
                         @csrf
                         <div class="form-group">
                             <i class="fa-solid fa-user form-icon"></i>
-                            <input type="text" name="name" class="form-control ps-5" placeholder="الاسم كامل">
+                            <input type="text" name="name" class="form-control ps-5" placeholder="الاسم كامل" required>
                             <div class="invalid-feedback">الرجاء إدخال الاسم الكامل</div>
                         </div>
                         <div class="form-group">
                             <i class="fa-solid fa-phone form-icon"></i>
-                            <input type="text" id="phoneInput" name="phone" class="form-control ps-5" placeholder="رقم الجوال" onkeypress="return isNumber(event)">
+                            <input type="text" id="phoneInput" name="phone" class="form-control ps-5" placeholder="رقم الجوال" required onkeypress="return isNumber(event)">
                             <div class="invalid-feedback">الرجاء إدخال رقم الجوال</div>
                         </div>
                         <div class="form-group">
                             <i class="fa-solid fa-message form-icon"></i>
-                            <input type="text" name="subject" class="form-control ps-5" placeholder="الموضوع">
+                            <input type="text" name="subject" class="form-control ps-5" placeholder="الموضوع" required>
                             <div class="invalid-feedback">يرجى كتابة الموضوع</div>
                         </div>
                         <div class="form-group">
                             <i class="fa-solid fa-feather form-icon"></i>
-                            <textarea name="message" class="form-control ps-5" rows="5" placeholder="رسالتك"></textarea>
+                            <textarea name="message" class="form-control ps-5" rows="5" placeholder="رسالتك" required></textarea>
                             <div class="invalid-feedback">لا تترك الرسالة فارغة</div>
                         </div>
                         <div class="text-end">
@@ -337,44 +337,4 @@
         </div>
     </div>
 </section>
-
-<script>
-  document.querySelector('.contact-form').addEventListener('submit', function (e) {
-    const inputs = this.querySelectorAll('input, textarea');
-    let valid = true;
-
-    inputs.forEach(input => {
-      input.classList.remove('is-invalid');
-    });
-
-
-    inputs.forEach(input => {
-      if (!input.checkValidity()) {
-        input.classList.add('is-invalid');
-        valid = false;
-      }
-    });
-
-
-    const phoneInput = this.querySelector('#phoneInput');
-    const phoneVal = phoneInput.value.trim();
-
-    if (phoneVal) {
-      const saPhoneReg = /^(05\d{8}|(\+966|966)5\d{8})$/;
-      if (!saPhoneReg.test(phoneVal)) {
-        phoneInput.classList.add('is-invalid');
-
-        phoneInput.nextElementSibling.textContent = "يرجى إدخال رقم جوال سعودي صحيح (مثال: 0501234567)";
-        valid = false;
-      } else {
-
-        phoneInput.nextElementSibling.textContent = "الرجاء إدخال رقم الجوال";
-      }
-    }
-
-    if (!valid) {
-      e.preventDefault();
-    }
-  });
-</script>
 
