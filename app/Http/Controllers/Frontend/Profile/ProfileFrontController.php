@@ -182,9 +182,9 @@ class ProfileFrontController extends Controller
         return response()->json(['html' => $html,'user'=>$user]);
     }//end fun
 
-    public function get_order_details($order_id)
+    public function get_order_details($branch , $order_id)
     {
-        $user = auth()->user();
+       $user = auth()->user();
        $order= Order::where([
            'user_id'=>$user->id,
        ])->whereHas('admin', function ($q) {
@@ -198,6 +198,7 @@ class ProfileFrontController extends Controller
                'biography.religion','biography.job',
                'biography.social_type','biography.images','biography.skills')
            ->find($order_id);
+
        return view('frontend.pages.profile.parts.details_order',compact('order','user'));
     }//end fun
     public function changeBasicDataOFProfile(Request $request)

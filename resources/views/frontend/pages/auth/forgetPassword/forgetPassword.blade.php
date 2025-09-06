@@ -410,7 +410,7 @@
         <div class="banner">
             <h1>{{__('frontend.Forget Password Page')}}</h1>
             <ul>
-                <li><a href="{{route('home')}}">{{__('frontend.Home')}}</a></li>
+                <li><a href="{{route('home', ['branch' => request()->segment(1)])}}">{{__('frontend.Home')}}</a></li>
                 <li><a href="#!" class="active">{{__('frontend.Forget Password Page')}}</a></li>
             </ul>
         </div>
@@ -423,7 +423,7 @@
                             <img class="loginImg" src="{{asset('frontend')}}/img/phone.svg" alt="">
                             <h6 class="text-center mb-4">{{__('frontend.Phone Number')}}</h6>
 
-                            <form id="forget_password" method="post" action="{{route('auth.forget_password_action')}}">
+                            <form id="forget_password" method="post" action="{{route('auth.forget_password_action', ['branch' => request()->segment(1)])}}">
                                 @csrf
                                 <div class="mb-3">
                                     <div class="input-group">
@@ -513,7 +513,7 @@
                             },
                             willClose: () => {
                                 // إعادة توجيه بعد الإغلاق
-                                window.location.href = '{{route('auth.forget-email-sent-successfully')}}';
+                                window.location.href = '{{ route('auth.forget-email-sent-successfully', ['branch' => request()->segment(1)]) }}';
                             }
                         });
 

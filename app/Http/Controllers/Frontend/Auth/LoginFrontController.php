@@ -13,7 +13,7 @@ class LoginFrontController extends Controller
     {
         if (auth()->check()) {
             toastr()->error(__('frontend.errorMessageAuth'),__('frontend.errorTitleAuth'));
-            return redirect()->back();
+            return redirect()->route('home', ['branch' => request()->segment(1)]);
         }
         return view('frontend.pages.auth.login.login');
     }//end fun

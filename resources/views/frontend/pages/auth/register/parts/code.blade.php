@@ -508,7 +508,7 @@
 
                         <img class="mx-auto d-block mb-4" src="{{asset('frontend')}}/img/code.svg" alt="Code" style="max-width: 180px;">
 
-                        <form id="CompleteRegister" method="post" action="{{route('register_action')}}" class="row g-3">
+                        <form id="CompleteRegister" method="post" action="{{route('register_action', ['branch' => request()->segment(1)])}}" class="row g-3">
                             @csrf
                             <input type="hidden" name="id" value="{{$id}}">
                             <input type="hidden" name="name" id="nameInCode">

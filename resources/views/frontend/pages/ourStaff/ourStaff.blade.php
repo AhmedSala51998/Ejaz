@@ -7,7 +7,7 @@
 @section('styles')
     <style>
         body {
-            
+
             background-color: #fff;
             font-family: 'Tajawal', sans-serif;
         }
@@ -205,7 +205,7 @@
         <div class="banner">
             <h1>     خدمة العملاء</h1>
             <ul>
-                <li> <a href="{{route('home')}}">الرئيسية </a> </li>
+                <li> <a href="{{route('home', ['branch' => request()->segment(1)])}}">الرئيسية </a> </li>
                 <li> <a href="#!" class="active">   خدمة العملاء</a> </li>
             </ul>
         </div>
@@ -225,6 +225,7 @@
                     <!-- البطاقات -->
                     <div class="row gy-4">
                         @foreach($admins as $admin)
+                        @if($admin->branch == request()->segment(1))
                             <div class="col-lg-3 col-md-6">
                                 <div class="service-card shadow-sm h-100">
                                     <!--<div class="top-strip"></div>-->
@@ -243,6 +244,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @endif
                         @endforeach
                     </div>
 

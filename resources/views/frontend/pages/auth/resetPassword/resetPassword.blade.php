@@ -408,7 +408,7 @@
     <div class="banner">
         <h1>{{__('frontend.resetPassword')}}</h1>
         <ul>
-            <li><a href="{{route('home')}}">{{__('frontend.Home')}}</a></li>
+            <li><a href="{{route('home', ['branch' => request()->segment(1)])}}">{{__('frontend.Home')}}</a></li>
             <li><a href="#" class="active">{{__('frontend.resetPassword')}}</a></li>
         </ul>
     </div>
@@ -419,7 +419,7 @@
                 <div class="col-md-6 col-lg-5">
                     <div class="auth-card">
                         <img src="{{asset('frontend')}}/img/Reset.svg" alt="Reset">
-                        <form method="post" id="Form" action="{{route('auth.reset_password_action')}}">
+                        <form method="post" id="Form" action="{{route('auth.reset_password_action', ['branch' => request()->segment(1)])}}">
                             @csrf
                             <input type="hidden" name="id" value="{{$user->id}}">
                             <div class="mb-3 position-relative">
@@ -512,7 +512,7 @@
                     })
                     $('#submit_button').attr('disabled',false)
                     $('#submit_button').html(`<p>{{__('frontend.change Password')}}</p><span></span>`)
-                    location.replace("{{route('auth.login')}}")
+                    location.replace("{{ route('auth.login', ['branch' => request()->segment(1)]) }}");
                 }, 2000);
             },
             error: function (data) {

@@ -1264,7 +1264,7 @@ body[dir="rtl"] .info-label {
                 <div class="col-lg-9 p-2">
                     <div class="userHeader">
                         <div class="control">
-                            <a href="{{route('auth.logout')}}" data-bs-toggle="tooltip" title=" {{__('frontend.Logout')}} ">
+                            <a href="{{route('auth.logout', ['branch' => request()->segment(1)])}}" data-bs-toggle="tooltip" title=" {{__('frontend.Logout')}} ">
                                 <i class="fas fa-power-off"></i>
                             </a>
                         </div>
@@ -1277,12 +1277,12 @@ body[dir="rtl"] .info-label {
                     </div>
 
                     <div class=" col-lg-12 p-2 profileContent"> <div class="routeNav">
-                            <a href="{{route('auth.profile')}}" class="Back">
+                            <a href="{{route('auth.profile', ['branch' => request()->segment(1)])}}" class="Back">
                                 <i class="fas fa-angle-right"></i>
                             </a>
                             <ul>
                                 <li>
-                                    <a href="{{route('auth.profile')}}"> طلبات الاستقدام </a>
+                                    <a href="{{route('auth.profile', ['branch' => request()->segment(1)])}}"> طلبات الاستقدام </a>
                                 </li>
                                 <li>
                                     <a href="#!" class="active"> تفاصيل الطلب </a>
@@ -1443,7 +1443,7 @@ body[dir="rtl"] .info-label {
             loadMoreDataFormCurrentOrders(current_orders_page);
         })//end fun
         function loadMoreDataFormCurrentOrders(current_orders_page) {
-            var url = '{{route('front.loadMoreCurrentOrders')}}?page=' + current_orders_page;
+            var url = '{{ route('front.loadMoreCurrentOrders', ['branch' => request()->segment(1)]) }}?page=' + current_orders_page;
             $.ajax({
                 url:url,
                 type: 'GET',
@@ -1493,7 +1493,7 @@ body[dir="rtl"] .info-label {
             loadMoreDataFormNotification(notifications_page);
         })//end fun
         function loadMoreDataFormNotification(notifications_page) {
-            var url = '{{route('profile.loadMoreNotifications')}}?page=' +notifications_page;
+            var url = '{{ route('profile.loadMoreNotifications', ['branch' => request()->segment(1)]) }}?page=' + notifications_page;
             $.ajax({
                 url:url,
                 type: 'GET',
@@ -1542,7 +1542,7 @@ body[dir="rtl"] .info-label {
             loadMoreDataFormHistoryOrders(history_orders_page);
         })//end fun
         function loadMoreDataFormHistoryOrders(history_orders_page) {
-            var url = '{{route('front.loadMoreOrdersHistory')}}?page=' + history_orders_page;
+            var url = '{{ route('front.loadMoreOrdersHistory', ['branch' => request()->segment(1)]) }}?page=' + history_orders_page;
             $.ajax({
                 url:url,
                 type: 'GET',

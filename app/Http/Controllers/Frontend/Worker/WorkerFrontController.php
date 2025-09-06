@@ -34,15 +34,15 @@ class WorkerFrontController extends Controller
     {
 
         if (auth()->check()) {
-            
+
             $order = Order::where('order_code', $request->code)->where('user_id', auth()->user()->id)->first();
-            
+
             if (!empty($order)) {
                 $admin = Admin::find($order->admin_id);
                 if ($request->ajax()) {
                     return response()->json(['order_code' => $order->id], 200);
                 }
-                
+
                 return view("frontend.pages.profile.parts.details_order", compact('order', 'admin'));
             } else {
                 return response()->json([], 403);
@@ -51,7 +51,7 @@ class WorkerFrontController extends Controller
 //                return back();
             }
         } else {
-           
+
             return response()->json([], 500);
 
 //            toastr()->error('يجب تسجيل الدخول لاستخدام هذة الخدمة', 'حدث خطأ ما');
@@ -61,7 +61,7 @@ class WorkerFrontController extends Controller
 
     }
 
-    public function order_details($code)
+    public function order_details(Request $request , $code)
     {
 
         /*$order = Order::find($id);
@@ -70,19 +70,19 @@ class WorkerFrontController extends Controller
         return view("frontend.pages.profile.parts.details_order", compact('order', 'admin'));*/
 
         if (auth()->check()) {
-             
-            $order = Order::where('id', $code)->where('user_id', auth()->user()->id)->first();
-            
+
+            $order = Order::where('id', $branch = $request->segment(3))->where('user_id', auth()->user()->id)->first();
+
             if (!empty($order)) {
-                
+
                 $admin = Admin::find($order->admin_id);
                 $user = auth()->user();
-                
+
                 /*if ($request->ajax()) {
-                   
+
                     return response()->json(['order_code' => $order->id], 200);
                 }*/
-                 
+
                 return view("frontend.pages.profile.parts.details_order", compact('order', 'admin' , 'user'));
             } else {
                 return response()->json([], 403);
@@ -91,7 +91,7 @@ class WorkerFrontController extends Controller
 //                return back();
             }
         } else {
-           
+
             return response()->json([], 500);
 
 //            toastr()->error('يجب تسجيل الدخول لاستخدام هذة الخدمة', 'حدث خطأ ما');
@@ -169,6 +169,11 @@ class WorkerFrontController extends Controller
 
     public function showAllWorkers(Request $request, $id = null)
     {
+        $branch = $request->segment(1); // أول segment
+        if (!in_array($branch, ['yanbu','riyadh','jeddah'])) {
+            //$branch = 'riyadh';
+        }
+
         $query = Biography::where('status', 'new')
             ->where('order_type', 'normal')
             ->where('type', 'admission')
@@ -179,11 +184,11 @@ class WorkerFrontController extends Controller
                 'religion', 'job', 'social_type', 'admin', 'images', 'skills');
 
         $religions = Religion::all();
-        $social_types = SocialType::all();        
+        $social_types = SocialType::all();
 
         // فلترة حسب الدولة إن وجدت
-        if ($id) {
-            $country = Nationalitie::find($id);
+        if ($request->segment(3)) {
+            $country = Nationalitie::find($request->segment(3));
             if ($country) {
                 $query->where('nationalitie_id', $country->id);
             }
@@ -222,7 +227,7 @@ class WorkerFrontController extends Controller
 
         // لو الطلب Ajax
         if ($request->ajax()) {
-            $returnHTML = view('frontend.pages.all-workers.worker.workers_page', compact('cvs'))->render();
+            $returnHTML = view('frontend.pages.all-workers.worker.workers_page', compact('cvs' , 'branch'))->render();
 
             return response()->json([
                 'success' => true,
@@ -238,7 +243,7 @@ class WorkerFrontController extends Controller
         $nationalities = Nationalitie::all();
 
         return view('frontend.pages.all-workers.all-workers', compact(
-            'ages', 'jobs', 'nationalities', 'cvs' , 'religions', 'social_types'
+            'ages', 'jobs', 'nationalities', 'cvs' , 'religions', 'social_types' , 'branch'
         ));
     }
 
@@ -246,6 +251,8 @@ class WorkerFrontController extends Controller
 
     public function completeTheRecruitmentRequest($id , Request $request)
     {
+        //return $id;
+        $id = $request->segment(3);
         $cv = Biography::findOrFail($id);
         if ($cv->status != 'new') {
             return response([], 400);
@@ -338,7 +345,7 @@ class WorkerFrontController extends Controller
         return response()->json([],200);
     }//end fun
 
-    public function show($id){
+    /*public function show($id){
 
 
         $cv = Biography::with('recruitment_office','nationalitie','language_title',
@@ -348,7 +355,41 @@ class WorkerFrontController extends Controller
         $admins = \App\Models\Admin::where('admin_type','!=',0)->take(12)->get();
        return view("frontend.pages.all-workers.worker.worker_details",compact('cv','admins'));
 
-    }
+    }*/
+
+       public function show(Request $request, $id)
+       {
+            // 1️⃣ استخرج الفرع من الـ URL
+            $branch = $request->segment(1); // أول segment بعد الدومين
+
+            if (!in_array($branch, ['yanbu','riyadh','jeddah'])) {
+                //$branch = 'riyadh';
+            }
+
+            // 2️⃣ جلب الـ CV
+            $cv = Biography::with(
+                    'recruitment_office',
+                    'nationalitie',
+                    'language_title',
+                    'religion',
+                    'job',
+                    'social_type',
+                    'admin',
+                    'images',
+                    'skills'
+                )
+                ->where('id',$request->segment(3))
+                ->firstOrFail();
+
+            // 3️⃣ جلب المسوقين حسب الفرع
+            $admins = \App\Models\Admin::where('admin_type','!=',0)
+                        ->where('branch', $branch)
+                        ->get();
+
+
+            return view("frontend.pages.all-workers.worker.worker_details", compact('cv','admins','branch'));
+        }
+
 
 
 //    private function sendSms($phone,$msg){

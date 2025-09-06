@@ -178,8 +178,8 @@
                     @if($orderStatus == 'under_work')
                     <div id="timer{{$currentOrder->id}}" class="timer d-flex justify-content-between text-center rounded-3 p-2 mb-3"
                          data-date="{{ $expiresAtTimestamp }}" data-id="{{ $currentOrder->id }}" data-status="{{$currentOrder->status}}">
-                        <div id="days{{$currentOrder->id}}" class="time-box">00</div> 
-                        <div id="hours{{$currentOrder->id}}" class="time-box">00</div> 
+                        <div id="days{{$currentOrder->id}}" class="time-box">00</div>
+                        <div id="hours{{$currentOrder->id}}" class="time-box">00</div>
                         <div id="minutes{{$currentOrder->id}}" class="time-box">00</div>
                         <div id="seconds{{$currentOrder->id}}" class="time-box">00</div>
                     </div>
@@ -194,7 +194,7 @@
                                 <small class="text-muted">خدمة العملاء</small>
                             </div>
                         </div>
-                        <a href="{{ route('profile.getOrder', $currentOrder->id) }}" target="_blank" class="btn btn-orange btn-sm px-3">
+                        <a href="{{ route('profile.getOrder', ['branch' => request()->segment(1), 'id' => $currentOrder->id]) }}" target="_blank" class="btn btn-orange btn-sm px-3">
                             تفاصيل الطلب
                         </a>
                     </div>

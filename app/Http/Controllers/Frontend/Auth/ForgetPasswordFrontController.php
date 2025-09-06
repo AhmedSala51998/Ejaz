@@ -63,7 +63,7 @@ class ForgetPasswordFrontController extends Controller
         $taqnyt = new TaqnyatSms($bearer);
 
 
-        $url = route('auth.reset_password_view')."?token=".$user->token;
+        $url = route('auth.reset_password_view', ['branch' => request()->segment(1)]) . "?token=" . $user->token;
 
         $msg = "يمكنك إعادة تعيين كلمة المرور من خلال هذا الرابط : $url ";
 

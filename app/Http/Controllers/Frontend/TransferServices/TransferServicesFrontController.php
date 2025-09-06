@@ -55,9 +55,14 @@ class TransferServicesFrontController extends Controller
             'transfer'=>'transfer',
         ]);
     }*/
-    
+
     public function transferService(Request $request)
     {
+
+        $branch = $request->segment(1); // أول segment
+        if (!in_array($branch, ['yanbu','riyadh','jeddah'])) {
+            //$branch = 'riyadh';
+        }
 
         $query = Biography::where('status', 'new')
             ->where('order_type', 'normal')
@@ -69,7 +74,7 @@ class TransferServicesFrontController extends Controller
 
         $religions = Religion::all();
         $social_types = SocialType::all();
-        
+
 
         // فلترة حسب الجنسية
         if ($request->nationality) {
@@ -97,7 +102,7 @@ class TransferServicesFrontController extends Controller
 
 
         if ($request->ajax()) {
-            $returnHTML = view('frontend.pages.all-workers.worker.workers_page', compact('cvs'))
+            $returnHTML = view('frontend.pages.all-workers.worker.workers_page', compact('cvs' , 'branch'))
                 ->with(['transfer' => 'transfer'])->render();
 
             return response()->json([
@@ -113,7 +118,7 @@ class TransferServicesFrontController extends Controller
         $nationalities = Nationalitie::all();
 
         return view('frontend.pages.all-workers.all-workers', compact(
-            'ages', 'jobs', 'nationalities', 'cvs', 'religions', 'social_types'
+            'ages', 'jobs', 'nationalities', 'cvs', 'religions', 'social_types' , 'branch'
         ))->with(['transfer' => 'transfer']);
     }
 

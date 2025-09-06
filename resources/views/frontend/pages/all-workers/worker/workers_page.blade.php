@@ -3,7 +3,7 @@
     @foreach($cvs as $cv)
         <div class="col-md-6 col-lg-4 p-2" data-aos="fade-down">
             <!-- cv -->
-            @include('frontend.pages.all-workers.worker.worker_component')
+            @include('frontend.pages.all-workers.worker.worker_component', ['branch' => $branch])
             <!-- end cv -->
         </div>
     @endforeach

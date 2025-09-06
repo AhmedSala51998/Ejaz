@@ -459,12 +459,12 @@
                 </a>
             @else
                 @auth
-                    <a href="{{ route('frontend.show.worker', $cv->id) }}">
+                    <a href="{{ route('frontend.show.worker', ['branch' => $branch, 'id' => $cv->id]) }}">
                         <i class="fa-solid fa-file-circle-check"></i>
                         حجز السيرة الذاتية
                     </a>
                 @else
-                    <a href="{{ route('register', $cv->id) }}">
+                    <a href="{{ route('register', ['branch' => request()->segment(1), 'id' => $cv->id]) }}">
                         <i class="fa-solid fa-file-circle-check"></i>
                         حجز السيرة الذاتية
                     </a>

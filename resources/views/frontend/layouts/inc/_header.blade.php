@@ -444,12 +444,13 @@ body.sticky-header-active {
 @php
     $isHomePage = Request::is('/'); // Check if current route is homepage
     $headerClass = $isHomePage ? 'homepage-header' : 'default-header';
+
 @endphp
 
 <header class="main-header {{ $headerClass }}" id="mainHeader">
     <div class="container-fluid">
         <section class="header-inner">
-            <a class="navbar-brand" href="{{route('home')}}">
+            <a class="navbar-brand" href="{{route('home' , ['branch' => request()->segment(1)])}}">
                 <img src="{{asset('frontend/img/logo.png')}}" loading="lazy" alt="Company Logo" class="header-logo">
             </a>
 
@@ -462,7 +463,7 @@ body.sticky-header-active {
                     </svg>
                 </button>
                 <ul class="navbar-nav">
-                    <li><a class="navLink {{ Request::routeIs('home') ? 'active' : '' }}" href="{{route('home')}}"> {{__('frontend.Home')}} </a></li>
+                    <li><a class="navLink {{ Request::routeIs('home') ? 'active' : '' }}" href="{{route('home' , ['branch' => request()->segment(1)])}}"> {{__('frontend.Home')}} </a></li>
                     <li class="dropdownWrapper">
                         <a class="navLink dropdownToggle {{ Request::routeIs(['all-workers', 'transferService', 'services-single']) ? 'active' : '' }}" href="javascript:void(0);" id="toggleCategories">
                             خدماتنا
@@ -472,17 +473,17 @@ body.sticky-header-active {
                         </a>
                         <div class="dropdownMenu categoriesList" id="categoriesMenu">
                             <ul>
-                                <li><a href="{{ route('all-workers') }}">طلب استقدام</a></li>
-                                <li><a href="{{ route('transferService') }}">طلب نقل خدمات</a></li>
-                                <li><a href="{{ route('services-single') }}">خدمات فردية</a></li>
+                                <li><a href="{{ route('all-workers', ['branch' => request()->segment(1)]) }}">طلب استقدام</a></li>
+                                <li><a href="{{ route('transferService' , ['branch' => request()->segment(1)]) }}">طلب نقل خدمات</a></li>
+                                <li><a href="{{ route('services-single' , ['branch' => request()->segment(1)]) }}">خدمات فردية</a></li>
                             </ul>
                         </div>
                     </li>
-                    <li><a class="navLink {{ Request::routeIs('frontend.aboutUs') ? 'active' : '' }}" href="{{route('frontend.aboutUs')}}"> من نحن </a></li>
-                    <li><a class="navLink {{ Request::routeIs('frontend.show.countries') ? 'active' : '' }}" href="{{route('frontend.show.countries')}}"> دول الاستقدام </a></li>
-                    <li><a class="navLink {{ Request::routeIs('frontend.show.ourStaff') ? 'active' : '' }}" href="{{route('frontend.show.ourStaff')}}"> خدمة العملاء </a></li>
-                    <li><a class="navLink {{ Request::routeIs('track_order_view') ? 'active' : '' }}" href="{{route('track_order_view')}}"> تتبع طلبك</a></li>
-                    <li><a class="navLink {{ Request::routeIs('frontend.supports.contactUs') ? 'active' : '' }}" href="{{route('frontend.supports.contactUs')}}"> تواصل معنا</a></li>
+                    <li><a class="navLink {{ Request::routeIs('frontend.aboutUs') ? 'active' : '' }}" href="{{route('frontend.aboutUs' , ['branch' => request()->segment(1)])}}"> من نحن </a></li>
+                    <li><a class="navLink {{ Request::routeIs('frontend.show.countries') ? 'active' : '' }}" href="{{route('frontend.show.countries' , ['branch' => request()->segment(1)])}}"> دول الاستقدام </a></li>
+                    <li><a class="navLink {{ Request::routeIs('frontend.show.ourStaff') ? 'active' : '' }}" href="{{route('frontend.show.ourStaff' , ['branch' => request()->segment(1)])}}"> خدمة العملاء </a></li>
+                    <li><a class="navLink {{ Request::routeIs('track_order_view') ? 'active' : '' }}" href="{{route('track_order_view' , ['branch' => request()->segment(1)])}}"> تتبع طلبك</a></li>
+                    <li><a class="navLink {{ Request::routeIs('frontend.supports.contactUs') ? 'active' : '' }}" href="{{route('frontend.supports.contactUs' , ['branch' => request()->segment(1)])}}"> تواصل معنا</a></li>
 
                     @auth()
                         <li class="dropdownWrapper d-none d-lg-block">
@@ -494,22 +495,22 @@ body.sticky-header-active {
                             </a>
                             <div class="dropdownMenu categoriesList">
                                 <ul>
-                                    <li><a href="{{route('auth.profile')}}"> طلبات الاستقدام </a></li>
-                                    <li><a href="{{route('auth.profile')}}"> الاشعارات</a></li>
-                                    <li><a href="{{route('auth.logout')}}"> {{__('frontend.Logout')}}</a></li>
+                                    <li><a href="{{route('auth.profile' , ['branch' => request()->segment(1)])}}"> طلبات الاستقدام </a></li>
+                                    <li><a href="{{route('auth.profile' , ['branch' => request()->segment(1)])}}"> الاشعارات</a></li>
+                                    <li><a href="{{route('auth.logout' , ['branch' => request()->segment(1)])}}"> {{__('frontend.Logout')}}</a></li>
                                 </ul>
                             </div>
                         </li>
 
                     @endauth
                     @guest
-                        <li class="d-none d-lg-block"><a class="navLink {{ Request::routeIs('auth.login') ? 'active' : '' }}" href="{{route('auth.login')}}">تسجيل الدخول</a></li>
+                        <li class="d-none d-lg-block"><a class="navLink {{ Request::routeIs('auth.login') ? 'active' : '' }}" href="{{route('auth.login' , ['branch' => request()->segment(1)])}}">تسجيل الدخول</a></li>
                     @endguest
                 </ul>
             </nav>
 
             <div class="moreActions d-none d-lg-block">
-                <a href="{{route('all-workers')}}" class="cta-button">
+                <a href="{{ route('all-workers', ['branch' => request()->segment(1)]) }}" class="cta-button">
                     طلب استقدام
                     <svg class="ms-2" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="7" y1="17" x2="17" y2="7"></line>
@@ -523,21 +524,21 @@ body.sticky-header-active {
 
 <div id="mobileSidebar" class="mobile-sidebar">
     <div class="sidebar-header text-center">
-        <a href="{{ route('home') }}" class="logo-link animate-logo">
+        <a href="{{ route('home' , ['branch' => request()->segment(1)]) }}" class="logo-link animate-logo">
             <img src="{{ asset('frontend/img/logo.png') }}" class="img-fluid logo-img" alt="شعار">
         </a>
         <button id="closeSidebar" class="close-btn">&times;</button>
     </div>
     <ul class="sidebar-nav">
-        <li><a class="{{ Request::routeIs('home') ? 'active' : '' }}" href="{{route('home')}}">الرئيسية</a></li>
-        <li><a class="{{ Request::routeIs('all-workers') ? 'active' : '' }}" href="{{ route('all-workers') }}">طلب استقدام</a></li>
-        <li><a class="{{ Request::routeIs('transferService') ? 'active' : '' }}" href="{{ route('transferService') }}">طلب نقل خدمات</a></li>
-        <li><a class="{{ Request::routeIs('services-single') ? 'active' : '' }}" href="{{ route('services-single') }}">خدمات فردية</a></li>
-        <li><a class="{{ Request::routeIs('frontend.aboutUs') ? 'active' : '' }}" href="{{route('frontend.aboutUs')}}">من نحن</a></li>
-        <li><a class="{{ Request::routeIs('frontend.show.countries') ? 'active' : '' }}" href="{{route('frontend.show.countries')}}">دول الاستقدام</a></li>
-        <li><a class="{{ Request::routeIs('frontend.show.ourStaff') ? 'active' : '' }}" href="{{route('frontend.show.ourStaff')}}">خدمة العملاء</a></li>
-        <li><a class="{{ Request::routeIs('track_order_view') ? 'active' : '' }}" href="{{route('track_order_view')}}">تتبع الطلب</a></li>
-        <li><a class="{{ Request::routeIs('frontend.supports.contactUs') ? 'active' : '' }}" href="{{route('frontend.supports.contactUs')}}">تواصل معنا</a></li>
+        <li><a class="{{ Request::routeIs('home') ? 'active' : '' }}" href="{{route('home' , ['branch' => request()->segment(1)])}}">الرئيسية</a></li>
+        <li><a class="{{ Request::routeIs('all-workers') ? 'active' : '' }}" href="{{ route('all-workers', ['branch' => request()->segment(1)]) }}">طلب استقدام</a></li>
+        <li><a class="{{ Request::routeIs('transferService') ? 'active' : '' }}" href="{{ route('transferService' , ['branch' => request()->segment(1)]) }}">طلب نقل خدمات</a></li>
+        <li><a class="{{ Request::routeIs('services-single') ? 'active' : '' }}" href="{{ route('services-single' , ['branch' => request()->segment(1)]) }}">خدمات فردية</a></li>
+        <li><a class="{{ Request::routeIs('frontend.aboutUs') ? 'active' : '' }}" href="{{route('frontend.aboutUs' , ['branch' => request()->segment(1)])}}">من نحن</a></li>
+        <li><a class="{{ Request::routeIs('frontend.show.countries') ? 'active' : '' }}" href="{{route('frontend.show.countries' , ['branch' => request()->segment(1)])}}">دول الاستقدام</a></li>
+        <li><a class="{{ Request::routeIs('frontend.show.ourStaff') ? 'active' : '' }}" href="{{route('frontend.show.ourStaff' , ['branch' => request()->segment(1)])}}">خدمة العملاء</a></li>
+        <li><a class="{{ Request::routeIs('track_order_view') ? 'active' : '' }}" href="{{route('track_order_view' , ['branch' => request()->segment(1)])}}">تتبع الطلب</a></li>
+        <li><a class="{{ Request::routeIs('frontend.supports.contactUs') ? 'active' : '' }}" href="{{route('frontend.supports.contactUs' , ['branch' => request()->segment(1)])}}">تواصل معنا</a></li>
         @auth()
             <li class="dropdownWrapper d-block d-lg-none">
                 <a class="navLink dropdownToggle {{ Request::routeIs(['auth.profile', 'auth.notifications', 'auth.settings']) ? 'active' : '' }}" href="javascript:void(0);">
@@ -548,16 +549,16 @@ body.sticky-header-active {
                 </a>
                 <div class="dropdownMenu categoriesList">
                     <ul>
-                        <li><a href="{{route('auth.profile')}}"> طلبات الاستقدام </a></li>
-                        <li><a href="{{route('auth.profile')}}"> الاشعارات</a></li>
-                        <li><a href="{{route('auth.logout')}}"> {{__('frontend.Logout')}}</a></li>
+                        <li><a href="{{route('auth.profile' , ['branch' => request()->segment(1)])}}"> طلبات الاستقدام </a></li>
+                        <li><a href="{{route('auth.profile' , ['branch' => request()->segment(1)])}}"> الاشعارات</a></li>
+                        <li><a href="{{route('auth.logout' , ['branch' => request()->segment(1)])}}"> {{__('frontend.Logout')}}</a></li>
                     </ul>
                 </div>
             </li>
 
         @endauth
         @guest
-            <li class="d-block d-lg-none"><a class="navLink {{ Request::routeIs('auth.login') ? 'active' : '' }}" href="{{route('auth.login')}}">تسجيل الدخول</a></li>
+            <li class="d-block d-lg-none"><a class="navLink {{ Request::routeIs('auth.login') ? 'active' : '' }}" href="{{route('auth.login' , ['branch' => request()->segment(1)])}}">تسجيل الدخول</a></li>
         @endguest
     </ul>
 </div>

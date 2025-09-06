@@ -412,7 +412,7 @@
         <div class="banner">
             <h1>  {{__('frontend.Login Page')}} </h1>
             <ul>
-                <li><a href="{{route('home')}}">{{__('frontend.Home')}} </a></li>
+                <li><a href="{{route('home', ['branch' => request()->segment(1)])}}">{{__('frontend.Home')}} </a></li>
                 <li><a href="#!" class="active">  {{__('frontend.Login Page')}} </a></li>
             </ul>
         </div>
@@ -426,7 +426,7 @@
                 <div class="col-md-6 col-lg-5">
                     <div class="auth-card">
                     <img src="{{asset('frontend')}}/img/login.svg" alt="Login" class="auth-img">
-                    <form method="POST" action="{{route('auth.login_action')}}" id="Form" class="mt-4">
+                    <form method="POST" action="{{route('auth.login_action', ['branch' => request()->segment(1)])}}" id="Form" class="mt-4">
                         <div class="mb-3">
                             <label class="form-label"><i class="fas fa-phone me-2"></i>رقم الجوال</label>
                             <div class="input-group">
@@ -456,14 +456,14 @@
                             <input class="form-check-input" type="checkbox" id="remember">
                             <label class="form-check-label" for="remember">تذكرني</label>
                         </div>
-                        <a href="{{route('auth.forget_password_view')}}" class="text-muted">نسيت كلمة المرور؟</a>
+                        <a href="{{route('auth.forget_password_view', ['branch' => request()->segment(1)])}}" class="text-muted">نسيت كلمة المرور؟</a>
                         </div>
 
                         <button type="submit" id="submit_button" class="btn-submit w-100">
                         دخول <i class="fa-solid fa-arrow-left ms-2"></i>
                         </button>
 
-                        <p class="text-center mt-4">لا تملك حساب؟ <a href="{{route('register')}}">سجل الآن</a></p>
+                        <p class="text-center mt-4">لا تملك حساب؟ <a href="{{route('register', ['branch' => request()->segment(1)])}}">سجل الآن</a></p>
                     </form>
                     </div>
                 </div>
@@ -516,7 +516,9 @@
                         })
                         $('#submit_button').attr('disabled', false)
                         $('#submit_button').html(`<p>{{__('frontend.Login')}}</p> <span></span>`)
-                        window.location.href = '{{route('auth.profile')}}';
+                       var branch = '{{ request()->segment(1) ?? 'default' }}';
+                        // عند نجاح تسجيل الدخول
+                        window.location.href = '/'+branch+'/profile';
                     }, 1000);
 
                 },

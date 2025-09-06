@@ -551,7 +551,7 @@
         @endif
     </h1>
     <ul>
-        <li><a href="{{route('home')}}">الرئيسية</a></li>
+        <li><a href="{{route('home' , ['branch' => $branch])}}">الرئيسية</a></li>
         <li><a href="#" class="active">@if(isset($transfer)) نقل خدمات @elseif(isset($rental)) خدمات فردية @else استقدام @endif</a></li>
     </ul>
 </div>
@@ -565,7 +565,7 @@
     </div>
     <div class="side-bar px-3 pb-4">
 
-        <form id="filterForm" action="{{ request()->routeIs('transferService') ? route('transferService') : (request()->routeIs('services-single') ? route('services-single') : route('all-workers')) }}" method="get">
+        <form id="filterForm" action="{{ request()->routeIs('transferService') ? route('transferService' , ['branch' => $branch]) : (request()->routeIs('services-single') ? route('services-single' , ['branch' => $branch]) : route('all-workers', ['branch' => $branch])) }}" method="get">
             @csrf
 
 
@@ -706,7 +706,7 @@
             <div class="col-lg-3 d-none d-lg-block">
                 <div class="side-bar">
                     <h4 style="margin-bottom:10px;border-bottom:1px solid #f4a835">{{__('frontend.advanced search')}}</h4>
-                    <form id="filterForm" action="{{ request()->routeIs('transferService') ? route('transferService') : (request()->routeIs('services-single') ? route('services-single') : route('all-workers')) }}" method="get">
+                    <form id="filterForm" action="{{ request()->routeIs('transferService') ? route('transferService' , ['branch' => $branch]) : (request()->routeIs('services-single') ? route('services-single' , ['branch' => $branch]) : route('all-workers', ['branch' => $branch])) }}" method="get">
                         @csrf
 
 
@@ -838,7 +838,7 @@
 
             <div class="col-lg-9 col-md-12">
                 <div class="workers-list" id="hereWillDisplayAllWorker">
-                    @include('frontend.pages.all-workers.worker.workers_page', ['cvs' => $cvs])
+                    @include('frontend.pages.all-workers.worker.workers_page', ['cvs' => $cvs ,  'branch' => $branch])
                 </div>
             </div>
         </div>
@@ -869,11 +869,11 @@
     var new_page = 1;
 
     @php
-        $ajaxUrl = route('all-workers');
+        $ajaxUrl = route('all-workers', ['branch' => $branch]);
         if (request()->routeIs('transferService')) {
-            $ajaxUrl = route('transferService');
+            $ajaxUrl = route('transferService' , ['branch' => $branch]);
         } elseif (request()->routeIs('services-single')) {
-            $ajaxUrl = route('services-single');
+            $ajaxUrl = route('services-single' , ['branch' => $branch]);
         }
     @endphp
 

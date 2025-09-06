@@ -196,7 +196,7 @@
     <div class="spinner"></div>
 </div>-->
 <div class="loader-wrapper" aria-label="لودر لوجو إيجاز">
-  <div class="square">إ</div>  
+  <div class="square">إ</div>
   <div class="square">ي</div>
   <div class="square">ج</div>
   <div class="square">ا</div>
@@ -303,19 +303,28 @@
         e.preventDefault()
         var ob = $(this)
         var id = $(this).attr('attr-id');
-        var url = '{{route('front.completeTheRecruitmentRequest',":id")}}';
 
-        var customer_support = $("#customerSupport .customerSupport:checked").val()
+        // حدد URL مع placeholder واحد للـ id
+        var url = '{{ route("front.completeTheRecruitmentRequest", ["branch" => request()->segment(1), "id" => "__id__"]) }}';
+
+        // استبدل الـ placeholder بالـ id الفعلي
+        url = url.replace('__id__', id);
+
+        var customer_support = $("#customerSupport .customerSupport:checked").val();
+
         @if(auth()->check())
         if (customer_support == '' || customer_support == null) {
             cuteToast({
-                type: "warning", // or 'info', 'error', 'warning'
+                type: "warning",
                 message: "{{__('frontend.please Select From Customer Support')}}",
                 timer: 3000
-            })
+            });
             return 0;
         }
-        url = url.replace(':id', id) + "?customerSupport=" + customer_support;
+
+        // أضف query string للـ customer_support
+        url = url + "?customerSupport=" + customer_support;
+
         $.ajax({
             url: url,
             type: 'GET',
@@ -352,7 +361,9 @@
                         confirmButton: 'rounded-pill px-5 py-2'
                     }
                 }).then(() => {
-                    location.replace("{{route('auth.profile')}}");
+
+                    location.replace("{{ route('auth.profile', ['branch' => session('branch')]) }}");
+
                 });
             },
             error: function (data) {
@@ -386,11 +397,11 @@
         {{--    cancelText: "{{__('admin.cancel')}}"--}}
         {{--}).then((e)=>{--}}
         {{--    if ( e == 'confirm'){--}}
-        {{--        location.replace("{{route('auth.login')}}")--}}
+        {{--        location.replace("{{route('auth.login', ['branch' => session('branch')])}}")--}}
         {{--    }--}}
         {{--})--}}
 
-        var url = "{{route('register',':id')}}";
+        var url = "{{route('register', ['branch' => request()->segment(1), 'id' => ':id'])}}";
         url = url.replace(':id', id);
         location.replace(url);
 

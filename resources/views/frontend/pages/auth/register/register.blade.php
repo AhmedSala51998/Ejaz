@@ -674,7 +674,7 @@
                 $('.verify-text').show();
                 $('#verifyArrow').show();
                 $('#dotLoaderVerify').addClass('d-none');
-                location.href = "{{ route('auth.profile') }}";
+                location.href = "{{ route('auth.profile', ['branch' => request()->segment(1)]) }}";
             }, 2000);
         },
         error: function (data) {
@@ -692,7 +692,8 @@
             }
 
             if (data.status === 415) {
-                var url = "{{ route('frontend.show.worker', $id) }}";
+                var branch = "{{ request()->segment(1) }}";
+                var url = "{{ route('frontend.show.worker', ['branch' => request()->segment(1) , 'id' => $id]) }}";
                 location.replace(url);
             }
 

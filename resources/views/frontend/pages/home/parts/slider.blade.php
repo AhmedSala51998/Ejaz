@@ -45,7 +45,7 @@
         position: absolute;
         display: none;
         padding: 6px 12px;
-        background: rgba(0, 0, 0, 0.75); 
+        background: rgba(0, 0, 0, 0.75);
         color: white;
         border-radius: 6px;
         font-family: sans-serif;
@@ -302,7 +302,7 @@ canvas {
                                         {{$slider->desc}}
                                     </p>
 
-                                    <a href="{{route('all-workers')}}" class="animatedLinkk">
+                                    <a href="{{ route('all-workers', ['branch' => $branch]) }}" class="animatedLinkk">
                                         طلب استقدام
 
                                         <i class="fa-regular fa-arrow-up-left ms-2"><span></span></i>
@@ -370,7 +370,7 @@ canvas {
                                         <p class="hint" style="color:#D89835">
                                             اكبر شركة للاستقدام في المملكة العربية السعودية
                                         </p>
-                                        <a href="{{route('all-workers')}}" class="animatedLinkk">
+                                        <a href="{{ route('all-workers', ['branch' => $branch]) }}" class="animatedLinkk">
                                             طلب استقدام
                                             <i class="fa-regular fa-left-long ms-2"><span></span></i>
                                         </a>
@@ -381,7 +381,7 @@ canvas {
                                     <div class="info">
                                         <h1 class="sliderTitle" style="color:#D89835">خدمات متميزة</h1>
                                         <p class="hint" style="color:#D89835">تعرف علي خدمتنا التي نقدمها لك</p>
-                                        <a href="{{route('all-workers')}}" class="animatedLinkk">
+                                        <a href="{{ route('all-workers', ['branch' => $branch]) }}" class="animatedLinkk">
                                             طلب استقدام
                                             <i class="fa-regular fa-left-long ms-2"><span></span></i>
                                         </a>
@@ -395,7 +395,7 @@ canvas {
                                             ابدأ حجزك واتمم دفعك من خلال الموقع الالكتروني او التواصل معنا
                                             بوقت وجيز وبخطوات مختصرة
                                         </p>
-                                        <a href="{{route('all-workers')}}" class="animatedLinkk">
+                                        <a href="{{ route('all-workers', ['branch' => $branch]) }}" class="animatedLinkk">
                                             طلب استقدام
                                             <i class="fa-regular fa-left-long ms-2"><span></span></i>
                                         </a>
@@ -592,7 +592,7 @@ fetch('https://unpkg.com/world-atlas/countries-110m.json')
         }
 
       });
-      
+
       function revealNextCountry() {
         const ids = Object.keys(emphasizedCountries).map(Number).filter(id => id !== saudiInfo.id);
 
@@ -673,7 +673,7 @@ fetch('https://unpkg.com/world-atlas/countries-110m.json')
         }, 2000);
       }, 1000);
     }
-    
+
   });
 
 function drawFlagSphere(iso, text) {

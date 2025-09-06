@@ -58,6 +58,10 @@ class RentalController extends Controller
 
     public function rental(Request $request)
     {
+        $branch = $request->segment(1); // أول segment
+         if (!in_array($branch, ['yanbu','riyadh','jeddah'])) {
+            //$branch = 'riyadh';
+        }
         $query = Biography::where('status', 'new')
             ->where('order_type', 'normal')
             ->where('type', 'rental')
@@ -94,7 +98,7 @@ class RentalController extends Controller
         $cvs = $query->latest()->paginate(9);
 
         if ($request->ajax()) {
-            $returnHTML = view('frontend.pages.all-workers.worker.workers_page', compact('cvs'))
+            $returnHTML = view('frontend.pages.all-workers.worker.workers_page', compact('cvs', 'branch'))
                 ->with(['rental' => 'rental'])->render();
 
             return response()->json([
@@ -110,7 +114,7 @@ class RentalController extends Controller
         $nationalities = Nationalitie::all();
 
         return view('frontend.pages.all-workers.all-workers', compact(
-            'ages', 'jobs', 'nationalities', 'cvs', 'religions', 'social_types'
+            'ages', 'jobs', 'nationalities', 'cvs', 'religions', 'social_types' , 'branch'
         ))->with(['rental' => 'rental']);
     }
 

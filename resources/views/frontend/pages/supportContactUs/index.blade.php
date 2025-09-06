@@ -658,7 +658,7 @@
         <div class="banner">
             <h1> تواصل معنا </h1>
             <ul>
-                <li> <a href="{{route('home')}}">الرئيسية </a> </li>
+                <li> <a href="{{route('home', ['branch' => request()->segment(1)])}}">الرئيسية </a> </li>
                 <li> <a href="#!" class="active"> تواصل معنا </a> </li>
             </ul>
         </div>
@@ -770,7 +770,7 @@
                             <h2> تواصل معنا </h2>
                             <p> اطلب عاملتك الان وسيقوم فريق خدمة العملاء لدينا بالتواصل معك بأسرع وقت ... </p>
                         </div>
-                        <form id="Form" class="needs-validation custom-contact-form" action="{{route('front.contact_us_action')}}" method="post" novalidate>
+                        <form id="Form" class="needs-validation custom-contact-form" action="{{route('front.contact_us_action', ['branch' => request()->segment(1)])}}" method="post" novalidate>
                             @csrf
 
                             <div class="form-group">
@@ -983,7 +983,7 @@
 
 
 <script>
-  
+
     if (typeof Swiper !== 'undefined') {
         new Swiper('.referencesSlider', {
             loop: true,

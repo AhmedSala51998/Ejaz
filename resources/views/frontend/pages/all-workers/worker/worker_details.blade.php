@@ -291,7 +291,7 @@
 <div class="banner">
     <h1>طلب استقدام</h1>
     <ul>
-        <li><a href="{{route('home')}}">{{__('frontend.Home')}} </a></li>
+        <li><a href="{{route('home' , ['branch' => request()->segment(1)])}}">{{__('frontend.Home')}} </a></li>
         <li><a href="#!" class="active">اختر أحد مندوبي خدمة العملاء</a></li>
     </ul>
 </div>

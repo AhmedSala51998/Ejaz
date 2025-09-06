@@ -256,7 +256,7 @@
         <div class="banner">
             <h1> دول الاستقدام </h1>
             <ul>
-                <li> <a href="{{route('home')}}">الرئيسية </a> </li>
+                <li> <a href="{{route('home', ['branch' => request()->segment(1)])}}">الرئيسية </a> </li>
                 <li> <a href="#!" class="active"> دول الاستقدام </a> </li>
             </ul>
         </div>
@@ -277,18 +277,19 @@
                                 <div class="country" data-aos="zoom-in">
                                     <!-- شعار الدولة -->
                                     <div class="flag-wrapper">
-                                        
+
                                             <img src="{{get_file($country->image)}}" alt="{{ $country->title }}">
-                                        
+
                                     </div>
 
                                     <h4>{{ $country->title }}</h4>
                                     <h5>{{ $country->price }} ريال</h5>
                                     <p>{{ $country->description }}</p>
-                                    <a href="{{ route('all-workers', $country->id) }}">
+                                    <a href="{{ route('all-workers', ['branch' => request()->segment(1), 'id' => $country->id]) }}">
                                         اطلب الآن
                                         <i class="fa fa-arrow-left ms-2"></i>
                                     </a>
+
                                 </div>
                             @endforeach
                         </div>

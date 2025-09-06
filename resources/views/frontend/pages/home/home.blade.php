@@ -221,5 +221,4 @@ function isNumber(evt) {
     return !(charCode > 31 && (charCode < 48 || charCode > 57));
 }
 </script>
-
 @endsection

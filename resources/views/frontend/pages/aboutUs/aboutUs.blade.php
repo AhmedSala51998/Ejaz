@@ -75,7 +75,7 @@
     <div class="banner">
         <h1>من نحن</h1>
         <ul>
-            <li><a href="{{ route('home') }}">الرئيسية</a></li>
+            <li><a href="{{ route('home', ['branch' => request()->segment(1)]) }}">الرئيسية</a></li>
             <li><a href="#" class="active">من نحن</a></li>
         </ul>
     </div>

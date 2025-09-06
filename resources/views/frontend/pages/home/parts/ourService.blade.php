@@ -63,13 +63,13 @@
         <div class="row gy-4">
             @foreach($ourServices as $service)
             <div class="col-lg-3 col-md-4 col-sm-6">
-                <a href="{{ route('all-workers') }}" class="text-decoration-none">
+                <a href="{{ route('all-workers', ['branch' => $branch]) }}" class="text-decoration-none">
                     <div class="service-card h-100 text-center p-4 rounded-4 bg-white shadow-sm">
                         <div class="mb-3">
-                           
+
                              <img src="{{ get_file($service->image) }}" alt="{{ $service->title }}" class="img-fluid" style="height: 60px;">
-                         
-                            
+
+
                         </div>
                         <h6 class="fw-bold mb-2">{{ $service->title }}</h6>
                         <p class="text-muted">{{ $service->desc }}</p>

@@ -122,7 +122,7 @@
         justify-content: flex-end; /* Align content to the right for RTL */
         font-size: 17px;
         background-color: rgba(244, 168, 53, 0.1) !important;
-        
+
     }
     .profileNavCol a i {
         margin-left: 12px; /* Space between icon and text for RTL */
@@ -336,7 +336,7 @@
                             </div>
                         </div>
                         <div class="control">
-                            <a href="{{route('auth.logout')}}" data-bs-toggle="tooltip" title="{{__('frontend.Logout')}}">
+                            <a href="{{route('auth.logout', ['branch' => request()->segment(1)])}}" data-bs-toggle="tooltip" title="{{__('frontend.Logout')}}">
                                 <i class="fas fa-power-off"></i>
                             </a>
                         </div>
@@ -347,19 +347,19 @@
                     <div class="row">
                         <div class="col-lg-3"> {{-- Dedicated column for navigation --}}
                             <div class="profileNavCol">
-                                <a href="{{route('profile.CurrentOrders')}}" id="activeButton" class="change_part_of_profile">
+                                <a href="{{route('profile.CurrentOrders', ['branch' => request()->segment(1)])}}" id="activeButton" class="change_part_of_profile">
                                     <i class="fa-solid fa-user-hair-mullet"></i> طلبات الاستقدام
                                 </a>
-                                <a href="{{route('profile.OrdersHistory')}}" class="change_part_of_profile">
+                                <a href="{{route('profile.OrdersHistory', ['branch' => request()->segment(1)])}}" class="change_part_of_profile">
                                     <i class="fa-solid fa-user-headset"></i> سجل الطلبات
                                 </a>
-                                <a href="{{route('profile.Notifications')}}" class="change_part_of_profile">
+                                <a href="{{route('profile.Notifications', ['branch' => request()->segment(1)])}}" class="change_part_of_profile">
                                     <i class="fas fa-bell"></i> الاشعارات
                                 </a>
-                                <a href="{{route('profile.editProfile')}}" class="change_part_of_profile">
+                                <a href="{{route('profile.editProfile', ['branch' => request()->segment(1)])}}" class="change_part_of_profile">
                                     <i class="fas fa-cog"></i> اعدادات الحساب
                                 </a>
-                                <a href="{{route('auth.logout')}}">
+                                <a href="{{route('auth.logout', ['branch' => request()->segment(1)])}}">
                                     <i class="fas fa-power-off"></i> {{__('frontend.Logout')}}
                                 </a>
                             </div>
@@ -415,7 +415,7 @@
             loadMoreDataFormCurrentOrders(current_orders_page);
         })//end fun
         function loadMoreDataFormCurrentOrders(current_orders_page) {
-            var url = '{{route('front.loadMoreCurrentOrders')}}?page=' + current_orders_page;
+            var url = '{{ route('front.loadMoreCurrentOrders', ['branch' => request()->segment(1)]) }}?page=' + current_orders_page;
             $.ajax({
                 url:url,
                 type: 'GET',
@@ -465,7 +465,7 @@
             loadMoreDataFormNotification(notifications_page);
         })//end fun
         function loadMoreDataFormNotification(notifications_page) {
-            var url = '{{route('profile.loadMoreNotifications')}}?page=' +notifications_page;
+            var url = '{{ route("profile.loadMoreNotifications", ["branch" => request()->segment(1)]) }}?page=' + notifications_page;
             $.ajax({
                 url:url,
                 type: 'GET',
@@ -514,7 +514,7 @@
             loadMoreDataFormHistoryOrders(history_orders_page);
         })//end fun
         function loadMoreDataFormHistoryOrders(history_orders_page) {
-            var url = '{{route('front.loadMoreOrdersHistory')}}?page=' + history_orders_page;
+            var url = '{{ route("front.loadMoreOrdersHistory", ["branch" => request()->segment(1)]) }}?page=' + history_orders_page;
             $.ajax({
                 url:url,
                 type: 'GET',

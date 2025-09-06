@@ -3,7 +3,7 @@
     <div class="banner">
         <h1>{{ __('frontend.create account') }}</h1>
         <ul>
-            <li><a href="{{ route('home') }}">{{ __('frontend.Home') }}</a></li>
+            <li><a href="{{ route('home', ['branch' => request()->segment(1)]) }}">{{ __('frontend.Home') }}</a></li>
             <li><a href="#!" class="active">{{ __('frontend.create account') }}</a></li>
         </ul>
     </div>
@@ -17,7 +17,7 @@
                     <div class="auth-card">
                         <img src="{{ asset('frontend') }}/img/register.svg" alt="Register" class="auth-img">
 
-                        <form method="POST" action="{{ route('checkPhoneToSendOtp') }}" id="Form" class="mt-4">
+                        <form method="POST" action="{{ route('checkPhoneToSendOtp', ['branch' => request()->segment(1)]) }}" id="Form" class="mt-4">
                             @csrf
                             <div class="mb-3">
                                 <label class="form-label"><i class="fas fa-user me-2"></i>{{ __('frontend.FullName') }}</label>
@@ -73,7 +73,7 @@
 
                         <p class="text-center mt-4">
                             {{ __('frontend.you already have account ?') }}
-                            <a href="{{ route('auth.login') }}">{{ __('frontend.Login') }}</a>
+                            <a href="{{ route('auth.login', ['branch' => request()->segment(1)]) }}">{{ __('frontend.Login') }}</a>
                         </p>
                     </div>
                 </div>

@@ -97,7 +97,7 @@
         <div class="row gy-4">
             <div class="col-lg-4">
                 <div class="footer-logo">
-                    <a href="{{route('home')}}">
+                    <a href="{{route('home' , ['branch' => request()->segment(1)])}}">
                         <img src="{{asset('frontend/img/logo.png')}}" alt="logo">
                         <!--<img src="{{$settings->footer_logo?get_file($settings->footer_logo):asset('frontend/img/logo.svg')}}" alt="logo">-->
                     </a>
@@ -108,15 +108,15 @@
             <div class="col-lg-2 col-6">
                 <h3>روابط سريعة</h3>
                 <ul>
-                    <li><a href="{{route('all-workers')}}">طلب استقدام</a></li>
-                    <li><a href="{{trans('transferService')}}">طلب نقل خدمات</a></li>
-                    <li><a href="{{route('track_order_view')}}">تتبع طلبك</a></li>
+                    <li><a href="{{ route('all-workers', ['branch' => request()->segment(1)]) }}">طلب استقدام</a></li>
+                    <li><a href="{{trans('transferService' , ['branch' => request()->segment(1)])}}">طلب نقل خدمات</a></li>
+                    <li><a href="{{route('track_order_view' , ['branch' => request()->segment(1)])}}">تتبع طلبك</a></li>
                     @auth
-                        <li><a href="{{route('auth.profile')}}">{{__('frontend.profile')}}</a></li>
-                        <li><a href="{{route('auth.profile')}}">طلبات الاستقدام</a></li>
+                        <li><a href="{{route('auth.profile' , ['branch' => request()->segment(1)])}}">{{__('frontend.profile')}}</a></li>
+                        <li><a href="{{route('auth.profile' , ['branch' => request()->segment(1)])}}">طلبات الاستقدام</a></li>
                     @endauth
                     @guest
-                        <li><a href="{{route('auth.login')}}">{{__('frontend.Login')}}</a></li>
+                        <li><a href="{{route('auth.login' , ['branch' => request()->segment(1)])}}">{{__('frontend.Login')}}</a></li>
                     @endguest
                 </ul>
             </div>
@@ -125,10 +125,10 @@
                 <h3>روابط تهمك</h3>
                 <ul>
                     <li><a href="{{checkRouteIsHome('#popular_service')}}">{{__('frontend.OurServices')}}</a></li>
-                    <li><a href="{{route('frontend.show.countries')}}">دول الاستقدام</a></li>
-                    <li><a href="{{route('frontend.show.ourStaff')}}">خدمة العملاء</a></li>
-                    <li><a href="{{route('frontend.supports')}}">{{__('frontend.faq')}}</a></li>
-                    <li><a href="{{route('frontend.supports.contactUs')}}">{{__('frontend.contactUs')}}</a></li>
+                    <li><a href="{{route('frontend.show.countries' , ['branch' => request()->segment(1)])}}">دول الاستقدام</a></li>
+                    <li><a href="{{route('frontend.show.ourStaff' , ['branch' => request()->segment(1)])}}">خدمة العملاء</a></li>
+                    <li><a href="{{route('frontend.supports' , ['branch' => request()->segment(1)])}}">{{__('frontend.faq')}}</a></li>
+                    <li><a href="{{route('frontend.supports.contactUs' , ['branch' => request()->segment(1)])}}">{{__('frontend.contactUs')}}</a></li>
                 </ul>
             </div>
 

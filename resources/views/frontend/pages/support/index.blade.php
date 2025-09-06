@@ -17,7 +17,7 @@
         <div class="banner">
             <h1>  مركز  المساعدة  </h1>
             <ul>
-                <li> <a href="{{route('home')}}">الرئيسية </a> </li>
+                <li> <a href="{{route('home', ['branch' => request()->segment(1)])}}">الرئيسية </a> </li>
                 <li> <a href="#!" class="active">  مركز  المساعدة  </a> </li>
             </ul>
         </div>

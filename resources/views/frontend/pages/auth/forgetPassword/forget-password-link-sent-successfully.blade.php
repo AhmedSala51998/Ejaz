@@ -203,7 +203,7 @@
 <div class="banner" role="banner" aria-label="صفحة التهنئة">
     <h1>تمت العملية بنجاح</h1>
     <ul aria-label="روابط التنقل الرئيسية">
-        <li><a href="{{ route('home') }}" aria-label="العودة للرئيسية">الرئيسية</a></li>
+        <li><a href="{{ route('home', ['branch' => request()->segment(1)]) }}" aria-label="العودة للرئيسية">الرئيسية</a></li>
         <li><a href="#!" class="active" aria-current="page">نسيت كلمة المرور</a></li>
     </ul>
 </div>
@@ -217,7 +217,7 @@
             <img class="loginImg" src="{{ asset('frontend/img/check.png') }}" alt="تم بنجاح - علامة صح" />
             <h6 id="successMessage">{{ __('frontend.Reset Password Phone Is Sent Successfully') }}</h6>
             <h6>
-                <a href="{{ route('home') }}" role="button" tabindex="0">العودة للرئيسية</a>
+                <a href="{{ route('home', ['branch' => request()->segment(1)]) }}" role="button" tabindex="0">العودة للرئيسية</a>
             </h6>
         </div>
     </div>

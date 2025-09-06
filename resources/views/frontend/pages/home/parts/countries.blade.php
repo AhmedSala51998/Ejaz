@@ -213,18 +213,18 @@
             @foreach($countries as $country)
                 <div class="country" data-aos="zoom-in">
                     <!-- شعار الدولة -->
-                     
+
                     <div class="flag-wrapper">
-                       
+
                              <img src="{{get_file($country->image)}}" alt="{{ $country->title }}">
-                      
-                       
+
+
                     </div>
 
                     <h4>{{ $country->title }}</h4>
                     <h5>{{ $country->price }} ريال</h5>
                     <p>{{ $country->description }}</p>
-                    <a href="{{ route('all-workers', $country->id) }}">
+                    <a href="{{ route('all-workers', ['branch' => $branch , 'id' => $country->id]) }}">
                         اطلب الآن
                         <i class="fa fa-arrow-left ms-2"></i>
                     </a>

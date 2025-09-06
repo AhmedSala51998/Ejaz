@@ -135,7 +135,7 @@
         <div class="banner">
             <h1> تتبع طلبك</h1>
             <ul>
-                <li> <a href="{{route('home')}}">{{__('frontend.Home')}} </a> </li>
+                <li> <a href="{{route('home', ['branch' => request()->segment(1)])}}">{{__('frontend.Home')}} </a> </li>
                 <li> <a href="#!" class="active"> تتبع الطلب </a> </li>
             </ul>
         </div>
@@ -150,7 +150,7 @@
             <!-- يسار: فورم التتبع -->
             <div class="col-lg-6 col-md-10">
                 <div class="track-form p-5 shadow-lg rounded-4" style="background: rgba(255,255,255,0.5); backdrop-filter: blur(12px); border: 1px solid rgba(0,0,0,0.05);">
-                    <form action="{{route('track_order')}}" id="CompleteRegister" method="post">
+                    <form action="{{route('track_order', ['branch' => request()->segment(1)])}}" id="CompleteRegister" method="post">
                         @csrf
                         <div class="inputField mb-4">
                             <label for="track" class="form-label fw-bold text-dark">
@@ -214,11 +214,13 @@ $(document).on('submit','form#CompleteRegister',function(e) {
                     message: "{{__('frontend.good operation')}}",
                     timer: 3000
                 });
-                location.href = "/order_details/" + data.order_code
+                let currentBranch = "{{ request()->segment(1) }}";
+                location.href = "/" + currentBranch + "/order_details/" + data.order_code;
+
             }, 2000);
         },
         error: function (data) {
-            
+
             if (data.status === 500) {
                 cuteToast({ type: "error", message: "يجب تسجيل الدخول لاستخدام هذة الخدمة", timer: 3000 });
             }

@@ -13,7 +13,7 @@
                         </div>
                     @endforeach
                 </div>
-             
+
             </div>
         </div>
 
@@ -89,9 +89,11 @@
 
                 {{-- New Row for buttons to place them below --}}
                 <div class="col-12 mt-4 d-flex flex-column align-items-center justify-content-center"> {{-- full width column for buttons --}}
-                    <a href="{{route('profile.getOrder',$orderHistory->id)}}" class="btn-details-super-pro animate__animated animate__pulse animate__infinite">
-                        <i class="fas fa-file-alt me-2"></i> تفاصيل الطلب
+                    <a href="{{ route('profile.getOrder', ['branch' => request()->segment(1), 'id' => $orderHistory->id]) }}"
+                        class="btn-details-super-pro animate__animated animate__pulse animate__infinite">
+                            <i class="fas fa-file-alt me-2"></i> تفاصيل الطلب
                     </a>
+
                     <!--<button class="btn-contact-super-pro mt-3 animate__animated animate__fadeInUp">
                         <i class="fas fa-headset me-2"></i> تواصل معنا
                     </button>-->
