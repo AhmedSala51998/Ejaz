@@ -121,7 +121,20 @@
 </div>
 
 <script>
+// عند تحميل الصفحة، نتأكد إذا المستخدم اختار مدينة قبل كده
+document.addEventListener('DOMContentLoaded', () => {
+    const savedBranch = localStorage.getItem('branch');
+    if (savedBranch) {
+        // لو موجودة → نعيد توجيهه مباشرة للفرع اللي اختاره قبل كده
+        window.location.href = `/${savedBranch}`;
+    }
+});
+
 function goToCity(url) {
+    // استخراج اسم المدينة من الرابط (/jeddah → jeddah)
+    const branch = url.replace('/', '');
+    // حفظ المدينة في LocalStorage
+    localStorage.setItem('branch', branch);
     window.location.href = url;
 }
 
@@ -132,7 +145,6 @@ function detectLocation() {
                 sendCoords(pos.coords.latitude, pos.coords.longitude);
             },
             () => {
-                // رفض المستخدم → نرسل بدون إحداثيات → السيرفر يحسب IP-based
                 sendCoords(null, null);
             },
             { enableHighAccuracy: true, timeout: 7000 }
@@ -148,9 +160,12 @@ function sendCoords(lat, lng) {
     }, {
         headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' }
     }).then(res => {
-        window.location.href = res.data.redirect;
+        // نحتفظ بالفرع اللي حددناه في LocalStorage
+        const url = res.data.redirect;
+        const branch = url.split('/').pop();
+        localStorage.setItem('branch', branch);
+        window.location.href = url;
     }).catch(() => {
-        // fallback بسيط لو حدث خطأ غير متوقع
         window.location.href = '/yanbu';
     });
 }
