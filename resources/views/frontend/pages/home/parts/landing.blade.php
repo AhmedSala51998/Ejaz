@@ -1,82 +1,161 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <title>ايجاز للاستقدام - جاري اكتشاف موقعك...</title>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <style>
-        body {
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            background: linear-gradient(135deg, #ff914d, #ffb347);
-            font-family: 'Tahoma', sans-serif;
-            color: #fff;
+<meta charset="UTF-8">
+<title>ايجاز للاستقدام - اختر مدينتك</title>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<!-- استخدام FontAwesome للأيقونات -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background: linear-gradient(135deg, #ff914d, #ffb347);
+        font-family: 'Tahoma', sans-serif;
+        color: #fff;
+    }
+
+    h1 {
+        font-size: 32px;
+        margin-bottom: 40px;
+        text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+    }
+
+    .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 30px;
+        width: 80%;
+        max-width: 900px;
+    }
+
+    .card {
+        background: rgba(255,255,255,0.15);
+        border-radius: 25px;
+        padding: 30px 20px;
+        text-align: center;
+        font-size: 22px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.4s ease;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+        backdrop-filter: blur(6px);
+        border: 2px solid rgba(255,255,255,0.3);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .card:hover {
+        transform: translateY(-10px) scale(1.05);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+    }
+
+    .card i {
+        font-size: 50px;
+        margin-bottom: 15px;
+        transition: all 0.4s ease;
+    }
+
+    /* ألوان مختلفة لكل كارت */
+    .jeddah { border-color: #1e90ff; color: #1e90ff; }
+    .jeddah:hover { background: #1e90ff; color: #fff; }
+
+    .yanbu { border-color: #32cd32; color: #32cd32; }
+    .yanbu:hover { background: #32cd32; color: #fff; }
+
+    .riyadh { border-color: #ff4500; color: #ff4500; }
+    .riyadh:hover { background: #ff4500; color: #fff; }
+
+    .location { border-color: #ffea00; color: #ffea00; }
+    .location:hover { background: #ffea00; color: #000; }
+
+    /* أيقونة location متحركة */
+    .location-icon {
+        animation: bounce 1.5s infinite;
+    }
+
+    @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+
+    @media (max-width: 600px) {
+        .cards {
+            grid-template-columns: 1fr;
         }
-        .loader {
-            border: 8px solid rgba(255,255,255,0.3);
-            border-top: 8px solid #fff;
-            border-radius: 50%;
-            width: 70px;
-            height: 70px;
-            animation: spin 1s linear infinite;
-            margin-bottom: 20px;
+        .card {
+            padding: 25px 15px;
+            font-size: 20px;
         }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        h1 { font-size: 28px; margin-bottom: 10px; }
-        p { font-size: 18px; }
-    </style>
+        .card i { font-size: 45px; margin-bottom: 12px; }
+    }
+</style>
 </head>
 <body>
-    <div class="loader"></div>
-    <h1>ايجاز للاستقدام</h1>
-    <p>جاري اكتشاف موقعك...</p>
+
+<h1>اختر مدينتك</h1>
+
+<div class="cards">
+    <div class="card jeddah" onclick="goToCity('/jeddah')">
+        <i class="fas fa-city"></i>
+        جدة
+    </div>
+    <div class="card yanbu" onclick="goToCity('/yanbu')">
+        <i class="fas fa-water"></i>
+        ينبع
+    </div>
+    <div class="card riyadh" onclick="goToCity('/riyadh')">
+        <i class="fas fa-building"></i>
+        الرياض
+    </div>
+    <div class="card location" onclick="detectLocation()">
+        <i class="fas fa-map-marker-alt location-icon"></i>
+        استكشف موقعي
+    </div>
+</div>
 
 <script>
-    let geoTimeout = setTimeout(() => {
-        console.log("⏳ Timeout انتهى، تحويل للفرع الافتراضي");
-        window.location.href = '/yanbu';
-    }, 15000); // 15 ثانية
+function goToCity(url) {
+    window.location.href = url;
+}
 
-    function redirectToServer(lat, lng) {
-        axios.post('{{ route('detect.location.ajax') }}', {
-            lat: lat,
-            lng: lng
-        }, {
-            headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' }
-        }).then(res => {
-            console.log("✅ تم التحويل للفرع:", res.data.redirect);
-            window.location.href = res.data.redirect;
-        }).catch(err => {
-            console.error("❌ خطأ في تحويل الإحداثيات:", err);
-            window.location.href = '/yanbu';
-        });
-    }
-
+function detectLocation() {
     if (navigator.geolocation) {
-        console.log("🌍 Geolocation موجود في المتصفح");
         navigator.geolocation.getCurrentPosition(
-            (position) => {
-                clearTimeout(geoTimeout);
-                console.log("✅ موقع المستخدم تم الحصول عليه", position.coords.latitude, position.coords.longitude);
-                redirectToServer(position.coords.latitude, position.coords.longitude);
+            (pos) => {
+                sendCoords(pos.coords.latitude, pos.coords.longitude);
             },
-            (error) => {
-                clearTimeout(geoTimeout);
-                console.warn("⚠️ حصل خطأ في اللوكيشن:", error.code, error.message);
-                console.log("🌐 استخدام Fallback: IP-based location على السيرفر");
-                // ارسال بدون إحداثيات → السيرفر يستخدم IP لتحديد الفرع
-                redirectToServer(24.0890 , 38.0617);
+            () => {
+                // رفض المستخدم → نرسل بدون إحداثيات → السيرفر يحسب IP-based
+                sendCoords(null, null);
             },
-            { timeout: 5000, enableHighAccuracy: true, maximumAge: 0 }
+            { enableHighAccuracy: true, timeout: 7000 }
         );
     } else {
-        console.warn("❌ المتصفح لا يدعم Geolocation");
-        redirectToServer(null, null);
+        sendCoords(null, null);
     }
+}
+
+function sendCoords(lat, lng) {
+    axios.post('{{ route('detect.location.ajax') }}', {
+        lat: lat, lng: lng
+    }, {
+        headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' }
+    }).then(res => {
+        window.location.href = res.data.redirect;
+    }).catch(() => {
+        // fallback بسيط لو حدث خطأ غير متوقع
+        window.location.href = '/yanbu';
+    });
+}
+
 </script>
+
 </body>
 </html>

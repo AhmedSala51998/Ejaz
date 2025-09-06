@@ -55,26 +55,42 @@ class HomeFrontController extends Controller
             return 'riyadh';
         }
     }*/
+
+    // صفحة الكروت / landing
     public function showLanding()
     {
-        return view('frontend.pages.home.parts.landing'); // صفحة بسيطة تحمل JS لاكتشاف الموقع
+        return view('frontend.pages.home.parts.landing');
     }
 
-    // صفحة كل فرع
-
     // استلام الإحداثيات من الجافاسكريبت
+    // استلام الإحداثيات أو استخدام IP fallback
     public function detectCityAjax(Request $request)
     {
         $lat = $request->lat;
         $lng = $request->lng;
 
+        // لو لم يرسل المستخدم الإحداثيات → استخدم IP-based location
+        if (!$lat || !$lng) {
+            $ip = $request->ip();
+            try {
+                $location = geoip($ip); // تأكد من استخدام Torann/GeoIP أو أي مكتبة GeoIP
+                $lat = $location->lat;
+                $lng = $location->lon;
+            } catch (\Exception $e) {
+                // لو فشل تحديد الموقع من IP، ضع قيم تقريبية بالرياض
+                $lat = 24.7136;
+                $lng = 46.6753;
+            }
+        }
+
+        // إحداثيات المدن الثلاثة
         $cities = [
-            'riyadh' => ['lat'=>24.7136, 'lng'=>46.6753],
             'jeddah' => ['lat'=>21.4858, 'lng'=>39.1925],
             'yanbu'  => ['lat'=>24.0890, 'lng'=>38.0617],
+            'riyadh' => ['lat'=>24.7136, 'lng'=>46.6753],
         ];
 
-        $closestCity = 'riyadh';
+        $closestCity = null;
         $minDistance = INF;
 
         foreach ($cities as $city => $coords) {
@@ -85,27 +101,28 @@ class HomeFrontController extends Controller
             }
         }
 
-        // لو أبعد من أي مدينة من الثلاثة، نخلي default الرياض
-        if ($minDistance > 300) {
-            $closestCity = 'riyadh';
-        }
-
+        // **لن نضع default هنا**، حتى لو بعيد جداً
         session(['branch' => $closestCity]);
 
-        return response()->json(['redirect' => route('branch.home', ['branch' => $closestCity])]);
+        return response()->json([
+            'redirect' => route('branch.home', ['branch' => $closestCity])
+        ]);
     }
 
+    // دالة لحساب المسافة Haversine
     private function getDistance($lat1, $lon1, $lat2, $lon2)
     {
-        $R = 6371; // radius in km
+        $R = 6371; // نصف القطر بالكيلومتر
         $dLat = deg2rad($lat2 - $lat1);
         $dLon = deg2rad($lon2 - $lon1);
         $a = sin($dLat/2) * sin($dLat/2) +
-             cos(deg2rad($lat1)) * cos(deg2rad($lat2)) *
-             sin($dLon/2) * sin($dLon/2);
+            cos(deg2rad($lat1)) * cos(deg2rad($lat2)) *
+            sin($dLon/2) * sin($dLon/2);
         $c = 2 * atan2(sqrt($a), sqrt(1-$a));
         return $R * $c;
     }
+
+
 
     /*public function index()
     {
