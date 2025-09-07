@@ -38,7 +38,7 @@ class RegisterFrontController extends Controller
 
 
 
-    /*public function register_action(RegisterRequest $request)
+    public function register_action(RegisterRequest $request)
     {
         $number=$request->password;
         $numlength = strlen((string)$number);
@@ -69,38 +69,7 @@ class RegisterFrontController extends Controller
             return response()->json(["user"=>$user],415);
         }
         return response()->json(["user"=>$user],200);
-    }*///end fun
-
-    public function register_action(RegisterRequest $request)
-    {
-        // تعديل بسيط لتجاهل طول كلمة المرور إذا كانت 10 أرقام
-        $number = $request->password;
-        $numlength = strlen((string)$number);
-        if ($numlength == 10) {
-            $request->password = substr($number, 1);
-        }
-
-        $data = $request->validated();
-
-        // تجاهل أي تحقق على كود التفعيل، فقط نحفظه
-        $data['logo'] = NULL;
-        $data['phone_activation_code'] = $request->code; // أي كود يُقبل
-        $data['activated_at'] = now();
-
-        $number = $data['phone'];
-        $numlength = strlen((string)$number);
-        if ($numlength == 10) {
-            $data['phone'] = substr($number, 1);
-        }
-
-        $user = User::create($data);
-        auth()->login($user);
-
-        if ($request->id != '') {
-            return response()->json(["user" => $user], 415);
-        }
-        return response()->json(["user" => $user], 200);
-    }
+    }//end fun
 
 
 

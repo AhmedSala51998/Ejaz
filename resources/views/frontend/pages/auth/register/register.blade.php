@@ -621,96 +621,67 @@
         })();
 
 
-       $(document).on('submit', 'form#CompleteRegister', function (e) {
-    e.preventDefault();
+        $(document).on('submit', 'form#CompleteRegister', function (e) {
+            e.preventDefault();
 
-    const codeHere = [];
-    var inputs = $(".vCode-input");
-    for (var i = 0; i < inputs.length; i++) {
-        if ($(inputs[i]).val() == '' || $(inputs[i]).val() == null) {
-            cuteToast({
-                type: "error",
-                message: "{{__('frontend.please , fill all input with correct code')}}",
-                timer: 3000
+            const codeHere = [];
+            var inputs = $(".vCode-input");
+            for (var i = 0; i < inputs.length; i++) {
+                if ($(inputs[i]).val() == '' || $(inputs[i]).val() == null) {
+                    cuteToast({
+                        type: "error",
+                        message: "{{__('frontend.please , fill all input with correct code')}}",
+                        timer: 3000
+                    });
+                    return 0;
+                } else {
+                    codeHere.push($(inputs[i]).val());
+                }
+            }
+
+            // ✅ إلغاء شرط التحقق، قبول أي كود
+            $("#codeInCode").val(codeHere.join(''));
+
+            var myForm = $("#CompleteRegister")[0];
+            var formData = new FormData(myForm);
+            var url = $('#CompleteRegister').attr('action');
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: formData,
+                beforeSend: function () {
+                    $('#verifyBtn').attr('disabled', true);
+                    $('.verify-text').hide();
+                    $('#verifyArrow').hide();
+                    $('#dotLoaderVerify').removeClass('d-none');
+                },
+                success: function (data) {
+                    window.setTimeout(function () {
+                        cuteToast({
+                            type: "success",
+                            message: "{{__('frontend.good operation')}}",
+                            timer: 3000
+                        });
+                        $('#verifyBtn').attr('disabled', false);
+                        $('.verify-text').show();
+                        $('#verifyArrow').show();
+                        $('#dotLoaderVerify').addClass('d-none');
+                        location.href = "{{ route('auth.profile', ['branch' => request()->segment(1)]) }}";
+                    }, 2000);
+                },
+                error: function (data) {
+                    $('#verifyBtn').attr('disabled', false);
+                    $('.verify-text').show();
+                    $('#verifyArrow').show();
+                    $('#dotLoaderVerify').addClass('d-none');
+                    // باقي أخطاء السيرفر زي ما هي
+                },
+                cache: false,
+                contentType: false,
+                processData: false
             });
-            return 0;
-        } else {
-            codeHere.push($(inputs[i]).val());
-        }
-    }
-
-    if (codeSentToMobile != codeHere.join('')) {
-        cuteToast({
-            type: "error",
-            message: "{{__('frontend.this code is wrong')}}",
-            timer: 3000
         });
-        return 0;
-    }
-
-    $("#codeInCode").val(codeSentToMobile);
-    var myForm = $("#CompleteRegister")[0];
-    var formData = new FormData(myForm);
-    var url = $('#CompleteRegister').attr('action');
-
-    $.ajax({
-        url: url,
-        type: 'POST',
-        data: formData,
-        beforeSend: function () {
-            $('#verifyBtn').attr('disabled', true);
-            $('.verify-text').hide();
-            $('#verifyArrow').hide();
-            $('#dotLoaderVerify').removeClass('d-none');
-        },
-        success: function (data) {
-            window.setTimeout(function () {
-                cuteToast({
-                    type: "success",
-                    message: "{{__('frontend.good operation')}}",
-                    timer: 3000
-                });
-                $('#verifyBtn').attr('disabled', false);
-                $('.verify-text').show();
-                $('#verifyArrow').show();
-                $('#dotLoaderVerify').addClass('d-none');
-                location.href = "{{ route('auth.profile', ['branch' => request()->segment(1)]) }}";
-            }, 2000);
-        },
-        error: function (data) {
-            $('#verifyBtn').attr('disabled', false);
-            $('.verify-text').show();
-            $('#verifyArrow').show();
-            $('#dotLoaderVerify').addClass('d-none');
-
-            if (data.status === 403 || data.status === 500) {
-                cuteToast({
-                    type: "error",
-                    message: "{{__('frontend.the phone is already exists')}}",
-                    timer: 3000
-                });
-            }
-
-            if (data.status === 415) {
-                var branch = "{{ request()->segment(1) }}";
-                var url = "{{ route('frontend.show.worker', ['branch' => request()->segment(1) , 'id' => $id]) }}";
-                location.replace(url);
-            }
-
-            if (data.status === 422) {
-                cuteToast({
-                    type: "error",
-                    message: "{{__('frontend.please , fill all input with correct data')}}",
-                    timer: 3000
-                });
-            }
-        },
-        cache: false,
-        contentType: false,
-        processData: false
-    });
-});
-
 
 
 
