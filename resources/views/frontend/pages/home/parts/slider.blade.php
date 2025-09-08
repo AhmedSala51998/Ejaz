@@ -578,7 +578,7 @@ fetch('https://unpkg.com/world-atlas/countries-110m.json')
             .then(data => {
               if (data?.id) {
                 setTimeout(() => {
-                  window.location.href = `/all-workers/${data.id}`;
+                  window.location.href = "/{{ request()->segment(1) }}/all-workers/" + data.id;
                 }, 800); // ⏳ يعطي وقت صغير لرؤية اللودر
               } else {
                 loader.style.display = 'none';

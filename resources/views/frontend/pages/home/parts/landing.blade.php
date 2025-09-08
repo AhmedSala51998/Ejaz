@@ -4,65 +4,74 @@
 <meta charset="UTF-8">
 <title>ايجاز للاستقدام - اختر مدينتك</title>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<!-- استخدام FontAwesome للأيقونات -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
 <style>
+    /* عام */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-        margin: 0;
-        height: 100vh;
+        font-family: 'Poppins', sans-serif;
+        min-height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        background: linear-gradient(135deg, #ff914d, #ffb347);
-        font-family: 'Tahoma', sans-serif;
+        background: linear-gradient(135deg, rgba(255,126,95,0.15), rgba(254,180,123,0.15));
         color: #fff;
+        padding: 20px;
+        overflow-x: hidden;
     }
 
     h1 {
-        font-size: 32px;
-        margin-bottom: 40px;
-        text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+        font-size: 3rem;
+        margin-bottom: 50px;
+        text-align: center;
+        text-shadow: 2px 2px 15px rgba(0,0,0,0.4);
+        letter-spacing: 1px;
     }
 
+    /* شبكة الكروت */
     .cards {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
         gap: 30px;
-        width: 80%;
-        max-width: 900px;
+        width: 100%;
+        max-width: 1000px;
+        perspective: 1000px; /* لإضافة تأثير 3D عند hover */
     }
 
+    /* تصميم الكروت */
     .card {
-        background: rgba(255,255,255,0.15);
+        background: rgba(255, 255, 255, 0.08);
         border-radius: 25px;
-        padding: 30px 20px;
+        padding: 35px 25px;
         text-align: center;
-        font-size: 22px;
-        font-weight: bold;
+        font-size: 1.3rem;
+        font-weight: 600;
         cursor: pointer;
-        transition: all 0.4s ease;
-        box-shadow: 0 8px 25px rgba(0,0,0,0.25);
-        backdrop-filter: blur(6px);
-        border: 2px solid rgba(255,255,255,0.3);
+        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.6s ease, background 0.5s ease;
+        box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+        backdrop-filter: blur(12px);
+        border: 2px solid rgba(255,255,255,0.15);
         display: flex;
         flex-direction: column;
-        justify-content: center;
         align-items: center;
-    }
-
-    .card:hover {
-        transform: translateY(-10px) scale(1.05);
-        box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        justify-content: center;
     }
 
     .card i {
-        font-size: 50px;
-        margin-bottom: 15px;
-        transition: all 0.4s ease;
+        font-size: 60px;
+        margin-bottom: 18px;
+        transition: transform 0.6s ease, color 0.5s ease;
     }
 
-    /* ألوان مختلفة لكل كارت */
+    .card:hover {
+        transform: rotateY(10deg) translateY(-12px) scale(1.08);
+        box-shadow: 0 25px 60px rgba(0,0,0,0.45);
+    }
+
+    /* ألوان مخصصة */
     .jeddah { border-color: #1e90ff; color: #1e90ff; }
     .jeddah:hover { background: #1e90ff; color: #fff; }
 
@@ -76,23 +85,36 @@
     .location:hover { background: #ffea00; color: #000; }
 
     /* أيقونة location متحركة */
-    .location-icon {
-        animation: bounce 1.5s infinite;
+    .location-icon { animation: bounce 1.5s infinite; }
+    @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+
+    /* ظل خلف الكروت عند hover */
+    .card::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0; left: 0;
+        border-radius: 25px;
+        background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        z-index: 0;
     }
 
-    @keyframes bounce {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-10px); }
-    }
+    .card:hover::before { opacity: 1; }
 
-    @media (max-width: 600px) {
-        .cards {
-            grid-template-columns: 1fr;
-        }
-        .card {
-            padding: 25px 15px;
-            font-size: 20px;
-        }
+    /* responsive */
+    @media (max-width: 1024px) { .cards { gap: 25px; } }
+    @media (max-width: 768px) {
+        .cards { grid-template-columns: 1fr; gap: 20px; }
+        h1 { font-size: 2.5rem; margin-bottom: 35px; }
+        .card { padding: 28px 20px; font-size: 1.1rem; }
+        .card i { font-size: 50px; margin-bottom: 15px; }
+    }
+    @media (max-width: 480px) {
+        h1 { font-size: 2rem; margin-bottom: 25px; }
+        .card { padding: 22px 15px; font-size: 1rem; }
         .card i { font-size: 45px; margin-bottom: 12px; }
     }
 </style>
@@ -121,19 +143,13 @@
 </div>
 
 <script>
-// عند تحميل الصفحة، نتأكد إذا المستخدم اختار مدينة قبل كده
 document.addEventListener('DOMContentLoaded', () => {
     const savedBranch = localStorage.getItem('branch');
-    if (savedBranch) {
-        // لو موجودة → نعيد توجيهه مباشرة للفرع اللي اختاره قبل كده
-        window.location.href = `/${savedBranch}`;
-    }
+    if (savedBranch) window.location.href = `/${savedBranch}`;
 });
 
 function goToCity(url) {
-    // استخراج اسم المدينة من الرابط (/jeddah → jeddah)
     const branch = url.replace('/', '');
-    // حفظ المدينة في LocalStorage
     localStorage.setItem('branch', branch);
     window.location.href = url;
 }
@@ -141,35 +157,23 @@ function goToCity(url) {
 function detectLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
-            (pos) => {
-                sendCoords(pos.coords.latitude, pos.coords.longitude);
-            },
-            () => {
-                sendCoords(null, null);
-            },
+            (pos) => sendCoords(pos.coords.latitude, pos.coords.longitude),
+            () => sendCoords(null, null),
             { enableHighAccuracy: true, timeout: 7000 }
         );
-    } else {
-        sendCoords(null, null);
-    }
+    } else sendCoords(null, null);
 }
 
 function sendCoords(lat, lng) {
-    axios.post('{{ route('detect.location.ajax') }}', {
-        lat: lat, lng: lng
-    }, {
+    axios.post('{{ route('detect.location.ajax') }}', { lat, lng }, {
         headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' }
     }).then(res => {
-        // نحتفظ بالفرع اللي حددناه في LocalStorage
         const url = res.data.redirect;
         const branch = url.split('/').pop();
         localStorage.setItem('branch', branch);
         window.location.href = url;
-    }).catch(() => {
-        window.location.href = '/yanbu';
-    });
+    }).catch(() => window.location.href = '/yanbu');
 }
-
 </script>
 
 </body>

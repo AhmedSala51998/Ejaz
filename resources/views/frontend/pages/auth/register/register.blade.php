@@ -684,7 +684,6 @@
         });
 
 
-
         $(document).on('click',"#registerAgain",function (e){
             e.preventDefault()
             $("#registerForm").show()
