@@ -56,6 +56,16 @@ class RegisterFrontController extends Controller
         // }
         $data = $request->validated();
 
+        $phone = ltrim($request->phone, '0');
+
+        // فحص التكرار
+        if (User::where('phone', $phone)->exists()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'رقم الجوال مسجل مسبقًا'
+            ], 409, ['Content-Type' => 'application/json']);
+        }
+
         // إزالة أي حقل غير موجود في جدول users
         unset($data['code']);
         //$data['logo'] = $this->upload_image_or_make_new_image($request->logo , substr($request->name, 0, 2) );

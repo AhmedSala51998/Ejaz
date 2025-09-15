@@ -640,12 +640,27 @@
                 $('#arrowIcon').show();
                 $('#dotLoader').addClass('d-none');
 
-                cuteToast({
-                    type: "error",
-                    message: "{{__('frontend.something went wrong')}}",
-                    timer: 3000
-                });
+                if (err.status === 409) {
+                    // جرّب التقاط النص سواء JSON أو HTML
+                    let msg = (err.responseJSON && err.responseJSON.message)
+                            ? err.responseJSON.message
+                            : (err.responseText || 'رقم الجوال مسجل مسبقًا');
+                    console.log('409 message:', msg); // للتشخيص
+                    cuteToast({
+                        type: "error",
+                        message: msg,
+                        timer: 3000
+                    });
+                } else {
+                    console.log('Other error:', err);
+                    cuteToast({
+                        type: "error",
+                        message: "حدث خطأ من فضلك راجع البيانات المدخلة",
+                        timer: 3000
+                    });
+                }
             }
+
         });
     });
 
@@ -677,11 +692,26 @@
                 @endif
             },
             error: function(err){
-                cuteToast({
-                    type: "error",
-                    message: "{{__('frontend.something went wrong')}}",
-                    timer: 3000
-                });
+                $('#submitBtn').attr('disabled', false);
+                $('.btn-text').show();
+                $('#arrowIcon').show();
+                $('#dotLoader').addClass('d-none');
+                if (err.status === 409) {
+
+                    let msg = err.responseJSON?.message || 'رقم الجوال مسجل مسبقًا';
+                    cuteToast({
+                        type: "error",
+                        message: msg,
+                        timer: 3000
+                    });
+                } else {
+
+                    cuteToast({
+                        type: "error",
+                        message: "حدث خطأ من فضلك راجع البيانات المدخله",
+                        timer: 3000
+                    });
+                }
             }
         });
     });
