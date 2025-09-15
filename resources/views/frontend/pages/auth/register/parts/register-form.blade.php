@@ -17,59 +17,77 @@
                     <div class="auth-card">
                         <img src="{{ asset('frontend') }}/img/register.svg" alt="Register" class="auth-img">
 
-                        <form method="POST" action="{{ route('checkPhoneToSendOtp', ['branch' => request()->segment(1)]) }}" id="Form" class="mt-4">
+                        <form method="POST"
+                            action="{{ route('checkPhoneToSendOtp', ['branch' => request()->segment(1)]) }}"
+                            id="Form" class="mt-4" oninput='repeatPassword.setCustomValidity(repeatPassword.value !== password.value ? "تأكيد كلمة المرور غير مطابق" : "")'>
                             @csrf
+
+                            <!-- الاسم -->
                             <div class="mb-3">
-                                <label class="form-label"><i class="fas fa-user me-2"></i>{{ __('frontend.FullName') }}</label>
-                                <input type="text" name="name" id="name" class="form-control" placeholder="{{ __('frontend.enter FullName') }}"
-                                       data-validation="required,length" data-validation-length="min2">
+                                <label class="form-label">
+                                    <i class="fas fa-user me-2"></i>{{ __('frontend.FullName') }}
+                                </label>
+                                <input type="text" name="name" id="name" class="form-control"
+                                    placeholder="{{ __('frontend.enter FullName') }}"
+                                    required minlength="2">
                             </div>
 
+                            <!-- الجوال السعودي -->
                             <div class="mb-3">
-                                <label class="form-label"><i class="fas fa-phone-alt me-2"></i>{{ __('frontend.phone') }}</label>
+                                <label class="form-label">
+                                    <i class="fas fa-phone-alt me-2"></i>{{ __('frontend.phone') }}
+                                </label>
                                 <div class="input-group">
                                     <input type="text" name="phone" id="Phone" class="form-control"
-                                           placeholder="5********" data-validation="required,validatePhoneNumberOfSAR"
-                                           onkeypress="return isNumber(event)">
-                                    <span class="input-group-text">+966</span>
+                                        placeholder="5********"
+                                        pattern="^5\d{8}$"
+                                        title="رقم الجوال يجب أن يبدأ بـ5 ويليه 8 أرقام (مثال: 5xxxxxxxx)"
+                                        required>
+                                        <span class="input-group-text">+966</span>
                                 </div>
-                                <span class="form-error" id="phone-error"></span>
+
                             </div>
 
+                            <!-- كلمة المرور -->
                             <div class="mb-3 position-relative">
                                 <label class="form-label"><i class="fas fa-lock me-2"></i>{{ __('frontend.Password') }}</label>
                                 <div class="password-wrapper">
                                     <input type="password" name="password" id="password" class="form-control"
-                                           placeholder="*****" data-validation="required,length" data-validation-length="min6">
-                                    <span class="toggle-password" id="togglePassword" onclick="togglePassword('password', 'eyeIcon1')">
+                                        placeholder="*****"
+                                        required minlength="6"
+                                        title="كلمة المرور يجب ألا تقل عن 6 أحرف">
+                                    <span class="toggle-password" onclick="togglePassword('password','eyeIcon1')">
                                         <i class="fa-solid fa-eye" id="eyeIcon1"></i>
                                     </span>
                                 </div>
                             </div>
 
+                            <!-- تأكيد كلمة المرور -->
                             <div class="mb-3 position-relative">
                                 <label class="form-label"><i class="fas fa-lock me-2"></i>{{ __('frontend.confirmPassword') }}</label>
                                 <div class="password-wrapper">
                                     <input type="password" name="repeatPassword" id="repeatPassword" class="form-control"
-                                           placeholder="*****" data-validation="required,repeatPassword">
-                                    <span class="toggle-password" id="toggleRepeatPassword" onclick="togglePassword('repeatPassword', 'eyeIcon2')">
+                                        placeholder="*****"
+                                        required minlength="6"
+                                        title="يجب أن يكون مطابقًا لكلمة المرور">
+                                    <span class="toggle-password" onclick="togglePassword('repeatPassword','eyeIcon2')">
                                         <i class="fa-solid fa-eye" id="eyeIcon2"></i>
                                     </span>
                                 </div>
                             </div>
 
+                            <!-- زر الإرسال -->
                             <div class="d-grid pt-4">
                                 <button type="submit" class="btn-submit position-relative overflow-hidden text-center" id="submitBtn">
                                     <span class="btn-text">{{ __('frontend.RegisterPage') }}</span>
                                     <i class="fa-solid fa-arrow-left ms-2" id="arrowIcon"></i>
-
-                                    <!-- Loader -->
                                     <span class="dot-loader d-none" id="dotLoader">
                                         <span></span><span></span><span></span><span></span>
                                     </span>
                                 </button>
                             </div>
                         </form>
+
 
                         <p class="text-center mt-4">
                             {{ __('frontend.you already have account ?') }}
