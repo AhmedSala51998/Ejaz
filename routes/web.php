@@ -198,6 +198,16 @@ Route::group(
     ->where('branch','yanbu|riyadh|jeddah')
     ->name('all-workers');
 
+    // routes/web.php
+    Route::post('/check-phone', function (Illuminate\Http\Request $request) {
+        $phone = ltrim($request->phone, '0');
+        if (\App\Models\User::where('phone', $phone)->exists()) {
+            return response()->json(['exists' => true]);
+        }
+        return response()->json(['exists' => false]);
+    });
+
+
     /*Route::get('view-worker/{id}',[\App\Http\Controllers\Frontend\Worker\WorkerFrontController::class,'showWorker'])->name('showWorker');
 
 

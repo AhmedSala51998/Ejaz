@@ -600,69 +600,79 @@
 
     // زر نعم: إرسال الفورم وإرسال الكود الحقيقي
     $('#verifyYes').off('click').on('click', function() {
-        $('#verifyPhonePopup').addClass('d-none');
+        $('#verifyPhonePopup').addClass('d-none'); // إخفاء البوب أب
 
-        var myForm = $("#Form")[0];
-        var formData = new FormData(myForm);
-        var url = $('#Form').attr('action');
+        var phone = $('#Phone').val();
 
+        // ⬅️ تحقق أولاً من رقم الهاتف
         $.ajax({
-            url: url,
+            url: '/check-phone',
             type: 'POST',
-            data: formData,
-            processData: false,
-            contentType: false,
-            beforeSend: function() {
-                $('#submitBtn').attr('disabled', true);
-                $('.btn-text').hide();
-                $('#arrowIcon').hide();
-                $('#dotLoader').removeClass('d-none');
+            data: {
+                phone: phone,
+                _token: $('meta[name="csrf-token"]').attr('content')
             },
-            success: function(data) {
-                $('#submitBtn').attr('disabled', false);
-                $('.btn-text').show();
-                $('#arrowIcon').show();
-                $('#dotLoader').addClass('d-none');
-
-                codeSentToMobile = data;
-
-                $("#registerForm").hide();
-                $('#hide-code').show();
-                $('#register-hide').hide();
-                $("#CodeForm").show();
-                document.getElementById("vCodeIdFirst").focus();
-                timeOfSendingCode++;
-                sendActivationCodeToPhone(); // دالة إرسال الكود
-            },
-            error: function(err){
-                $('#submitBtn').attr('disabled', false);
-                $('.btn-text').show();
-                $('#arrowIcon').show();
-                $('#dotLoader').addClass('d-none');
-
-                if (err.status === 409) {
-                    // جرّب التقاط النص سواء JSON أو HTML
-                    let msg = (err.responseJSON && err.responseJSON.message)
-                            ? err.responseJSON.message
-                            : (err.responseText || 'رقم الجوال مسجل مسبقًا');
-                    console.log('409 message:', msg); // للتشخيص
+            success: function(res) {
+                if (res.exists) {
+                    $('#submitBtn').attr('disabled', false);
+                    $('.btn-text').show();
+                    $('#arrowIcon').show();
+                    $('#dotLoader').addClass('d-none');
+                    // ⛔ الرقم موجود بالفعل → أظهر رسالة وارجع
                     cuteToast({
                         type: "error",
-                        message: msg,
+                        message: "رقم الجوال مسجل مسبقًا",
                         timer: 3000
                     });
-                } else {
-                    console.log('Other error:', err);
-                    cuteToast({
-                        type: "error",
-                        message: "حدث خطأ من فضلك راجع البيانات المدخلة",
-                        timer: 3000
-                    });
+                    return;
                 }
-            }
 
+                // ✅ الرقم جديد → أكمل عملية الإرسال
+                var myForm = $("#Form")[0];
+                var formData = new FormData(myForm);
+                var url = $('#Form').attr('action');
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    beforeSend: function() {
+                        $('#submitBtn').attr('disabled', true);
+                        $('.btn-text').hide();
+                        $('#arrowIcon').hide();
+                        $('#dotLoader').removeClass('d-none');
+                    },
+                    success: function(data) {
+                        $('#submitBtn').attr('disabled', false);
+                        $('.btn-text').show();
+                        $('#arrowIcon').show();
+                        $('#dotLoader').addClass('d-none');
+
+                        // ✅ هنا نعرض صفحة الكود فقط لو الرقم جديد
+                        codeSentToMobile = data;
+                        $("#registerForm").hide();
+                        $('#hide-code').show();
+                        $('#register-hide').hide();
+                        $("#CodeForm").show();
+                        document.getElementById("vCodeIdFirst").focus();
+                        timeOfSendingCode++;
+                        sendActivationCodeToPhone();
+                    },
+                    error: function(err) {
+                        $('#submitBtn').attr('disabled', false);
+                        $('.btn-text').show();
+                        $('#arrowIcon').show();
+                        $('#dotLoader').addClass('d-none');
+                        let msg = err.responseJSON?.message || err.responseText || "حدث خطأ";
+                        cuteToast({ type: "error", message: msg, timer: 3000 });
+                    }
+                });
+            }
         });
     });
+
 
     // زر لا: لا نرسل كود حقيقي وننقل مباشرة للصفحة المناسبة
     $('#verifyNo').off('click').on('click', function() {
