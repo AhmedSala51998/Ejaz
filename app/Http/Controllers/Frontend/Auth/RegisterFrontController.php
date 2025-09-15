@@ -15,13 +15,15 @@ class RegisterFrontController extends Controller
     use Upload_Files;
     use MesgatSMS;
 
-    public function register_view($id='')
+    public function register_view()
     {
         if (auth()->check()) {
             toastr()->error(__('frontend.errorMessageAuth'),__('frontend.errorTitleAuth'));
             return redirect()->back();
         }
-        return view('frontend.pages.auth.register.register',compact('id'));
+        $branch = request()->segment(1); // yanbu
+        $id = request()->segment(3);
+        return view('frontend.pages.auth.register.register',compact('id','branch'));
     }//end fun
 
 
@@ -53,9 +55,16 @@ class RegisterFrontController extends Controller
         //     return response()->json([],403);
         // }
         $data = $request->validated();
+
+        // إزالة أي حقل غير موجود في جدول users
+        unset($data['code']);
         //$data['logo'] = $this->upload_image_or_make_new_image($request->logo , substr($request->name, 0, 2) );
         $data['logo'] = NULL;
-        $data['phone_activation_code'] = $request->code;
+        if(isset($request->code) && !empty($request->code)){
+          $data['phone_activation_code'] = $request->code;
+        }else{
+            $data['phone_activation_code'] = 1234;
+        }
         $data['activated_at'] = now();
         $number=$data['phone'];
         $numlength = strlen((string)$data['phone']);

@@ -437,6 +437,79 @@
     animation-delay: 0.6s;
 }
 
+.verify-phone-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.verify-phone-popup.d-none {
+    display: none;
+}
+
+.verify-phone-content {
+    background: #fff;
+    padding: 30px 25px;
+    border-radius: 20px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    animation: popupFade 0.3s ease-in-out;
+}
+
+.verify-phone-content h3 {
+    margin-bottom: 15px;
+    font-size: 20px;
+    color: #333;
+}
+
+.verify-phone-content p {
+    margin-bottom: 25px;
+    color: #555;
+}
+
+.verify-phone-buttons button {
+    padding: 10px 20px;
+    border-radius: 12px;
+    border: none;
+    margin: 0 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-yes {
+    background: #f4a835;
+    color: #fff;
+}
+
+.btn-yes:hover {
+    background: #d88f1e;
+}
+
+.btn-no {
+    background: #eee;
+    color: #333;
+}
+
+.btn-no:hover {
+    background: #ccc;
+}
+
+@keyframes popupFade {
+    0% { transform: scale(0.7); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+
 @keyframes dotFlashing {
     0% { opacity: 1; transform: scale(1); }
     50% { opacity: 0.3; transform: scale(0.6); }
@@ -451,39 +524,19 @@
     <div id="displaySectionHere">
         @include('frontend.pages.auth.register.parts.register-form')
         @include('frontend.pages.auth.register.parts.code')
-    </div
-    <!-- ✅ نافذة التأكيد الفخمة -->
-<div class="modal fade" id="confirmModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
-    <div class="modal-content border-0 rounded-4 shadow-lg position-relative overflow-hidden">
-      <!-- خلفية زخرفية -->
-      <div class="position-absolute top-0 start-0 w-100 h-100"
-           style="background:linear-gradient(135deg,#f4a835,#ffdd99);opacity:0.08;">
-      </div>
-      <div class="modal-header border-0 z-1">
-        <h5 class="modal-title fw-bold text-warning">
-          <i class="fa fa-mobile-alt me-2"></i>تأكيد التحقق
-        </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
-      </div>
-      <div class="modal-body text-center z-1">
-        <p class="fs-5 mb-4 fw-semibold text-dark">
-          هل تريد التحقق من رقم جوالك بإرسال كود تفعيل؟
-        </p>
-        <div class="d-flex justify-content-center gap-4">
-          <button id="confirmYes" class="btn px-5 py-2 fw-bold text-white"
-                  style="background:#f4a835;border-radius:30px;">
-            نعم
-          </button>
-          <button id="confirmNo" class="btn px-5 py-2 fw-bold"
-                  style="background:#e4e4e4;border-radius:30px;color:#333;">
-            لا
-          </button>
+        <!-- Verification Popup -->
+        <div id="verifyPhonePopup" class="verify-phone-popup d-none">
+            <div class="verify-phone-content">
+                <h3>هل تريدنا التحقق من رقم جوالك؟</h3>
+                <p>سنرسل لك كود تفعيل لتأكيد رقم جوالك.</p>
+                <div class="verify-phone-buttons">
+                    <button id="verifyYes" class="btn-yes">نعم</button>
+                    <button id="verifyNo" class="btn-no">لا</button>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
+
+    </div
 @endsection
 
 @section('js')
@@ -534,99 +587,104 @@
         });
 
         var codeSentToMobile
-$(document).on('submit','form#Form',function(e) {
-  e.preventDefault();
-  const form = this;
-  const formData = new FormData(form);
-  const url = $('#Form').attr('action');
+        $(document).on('submit', 'form#Form', function(e) {
+    e.preventDefault(); // تمنع الإرسال الافتراضي
 
-  // تفعيل اللودر
-  $('#submitBtn').attr('disabled',true);
-  $('.btn-text').hide();
-  $('#arrowIcon').hide();
-  $('#dotLoader').removeClass('d-none');
+    // تحديث الحقول الداخلية
+    $("#nameInCode").val($("#name").val())
+    $("#passwordInCode").val($("#password").val())
+    $("#phoneInCode").val($("#Phone").val())
 
-  $.ajax({
-    url: url,
-    type:'POST',
-    data: formData,
-    success: function(data){
-      // رجع نجاح → أوقف اللودر وأظهر النافذة
-      $('#submitBtn').attr('disabled',false);
-      $('.btn-text').show();
-      $('#arrowIcon').show();
-      $('#dotLoader').addClass('d-none');
+    // إظهار Popup للسؤال
+    $('#verifyPhonePopup').removeClass('d-none');
 
-      const modal = new bootstrap.Modal(document.getElementById('confirmModal'));
-      modal.show();
+    // زر نعم: إرسال الفورم وإرسال الكود الحقيقي
+    $('#verifyYes').off('click').on('click', function() {
+        $('#verifyPhonePopup').addClass('d-none');
 
-      // زر نعم → إرسال الكود وإظهار نموذج التفعيل
-    $('#confirmYes').off('click').on('click',function(){
-    window.codeSentToMobile = data;
-    console.log(window.codeSentToMobile);
-    modal.hide();
-    cuteToast({
-        type:"success",
-        message:"{{__('frontend.Code Is Sent to Your phone')}}",
-        timer:3000
-    });
-    $("#registerForm").hide();
-    $('#hide-code').show();
-    $('#register-hide').hide();
-    $("#CodeForm").show();
-    document.getElementById("vCodeIdFirst").focus();
-    });
+        var myForm = $("#Form")[0];
+        var formData = new FormData(myForm);
+        var url = $('#Form').attr('action');
 
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            beforeSend: function() {
+                $('#submitBtn').attr('disabled', true);
+                $('.btn-text').hide();
+                $('#arrowIcon').hide();
+                $('#dotLoader').removeClass('d-none');
+            },
+            success: function(data) {
+                $('#submitBtn').attr('disabled', false);
+                $('.btn-text').show();
+                $('#arrowIcon').show();
+                $('#dotLoader').addClass('d-none');
 
-      // زر لا → تسجيل مباشرة
-    // زر لا → تسجيل مباشرة
-    $('#confirmNo').off('click').on('click', function(){
-    modal.hide();
-    fetch("{{ route('register_action',['branch'=>request()->segment(1)]) }}", {
-        method: 'POST',
-        body: formData,
-        headers: { 'X-CSRF-TOKEN': $('input[name=_token]').val() }
-    })
-    .then(res => {
-        if (!res.ok) throw new Error('خطأ في التسجيل');
-        return res.json();
-    })
-    .then(resp => {
-        if (resp.user) {
-        // ✅ أظهر رسالة نجاح
-        cuteToast({
-            type: "success",
-            message: "تم إنشاء حسابك بنجاح 🎉",
-            timer: 3000
+                codeSentToMobile = data;
+
+                $("#registerForm").hide();
+                $('#hide-code').show();
+                $('#register-hide').hide();
+                $("#CodeForm").show();
+                document.getElementById("vCodeIdFirst").focus();
+                timeOfSendingCode++;
+                sendActivationCodeToPhone(); // دالة إرسال الكود
+            },
+            error: function(err){
+                $('#submitBtn').attr('disabled', false);
+                $('.btn-text').show();
+                $('#arrowIcon').show();
+                $('#dotLoader').addClass('d-none');
+
+                cuteToast({
+                    type: "error",
+                    message: "{{__('frontend.something went wrong')}}",
+                    timer: 3000
+                });
+            }
         });
-        // ✅ توجيه للصفحة الرئيسية
-        setTimeout(() => {
-            window.location.href = "{{ route('home',['branch'=>request()->segment(1)]) }}";
-        }, 1500);
-        }
-    })
-    .catch(err => console.error(err));
     });
 
-    },
-    error: function(err){
-      $('#submitBtn').attr('disabled',false);
-      $('.btn-text').show();
-      $('#arrowIcon').show();
-      $('#dotLoader').addClass('d-none');
+    // زر لا: لا نرسل كود حقيقي وننقل مباشرة للصفحة المناسبة
+    $('#verifyNo').off('click').on('click', function() {
+        $('#verifyPhonePopup').addClass('d-none');
 
-      if(err.status===422){
-        cuteToast({type:"error",message:"{{__('frontend.please , fill all input with correct data')}}",timer:3000});
-      }else if(err.status===403||err.status===500){
-        cuteToast({type:"error",message:"{{__('frontend.the phone is already exists')}}",timer:3000});
-      }else{
-        cuteToast({type:"error",message:"{{__('frontend.something went wrong')}}",timer:3000});
-      }
-    },
-    cache:false,
-    contentType:false,
-    processData:false
-  });
+        var myForm = $("#Form")[0];
+        var formData = new FormData(myForm);
+        formData.append('code', '1234'); // كود افتراضي
+
+        $.ajax({
+            url: "{{ route('register_action', ['branch' => request()->segment(1)]) }}",
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(res){
+                cuteToast({
+                    type: "success",
+                    message: "تم تسجيل حسابك بنجاح",
+                    timer: 3000
+                });
+
+                @if(request()->segment(3))
+                    location.href = "{{ route('frontend.show.worker', ['branch' => request()->segment(1), 'id' => request()->segment(3)]) }}";
+                @else
+                    location.href = "{{ route('auth.profile', ['branch' => request()->segment(1)]) }}";
+                @endif
+            },
+            error: function(err){
+                cuteToast({
+                    type: "error",
+                    message: "{{__('frontend.something went wrong')}}",
+                    timer: 3000
+                });
+            }
+        });
+    });
 });
 
 
@@ -636,7 +694,7 @@ $(document).on('submit','form#Form',function(e) {
         var vCode = (function () {
             //cache dom
             var $inputs = $("#vCode").find("input");
-            //bind events-+
+            //bind events
             $inputs.on('keyup', processInput);
             //define methods
             function processInput(e) {
@@ -670,7 +728,6 @@ $(document).on('submit','form#Form',function(e) {
     var inputs = $(".vCode-input");
     for (var i = 0; i < inputs.length; i++) {
         if ($(inputs[i]).val() == '' || $(inputs[i]).val() == null) {
-            console.log(1);
             cuteToast({
                 type: "error",
                 message: "{{__('frontend.please , fill all input with correct code')}}",
@@ -681,7 +738,7 @@ $(document).on('submit','form#Form',function(e) {
             codeHere.push($(inputs[i]).val());
         }
     }
-    console.log(codeHere.join(''));
+
     if (codeSentToMobile != codeHere.join('')) {
         cuteToast({
             type: "error",
@@ -734,11 +791,17 @@ $(document).on('submit','form#Form',function(e) {
                 });
             }
 
-            if (data.status === 415) {
-                var branch = "{{ request()->segment(1) }}";
-                var url = "{{ route('frontend.show.worker', ['branch' => request()->segment(1) , 'id' => $id]) }}";
-                location.replace(url);
+           if (data.status === 415) {
+                @if(!empty($id))
+                    var url = "{{ route('frontend.show.worker', ['branch' => request()->segment(1), 'id' => $id]) }}";
+                    location.replace(url);
+                @else
+                    // لو $id مش موجود، ممكن تحول المستخدم للـ branch page فقط أو صفحة افتراضية
+                    var url = "{{ url(request()->segment(1) . '/worker') }}"; // أو أي صفحة مناسبة
+                    location.replace(url);
+                @endif
             }
+
 
             if (data.status === 422) {
                 cuteToast({
