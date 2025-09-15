@@ -66,7 +66,7 @@ class RegisterFrontController extends Controller
         $user = User::create($data);
         auth()->login($user);
         if ($request->id!=''){
-            return response()->json(["user"=>$user],200);
+            return response()->json(["user"=>$user],415);
         }
         return response()->json(["user"=>$user],200);
     }//end fun
