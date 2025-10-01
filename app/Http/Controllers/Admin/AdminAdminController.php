@@ -42,6 +42,18 @@ class AdminAdminController extends Controller
                 $delete='hidden';
 
             return DataTables::of($admins)
+                ->addColumn('branch', function ($admin) {
+                    $branchColor = 'secondary';
+                    if ($admin->branch == 'riyadh') {
+                        $branchColor = 'primary';
+                    } elseif ($admin->branch == 'jeddah') {
+                        $branchColor = 'success';
+                    } elseif ($admin->branch == 'yanbu') {
+                        $branchColor = 'warning';
+                    }
+
+                    return '<span class="badge bg-' . $branchColor . '">' . $admin->branch . '</span>';
+                })
                 ->editColumn('image', function ($admin) {
                     return ' <img height="60px" src="' . get_file($admin->image) . '" class=" w-60 rounded"
                              onclick="window.open(this.src)">';
@@ -108,6 +120,7 @@ class AdminAdminController extends Controller
             'whats_up_number' => 'nullable',
             'image' => 'nullable|file|image',
             'admin_type'=>'required',
+            'branch'=>'required',
         ]);
         $data['password'] = bcrypt($request->password);
         $data ['image'] = $this->uploadFiles('admins', $request->file('image'), null);
@@ -181,6 +194,7 @@ class AdminAdminController extends Controller
             'phone' => 'required',
             'whats_up_number' => 'nullable',
             'admin_type'=>'required',
+            'branch'=>'required',
 
         ]);
         try {

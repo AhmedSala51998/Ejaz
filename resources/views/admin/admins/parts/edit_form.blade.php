@@ -75,6 +75,16 @@
                        id="whats_up_number" name="whats_up_number" placeholder=" ">
             </div>
         </div>
+        <div class=" col-md-4 p-2 pt-3">
+            <div class="form-group">
+                <label for="branch">الفرع</label>
+                <select data-validation="required" name="branch" id="branch" class="form-control">
+                    <option value="jeddah" {{ $admin->branch == "jeddah" ? "selected" : "" }}>جدة</option>
+                    <option value="yanbu" {{ $admin->branch == "yanbu" ? "selected" : "" }}>ينبع</option>
+                    <option value="riyadh" {{ $admin->branch == "riyadh" ? "selected" : "" }}>الرياض</option>
+                </select>
+            </div>
+        </div>
 
 
 

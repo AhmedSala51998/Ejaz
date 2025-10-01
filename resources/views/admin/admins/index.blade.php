@@ -85,7 +85,7 @@
                                     <i  class="mdi mdi-trash-can-outline me-1  " style=" width: 50% !important;height: 50% !important;"></i>
                                 </a>
                             </th>
-
+                            <th>الفرع</th>
                             <th>الصورة</th>
                             <th>الاسم</th>
                             <th>البريد الالكترونى</th>

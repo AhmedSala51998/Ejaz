@@ -80,7 +80,16 @@
                        name="whats_up_number" placeholder=" ">
             </div>
         </div>
-
+        <div class="col-md-4 p-2 pt-3">
+            <div class="form-group">
+                <label for="branch">الفرع</label>
+                <select data-validation="required" name="branch" id="branch" class="form-control">
+                    <option value="riyadh">الرياض</option>
+                    <option value="jeddah">جدة</option>
+                    <option value="yanbu">ينبع</option>
+                </select>
+            </div>
+        </div>
 
     </div>
 </form>

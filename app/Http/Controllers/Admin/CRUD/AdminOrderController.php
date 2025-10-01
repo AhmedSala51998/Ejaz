@@ -566,7 +566,7 @@ class AdminOrderController extends Controller
             // ✅ إرسال رسالة للعميل
         $clientPhone = $order->user->phone ?? null;
         $workerName = $order->biography->cv_name ?? 'العاملة';
-        
+
         if (!empty($clientPhone)) {
             $msg = "انتهت مهلة الحجز المحددة للسيرة الذاتية: {$workerName}، وتم إلغاء الحجز تلقائيًا.";
             $this->sendSMS($clientPhone, $msg);
