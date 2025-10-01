@@ -463,7 +463,7 @@ body.sticky-header-active {
                     </svg>
                 </button>
                 <ul class="navbar-nav">
-                    <li><a class="navLink {{ Request::routeIs('home') ? 'active' : '' }}" href="{{route('home' , ['branch' => request()->segment(1)])}}"> {{__('frontend.Home')}} </a></li>
+                    <li><a class="navLink {{ Request::routeIs('home') || Request::routeIs('branch.home') ? 'active' : '' }}" href="{{route('home' , ['branch' => request()->segment(1)])}}"> {{__('frontend.Home')}} </a></li>
                     <li class="dropdownWrapper">
                         <a class="navLink dropdownToggle {{ Request::routeIs(['all-workers', 'transferService', 'services-single']) ? 'active' : '' }}" href="javascript:void(0);" id="toggleCategories">
                             خدماتنا
