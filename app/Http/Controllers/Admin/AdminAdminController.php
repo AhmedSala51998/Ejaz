@@ -43,16 +43,22 @@ class AdminAdminController extends Controller
 
             return DataTables::of($admins)
                 ->addColumn('branch', function ($admin) {
-                    $branchColor = 'secondary';
-                    if ($admin->branch == 'riyadh') {
-                        $branchColor = 'primary';
-                    } elseif ($admin->branch == 'jeddah') {
-                        $branchColor = 'success';
-                    } elseif ($admin->branch == 'yanbu') {
-                        $branchColor = 'warning';
-                    }
+                    $map = [
+                        'riyadh' => 'riyadh',
+                        'jeddah' => 'jeddah',
+                        'yanbu'  => 'yanbu',
+                    ];
+                    $colors = [
+                        'riyadh' => 'primary',
+                        'jeddah' => 'success',
+                        'yanbu'  => 'warning',
+                    ];
 
-                    return '<span class="badge bg-' . $branchColor . '">' . $admin->branch . '</span>';
+                    $key = $admin->branch;
+                    $label = isset($map[$key]) ? $map[$key] : $key;
+                    $branchColor = isset($colors[$key]) ? $colors[$key] : 'secondary';
+
+                    return '<span class="badge bg-' . $branchColor . '">' . $label . '</span>';
                 })
                 ->editColumn('image', function ($admin) {
                     return ' <img height="60px" src="' . get_file($admin->image) . '" class=" w-60 rounded"
