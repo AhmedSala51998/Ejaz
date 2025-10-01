@@ -442,10 +442,9 @@ body.sticky-header-active {
 
 </style>
 @php
-    $isHomePage = request()->routeIs('home') && request()->segment(2) === null;
+    $isHomePage = request()->routeIs('home') || (request()->route()->getName() === 'home');
     $headerClass = $isHomePage ? 'homepage-header' : 'default-header';
 @endphp
-
 
 <header class="main-header {{ $headerClass }}" id="mainHeader">
     <div class="container-fluid">
