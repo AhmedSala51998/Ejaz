@@ -442,7 +442,7 @@ body.sticky-header-active {
 
 </style>
 @php
-    $isHomePage = Request::is(''); // Check if current route is homepage
+    $isHomePage = Request::is('/'); // Check if current route is homepage
     $headerClass = $isHomePage ? 'homepage-header' : 'default-header';
 
 @endphp
