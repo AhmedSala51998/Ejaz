@@ -30,7 +30,7 @@ body {
 /* Header Background for Other Pages (default is light/white) */
 .main-header.default-header {
     background: linear-gradient(to bottom, #fcefdc 0%, #ffffff 100%); /* Pure white background */
-    border-color: rgba(0, 0, 0, 0.08); /* Slightly more visible border for white header */
+    border-color: rgba(252, 239, 220, 0.5); /* Slightly more visible border for white header */
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Default shadow for white header */
 }
 
@@ -539,7 +539,14 @@ body.sticky-header-active {
         <button id="closeSidebar" class="close-btn">&times;</button>
     </div>
     <ul class="sidebar-nav">
-        <li><a class="{{ Request::routeIs('home') ? 'active' : '' }}" href="{{route('home' , ['branch' => request()->segment(1)])}}">الرئيسية</a></li>
+        <li>
+            <a class="{{ Request::routeIs('home') || Request::routeIs('branch.home') ? 'active' : '' }}"
+                href="{{ Request::routeIs('branch.home')
+                            ? route('branch.home', ['branch' => request()->segment(1)])
+                            : route('home') }}">
+                الرئيسية
+            </a>
+        </li>
         <li><a class="{{ Request::routeIs('all-workers') ? 'active' : '' }}" href="{{ route('all-workers', ['branch' => request()->segment(1)]) }}">طلب استقدام</a></li>
         <li><a class="{{ Request::routeIs('transferService') ? 'active' : '' }}" href="{{ route('transferService' , ['branch' => request()->segment(1)]) }}">طلب نقل خدمات</a></li>
         <li><a class="{{ Request::routeIs('services-single') ? 'active' : '' }}" href="{{ route('services-single' , ['branch' => request()->segment(1)]) }}">خدمات فردية</a></li>
