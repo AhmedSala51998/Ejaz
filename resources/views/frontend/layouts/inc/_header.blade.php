@@ -442,8 +442,9 @@ body.sticky-header-active {
 
 </style>
 @php
-    $isHomePage = request()->routeIs('home') || (request()->route()->getName() === 'home');
+    $isHomePage = Request::is('/'); // Check if current route is homepage
     $headerClass = $isHomePage ? 'homepage-header' : 'default-header';
+
 @endphp
 
 <header class="main-header {{ $headerClass }}" id="mainHeader">
@@ -622,13 +623,19 @@ body.sticky-header-active {
 
         // Function to check and set active class
         const setActiveLink = (link) => {
-            const linkPath = new URL(link.href).pathname;
-            const currentPath = new URL(currentUrl).pathname;
-
-            // ✅ اعتبر الرئيسية صحيحة حتى مع الفرع
-            if (linkPath === currentPath || (linkPath.endsWith("{{ request()->segment(1) }}") && currentPath === "/{{ request()->segment(1) }}")) {
-                link.classList.add("active");
-                return true;
+            try {
+                const linkPath = new URL(link.href).pathname;
+                const currentPath = new URL(currentUrl).pathname;
+                if (linkPath === currentPath) {
+                    link.classList.add("active");
+                    return true; // Return true if link is active
+                } else {
+                    link.classList.remove("active");
+                    return false;
+                }
+            } catch (e) {
+                console.error("Invalid URL for link:", link.href, e);
+                return false;
             }
         };
 
