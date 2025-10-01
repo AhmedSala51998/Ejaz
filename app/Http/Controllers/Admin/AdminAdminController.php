@@ -82,7 +82,7 @@ class AdminAdminController extends Controller
                         $delete='hidden';
                     return "<button ".$edit."   class='btn btn-info editButton' id='" . $admin->id . "'> <i class='fa fa-edit'></i></button>
                    <button " .$delete. " class='btn btn-danger  delete' id='" . $admin->id . "'><i class='fa fa-trash'></i> </button>";
-                })->rawColumns(['actions', 'image', 'whats_up_number', 'delete_all'])->make(true);
+                })->rawColumns(['actions', 'image', 'whats_up_number', 'delete_all' , 'branch'])->make(true);
         }
         return view('admin.admins.index');
     }//end fun
