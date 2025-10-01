@@ -615,7 +615,7 @@
     <div class="head">
         <h5> <i class="fas fa-user me-2"></i> {{__('frontend.Personal Info')}}</h5>
     </div>
-    <form method="post" action="{{route('profile.changeBasicDataOFProfile')}}" class="row" id="Form">
+    <form method="post" action="{{route('profile.changeBasicDataOFProfile', ['branch' => request()->segment(1)])}}" class="row" id="Form">
         @csrf
         <div class="col-12 p-2">
         @php
@@ -684,7 +684,7 @@
     <div class="head">
         <h5> <i class="fas fa-key me-2"></i> {{__('frontend.change Password')}} </h5>
     </div>
-    <form method="post" action="{{route('profile.changePasswordOFProfile')}}" class="row" id="FormPassword">
+    <form method="post" action="{{route('profile.changePasswordOFProfile', ['branch' => request()->segment(1)])}}" class="row" id="FormPassword">
         @csrf
 
         <div class="col-md-6 p-2 passwordDiv">
@@ -713,7 +713,7 @@
     </div>
     <div id="displaySectionHere">
         <section id="registerForm">
-            <form method="post" action="{{route('checkPhoneToSendOtpTOChangePhone')}}" class="row" id="ChangePhoneForm">
+            <form method="post" action="{{route('checkPhoneToSendOtpTOChangePhone', ['branch' => request()->segment(1)])}}" class="row" id="ChangePhoneForm">
                 @csrf
 
                 <div class="col-12 p-2">
@@ -733,7 +733,7 @@
         </section>
 
         <section  id="CodeForm" style="display: none">
-            <form id="CompleteRegister" method="post" action="{{route('ChangePhoneProfile')}}" class="row">
+            <form id="CompleteRegister" method="post" action="{{route('ChangePhoneProfile', ['branch' => request()->segment(1)])}}" class="row">
                 @csrf
                 <input type="hidden" name="name" value="" id="nameInCode">
                 <input type="hidden" name="password" value="" id="passwordInCode">
