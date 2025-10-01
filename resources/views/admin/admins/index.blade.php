@@ -173,6 +173,7 @@
             "ajax": "{{route('admins.index')}}",
             "columns": [
                 {"data": "delete_all", orderable: false, searchable: false},
+                {"data": "branch", orderable: false, searchable: false},
                 {"data": "image", orderable: false, searchable: false},
                 {"data": "name",   orderable: false,searchable: true},
                 {"data": "email",   orderable: false,searchable: false},
