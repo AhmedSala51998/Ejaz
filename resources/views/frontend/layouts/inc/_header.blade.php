@@ -29,7 +29,7 @@ body {
 
 /* Header Background for Other Pages (default is light/white) */
 .main-header.default-header {
-    background: linear-gradient(to bottom, #fcefdc 0%, #ffffff 100%); /* Pure white background */
+    background: #ffffff; /* Pure white background */
     border-color: rgba(0, 0, 0, 0.08); /* Slightly more visible border for white header */
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Default shadow for white header */
 }
@@ -442,7 +442,7 @@ body.sticky-header-active {
 
 </style>
 @php
-    $isHomePage = Request::is('/'); // Check if current route is homepage
+    $isHomePage = Request::routeIs('home'); // Check if current route is homepage
     $headerClass = $isHomePage ? 'homepage-header' : 'default-header';
 
 @endphp
