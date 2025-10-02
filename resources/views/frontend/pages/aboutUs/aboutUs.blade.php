@@ -124,7 +124,16 @@
             </div>
             <div class="col-lg-6 col-12 position-relative">
                 <div class="img">
-                    <img src="{{asset('frontend/img/about3.jpg')}}" alt="">
+                    @if(request()->segment(1) == 'yanbu')
+                        <img src="{{ asset('frontend/img/about_yanbu.jpg') }}" alt="Yanbu">
+                    @elseif(request()->segment(1) == 'jeddah')
+                        <img src="{{ asset('frontend/img/about_jeddah.jpg') }}" alt="Jeddah">
+                    @elseif(request()->segment(1) == 'riyadh')
+                        <img src="{{ asset('frontend/img/about_riyadh.jpg') }}" alt="Riyadh">
+                    @else
+                        <img src="{{ asset('frontend/img/about_yanbu.jpg') }}" alt="Default">
+                    @endif
+
                     <div class="bun">
                         <h6>
                             يمكنك الأن استقدام عمالتك لفترات محدودة ماذا تنتظر!؟
