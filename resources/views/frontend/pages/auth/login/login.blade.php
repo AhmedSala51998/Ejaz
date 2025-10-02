@@ -435,7 +435,9 @@
                                     id="phone"
                                     class="form-control"
                                     placeholder="5xxxxxxxx"
-                                    data-validation="required,validatePhoneNumberOfSAR">
+                                    data-validation="required,validatePhoneNumberOfSAR"
+                                    pattern="^5\d{8}$"
+                                    title="رقم الجوال يجب أن يبدأ بـ5 ويليه 8 أرقام (مثال: 5xxxxxxxx)">
                                 <span class="input-group-text">+966</span>
                             </div>
                             <span class="form-error" id="phone-error"></span>
