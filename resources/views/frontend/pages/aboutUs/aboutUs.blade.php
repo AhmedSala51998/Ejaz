@@ -133,7 +133,6 @@
                     @else
                         <img src="{{ asset('frontend/img/about_yanbu.jpg') }}" alt="Default">
                     @endif
-
                     <div class="bun">
                         <h6>
                             يمكنك الأن استقدام عمالتك لفترات محدودة ماذا تنتظر!؟
