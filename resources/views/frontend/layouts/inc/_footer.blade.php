@@ -125,9 +125,10 @@
                 <h3>روابط تهمك</h3>
                 <ul>
                     <li><a href="{{checkRouteIsHome('#popular_service')}}">{{__('frontend.OurServices')}}</a></li>
+                    <li><a href="{{route('frontend.aboutUs' , ['branch' => request()->segment(1)])}}">من نحن</a></li>
                     <li><a href="{{route('frontend.show.countries' , ['branch' => request()->segment(1)])}}">دول الاستقدام</a></li>
                     <li><a href="{{route('frontend.show.ourStaff' , ['branch' => request()->segment(1)])}}">خدمة العملاء</a></li>
-                    <li><a href="{{route('frontend.supports' , ['branch' => request()->segment(1)])}}">{{__('frontend.faq')}}</a></li>
+                    <!--<li><a href="{{route('frontend.supports' , ['branch' => request()->segment(1)])}}">{{__('frontend.faq')}}</a></li>-->
                     <li><a href="{{route('frontend.supports.contactUs' , ['branch' => request()->segment(1)])}}">{{__('frontend.contactUs')}}</a></li>
                 </ul>
             </div>
