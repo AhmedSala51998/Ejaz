@@ -39,7 +39,7 @@ if (!function_exists('setting')) {
     }
 }
 
-if (!function_exists('checkRouteIsHome')) {
+/*if (!function_exists('checkRouteIsHome')) {
     function checkRouteIsHome($id)
     {
         if (request()->routeIs('home')) {
@@ -48,7 +48,33 @@ if (!function_exists('checkRouteIsHome')) {
             return  route('home').$id;
         }
     }
+}*/
+
+if (!function_exists('checkRouteIsHome')) {
+    function checkRouteIsHome($id)
+    {
+        // لو أنا في الـ landing (/) العادي
+        if (request()->routeIs('home')) {
+            return $id;
+        }
+
+        // لو أنا في صفحة فرع معين
+        if (request()->routeIs('branch.home')) {
+            $branch = request()->route('branch');
+            return $id; // لأننا بالفعل في نفس الفرع
+        }
+
+        // في أي صفحة تانية، رجّع لينك الفرع الحالي
+        $branch = request()->segment(1); // yanbu / riyadh / jeddah
+        if (in_array($branch, ['yanbu','riyadh','jeddah'])) {
+            return route('branch.home', ['branch' => $branch]) . $id;
+        }
+
+        // fallback → landing page
+        return route('home') . $id;
+    }
 }
+
 
 if (!function_exists('years_between_two_date')) {
     function years_between_two_date($first)
