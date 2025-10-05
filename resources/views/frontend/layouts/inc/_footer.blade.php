@@ -136,7 +136,15 @@
             <div class="col-lg-4">
                 <h3>مزيد من الدعم</h3>
                 <ul class="connect">
-                    <li><i class="fa-light fa-location-dot"></i> {{$settings->address1??"السعودية - الرياض - شارع الوحدة"}}</li>
+                    @if(request()->segment(1) == 'yanbu')
+                      <li><i class="fa-light fa-location-dot"></i> {{$settings->address1??"السعودية - الرياض - شارع الوحدة"}}</li>
+                    @elseif(request()->segment(1) == 'jeddah')
+                      <li><i class="fa-light fa-location-dot"></i> الامير فيصل, Al Khalidiyyah, Jeddah 23423</li>
+                    @elseif(request()->segment(1) == 'riyadh')
+                        <li><i class="fa-light fa-location-dot"></i> {{$settings->address1??"السعودية - الرياض - شارع الوحدة"}}</li>
+                    @else
+                        <li><i class="fa-light fa-location-dot"></i> {{$settings->address1??"السعودية - الرياض - شارع الوحدة"}}</li>
+                    @endif
                     @if($settings->callNumber)
                         <li><i class="fa-light fa-phone"></i> <a href="tel:{{$settings->callNumber}}">{{$settings->callNumber}}</a></li>
                     @endif

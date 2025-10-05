@@ -722,11 +722,43 @@
                             <ul>
                                 <li class="" data-aos="fade-up">
                                     <span><i class="fa-solid fa-map-location"></i></span>
-                                    <p class="ms-3">
-                                        فروعنا :
-                                    <a target="_blank" href="https://goo.gl/maps/p3CTJFUrgS6djGSW6" > {{ $settings->address1 ?? "السعودية - الرياض - شارع الوحدة" }}</a> <br>
-                                    <a target="_blank" href="https://goo.gl/maps/p3CTJFUrgS6djGSW6" > {{ $settings->address2 ?? "السعودية - الرياض - شارع الوحدة" }}</a>
-                                    </p>
+                                    @if(request()->segment(1) == 'yanbu')
+                                      <p class="ms-3">
+                                            فروعنا :
+                                        <a target="_blank" href="https://maps.app.goo.gl/cAvHub78qk2jcy9DA" > {{ $settings->address1 ?? "السعودية - الرياض - شارع الوحدة" }}</a> <br>
+                                        <ul>
+                                          <li><a target="_blank" href="https://maps.app.goo.gl/QaPjsmrTQ3jgcq6u8" > الامير فيصل, Al Khalidiyyah, Jeddah 23423</a></li>
+                                          <li><a target="_blank" href="https://maps.app.goo.gl/QaPjsmrTQ3jgcq6u8" > الامير فيصل, Al Khalidiyyah, Jeddah 23423</a></li>
+                                        </ul>
+                                      </p>
+                                    @elseif(request()->segment(1) == 'jeddah')
+                                        <p class="ms-3">
+                                            فروعنا :
+                                        <a target="_blank" href="https://maps.app.goo.gl/QaPjsmrTQ3jgcq6u8" > الامير فيصل, Al Khalidiyyah, Jeddah 23423</a> <br>
+                                        <ul>
+                                          <li><a target="_blank" href="https://maps.app.goo.gl/QaPjsmrTQ3jgcq6u8" > {{ $settings->address1 ?? "السعودية - الرياض - شارع الوحدة" }}</a></li>
+                                          <li><a target="_blank" href="https://maps.app.goo.gl/QaPjsmrTQ3jgcq6u8" > الامير فيصل, Al Khalidiyyah, Jeddah 23423</a></li>
+                                        </ul>
+                                       </p>
+                                        @elseif(request()->segment(1) == 'riyadh')
+                                        <p class="ms-3">
+                                            فروعنا :
+                                        <a target="_blank" href="https://maps.app.goo.gl/QaPjsmrTQ3jgcq6u8" > الامير فيصل, Al Khalidiyyah, Jeddah 23423</a> <br>
+                                        <ul>
+                                          <li><a target="_blank" href="https://maps.app.goo.gl/QaPjsmrTQ3jgcq6u8" > {{ $settings->address1 ?? "السعودية - الرياض - شارع الوحدة" }}</a></li>
+                                          <li><a target="_blank" href="https://maps.app.goo.gl/QaPjsmrTQ3jgcq6u8" > الامير فيصل, Al Khalidiyyah, Jeddah 23423</a></li>
+                                        </ul>
+                                       </p>
+                                       @else
+                                       <p class="ms-3">
+                                            فروعنا :
+                                        <a target="_blank" href="https://maps.app.goo.gl/cAvHub78qk2jcy9DA" > {{ $settings->address1 ?? "السعودية - الرياض - شارع الوحدة" }}</a> <br>
+                                        <ul>
+                                          <li><a target="_blank" href="https://maps.app.goo.gl/QaPjsmrTQ3jgcq6u8" > الامير فيصل, Al Khalidiyyah, Jeddah 23423</a></li>
+                                          <li><a target="_blank" href="https://maps.app.goo.gl/QaPjsmrTQ3jgcq6u8" > الامير فيصل, Al Khalidiyyah, Jeddah 23423</a></li>
+                                        </ul>
+                                      </p>
+                                      @endif
                                 </li>
                                 <li class="" data-aos="fade-up">
                                     <span><i class="fa-solid fa-phone"></i></span>
