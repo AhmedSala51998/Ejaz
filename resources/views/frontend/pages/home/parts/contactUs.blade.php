@@ -269,7 +269,16 @@
                             </div>
                             <div class="info-text">
                                 <h6>موقعنا</h6>
+                                @if(request()->segment(1) == 'yanbu')
                                 <p>4198 علي بن أبي طالب، السميـري، 8130، ينبع 46424</p>
+                                @elseif(request()->segment(1) == 'jeddah')
+                                <p>الامير فيصل, Al Khalidiyyah, Jeddah 23423</p>
+                                @elseif(request()->segment(1) == 'riyadh')
+                                <p>4198 علي بن أبي طالب، السميـري، 8130، ينبع 46424</p>
+                                @else
+                                <p>4198 علي بن أبي طالب، السميـري، 8130، ينبع 46424</p>
+                                @endif
+
                             </div>
                         </div>
 
