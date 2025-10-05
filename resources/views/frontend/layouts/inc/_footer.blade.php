@@ -139,9 +139,9 @@
                     @if(request()->segment(1) == 'yanbu')
                       <li><i class="fa-light fa-location-dot"></i> {{$settings->address1??"السعودية - الرياض - شارع الوحدة"}}</li>
                     @elseif(request()->segment(1) == 'jeddah')
-                      <li><i class="fa-light fa-location-dot"></i> الامير فيصل, Al Khalidiyyah, Jeddah 23423</li>
+                      <li><i class="fa-light fa-location-dot"></i> الأمير فيصل، حي الخالدية، جدة 23423</li>
                     @elseif(request()->segment(1) == 'riyadh')
-                        <li><i class="fa-light fa-location-dot"></i> {{$settings->address1??"السعودية - الرياض - شارع الوحدة"}}</li>
+                        <li><i class="fa-light fa-location-dot"></i> 3032 الرياض، حي الملك فيصل، شارع أم المؤمنين سودة بنت زمعه</li>
                     @else
                         <li><i class="fa-light fa-location-dot"></i> {{$settings->address1??"السعودية - الرياض - شارع الوحدة"}}</li>
                     @endif

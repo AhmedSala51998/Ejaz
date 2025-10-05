@@ -727,26 +727,26 @@
                                             فروعنا :
                                         <a target="_blank" href="https://maps.app.goo.gl/cAvHub78qk2jcy9DA" > {{ $settings->address1 ?? "السعودية - الرياض - شارع الوحدة" }}</a> <br>
                                         <ul>
-                                          <li><a target="_blank" href="https://maps.app.goo.gl/QaPjsmrTQ3jgcq6u8" > الامير فيصل, Al Khalidiyyah, Jeddah 23423</a></li>
-                                          <li><a target="_blank" href="https://maps.app.goo.gl/QaPjsmrTQ3jgcq6u8" > الامير فيصل, Al Khalidiyyah, Jeddah 23423</a></li>
+                                          <li><a target="_blank" href="https://maps.app.goo.gl/QaPjsmrTQ3jgcq6u8" > الأمير فيصل، حي الخالدية، جدة 23423</a></li>
+                                          <li><a target="_blank" href="https://maps.app.goo.gl/QaPjsmrTQ3jgcq6u8" > 3032 الرياض، حي الملك فيصل، شارع أم المؤمنين سودة بنت زمعه</a></li>
                                         </ul>
                                       </p>
                                     @elseif(request()->segment(1) == 'jeddah')
                                         <p class="ms-3">
                                             فروعنا :
-                                        <a target="_blank" href="https://maps.app.goo.gl/QaPjsmrTQ3jgcq6u8" > الامير فيصل, Al Khalidiyyah, Jeddah 23423</a> <br>
+                                        <a target="_blank" href="https://maps.app.goo.gl/QaPjsmrTQ3jgcq6u8" > الأمير فيصل، حي الخالدية، جدة 23423</a> <br>
                                         <ul>
                                           <li><a target="_blank" href="https://maps.app.goo.gl/QaPjsmrTQ3jgcq6u8" > {{ $settings->address1 ?? "السعودية - الرياض - شارع الوحدة" }}</a></li>
-                                          <li><a target="_blank" href="https://maps.app.goo.gl/QaPjsmrTQ3jgcq6u8" > الامير فيصل, Al Khalidiyyah, Jeddah 23423</a></li>
+                                          <li><a target="_blank" href="https://maps.app.goo.gl/QaPjsmrTQ3jgcq6u8" > 3032 الرياض، حي الملك فيصل، شارع أم المؤمنين سودة بنت زمعه</a></li>
                                         </ul>
                                        </p>
                                         @elseif(request()->segment(1) == 'riyadh')
                                         <p class="ms-3">
                                             فروعنا :
-                                        <a target="_blank" href="https://maps.app.goo.gl/QaPjsmrTQ3jgcq6u8" > الامير فيصل, Al Khalidiyyah, Jeddah 23423</a> <br>
+                                        <a target="_blank" href="https://maps.app.goo.gl/QaPjsmrTQ3jgcq6u8" > 3032 الرياض، حي الملك فيصل، شارع أم المؤمنين سودة بنت زمعه</a> <br>
                                         <ul>
                                           <li><a target="_blank" href="https://maps.app.goo.gl/QaPjsmrTQ3jgcq6u8" > {{ $settings->address1 ?? "السعودية - الرياض - شارع الوحدة" }}</a></li>
-                                          <li><a target="_blank" href="https://maps.app.goo.gl/QaPjsmrTQ3jgcq6u8" > الامير فيصل, Al Khalidiyyah, Jeddah 23423</a></li>
+                                          <li><a target="_blank" href="https://maps.app.goo.gl/QaPjsmrTQ3jgcq6u8" > الأمير فيصل، حي الخالدية، جدة 23423</a></li>
                                         </ul>
                                        </p>
                                        @else
