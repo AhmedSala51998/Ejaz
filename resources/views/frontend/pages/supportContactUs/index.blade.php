@@ -754,8 +754,8 @@
                                             فروعنا :
                                         <a target="_blank" href="https://maps.app.goo.gl/cAvHub78qk2jcy9DA" > {{ $settings->address1 ?? "السعودية - الرياض - شارع الوحدة" }}</a> <br>
                                         <ul>
-                                          <li><a target="_blank" href="https://maps.app.goo.gl/QaPjsmrTQ3jgcq6u8" > الامير فيصل, Al Khalidiyyah, Jeddah 23423</a></li>
-                                          <li><a target="_blank" href="https://maps.app.goo.gl/QaPjsmrTQ3jgcq6u8" > الامير فيصل, Al Khalidiyyah, Jeddah 23423</a></li>
+                                          <li><a target="_blank" href="https://maps.app.goo.gl/QaPjsmrTQ3jgcq6u8" > الأمير فيصل، حي الخالدية، جدة 23423</a></li>
+                                          <li><a target="_blank" href="https://maps.app.goo.gl/QaPjsmrTQ3jgcq6u8" > 3032 الرياض، حي الملك فيصل، شارع أم المؤمنين سودة بنت زمعه</a></li>
                                         </ul>
                                       </p>
                                       @endif
