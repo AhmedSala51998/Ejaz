@@ -10,7 +10,7 @@
             const city = localStorage.getItem('branch') || 'yanbu';
 
             if (id) {
-                const target = `https://codeyla.com/${city}/all-workers/${id}`;
+                const target = `https://isteqdamejaz.com/${city}/all-workers/${id}`;
                 window.location.href = target;
             } else {
                 document.body.innerHTML = '<h3>لم يتم تحديد العامل</h3>';
