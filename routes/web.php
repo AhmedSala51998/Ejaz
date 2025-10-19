@@ -32,8 +32,9 @@ Route::group(
 
     Route::get('convert-pdf-to-image', [\App\Http\Controllers\ImageController::class, 'index'])->name('form');
 
-
-
+    Route::get('/redirect-worker', function () {
+        return view('frontend.pages.home.parts.redirect-worker');
+    });
 
     //Route::get('/',[\App\Http\Controllers\Frontend\Home\HomeFrontController::class,'index'])->name('home');
     // route لكل فرع
