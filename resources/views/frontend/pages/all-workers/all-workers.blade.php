@@ -879,6 +879,11 @@
 
     var link_only = '{{ $ajaxUrl }}';
 
+    // استخراج branch و nationality_id من URL
+    var urlSegments = window.location.pathname.split('/').filter(s => s.length > 0);
+    var branchFromUrl = urlSegments[0] || '';
+    var nationalityIdFromUrl = urlSegments[2] || ''; // لو موجود nationality_id
+
     function getFilters() {
         return {
             age: $('input[name="age"]:checked').val() || '',
@@ -892,13 +897,16 @@
 
     function buildUrl(page) {
         const filters = getFilters();
-        return link_only + "?page=" + page +
-            "&age=" + filters.age +
-            "&job=" + filters.job +
-            "&nationality=" + filters.nationality +
-            "&religion=" + filters.religion +
-            "&social=" + filters.social +
-            "&type_of_experience=" + filters.type_of_experience;
+        // اذا المستخدم اختار nationality, نستخدمه، لو لا نستخدم اللي من URL
+        let nationalityId = filters.nationality || nationalityIdFromUrl || '';
+        let url = link_only + "?page=" + page +
+            (filters.age ? "&age=" + filters.age : '') +
+            (filters.job ? "&job=" + filters.job : '') +
+            (nationalityId ? "&nationality=" + nationalityId : '') +
+            (filters.religion ? "&religion=" + filters.religion : '') +
+            (filters.social ? "&social=" + filters.social : '') +
+            (filters.type_of_experience ? "&type_of_experience=" + filters.type_of_experience : '');
+        return url;
     }
 
     function loadWorkers(page = 1) {
@@ -933,18 +941,15 @@
     $(document).ready(function () {
         checkResetButtonVisibility();
 
-
         $(document).on('change', 'input[name="age"], input[name="job"], input[name="nationality"], input[name="religion"], input[name="social"], input[name="type_of_experience"]', function () {
             checkResetButtonVisibility();
         });
-
 
         $(document).on('click', '.searchWorkerBtn', function (e) {
             e.preventDefault();
             new_page = 1;
             loadWorkers(new_page);
         });
-
 
         $(document).on('click', '#load_more_button', function (e) {
             e.preventDefault();
@@ -976,7 +981,6 @@
             });
         }
 
-
         $(document).on('click', '.resetFilterBtn', function (e) {
             e.preventDefault();
             const btn = $(this);
@@ -1001,7 +1005,6 @@
             }
         }
 
-
         $('#openFilterBtn').click(function () {
             $('#mobileFilterSidebar').addClass('active');
             $('body').css('overflow', 'hidden');
@@ -1016,7 +1019,6 @@
             $('#mobileFilterSidebar').removeClass('active');
             $(this).removeClass('active');
         });
-
 
         $('label').click(function() {
             var forAttr = $(this).attr('for');
@@ -1038,6 +1040,7 @@
         }
     });
 </script>
+
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
