@@ -516,6 +516,7 @@
     100% { opacity: 1; transform: scale(1); }
 }
 
+
 </style>
 @endsection
 
